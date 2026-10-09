@@ -747,7 +747,8 @@ public class BlockUtils {
 	private static boolean traverseSuccessorsUntil(BlockNode from, BlockNode until, BitSet visited, boolean clean,
 			Predicate<BlockNode> pred) {
 		List<BlockNode> nodes = clean ? from.getCleanSuccessors() : from.getSuccessors();
-		for (BlockNode s : nodes) {
+		for (int i = 0; i < nodes.size(); i++) {
+			BlockNode s = nodes.get(i);
 			if (!pred.test(s)) {
 				// Only explore blocks such that the predicate holds
 				continue;

@@ -1,6 +1,7 @@
 package jadx.core.utils;
 
 import java.util.ArrayList;
+import java.util.BitSet;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -13,6 +14,34 @@ import jadx.core.dex.nodes.BlockNode;
 import static org.assertj.core.api.Assertions.assertThat;
 
 class BlockUtilsTest {
+	@Test
+	void testPathQueryEdgesAndDominators() {
+		BlockNode[] blocks = new BlockNode[4];
+		for (int i = 0; i < blocks.length; i++) {
+			blocks[i] = new BlockNode(i, i, i);
+		}
+		int[][] edges = { { 0, 1 }, { 1, 2 }, { 2, 1 }, { 2, 3 } };
+		for (int[] edge : edges) {
+			blocks[edge[0]].getSuccessors().add(blocks[edge[1]]);
+			blocks[edge[1]].getPredecessors().add(blocks[edge[0]]);
+		}
+		blocks[3].add(AFlag.EXC_BOTTOM_SPLITTER);
+		for (BlockNode block : blocks) {
+			block.updateCleanSuccessors();
+		}
+		assertThat(BlockUtils.isAnyPathExists(blocks[0], blocks[3])).isTrue();
+		assertThat(BlockUtils.isPathExists(blocks[0], blocks[3])).isFalse();
+		assertThat(BlockUtils.isAnyPathExists(blocks[2], blocks[0])).isFalse();
+
+		BitSet doms = new BitSet();
+		doms.set(blocks[1].getPos());
+		blocks[3].setDoms(doms);
+		assertThat(BlockUtils.isPathExists(blocks[0], blocks[3])).isTrue();
+		assertThat(BlockUtils.isPathExists(blocks[0], blocks[3], block -> block != blocks[1])).isFalse();
+		assertThat(BlockUtils.isPathExists(blocks[0], blocks[3], block -> block != blocks[3])).isTrue();
+		assertThat(BlockUtils.isPathExists(blocks[0], blocks[0], block -> false)).isTrue();
+	}
+
 	@Test
 	void testAnyPathBlockMatches() {
 		// All three-node graphs include disconnected entries, cycles, self edges and joins.
