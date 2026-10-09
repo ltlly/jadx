@@ -932,7 +932,9 @@ public class BlockUtils {
 		// attempt 2: look for a block with a path from every other block
 		for (BlockNode bottomCandidate : blocks) {
 			boolean bottom = true;
-			for (BlockNode from : blocks) {
+			// Exit blocks near the end can reject earlier candidates quickly.
+			for (int i = blocks.size() - 1; i >= 0; i--) {
+				BlockNode from = blocks.get(i);
 				if (clean) {
 					if (bottomCandidate != from && !isPathExists(from, bottomCandidate)) {
 						bottom = false;

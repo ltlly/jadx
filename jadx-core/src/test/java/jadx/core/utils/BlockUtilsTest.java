@@ -15,6 +15,36 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class BlockUtilsTest {
 	@Test
+	void testBottomBlockSelection() {
+		BlockNode[] blocks = new BlockNode[4];
+		for (int i = 0; i < blocks.length; i++) {
+			blocks[i] = new BlockNode(i, i, i);
+		}
+		int[][] edges = { { 0, 1 }, { 1, 0 }, { 1, 2 } };
+		for (int[] edge : edges) {
+			blocks[edge[0]].getSuccessors().add(blocks[edge[1]]);
+			blocks[edge[1]].getPredecessors().add(blocks[edge[0]]);
+		}
+		blocks[2].add(AFlag.EXC_BOTTOM_SPLITTER);
+		for (BlockNode block : blocks) {
+			block.updateCleanSuccessors();
+		}
+		assertThat(BlockUtils.getBottomBlock(List.of(blocks[0], blocks[1], blocks[2]))).isSameAs(blocks[2]);
+		assertThat(BlockUtils.getBottomBlock(List.of(blocks[0], blocks[1], blocks[2]), true)).isNull();
+		assertThat(BlockUtils.getBottomBlock(List.of(blocks[0], blocks[1]))).isSameAs(blocks[0]);
+		assertThat(BlockUtils.getBottomBlock(List.of(blocks[1], blocks[0]))).isSameAs(blocks[1]);
+		assertThat(BlockUtils.getBottomBlock(List.of(blocks[0], blocks[3]))).isNull();
+		assertThat(BlockUtils.getBottomBlock(List.of())).isNull();
+		assertThat(BlockUtils.getBottomBlock(List.of(blocks[0]))).isSameAs(blocks[0]);
+
+		BitSet doms = new BitSet();
+		doms.set(blocks[0].getPos());
+		blocks[1].setDoms(doms);
+		assertThat(BlockUtils.getBottomBlock(List.of(blocks[0], blocks[1]))).isSameAs(blocks[1]);
+		assertThat(BlockUtils.getBottomBlock(List.of(blocks[0], blocks[1]), true)).isSameAs(blocks[0]);
+	}
+
+	@Test
 	void testPathQueryEdgesAndDominators() {
 		BlockNode[] blocks = new BlockNode[4];
 		for (int i = 0; i < blocks.length; i++) {
