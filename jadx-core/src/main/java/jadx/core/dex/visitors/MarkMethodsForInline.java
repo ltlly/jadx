@@ -1,5 +1,6 @@
 package jadx.core.dex.visitors;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
@@ -142,16 +143,15 @@ public class MarkMethodsForInline extends AbstractVisitor {
 	}
 
 	private static void unbindSsaVars(InsnNode insn) {
-		insn.visitArgs(arg -> {
-			if (arg.isRegister()) {
-				RegisterArg reg = (RegisterArg) arg;
-				SSAVar ssaVar = reg.getSVar();
-				if (ssaVar != null) {
-					ssaVar.removeUse(reg);
-					reg.resetSSAVar();
-				}
+		List<RegisterArg> args = new ArrayList<>();
+		insn.getRegisterArgs(args);
+		for (RegisterArg reg : args) {
+			SSAVar ssaVar = reg.getSVar();
+			if (ssaVar != null) {
+				ssaVar.removeUse(reg);
+				reg.resetSSAVar();
 			}
-		});
+		}
 	}
 
 	private static boolean fixVisibilityOfInlineCode(MethodNode mth, InsnNode insn) {

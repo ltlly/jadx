@@ -87,7 +87,7 @@ public final class TernaryInsn extends InsnNode {
 	@Override
 	public InsnNode copy() {
 		TernaryInsn copy = new TernaryInsn();
-		copy.condition = condition;
+		copy.condition = condition.copy();
 		return copyCommonParams(copy);
 	}
 

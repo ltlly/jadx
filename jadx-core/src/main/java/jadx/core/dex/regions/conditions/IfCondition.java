@@ -94,6 +94,21 @@ public final class IfCondition extends AttrNode {
 		return args;
 	}
 
+	public IfCondition copy() {
+		IfCondition copy;
+		if (mode == Mode.COMPARE) {
+			copy = fromIfNode(compare.getInsn().copyWithoutResult());
+		} else {
+			List<IfCondition> copyArgs = new ArrayList<>(args.size());
+			for (IfCondition arg : args) {
+				copyArgs.add(arg.copy());
+			}
+			copy = new IfCondition(mode, copyArgs);
+		}
+		copy.copyAttributesFrom(this);
+		return copy;
+	}
+
 	public IfCondition first() {
 		return args.get(0);
 	}

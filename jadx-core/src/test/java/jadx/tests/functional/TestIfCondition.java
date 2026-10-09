@@ -2,11 +2,14 @@ package jadx.tests.functional;
 
 import org.junit.jupiter.api.Test;
 
+import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.instructions.IfNode;
 import jadx.core.dex.instructions.IfOp;
 import jadx.core.dex.instructions.args.ArgType;
 import jadx.core.dex.instructions.args.InsnArg;
 import jadx.core.dex.instructions.args.LiteralArg;
+import jadx.core.dex.instructions.args.RegisterArg;
+import jadx.core.dex.instructions.mods.TernaryInsn;
 import jadx.core.dex.regions.conditions.Compare;
 import jadx.core.dex.regions.conditions.IfCondition;
 
@@ -105,5 +108,40 @@ public class TestIfCondition {
 		assertThat(f.first().first()).isEqualTo(a);
 		assertThat(f.first().second()).isEqualTo(b);
 		assertThat(f.second()).isEqualTo(c);
+	}
+
+	@Test
+	public void testTernaryCopiesKeepIndependentParameters() {
+		RegisterArg parameter = InsnArg.reg(0, ArgType.INT);
+		IfCondition condition = makeCondition(IfOp.EQ, parameter, InsnArg.lit(0, ArgType.INT));
+		TernaryInsn template = new TernaryInsn(condition, null, InsnArg.lit(1, ArgType.INT), InsnArg.lit(2, ArgType.INT));
+		TernaryInsn first = template.copyWithoutResult();
+		assertThat(first.replaceArg(first.getCondition().getRegisterArgs().get(0), InsnArg.lit(60, ArgType.INT))).isTrue();
+		assertThat(template.getCondition().getRegisterArgs()).containsExactly(parameter);
+
+		TernaryInsn second = template.copyWithoutResult();
+		assertThat(second.replaceArg(second.getCondition().getRegisterArgs().get(0), InsnArg.lit(112, ArgType.INT))).isTrue();
+		assertThat(first.getCondition().getCompare().getA()).isEqualTo(InsnArg.lit(60, ArgType.INT));
+		assertThat(second.getCondition().getCompare().getA()).isEqualTo(InsnArg.lit(112, ArgType.INT));
+		assertThat(template.getCondition().getRegisterArgs()).containsExactly(parameter);
+	}
+
+	@Test
+	public void testTernaryCopyWithCompoundCondition() {
+		IfCondition condition = IfCondition.ternary(
+				not(makeCondition(IfOp.EQ, InsnArg.reg(0, ArgType.INT), InsnArg.lit(0, ArgType.INT))),
+				merge(AND, makeCondition(IfOp.EQ, InsnArg.reg(1, ArgType.INT), InsnArg.lit(1, ArgType.INT)),
+						makeCondition(IfOp.EQ, InsnArg.reg(2, ArgType.INT), InsnArg.lit(2, ArgType.INT))),
+				merge(OR, makeCondition(IfOp.EQ, InsnArg.reg(3, ArgType.INT), InsnArg.lit(3, ArgType.INT)),
+						makeCondition(IfOp.EQ, InsnArg.reg(4, ArgType.INT), InsnArg.lit(4, ArgType.INT))));
+		condition.add(AFlag.DONT_GENERATE);
+		TernaryInsn template = new TernaryInsn(condition, null, InsnArg.lit(1, ArgType.INT), InsnArg.lit(2, ArgType.INT));
+		TernaryInsn copy = template.copyWithoutResult();
+		for (RegisterArg parameter : copy.getCondition().getRegisterArgs()) {
+			assertThat(copy.replaceArg(parameter, InsnArg.lit(60, ArgType.INT))).isTrue();
+		}
+		assertThat(copy.getCondition().getRegisterArgs()).isEmpty();
+		assertThat(template.getCondition().getRegisterArgs()).hasSize(5);
+		assertThat(copy.getCondition().contains(AFlag.DONT_GENERATE)).isTrue();
 	}
 }
