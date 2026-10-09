@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -285,6 +285,10 @@ public class TypeSearch {
 		}
 	}
 
+	void addCandidateTypes(Set<ITypeBound> bounds, Set<ArgType> collectedTypes, Stream<ArgType> candidateTypes) {
+		candidateTypes.anyMatch(candidateType -> addCandidateType(bounds, collectedTypes, candidateType));
+	}
+
 	private boolean addCandidateType(Set<ITypeBound> bounds, Set<ArgType> collectedTypes, ArgType candidateType) {
 		if (candidateType.isTypeKnown() && typeUpdate.inBounds(bounds, candidateType)) {
 			collectedTypes.add(candidateType);
@@ -295,32 +299,32 @@ public class TypeSearch {
 		return false;
 	}
 
-	private List<ArgType> getWiderTypes(ArgType type) {
+	private Stream<ArgType> getWiderTypes(ArgType type) {
 		if (type.isTypeKnown()) {
 			if (type.isObject()) {
 				Set<String> ancestors = mth.root().getClsp().getSuperTypes(type.getObject());
-				return ancestors.stream().map(ArgType::object).collect(Collectors.toList());
+				return ancestors.stream().map(ArgType::object);
 			}
 		} else {
-			return expandUnknownType(type);
+			return expandUnknownType(type).stream();
 		}
-		return Collections.emptyList();
+		return Stream.empty();
 	}
 
-	private List<ArgType> getNarrowTypes(ArgType type) {
+	private Stream<ArgType> getNarrowTypes(ArgType type) {
 		if (type.isTypeKnown()) {
 			if (type.isObject()) {
 				if (type.equals(ArgType.OBJECT)) {
 					// a lot of objects to return
-					return Collections.singletonList(ArgType.OBJECT);
+					return Stream.of(ArgType.OBJECT);
 				}
 				List<String> impList = mth.root().getClsp().getImplementations(type.getObject());
-				return impList.stream().map(ArgType::object).collect(Collectors.toList());
+				return impList.stream().map(ArgType::object);
 			}
 		} else {
-			return expandUnknownType(type);
+			return expandUnknownType(type).stream();
 		}
-		return Collections.emptyList();
+		return Stream.empty();
 	}
 
 	private List<ArgType> expandUnknownType(ArgType type) {
