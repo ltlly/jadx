@@ -630,14 +630,9 @@ final class LoopRegionMaker {
 				return false;
 			}
 		}
-		// check if there no outer switch (TODO: very expensive check)
-		Set<BlockNode> paths = BlockUtils.getAllPathsBlocks(mth.getEnterBlock(), exit);
-		for (BlockNode block : paths) {
-			if (BlockUtils.checkLastInsnType(block, InsnType.SWITCH)) {
-				return false;
-			}
-		}
-		return true;
+		// check if there is no outer switch
+		return !BlockUtils.anyPathBlockMatches(mth.getEnterBlock(), exit,
+				block -> BlockUtils.checkLastInsnType(block, InsnType.SWITCH));
 	}
 
 	/*

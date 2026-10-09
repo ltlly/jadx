@@ -653,13 +653,16 @@ public class BlockUtils {
 	 * Up BFS.
 	 * To stop return true from predicate
 	 */
-	private static void traversePredecessors(BlockNode start, BitSet visited, Predicate<BlockNode> visitor) {
+	private static boolean traversePredecessors(BlockNode start, BitSet visited, Predicate<BlockNode> visitor) {
 		Queue<BlockNode> queue = new ArrayDeque<>();
 		queue.add(start);
 		while (true) {
 			BlockNode current = queue.poll();
-			if (current == null || visitor.test(current)) {
-				return;
+			if (current == null) {
+				return false;
+			}
+			if (visitor.test(current)) {
+				return true;
 			}
 			for (BlockNode next : current.getPredecessors()) {
 				int id = next.getId();
@@ -681,6 +684,22 @@ public class BlockUtils {
 			addPredecessors(set, end, start);
 		}
 		return set;
+	}
+
+	/**
+	 * Check blocks in {@link #getAllPathsBlocks(BlockNode, BlockNode)} without collecting them.
+	 */
+	public static boolean anyPathBlockMatches(BlockNode start, BlockNode end, Predicate<BlockNode> predicate) {
+		if (predicate.test(start)) {
+			return true;
+		}
+		if (start == end) {
+			return false;
+		}
+		BitSet visited = new BitSet();
+		visited.set(start.getPos());
+		visited.set(end.getPos());
+		return traversePredecessors(end, visited, predicate);
 	}
 
 	/**
