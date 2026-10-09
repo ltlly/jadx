@@ -1,12 +1,10 @@
 package jadx.core.dex.visitors.regions.variables;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Set;
 
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -288,24 +286,37 @@ public class ProcessVariables extends AbstractVisitor {
 	/**
 	 * Check if all {@code usePlaces} are after {@code checkPlace}
 	 */
-	private static boolean isAllUseAfter(UsePlace checkPlace, List<UsePlace> usePlaces) {
-
+	static boolean isAllUseAfter(UsePlace checkPlace, List<UsePlace> usePlaces) {
 		IRegion region = checkPlace.getRegion();
 		IBlock block = checkPlace.getBlock();
-		Set<UsePlace> toCheck = new HashSet<>(usePlaces);
-		boolean blockFound = false;
-		for (IContainer subBlock : region.getSubBlocks()) {
-			if (!blockFound && subBlock == block) {
-				blockFound = true;
+		List<IContainer> subBlocks = region.getSubBlocks();
+		int start = 0;
+		while (start < subBlocks.size() && subBlocks.get(start) != block) {
+			start++;
+		}
+		if (start == subBlocks.size()) {
+			return false;
+		}
+		// Reject on the first use outside the suffix without building a set.
+		UsePlace previous = null;
+		for (UsePlace usePlace : usePlaces) {
+			if (usePlace == previous && previous != null) {
+				continue;
 			}
-			if (blockFound) {
-				toCheck.removeIf(usePlace -> isContainerContainsUsePlace(subBlock, usePlace));
-				if (toCheck.isEmpty()) {
-					return true;
+			previous = usePlace;
+			boolean found = false;
+			for (int i = start; i < subBlocks.size(); i++) {
+				IContainer subBlock = subBlocks.get(i);
+				if (isContainerContainsUsePlace(subBlock, usePlace)) {
+					found = true;
+					break;
 				}
 			}
+			if (!found) {
+				return false;
+			}
 		}
-		return false;
+		return true;
 	}
 
 	private static boolean isContainerContainsUsePlace(IContainer subBlock, UsePlace usePlace) {
