@@ -19,11 +19,14 @@ import jadx.core.dex.nodes.MethodNode;
 public class NameGen {
 	private final MethodNode mth;
 	private final boolean fallback;
+	private final Set<String> rootPkgs;
 	private final Set<String> varNames = new HashSet<>();
 
 	public NameGen(MethodNode mth, ClassGen classGen) {
 		this.mth = mth;
 		this.fallback = classGen.isFallbackMode();
+		// RenameVisitor replaces this set before code generation; don't copy it for every method.
+		this.rootPkgs = mth.root().getCacheStorage().getRootPkgs();
 		NameGen outerNameGen = classGen.getOuterNameGen();
 		if (outerNameGen != null) {
 			inheritUsedNames(outerNameGen);
@@ -33,6 +36,9 @@ public class NameGen {
 
 	public void inheritUsedNames(NameGen otherNameGen) {
 		varNames.addAll(otherNameGen.varNames);
+		if (rootPkgs != otherNameGen.rootPkgs) {
+			varNames.addAll(otherNameGen.rootPkgs);
+		}
 	}
 
 	private void addNamesUsedInClass() {
@@ -45,8 +51,6 @@ public class NameGen {
 		for (ClassNode innerClass : parentClass.getInnerClasses()) {
 			varNames.add(innerClass.getClassInfo().getAliasShortName());
 		}
-		// add all root package names to avoid collisions with full class names
-		varNames.addAll(mth.root().getCacheStorage().getRootPkgs());
 	}
 
 	public String assignArg(CodeVar var) {
@@ -89,7 +93,7 @@ public class NameGen {
 	private static final Pattern ENDS_WITH_NUMBER = Pattern.compile(".*(\\d+)$");
 
 	private String getUniqueVarName(String name) {
-		if (!varNames.contains(name)) {
+		if (!varNames.contains(name) && !rootPkgs.contains(name)) {
 			varNames.add(name);
 			return name;
 		}
@@ -107,7 +111,7 @@ public class NameGen {
 		}
 		while (true) {
 			String newName = base + i++;
-			if (!varNames.contains(newName)) {
+			if (!varNames.contains(newName) && !rootPkgs.contains(newName)) {
 				varNames.add(newName);
 				return newName;
 			}
