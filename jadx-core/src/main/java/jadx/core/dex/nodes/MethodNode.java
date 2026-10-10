@@ -154,6 +154,9 @@ public class MethodNode extends NotificationAttrNode implements IMethodDetails, 
 			// method already loaded
 			return;
 		}
+		if (parentClass.isSummaryRecoveredResidency()) {
+			jadx.core.dex.nodes.deps.DependencySummaryManager.checkUnexpectedBodyLoad(this);
+		}
 		try {
 			loaded = true;
 			if (noCode) {

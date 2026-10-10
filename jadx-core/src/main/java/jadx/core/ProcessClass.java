@@ -21,6 +21,7 @@ import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.LoadStage;
 import jadx.core.dex.nodes.MethodNode;
 import jadx.core.dex.nodes.RootNode;
+import jadx.core.dex.nodes.deps.DependencySummaryManager;
 import jadx.core.dex.visitors.DepthTraversal;
 import jadx.core.dex.visitors.IDexTreeVisitor;
 import jadx.core.utils.Utils;
@@ -43,14 +44,42 @@ public class ProcessClass {
 		this.passes = passesList;
 	}
 
+	/**
+	 * Request kind for class processing. {@code METADATA_DEPENDENCY} is used only
+	 * by the static dependency loop in {@link #generateCode(ClassNode)} and is the
+	 * only request kind allowed to use a certified summary recovery;
+	 * {@code LEGACY} (self/codegen/force/method-until) always requires full
+	 * body-resident processing.
+	 */
+	private enum RequestKind {
+		LEGACY,
+		METADATA_DEPENDENCY
+	}
+
 	@Nullable
 	private ICodeInfo process(ClassNode cls, boolean codegen) {
+		return process(cls, codegen, RequestKind.LEGACY);
+	}
+
+	@Nullable
+	private ICodeInfo process(ClassNode cls, boolean codegen, RequestKind requestKind) {
 		if (!codegen && cls.getState() == PROCESS_COMPLETE) {
 			// nothing to do
 			return null;
 		}
 		Utils.checkThreadInterrupt();
 		synchronized (cls.getClassInfo()) {
+			DependencySummaryManager summaryManager = null;
+			if (!codegen && requestKind == RequestKind.METADATA_DEPENDENCY
+					&& cls.getState() == GENERATED_AND_UNLOADED) {
+				// recheck summary/epoch under the monitor (pre-lock check would be a TOCTOU)
+				summaryManager = cls.root().getDependencySummaryManager();
+				if (summaryManager.tryRecover(cls)) {
+					return null;
+				}
+				summaryManager.recordFallbackReentry();
+			}
+			long recoveryStart = summaryManager == null ? 0L : System.nanoTime();
 			try {
 				if (cls.contains(AFlag.CLASS_DEEP_RELOAD)) {
 					cls.remove(AFlag.CLASS_DEEP_RELOAD);
@@ -77,6 +106,12 @@ public class ProcessClass {
 				if (cls.getState() == NOT_LOADED) {
 					cls.load();
 				}
+				if (codegen && cls.getState() == PROCESS_COMPLETE && cls.isSummaryRecoveredResidency()) {
+					// summary-only residency: regenerate like legacy does from a
+					// recovered resident body — reload bodies, don't re-run passes
+					cls.load();
+					cls.setState(PROCESS_COMPLETE);
+				}
 				if (cls.getState() == LOADED) {
 					cls.setState(PROCESS_STARTED);
 					for (IDexTreeVisitor visitor : passes) {
@@ -88,6 +123,8 @@ public class ProcessClass {
 					Utils.checkThreadInterrupt();
 					ICodeInfo code = CodeGen.generate(cls);
 					if (!cls.contains(AFlag.DONT_UNLOAD_CLASS)) {
+						// capture prepared summary before the ordinary generated unload
+						cls.root().getDependencySummaryManager().prepareAfterCodegen(cls);
 						cls.unload();
 						cls.setState(GENERATED_AND_UNLOADED);
 					}
@@ -100,6 +137,10 @@ public class ProcessClass {
 				}
 				cls.addError("Class process error: " + e.getClass().getSimpleName(), e);
 				return null;
+			} finally {
+				if (summaryManager != null) {
+					summaryManager.recordLegacyRecovery(System.nanoTime() - recoveryStart);
+				}
 			}
 		}
 	}
@@ -116,7 +157,7 @@ public class ProcessClass {
 				return NOT_GENERATED;
 			}
 			for (ClassNode depCls : cls.getDependencies()) {
-				process(depCls, false);
+				process(depCls, false, RequestKind.METADATA_DEPENDENCY);
 			}
 			if (!cls.getCodegenDeps().isEmpty()) {
 				process(cls, false);

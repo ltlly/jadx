@@ -95,6 +95,18 @@ public class ClassNode extends NotificationAttrNode
 	private LoadStage loadStage = LoadStage.NONE;
 
 	/**
+	 * Optional recovery-equivalent dependency summary, only present on top level
+	 * classes (inner classes share the owner's summary by parent chain).
+	 */
+	private volatile @Nullable jadx.core.dex.nodes.deps.DependencyAnalysisSummary dependencySummary;
+	/**
+	 * True while the class is in PROCESS_COMPLETE state with a summary-only
+	 * recovery (bodies not resident). Used to reload bodies before a possible
+	 * late codegen request, matching legacy regeneration from a recovered body.
+	 */
+	private volatile boolean summaryRecoveredResidency = false;
+
+	/**
 	 * Top level classes used in this class (only for top level classes, empty for inners)
 	 */
 	private List<ClassNode> dependencies = Collections.emptyList();
@@ -372,6 +384,7 @@ public class ClassNode extends NotificationAttrNode
 			return;
 		}
 		clearAttributes();
+		clearDependencySummaryTree();
 		unload();
 		root().getConstValues().removeForClass(this);
 		load(clsData, true);
@@ -466,6 +479,7 @@ public class ClassNode extends NotificationAttrNode
 
 	@Override
 	public void load() {
+		summaryRecoveredResidency = false;
 		for (MethodNode mth : getMethods()) {
 			try {
 				mth.load();
@@ -940,6 +954,46 @@ public class ClassNode extends NotificationAttrNode
 
 	public List<ClassNode> getDependencies() {
 		return dependencies;
+	}
+
+	public jadx.core.dex.nodes.deps.DependencyAnalysisSummary getDependencySummary() {
+		return getTopParentClass().dependencySummary;
+	}
+
+	public void setDependencySummary(@Nullable jadx.core.dex.nodes.deps.DependencyAnalysisSummary summary) {
+		this.dependencySummary = summary;
+	}
+
+	public boolean isSummaryRecoveredResidency() {
+		return summaryRecoveredResidency;
+	}
+
+	public void setSummaryRecoveredResidency(boolean value) {
+		this.summaryRecoveredResidency = value;
+	}
+
+	public void clearDependencySummaryTree() {
+		dependencySummary = null;
+		summaryRecoveredResidency = false;
+		for (ClassNode innerCls : innerClasses) {
+			innerCls.clearDependencySummaryTree();
+		}
+	}
+
+	/**
+	 * This class and all its inner classes in deterministic self-first order
+	 */
+	public List<ClassNode> selfAndInnerClasses() {
+		List<ClassNode> list = new ArrayList<>();
+		collectSelfAndInner(list);
+		return list;
+	}
+
+	private void collectSelfAndInner(List<ClassNode> list) {
+		list.add(this);
+		for (ClassNode innerCls : innerClasses) {
+			innerCls.collectSelfAndInner(list);
+		}
 	}
 
 	public void setDependencies(List<ClassNode> dependencies) {
