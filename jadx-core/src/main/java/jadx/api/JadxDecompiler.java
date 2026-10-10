@@ -50,6 +50,7 @@ import jadx.core.plugins.PluginContext;
 import jadx.core.plugins.PluginRuntime;
 import jadx.core.plugins.events.JadxEventsImpl;
 import jadx.core.utils.DecompilerScheduler;
+import jadx.core.utils.DiagnosticCollector;
 import jadx.core.utils.Utils;
 import jadx.core.utils.exceptions.JadxRuntimeException;
 import jadx.core.utils.files.FileUtils;
@@ -118,6 +119,8 @@ public final class JadxDecompiler implements Closeable {
 	}
 
 	public void load() {
+		DiagnosticCollector.runStart(args.getThreadsCount());
+		DiagnosticCollector.phase("LOAD_OTHER");
 		reset();
 		JadxArgsValidator.validate(this);
 		LOG.info("loading ...");
@@ -132,9 +135,12 @@ public final class JadxDecompiler implements Closeable {
 		root.loadResources(resourcesLoader, getResources());
 		root.finishClassLoad();
 		root.initClassPath();
+		DiagnosticCollector.registerClasses(root);
 		// init passes
 		root.mergePasses(customPasses);
+		DiagnosticCollector.phase("PRE_DECOMPILE");
 		root.runPreDecompileStage();
+		DiagnosticCollector.phase("POST_LOAD");
 		root.initPasses();
 		loadFinished();
 	}
@@ -192,6 +198,7 @@ public final class JadxDecompiler implements Closeable {
 
 	@Override
 	public void close() {
+		DiagnosticCollector.runClosed();
 		reset();
 		closeAll(loadedInputs);
 		closeAll(customCodeLoaders);
@@ -311,6 +318,7 @@ public final class JadxDecompiler implements Closeable {
 		if (root == null) {
 			throw new JadxRuntimeException("No loaded files");
 		}
+		DiagnosticCollector.phase("SAVE_PLANNING");
 		OutDirs outDirs;
 		ExportGradle gradleExport;
 		if (args.getExportGradleType() != null) {
@@ -326,14 +334,18 @@ public final class JadxDecompiler implements Closeable {
 		executor.setThreadsCount(args.getThreadsCount());
 		if (saveResources) {
 			// save resources first because decompilation can stop or fail
+			DiagnosticCollector.pendingStagePhase("SAVE_RESOURCES");
 			appendResourcesSaveTasks(executor, outDirs.getResOutDir());
 		}
 		if (saveSources) {
+			DiagnosticCollector.pendingStagePhase("SAVE_SOURCES");
 			appendSourcesSave(executor, outDirs.getSrcOutDir());
 		}
 		if (gradleExport != null) {
+			DiagnosticCollector.pendingStagePhase("SAVE_FINAL_SEQUENTIAL");
 			executor.addSequentialTask(gradleExport::generateGradleFiles);
 		}
+		DiagnosticCollector.phase("SAVE_AWAIT");
 		return executor;
 	}
 
@@ -409,20 +421,51 @@ public final class JadxDecompiler implements Closeable {
 		}
 		List<Runnable> decompileTasks = new ArrayList<>(batches.size());
 		for (List<JavaClass> decompileBatch : batches) {
-			decompileTasks.add(() -> {
-				for (JavaClass cls : decompileBatch) {
-					try {
-						ClassNode clsNode = cls.getClassNode();
-						ICodeInfo code = clsNode.getCode();
-						SaveCode.save(outDir, clsNode, code);
-					} catch (Exception e) {
-						LOG.error("Error saving class: {}", cls, e);
+			if (DiagnosticCollector.ENABLED) {
+				long diagBatchId = DiagnosticCollector.batchScheduled(decompileBatch.size());
+				decompileTasks.add(DiagnosticCollector.wrapBatch(diagBatchId,
+						() -> saveBatchWithDiagnostics(diagBatchId, decompileBatch, outDir)));
+			} else {
+				decompileTasks.add(() -> {
+					for (JavaClass cls : decompileBatch) {
+						try {
+							ClassNode clsNode = cls.getClassNode();
+							ICodeInfo code = clsNode.getCode();
+							SaveCode.save(outDir, clsNode, code);
+						} catch (Exception e) {
+							LOG.error("Error saving class: {}", cls, e);
+						}
 					}
-				}
 
-			});
+				});
+			}
 		}
 		executor.addParallelTasks(decompileTasks);
+	}
+
+	private void saveBatchWithDiagnostics(long diagBatchId, List<JavaClass> decompileBatch, File outDir) {
+		int diagIndex = 0;
+		for (JavaClass cls : decompileBatch) {
+			long diagIterStart = DiagnosticCollector.iterationBegin(diagBatchId, diagIndex);
+			boolean diagFailed = false;
+			try {
+				ClassNode clsNode = cls.getClassNode();
+				Object diagTok = DiagnosticCollector.beginReason("SAVE_SELF");
+				ICodeInfo code;
+				try {
+					code = clsNode.getCode();
+				} finally {
+					DiagnosticCollector.endReason(diagTok);
+				}
+				SaveCode.save(outDir, clsNode, code);
+			} catch (Exception e) {
+				diagFailed = true;
+				LOG.error("Error saving class: {}", cls, e);
+			} finally {
+				DiagnosticCollector.iterationEnd(diagIterStart, diagFailed);
+			}
+			diagIndex++;
+		}
 	}
 
 	private List<JavaClass> filterClasses(List<JavaClass> classes) {
