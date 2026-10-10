@@ -39,6 +39,17 @@ public class DexCodeReader implements ICodeReader {
 		return copy;
 	}
 
+	/**
+	 * Method code readers are created per method group of a single class with private
+	 * duplicated buffer cursors over the immutable dex data (see DexClassData.readMethods),
+	 * so class-exclusive concurrent scanning is safe when methods of one class
+	 * are processed serially by a single thread.
+	 */
+	@Override
+	public boolean supportsParallelClassScan() {
+		return true;
+	}
+
 	public void setOffset(int offset) {
 		this.in.setOffset(offset);
 	}

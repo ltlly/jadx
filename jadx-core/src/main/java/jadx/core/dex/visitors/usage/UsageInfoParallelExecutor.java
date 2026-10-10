@@ -1,11 +1,8 @@
 package jadx.core.dex.visitors.usage;
 
-import java.lang.reflect.Method;
 import java.util.List;
-import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -39,16 +36,6 @@ final class UsageInfoParallelExecutor implements AutoCloseable {
 	 * Default conservative budget for a single worker-local shard graph (bytes, 8B reference width).
 	 */
 	static final long DEFAULT_SHARD_BUDGET = 4L * 1024 * 1024;
-
-	/**
-	 * Capability marker method probed reflectively on code readers,
-	 * allows class-exclusive concurrent instruction scanning when declared as
-	 * {@code public boolean supportsParallelClassScan()}.
-	 * Readers without the method (including all built-in ones until they implement it) are scanned
-	 * serially.
-	 */
-	private static final String PARALLEL_SCAN_METHOD = "supportsParallelClassScan";
-	private static final Map<Class<?>, Boolean> READER_CAPABILITIES = new ConcurrentHashMap<>();
 
 	private final int parallelism;
 	private final @Nullable ExecutorService pool;
@@ -139,18 +126,12 @@ final class UsageInfoParallelExecutor implements AutoCloseable {
 		}
 	}
 
+	/**
+	 * Reader-declared capability for class-exclusive concurrent scanning,
+	 * built-in dex readers opt in, unknown/custom readers default to serial fallback.
+	 */
 	static boolean readerSupportsParallelScan(ICodeReader reader) {
-		return READER_CAPABILITIES.computeIfAbsent(reader.getClass(), cls -> {
-			try {
-				Method capabilityMethod = cls.getMethod(PARALLEL_SCAN_METHOD);
-				return Boolean.TRUE.equals(capabilityMethod.invoke(reader));
-			} catch (NoSuchMethodException e) {
-				// capability not declared -> serial fallback
-				return Boolean.FALSE;
-			} catch (ReflectiveOperationException e) {
-				return Boolean.FALSE;
-			}
-		});
+		return reader.supportsParallelClassScan();
 	}
 
 	/**

@@ -141,6 +141,25 @@ class UsageInfoVisitorParallelTest extends SmaliTest {
 	}
 
 	/**
+	 * DEX input must now declare class-exclusive scan capability,
+	 * activating the parallel collection path for APK/DEX inputs.
+	 */
+	@Test
+	void dexReaderDeclaresParallelScanCapability() {
+		RootNode root = loadRoot(true);
+		MethodNode mthWithCode = findMth(findCls(root, "upa.Aa"), "recurse(I)I");
+		assertThat(mthWithCode.getCodeReader()).isNotNull();
+		// probe used by the collector resolves true through the interface capability method
+		assertThat(UsageInfoParallelExecutor.readerSupportsParallelScan(mthWithCode.getCodeReader())).isTrue();
+		assertThat(mthWithCode.getCodeReader().supportsParallelClassScan()).isTrue();
+		// and the reader instances of different methods/classes are distinct objects
+		MethodNode otherMth = findMth(findCls(root, "upa.BB"), "util(I)I");
+		assertThat(otherMth.getCodeReader())
+				.isNotNull()
+				.isNotSameAs(mthWithCode.getCodeReader());
+	}
+
+	/**
 	 * Verify the fixture produces the non-trivial graph features the equivalence checks rely on:
 	 * self-recursion, unresolved refs, inner-class method usage, overload resolution,
 	 * inherited method resolution and field usage.
