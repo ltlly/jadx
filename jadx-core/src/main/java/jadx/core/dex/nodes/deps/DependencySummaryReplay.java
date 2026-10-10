@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jadx.api.plugins.pass.JadxPass;
+import jadx.api.plugins.pass.types.JadxDependencySummaryPass;
 import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.RootNode;
@@ -38,6 +40,16 @@ public final class DependencySummaryReplay {
 		List<IDexTreeVisitor> passes = root.getProcessClasses().getPasses();
 		boolean strict = DependencySummaryManager.isStrictChecksEnabled();
 		for (IDexTreeVisitor pass : passes) {
+			if (pass instanceof jadx.api.impl.passes.DecompilePassWrapper) {
+				// capability-certified custom decompile passes are guaranteed no-ops
+				// for the certified subtree (validated for the whole pass list at
+				// epoch begin); anything else must never reach a certified replay
+				JadxPass wrapped = ((jadx.api.impl.passes.DecompilePassWrapper) pass).getPass();
+				if (wrapped instanceof JadxDependencySummaryPass) {
+					continue;
+				}
+				throw new JadxRuntimeException("Custom decompile pass without no-op capability in summary replay: " + pass.getName());
+			}
 			DependencyRecoveryCertificate.PassClassification classification =
 					DependencyRecoveryCertificate.classify(pass.getName());
 			switch (classification) {
