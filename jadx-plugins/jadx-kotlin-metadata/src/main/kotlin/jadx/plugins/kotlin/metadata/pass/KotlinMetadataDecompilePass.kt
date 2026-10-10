@@ -3,7 +3,7 @@ package jadx.plugins.kotlin.metadata.pass
 import jadx.api.plugins.input.data.AccessFlags
 import jadx.api.plugins.pass.JadxPassInfo
 import jadx.api.plugins.pass.impl.OrderedJadxPassInfo
-import jadx.api.plugins.pass.types.JadxDecompilePass
+import jadx.api.plugins.pass.types.JadxDependencySummaryPass
 import jadx.core.deobf.NameMapper
 import jadx.core.dex.attributes.AFlag
 import jadx.core.dex.attributes.nodes.RenameReasonAttr
@@ -13,10 +13,11 @@ import jadx.core.dex.nodes.RootNode
 import jadx.plugins.kotlin.metadata.KotlinMetadataOptions
 import jadx.plugins.kotlin.metadata.utils.KmClassWrapper
 import jadx.plugins.kotlin.metadata.utils.KmClassWrapper.Companion.getWrapper
+import jadx.plugins.kotlin.metadata.utils.getMetadata
 
 class KotlinMetadataDecompilePass(
 	private val options: KotlinMetadataOptions,
-) : JadxDecompilePass {
+) : JadxDependencySummaryPass {
 
 	override fun getInfo(): JadxPassInfo = OrderedJadxPassInfo(
 		"KotlinMetadataDecompile",
@@ -25,6 +26,26 @@ class KotlinMetadataDecompilePass(
 		.before("CodeRenameVisitor")
 
 	override fun init(root: RootNode) {
+	}
+
+	/**
+	 * This pass is a guaranteed no-op for a class subtree when no class carries the
+	 * Kotlin metadata annotation: getWrapper() is necessarily null in every round,
+	 * so visit() does nothing. Any metadata annotation (including malformed) or
+	 * capability error forces full legacy recovery for the whole subtree.
+	 */
+	override fun isSummaryNoOpFor(topCls: ClassNode): Boolean = isMetadataFreeSubtree(topCls)
+
+	private fun isMetadataFreeSubtree(cls: ClassNode): Boolean {
+		if (cls.getMetadata() != null) {
+			return false
+		}
+		cls.innerClasses.forEach { inner ->
+			if (!isMetadataFreeSubtree(inner)) {
+				return false
+			}
+		}
+		return true
 	}
 
 	override fun visit(cls: ClassNode): Boolean {

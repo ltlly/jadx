@@ -68,7 +68,8 @@ public class ClassModifier extends AbstractVisitor {
 		return false;
 	}
 
-	private static boolean isEmptySyntheticClass(ClassNode cls) {
+	// also used by dependency summary residual replay
+	public static boolean isEmptySyntheticClass(ClassNode cls) {
 		return cls.getAccessFlags().isSynthetic()
 				&& cls.getFields().isEmpty()
 				&& cls.getMethods().isEmpty()

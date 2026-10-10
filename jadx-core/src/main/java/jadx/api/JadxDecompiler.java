@@ -183,6 +183,9 @@ public final class JadxDecompiler implements Closeable {
 	}
 
 	private void reset() {
+		if (root != null) {
+			root.getDependencySummaryManager().invalidateAll();
+		}
 		unloadPlugins();
 		root = null;
 		classes = null;
@@ -324,12 +327,18 @@ public final class JadxDecompiler implements Closeable {
 
 		TaskExecutor executor = new TaskExecutor();
 		executor.setThreadsCount(args.getThreadsCount());
+		if (saveSources) {
+			// activate dependency summaries for the duration of the source save epoch
+			root.getDependencySummaryManager().beginEpoch();
+		}
 		if (saveResources) {
 			// save resources first because decompilation can stop or fail
 			appendResourcesSaveTasks(executor, outDirs.getResOutDir());
 		}
 		if (saveSources) {
 			appendSourcesSave(executor, outDirs.getSrcOutDir());
+			// end epoch after all decompile tasks completed
+			executor.addSequentialTask(() -> root.getDependencySummaryManager().endEpoch());
 		}
 		if (gradleExport != null) {
 			executor.addSequentialTask(gradleExport::generateGradleFiles);
@@ -691,6 +700,7 @@ public final class JadxDecompiler implements Closeable {
 	}
 
 	public void reloadCodeData() {
+		root.getDependencySummaryManager().invalidateAll();
 		root.notifyCodeDataListeners();
 	}
 

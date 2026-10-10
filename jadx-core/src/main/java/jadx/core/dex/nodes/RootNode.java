@@ -93,6 +93,7 @@ public class RootNode extends AttrNode {
 
 	private List<IDexTreeVisitor> preDecompilePasses;
 	private ProcessClass processClasses;
+	private jadx.core.dex.nodes.deps.DependencySummaryManager dependencySummaryManager;
 
 	private ClspGraph clsp;
 	private @Nullable String appPackage;
@@ -122,6 +123,7 @@ public class RootNode extends AttrNode {
 		this.args = args;
 		this.preDecompilePasses = Jadx.getPreDecompilePassesList();
 		this.processClasses = new ProcessClass(Jadx.getPassesList(args));
+		this.dependencySummaryManager = new jadx.core.dex.nodes.deps.DependencySummaryManager(this);
 		this.stringUtils = new StringUtils(args);
 		this.constValues = new ConstStorage(args);
 		this.typeUpdate = new TypeUpdate(this);
@@ -398,6 +400,7 @@ public class RootNode extends AttrNode {
 
 	// TODO: make better API for reload passes lists
 	public void resetPasses() {
+		dependencySummaryManager.invalidateAll();
 		preDecompilePasses.clear();
 		preDecompilePasses.addAll(Jadx.getPreDecompilePassesList());
 
@@ -406,6 +409,7 @@ public class RootNode extends AttrNode {
 	}
 
 	public void restartVisitors() {
+		dependencySummaryManager.invalidateAll();
 		for (ClassNode cls : classes) {
 			cls.unload();
 			cls.clearAttributes();
@@ -687,6 +691,10 @@ public class RootNode extends AttrNode {
 
 	public ProcessClass getProcessClasses() {
 		return processClasses;
+	}
+
+	public jadx.core.dex.nodes.deps.DependencySummaryManager getDependencySummaryManager() {
+		return dependencySummaryManager;
 	}
 
 	public List<IDexTreeVisitor> getPasses() {
