@@ -1,0 +1,9 @@
+{
+  "commit": "b321cdaf6bfc6434c15a608a8f36193470928694",
+  "parent": "ab9029f0ab6a7437bb9eee67c96e94c836957806",
+  "patch": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/usage-resolution.patch",
+  "sha256": "15fd915f535381cc251ad5787d945a4f86b2e2ea01fd3ab6410507734de0a23a",
+  "actual_tree": "22e2763f62b22dd323dea068e9f3815cec1224d1",
+  "expected_tree": "22e2763f62b22dd323dea068e9f3815cec1224d1",
+  "identical": true
+}

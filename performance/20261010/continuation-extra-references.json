@@ -1,0 +1,129 @@
+[
+  {
+    "file": "sources/com/ucpro/feature/setting/developer/customize/k0.java",
+    "B": 3,
+    "matches": []
+  },
+  {
+    "file": "sources/com/ucpro/feature/setting/developer/customize/s.java",
+    "B": 3,
+    "matches": [
+      {
+        "run": "out/jadx-perf/20261010/continuation/raw-name/qwen-7.3.6-B1",
+        "core": "b7173ce062d68379840dd873efca28daf11db5e669355629e2d365cfcd2f0e31"
+      },
+      {
+        "run": "out/jadx-perf/20261010/qwen-cfg-iteration-B1",
+        "core": "9df7d31bb6f307d110f1134dbb7796ca01e7adfef3f4a063dd10ff4e12691a73"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/bottom-order/qwen-7.3.6-A2",
+        "core": "a64d72dbd869db95b2570a28ff0fecc6048d82349efd52cc6673d76809c5a706"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/cfg-iteration/qwen-7.3.6-B1",
+        "core": "a64d72dbd869db95b2570a28ff0fecc6048d82349efd52cc6673d76809c5a706"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/live-reuse/qwen-7.3.6-A3",
+        "core": "39192fa0580f8a98df3b833adcc5a88cc80d83f6cf9eea1ca190f5cf07d8c97a"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/outer-switch/qwen-7.3.6-A1",
+        "core": "27ee799f7f49e7838ccaf52c8d7641b56ba86cbbc837577bf8a58dbdec4588c3"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/profiles/live-reverse",
+        "core": "b365a4e1a12265e68dcfbcb7b6af4122811c99ab221233802a0d899334090fb0"
+      }
+    ]
+  },
+  {
+    "file": "sources/kotlinx/coroutines/BuildersKt.java",
+    "B": 2,
+    "matches": [
+      {
+        "run": "out/jadx-perf/20261010/qwen-outer-A1",
+        "core": "baacf19b36565ebf6fd9e96c27187ab7ed968cb816a3d5fcc103fe2d54bd7c2e"
+      },
+      {
+        "run": "out/jadx-perf/20261010/qwen-outer-B2",
+        "core": "ef1961bc84d6ffae5f3180ee9a55914feca0a9d6d216180e4cf13dbb835c0292"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/cfg-iteration/qwen-7.3.6-B3",
+        "core": "a64d72dbd869db95b2570a28ff0fecc6048d82349efd52cc6673d76809c5a706"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/profiles/lazy-candidates",
+        "core": "e695c31a1dc216087cfabd132a4e4f6e538792a42b8482f5c8e6725bb2f7ccb1"
+      }
+    ]
+  },
+  {
+    "file": "sources/okio/RealBufferedSource.java",
+    "B": 2,
+    "matches": [
+      {
+        "run": "out/jadx-perf/20261010/continuation/raw-name/qwen-7.3.6-A3",
+        "core": "23a324a7433aa3c6059059f647b971e4f8a40b0dabc4deb7fbd6076dcf9f0dc6"
+      },
+      {
+        "run": "out/jadx-perf/20261010/continuation/raw-name/qwen-7.3.6-B2",
+        "core": "b7173ce062d68379840dd873efca28daf11db5e669355629e2d365cfcd2f0e31"
+      },
+      {
+        "run": "out/jadx-perf/20261010/continuation/usage-resolve/qwen-7.3.6-A2",
+        "core": "39192fa0580f8a98df3b833adcc5a88cc80d83f6cf9eea1ca190f5cf07d8c97a"
+      },
+      {
+        "run": "out/jadx-perf/20261010/qwen-bottom-order-profile",
+        "core": "c47f04e7e12159374cab32e4f5e8886a5de38b4afcf1d2365fb05fc4d0caa4ba"
+      },
+      {
+        "run": "out/jadx-perf/20261010/qwen-cfg-iteration-B1",
+        "core": "9df7d31bb6f307d110f1134dbb7796ca01e7adfef3f4a063dd10ff4e12691a73"
+      },
+      {
+        "run": "out/jadx-perf/20261010/qwen-outer-shadow",
+        "core": "74887214d8c1cbedd77bff69a249e729b5404c3132d3153279c7716633fd3e13"
+      },
+      {
+        "run": "out/jadx-perf/20261010/qwen-root-names-B1",
+        "core": "b9a7d4b067ec29d4f8b6b960a7e5d1c176fc78fdf84a9e8ae5b6fb58509bea37"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/bottom-order/qwen-7.3.6-B1",
+        "core": "d3384ec4498e46aba23778f43fdc432eedc2ae06b9df855dabbb74939d6af2d2"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/cfg-iteration/qwen-7.3.6-A2",
+        "core": "5a44292bdef4f0315482a046695190de4052d0bf20d8e5c9fb121e7f5d845585"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/live-reuse/qwen-7.3.6-B2",
+        "core": "b0c395f04606fec574f2e129d1c93100574d8dae4bb963e5610f694b76824885"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/live-reverse/qwen-7.3.6-A1",
+        "core": "39192fa0580f8a98df3b833adcc5a88cc80d83f6cf9eea1ca190f5cf07d8c97a"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/live-reverse/qwen-7.3.6-B1",
+        "core": "b365a4e1a12265e68dcfbcb7b6af4122811c99ab221233802a0d899334090fb0"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/root-names/qwen-7.3.6-A3",
+        "core": "d3384ec4498e46aba23778f43fdc432eedc2ae06b9df855dabbb74939d6af2d2"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/incremental/root-names/qwen-7.3.6-B2",
+        "core": "b2d588829dc1ea852b9f39be35bae9905e75d5b30bc5ccb7cd3a4b506a96aa22"
+      },
+      {
+        "run": "out/jadx-perf/20261010/verified/profiles/cfg-iteration",
+        "core": "a64d72dbd869db95b2570a28ff0fecc6048d82349efd52cc6673d76809c5a706"
+      }
+    ]
+  }
+]

@@ -1,0 +1,71 @@
+{
+  "scope": "Extracted declarations and hierarchy only; APK bodies are not compiled",
+  "results": [
+    {
+      "run": "A3",
+      "parent": "public void b() {",
+      "child": "public final void b() {",
+      "exit": 0,
+      "command": [
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/toolchains/jdk-11.0.32.1+1/bin/javac",
+        "-J-Duser.language=en",
+        "-J-Duser.country=US",
+        "--release",
+        "11",
+        "-d",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/telegram-throws-signature-check/A3/classes",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/telegram-throws-signature-check/A3/src/ga/l.java",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/telegram-throws-signature-check/A3/src/la/a.java",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/telegram-throws-signature-check/A3/src/la/c.java"
+      ],
+      "evidence": {
+        "ga/l.java": {
+          "path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/usage-resolve-representative/telegram-A3/output/sources/ga/l.java",
+          "sha256": "01a999cdc685b5968196abefd36c1a17f7cf2af353c048b25a6d36923f2fb8d2"
+        },
+        "la/a.java": {
+          "path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/usage-resolve-representative/telegram-A3/output/sources/la/a.java",
+          "sha256": "9d17ab97755a4685845ef11ebe772e362aed7a9058cc40d048fc7fed2264f0ea"
+        },
+        "la/c.java": {
+          "path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/usage-resolve-representative/telegram-A3/output/sources/la/c.java",
+          "sha256": "d8aa58fdca1a6bf6384e694338d330936ab56e54018b8f666e0516198f73300f"
+        }
+      },
+      "compiler_output": ""
+    },
+    {
+      "run": "B3",
+      "parent": "public void b() {",
+      "child": "public final void b() throws la.c {",
+      "exit": 1,
+      "command": [
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/toolchains/jdk-11.0.32.1+1/bin/javac",
+        "-J-Duser.language=en",
+        "-J-Duser.country=US",
+        "--release",
+        "11",
+        "-d",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/telegram-throws-signature-check/B3/classes",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/telegram-throws-signature-check/B3/src/ga/l.java",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/telegram-throws-signature-check/B3/src/la/a.java",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/telegram-throws-signature-check/B3/src/la/c.java"
+      ],
+      "evidence": {
+        "ga/l.java": {
+          "path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/usage-resolve-representative/telegram-B3/output/sources/ga/l.java",
+          "sha256": "4f916cb48dd60af699023956c64675c76d43dddc02e4b168ebdc2cc0db74a542"
+        },
+        "la/a.java": {
+          "path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/usage-resolve-representative/telegram-B3/output/sources/la/a.java",
+          "sha256": "9d17ab97755a4685845ef11ebe772e362aed7a9058cc40d048fc7fed2264f0ea"
+        },
+        "la/c.java": {
+          "path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/usage-resolve-representative/telegram-B3/output/sources/la/c.java",
+          "sha256": "d8aa58fdca1a6bf6384e694338d330936ab56e54018b8f666e0516198f73300f"
+        }
+      },
+      "compiler_output": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/continuation/telegram-throws-signature-check/B3/src/ga/l.java:1: error: b() in l cannot override b() in a\npackage ga; public final class l extends la.a { @Override public final void b() throws la.c {} }\n                                                                            ^\n  overridden method does not throw c\n1 error\n"
+    }
+  ]
+}

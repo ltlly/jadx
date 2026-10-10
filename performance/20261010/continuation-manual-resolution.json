@@ -1,0 +1,25 @@
+{
+  "empty_anonymous_constructor": {
+    "file": "sources/com/ucpro/feature/setting/developer/customize/k0.java",
+    "A": 1,
+    "B": 3,
+    "only_token_change": [
+      "AnonymousClass5",
+      "(",
+      ")",
+      "{",
+      "}"
+    ],
+    "exact_removal_assertion": true,
+    "note": "Constructor appears inside new Runnable() anonymous expression; empty zero-argument body has no statements. No APK compilation claim."
+  },
+  "SegmentDownloader_exact_correctness_baseline_matches": [
+    "out/jadx-perf/20261010/verified/corpus/qwen-7.3.6-A1",
+    "out/jadx-perf/20261010/verified/corpus/qwen-7.3.6-A3",
+    "out/jadx-perf/20261010/verified/corpus/qwen-7.3.6-A2",
+    "out/jadx-perf/20261010/verified/incremental/outer-switch/qwen-7.3.6-A1",
+    "out/jadx-perf/20261010/verified/incremental/outer-switch/qwen-7.3.6-A3",
+    "out/jadx-perf/20261010/verified/incremental/outer-switch/qwen-7.3.6-A2",
+    "out/jadx-perf/20261010/verified/profiles/baseline"
+  ]
+}

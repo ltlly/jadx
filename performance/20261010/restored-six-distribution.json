@@ -1,0 +1,9 @@
+{
+  "distribution": "/home/ltlly/Code/jadx-perf/jadx-cli/build/install/jadx",
+  "reference": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/artifacts/fixed-use-after",
+  "jars": 57,
+  "identical": true,
+  "core_sha256": {
+    "lib/jadx-core-dev.jar": "39192fa0580f8a98df3b833adcc5a88cc80d83f6cf9eea1ca190f5cf07d8c97a"
+  }
+}

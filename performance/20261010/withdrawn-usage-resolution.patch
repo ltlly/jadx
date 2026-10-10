@@ -1,0 +1,122 @@
+From b321cdaf6bfc6434c15a608a8f36193470928694 Mon Sep 17 00:00:00 2001
+From: =?UTF-8?q?=E6=B4=9B=E5=A4=A9=E7=90=89=E7=92=83=E4=BE=9D?=
+ <86669384+ltlly@users.noreply.github.com>
+Date: Sat, 10 Oct 2026 09:50:01 +0800
+Subject: [PATCH] perf(core): reuse method resolution while applying usage data
+
+---
+ .../core/dex/visitors/usage/UsageInfo.java    | 20 +++++---
+ .../dex/visitors/usage/UsageInfoTest.java     | 50 +++++++++++++++++++
+ 2 files changed, 64 insertions(+), 6 deletions(-)
+ create mode 100644 jadx-core/src/test/java/jadx/core/dex/visitors/usage/UsageInfoTest.java
+
+diff --git a/jadx-core/src/main/java/jadx/core/dex/visitors/usage/UsageInfo.java b/jadx-core/src/main/java/jadx/core/dex/visitors/usage/UsageInfo.java
+index c87272b..4747126 100644
+--- a/jadx-core/src/main/java/jadx/core/dex/visitors/usage/UsageInfo.java
++++ b/jadx-core/src/main/java/jadx/core/dex/visitors/usage/UsageInfo.java
+@@ -3,11 +3,13 @@
+ import java.util.ArrayList;
+ import java.util.Collections;
+ import java.util.HashMap;
++import java.util.IdentityHashMap;
+ import java.util.List;
+ import java.util.Map;
+ import java.util.Map.Entry;
+ import java.util.Set;
+ import java.util.function.Consumer;
++import java.util.function.Function;
+ 
+ import jadx.api.usage.IUsageInfoData;
+ import jadx.api.usage.IUsageInfoVisitor;
+@@ -47,12 +49,15 @@ public UsageInfo(RootNode root) {
+ 
+ 	@Override
+ 	public void apply() {
++		// Method nodes stay unchanged while applying usage data; reloads resolve them again.
++		Map<MethodNode, MethodNode> resolvedMethods = new IdentityHashMap<>();
++		Function<MethodNode, MethodNode> resolve = m -> resolvedMethods.computeIfAbsent(m, this::resolveMethod);
+ 		clsDeps.visit((cls, deps) -> cls.setDependencies(sortedList(deps)));
+ 		clsUsage.visit((cls, deps) -> cls.setUseIn(sortedList(deps)));
+-		clsUseInMth.visit((cls, methods) -> cls.setUseInMth(resolveMthList(sortedList(methods))));
+-		fieldUsage.visit((field, methods) -> field.setUseIn(resolveMthList(sortedList(methods))));
+-		mthUsage.visit((mth, methods) -> mth.setUseIn(resolveMthList(sortedList(methods))));
+-		mthUses.visit((mth, methods) -> mth.setUsed(resolveMthList(sortedList(methods))));
++		clsUseInMth.visit((cls, methods) -> cls.setUseInMth(Utils.collectionMap(sortedList(methods), resolve)));
++		fieldUsage.visit((field, methods) -> field.setUseIn(Utils.collectionMap(sortedList(methods), resolve)));
++		mthUsage.visit((mth, methods) -> mth.setUseIn(Utils.collectionMap(sortedList(methods), resolve)));
++		mthUses.visit((mth, methods) -> mth.setUsed(Utils.collectionMap(sortedList(methods), resolve)));
+ 		unresolvedMthUsage.visit((mth, unresolvedMethods) -> mth.setUnresolvedUsed(sortedList(unresolvedMethods)));
+ 		selfCalls.forEach(MethodNode::setCallsSelf);
+ 	}
+@@ -238,7 +243,10 @@ private static <T extends Comparable<T>> List<T> sortedList(Set<T> nodes) {
+ 	}
+ 
+ 	private List<MethodNode> resolveMthList(List<MethodNode> mthNodeList) {
+-		return Utils.collectionMap(mthNodeList,
+-				m -> root.resolveDirectMethod(m.getParentClass().getRawName(), m.getMethodInfo().getShortId()));
++		return Utils.collectionMap(mthNodeList, this::resolveMethod);
++	}
++
++	private MethodNode resolveMethod(MethodNode mth) {
++		return root.resolveDirectMethod(mth.getParentClass().getRawName(), mth.getMethodInfo().getShortId());
+ 	}
+ }
+diff --git a/jadx-core/src/test/java/jadx/core/dex/visitors/usage/UsageInfoTest.java b/jadx-core/src/test/java/jadx/core/dex/visitors/usage/UsageInfoTest.java
+new file mode 100644
+index 0000000..a873e2b
+--- /dev/null
++++ b/jadx-core/src/test/java/jadx/core/dex/visitors/usage/UsageInfoTest.java
+@@ -0,0 +1,50 @@
++package jadx.core.dex.visitors.usage;
++
++import org.junit.jupiter.api.Test;
++
++import jadx.api.JadxArgs;
++import jadx.api.JadxDecompiler;
++import jadx.core.dex.nodes.ClassNode;
++import jadx.core.dex.nodes.MethodNode;
++import jadx.tests.api.utils.TestUtils;
++
++import static org.assertj.core.api.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThatThrownBy;
++
++class UsageInfoTest {
++	@Test
++	void testResolvedMethodsAreScopedToOneApplication() {
++		JadxArgs args = new JadxArgs();
++		args.addInputFile(TestUtils.getFileForSample("test-samples/hello.dex"));
++		try (JadxDecompiler decompiler = new JadxDecompiler(args)) {
++			decompiler.load();
++			ClassNode cls = decompiler.getRoot().getClasses().get(0);
++			assertThat(cls.getMethods()).hasSizeGreaterThanOrEqualTo(2);
++			MethodNode caller = cls.getMethods().get(0);
++			MethodNode callee = cls.getMethods().get(1);
++			UsageInfo data = new UsageInfo(decompiler.getRoot());
++			data.methodUse(caller, callee);
++			data.methodUse(callee, caller);
++			data.apply();
++			assertThat(caller.getUseIn()).singleElement().isSameAs(callee);
++			assertThat(caller.getUsed()).singleElement().isSameAs(callee);
++			assertThat(callee.getUseIn()).singleElement().isSameAs(caller);
++			assertThat(callee.getUsed()).singleElement().isSameAs(caller);
++
++			args.getUsageInfoCache().set(decompiler.getRoot(), data);
++			cls.deepUnload();
++			MethodNode newCaller = cls.searchMethodByShortId(caller.getMethodInfo().getShortId());
++			MethodNode newCallee = cls.searchMethodByShortId(callee.getMethodInfo().getShortId());
++			assertThat(newCaller).isNotSameAs(caller);
++			assertThat(newCallee).isNotSameAs(callee);
++			assertThat(newCaller.getUseIn()).singleElement().isSameAs(newCallee);
++			assertThat(newCallee.getUsed()).singleElement().isSameAs(newCaller);
++
++			data.apply();
++			assertThat(caller.getUseIn()).singleElement().isSameAs(newCallee);
++			assertThat(callee.getUsed()).singleElement().isSameAs(newCaller);
++			cls.getMethods().remove(newCaller);
++			assertThatThrownBy(data::apply).hasMessageStartingWith("Method not found: ");
++		}
++	}
++}
+-- 
+2.56.0
+

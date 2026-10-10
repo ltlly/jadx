@@ -1,0 +1,430 @@
+{
+  "qwen-7.3.6": {
+    "stable_new_omitted": [
+      [
+        "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java",
+        "com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void"
+      ]
+    ],
+    "any_new_omitted": [
+      [
+        "sources/androidx/media3/exoplayer/offline/SegmentDownloader.java",
+        "androidx.media3.exoplayer.offline.SegmentDownloader.download(androidx.media3.exoplayer.offline.Downloader$ProgressListener):void"
+      ],
+      [
+        "sources/com/taobao/accs/utl/UtilityImpl.java",
+        "com.taobao.accs.utl.UtilityImpl.focusDisableService(android.content.Context):void"
+      ],
+      [
+        "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java",
+        "com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void"
+      ]
+    ],
+    "novel_token_files": [
+      "sources/android/taobao/windvane/jspatch/WVJsPatch.java",
+      "sources/androidx/media3/exoplayer/offline/SegmentDownloader.java",
+      "sources/com/UCMobile/Apollo/support/NativeSupport.java",
+      "sources/com/ali/user/open/jsbridge/AuthorizeJsBridge.java",
+      "sources/com/alibaba/analytics/AnalyticsMgr.java",
+      "sources/com/alibaba/analytics/core/db/DBMgr.java",
+      "sources/com/alibaba/analytics/core/sync/TnetSecuritySDK.java",
+      "sources/com/alipay/alipaysecuritysdk/modules/x/s8.java",
+      "sources/com/alipay/camera/AutoFocusManager.java",
+      "sources/com/alipay/mobile/common/ipc/api/util/ParcelUtil.java",
+      "sources/com/alipay/mobile/streamingrpc/io/bifrost/BifrostClientStream.java",
+      "sources/com/alipay/mobile/streamingrpc/io/internal/Http2ClientStreamTransportState.java",
+      "sources/com/alipay/sdk/m/a0/d.java",
+      "sources/com/aliyun/tongyi/livechat/internal/beans/LiveChatInteractionState.java",
+      "sources/com/aliyun/tongyi/livechat/jsapi/LiveChatJsApiManager$startStateObserver$1.java",
+      "sources/com/aliyun/tongyi/livechat/jsapi/LiveChatJsApiManager.java",
+      "sources/com/amap/api/col/p0003sl/hz.java",
+      "sources/com/amap/api/col/p0003sl/m.java",
+      "sources/com/amap/api/services/route/RouteSearchV2.java",
+      "sources/com/google/common/util/concurrent/AggregateFuture.java",
+      "sources/com/quark/pithos/PithosServerHelper.java",
+      "sources/com/ta/audid/db/DBMgr.java",
+      "sources/com/taobao/accs/antibrush/CookieMgr.java",
+      "sources/com/taobao/accs/utl/UtilityImpl.java",
+      "sources/com/taobao/agoo/TaobaoRegister.java",
+      "sources/com/taobao/android/nanocompose/foundation/observer/TemplateDownloadNotificationCenter.java",
+      "sources/com/taobao/android/sns4android/jsbridge/SNSJsbridge.java",
+      "sources/com/uc/compass/preheat/PrerenderManager.java",
+      "sources/com/uc/pars/impl/j.java",
+      "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java",
+      "sources/com/ucpro/chat/config/UploadConfig.java",
+      "sources/com/ucpro/chat/config/json/AgentMetaJSONKt.java",
+      "sources/com/ucpro/chat_native/config/json/AgentMetaJSONKt.java",
+      "sources/com/ucpro/chat_native/contentview/chatlist/ChatScrollViewModel.java",
+      "sources/com/ucpro/chat_native/contentview/markdown/card/MDAiOfficeCardV2Holder.java",
+      "sources/com/ucpro/chat_native/contentview/markdown/card/ppt/AIPPTJumpPreviewHelper.java",
+      "sources/com/ucpro/chat_native/contentview/nano/debug/sdk/NanoComposeDebugManager.java",
+      "sources/com/ucpro/chat_native/contentview/nano/debug/sdk/QWorkReporter.java",
+      "sources/com/ucpro/chat_native/contentview/newsessionwelcome/WelcomeView.java",
+      "sources/com/ucpro/chat_native/input/embed/EmbeddableChatInputLayer.java",
+      "sources/com/ucpro/feature/compass/megability/bridge/i.java",
+      "sources/com/ucpro/feature/dynamiclib/DynamicLibUtils.java",
+      "sources/com/ucpro/feature/setting/developer/customize/h0.java",
+      "sources/com/ucpro/feature/setting/developer/customize/r.java",
+      "sources/com/ucpro/feature/study/cropview/CropImageView.java",
+      "sources/com/ucpro/feature/study/cropview/util/CropViewUtils.java",
+      "sources/com/ucpro/feature/study/main/util/SnapshotUtil.java",
+      "sources/io/ktor/network/sockets/InetSocketAddress.java",
+      "sources/io/ktor/utils/io/ReaderScope.java",
+      "sources/kotlinx/coroutines/flow/FlowKt__ZipKt$combineTransform$$inlined$combineTransformUnsafe$FlowKt__ZipKt$4.java",
+      "sources/kotlinx/coroutines/flow/FlowKt__ZipKt$combineTransform$$inlined$combineTransformUnsafe$FlowKt__ZipKt$5.java",
+      "sources/mtopsdk/network/cookie/CookieManager.java",
+      "sources/org/android/spdy/AndroidTrustAnchors.java"
+    ],
+    "stable_different_token_files": [
+      "sources/com/ali/user/open/jsbridge/AuthorizeJsBridge.java",
+      "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java",
+      "sources/com/ucpro/feature/compass/megability/bridge/i.java",
+      "sources/org/android/spdy/AndroidTrustAnchors.java"
+    ],
+    "novel_error_variants": {},
+    "novel_warning_variants": {
+      "sources/androidx/media3/exoplayer/offline/SegmentDownloader.java": {
+        "A": [
+          []
+        ],
+        "B": [
+          [],
+          [
+            "JADX WARN: Bottom block not found for handler: all -> 0x0034 */"
+          ]
+        ]
+      },
+      "sources/com/aistudio/feature/video_cover_editor/bridge/ASVideoCoverFrameBridge.java": {
+        "A": [
+          [
+            "JADX WARN: 'super' call moved to the top of the method (can break code semantics) */",
+            "JADX WARN: Code duplicated, block: B:10:0x002e  */",
+            "JADX WARN: Code duplicated, block: B:50:0x00fc A[Catch: all -> 0x010a, TRY_LEAVE, TryCatch #8 {all -> 0x010a, blocks: (B:48:0x00f8, B:50:0x00fc, B:55:0x010c), top: B:106:0x00f8, outer: #4 }] */",
+            "JADX WARN: Code duplicated, block: B:55:0x010c A[Catch: all -> 0x010a, TRY_ENTER, TRY_LEAVE, TryCatch #8 {all -> 0x010a, blocks: (B:48:0x00f8, B:50:0x00fc, B:55:0x010c), top: B:106:0x00f8, outer: #4 }] */",
+            "JADX WARN: Code duplicated, block: B:68:0x0151  */",
+            "JADX WARN: Code duplicated, block: B:10:0x0034  */",
+            "JADX WARN: Code restructure failed: missing block: B:50:0x013c, code lost:",
+            "JADX WARN: Type inference failed for: r0v15, types: [T, kotlinx.coroutines.CompletableDeferred] */",
+            "JADX WARN: Type inference failed for: r1v7, types: [T, kotlinx.coroutines.CompletableDeferred] */",
+            "JADX WARN: Code duplicated, block: B:10:0x003c  */",
+            "JADX WARN: Code duplicated, block: B:42:0x0108  */",
+            "JADX WARN: Code duplicated, block: B:45:0x010e  */",
+            "JADX WARN: Code duplicated, block: B:47:0x0112 A[Catch: all -> 0x0063, TRY_ENTER, TryCatch #0 {all -> 0x0063, blocks: (B:17:0x005e, B:43:0x0109, B:47:0x0112, B:48:0x013a, B:51:0x013d, B:52:0x0156, B:39:0x00e4, B:35:0x00c4), top: B:55:0x004f }] */",
+            "JADX WARN: Instruction removed from duplicated block: B:47:0x0112, please report this as an issue */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r12v1 */",
+            "JADX WARN: Type inference failed for: r12v2 */",
+            "JADX WARN: Type inference failed for: r12v5 */",
+            "JADX WARN: Type inference failed for: r13v10 */",
+            "JADX WARN: Type inference failed for: r13v2 */",
+            "JADX WARN: Type inference failed for: r13v3, types: [com.aistudio.feature.video_cover_editor.bridge.ASVideoCoverFrameBridge$SnapshotSession, java.lang.Object] */",
+            "JADX WARN: Type inference failed for: r18v1, types: [com.aistudio.feature.video_cover_editor.bridge.ASVideoCoverFrameBridge$SnapshotSession] */",
+            "JADX WARN: Type inference failed for: r1v0, types: [java.lang.Object] */",
+            "JADX WARN: Type inference failed for: r1v1, types: [kotlinx.coroutines.sync.Mutex] */",
+            "JADX WARN: Type inference failed for: r1v7 */",
+            "JADX WARN: Code duplicated, block: B:11:0x0030  */",
+            "JADX WARN: Code duplicated, block: B:52:0x0150 A[Catch: all -> 0x0063, TryCatch #1 {all -> 0x0063, blocks: (B:19:0x005c, B:61:0x01b9, B:46:0x011e, B:48:0x0128, B:50:0x012e, B:53:0x0159, B:52:0x0150), top: B:79:0x0042 }] */",
+            "JADX WARN: Code duplicated, block: B:55:0x0183 A[RETURN] */",
+            "JADX WARN: Code duplicated, block: B:56:0x0184  */",
+            "JADX WARN: Code duplicated, block: B:59:0x01b5 A[RETURN] */",
+            "JADX WARN: Code duplicated, block: B:60:0x01b6  */",
+            "JADX WARN: Code duplicated, block: B:69:0x01e2  */",
+            "JADX WARN: Code duplicated, block: B:72:0x01eb  */",
+            "JADX WARN: Code duplicated, block: B:75:0x01f4  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r6v0 */",
+            "JADX WARN: Type inference failed for: r6v10, types: [kotlin.jvm.internal.Ref$ObjectRef] */",
+            "JADX WARN: Type inference failed for: r6v18 */",
+            "JADX WARN: Type inference failed for: r6v19 */",
+            "JADX WARN: Type inference failed for: r7v0 */",
+            "JADX WARN: Type inference failed for: r7v11, types: [kotlin.jvm.internal.Ref$ObjectRef] */",
+            "JADX WARN: Type inference failed for: r7v17 */",
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */"
+          ]
+        ],
+        "B": [
+          [
+            "JADX WARN: 'super' call moved to the top of the method (can break code semantics) */",
+            "JADX WARN: Code duplicated, block: B:10:0x002e  */",
+            "JADX WARN: Code duplicated, block: B:50:0x00fc A[Catch: all -> 0x010a, TRY_LEAVE, TryCatch #8 {all -> 0x010a, blocks: (B:48:0x00f8, B:50:0x00fc, B:55:0x010c), top: B:106:0x00f8, outer: #4 }] */",
+            "JADX WARN: Code duplicated, block: B:55:0x010c A[Catch: all -> 0x010a, TRY_ENTER, TRY_LEAVE, TryCatch #8 {all -> 0x010a, blocks: (B:48:0x00f8, B:50:0x00fc, B:55:0x010c), top: B:106:0x00f8, outer: #4 }] */",
+            "JADX WARN: Code duplicated, block: B:68:0x0151  */",
+            "JADX WARN: Code duplicated, block: B:10:0x0034  */",
+            "JADX WARN: Code restructure failed: missing block: B:50:0x013c, code lost:",
+            "JADX WARN: Type inference failed for: r0v15, types: [T, kotlinx.coroutines.CompletableDeferred] */",
+            "JADX WARN: Type inference failed for: r1v7, types: [T, kotlinx.coroutines.CompletableDeferred] */",
+            "JADX WARN: Code duplicated, block: B:10:0x003c  */",
+            "JADX WARN: Code duplicated, block: B:42:0x0108  */",
+            "JADX WARN: Code duplicated, block: B:45:0x010e  */",
+            "JADX WARN: Code duplicated, block: B:47:0x0112 A[Catch: all -> 0x0063, TRY_ENTER, TryCatch #0 {all -> 0x0063, blocks: (B:17:0x005e, B:43:0x0109, B:47:0x0112, B:48:0x013a, B:51:0x013d, B:52:0x0156, B:39:0x00e4, B:35:0x00c4), top: B:55:0x004f }] */",
+            "JADX WARN: Instruction removed from duplicated block: B:47:0x0112, please report this as an issue */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r12v1 */",
+            "JADX WARN: Type inference failed for: r12v2 */",
+            "JADX WARN: Type inference failed for: r12v5 */",
+            "JADX WARN: Type inference failed for: r13v10 */",
+            "JADX WARN: Type inference failed for: r13v2 */",
+            "JADX WARN: Type inference failed for: r13v3, types: [com.aistudio.feature.video_cover_editor.bridge.ASVideoCoverFrameBridge$SnapshotSession, java.lang.Object] */",
+            "JADX WARN: Type inference failed for: r18v1, types: [com.aistudio.feature.video_cover_editor.bridge.ASVideoCoverFrameBridge$SnapshotSession] */",
+            "JADX WARN: Type inference failed for: r1v0, types: [java.lang.Object] */",
+            "JADX WARN: Type inference failed for: r1v1, types: [kotlinx.coroutines.sync.Mutex] */",
+            "JADX WARN: Type inference failed for: r1v7 */",
+            "JADX WARN: Code duplicated, block: B:11:0x0030  */",
+            "JADX WARN: Code duplicated, block: B:52:0x0150 A[Catch: all -> 0x0063, TryCatch #1 {all -> 0x0063, blocks: (B:19:0x005c, B:61:0x01b9, B:46:0x011e, B:48:0x0128, B:50:0x012e, B:53:0x0159, B:52:0x0150), top: B:79:0x0042 }] */",
+            "JADX WARN: Code duplicated, block: B:55:0x0183 A[RETURN] */",
+            "JADX WARN: Code duplicated, block: B:56:0x0184  */",
+            "JADX WARN: Code duplicated, block: B:59:0x01b5 A[RETURN] */",
+            "JADX WARN: Code duplicated, block: B:60:0x01b6  */",
+            "JADX WARN: Code duplicated, block: B:69:0x01e2  */",
+            "JADX WARN: Code duplicated, block: B:72:0x01eb  */",
+            "JADX WARN: Code duplicated, block: B:75:0x01f4  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r6v0 */",
+            "JADX WARN: Type inference failed for: r6v10, types: [kotlin.jvm.internal.Ref$ObjectRef] */",
+            "JADX WARN: Type inference failed for: r6v18 */",
+            "JADX WARN: Type inference failed for: r6v19 */",
+            "JADX WARN: Type inference failed for: r7v0 */",
+            "JADX WARN: Type inference failed for: r7v11, types: [kotlin.jvm.internal.Ref$ObjectRef] */",
+            "JADX WARN: Type inference failed for: r7v17 */",
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */"
+          ],
+          [
+            "JADX WARN: 'super' call moved to the top of the method (can break code semantics) */",
+            "JADX WARN: Code duplicated, block: B:10:0x002e  */",
+            "JADX WARN: Code duplicated, block: B:50:0x00fc A[Catch: all -> 0x010a, TRY_LEAVE, TryCatch #8 {all -> 0x010a, blocks: (B:48:0x00f8, B:50:0x00fc, B:55:0x010c), top: B:106:0x00f8, outer: #4 }] */",
+            "JADX WARN: Code duplicated, block: B:55:0x010c A[Catch: all -> 0x010a, TRY_ENTER, TRY_LEAVE, TryCatch #8 {all -> 0x010a, blocks: (B:48:0x00f8, B:50:0x00fc, B:55:0x010c), top: B:106:0x00f8, outer: #4 }] */",
+            "JADX WARN: Code duplicated, block: B:68:0x0151  */",
+            "JADX WARN: Code duplicated, block: B:10:0x0034  */",
+            "JADX WARN: Code restructure failed: missing block: B:50:0x013c, code lost:",
+            "JADX WARN: Type inference failed for: r0v15, types: [T, kotlinx.coroutines.CompletableDeferred] */",
+            "JADX WARN: Type inference failed for: r1v7, types: [T, kotlinx.coroutines.CompletableDeferred] */",
+            "JADX WARN: Code duplicated, block: B:10:0x003c  */",
+            "JADX WARN: Code duplicated, block: B:42:0x0108  */",
+            "JADX WARN: Code duplicated, block: B:45:0x010e  */",
+            "JADX WARN: Code duplicated, block: B:47:0x0112 A[Catch: all -> 0x0063, TRY_ENTER, TryCatch #0 {all -> 0x0063, blocks: (B:17:0x005e, B:43:0x0109, B:47:0x0112, B:48:0x013a, B:51:0x013d, B:52:0x0156, B:39:0x00e4, B:35:0x00c4), top: B:55:0x004f }] */",
+            "JADX WARN: Instruction removed from duplicated block: B:47:0x0112, please report this as an issue */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r12v1 */",
+            "JADX WARN: Type inference failed for: r12v2 */",
+            "JADX WARN: Type inference failed for: r12v5 */",
+            "JADX WARN: Type inference failed for: r13v10 */",
+            "JADX WARN: Type inference failed for: r13v2 */",
+            "JADX WARN: Type inference failed for: r13v3, types: [com.aistudio.feature.video_cover_editor.bridge.ASVideoCoverFrameBridge$SnapshotSession, java.lang.Object] */",
+            "JADX WARN: Type inference failed for: r18v1, types: [com.aistudio.feature.video_cover_editor.bridge.ASVideoCoverFrameBridge$SnapshotSession] */",
+            "JADX WARN: Type inference failed for: r1v0, types: [java.lang.Object] */",
+            "JADX WARN: Type inference failed for: r1v1, types: [kotlinx.coroutines.sync.Mutex] */",
+            "JADX WARN: Type inference failed for: r1v7 */",
+            "JADX WARN: Failed to analyze thrown exceptions",
+            "JADX WARN: Code duplicated, block: B:11:0x0030  */",
+            "JADX WARN: Code duplicated, block: B:52:0x0150 A[Catch: all -> 0x0063, TryCatch #1 {all -> 0x0063, blocks: (B:19:0x005c, B:61:0x01b9, B:46:0x011e, B:48:0x0128, B:50:0x012e, B:53:0x0159, B:52:0x0150), top: B:79:0x0042 }] */",
+            "JADX WARN: Code duplicated, block: B:55:0x0183 A[RETURN] */",
+            "JADX WARN: Code duplicated, block: B:56:0x0184  */",
+            "JADX WARN: Code duplicated, block: B:59:0x01b5 A[RETURN] */",
+            "JADX WARN: Code duplicated, block: B:60:0x01b6  */",
+            "JADX WARN: Code duplicated, block: B:69:0x01e2  */",
+            "JADX WARN: Code duplicated, block: B:72:0x01eb  */",
+            "JADX WARN: Code duplicated, block: B:75:0x01f4  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r6v0 */",
+            "JADX WARN: Type inference failed for: r6v10, types: [kotlin.jvm.internal.Ref$ObjectRef] */",
+            "JADX WARN: Type inference failed for: r6v18 */",
+            "JADX WARN: Type inference failed for: r6v19 */",
+            "JADX WARN: Type inference failed for: r7v0 */",
+            "JADX WARN: Type inference failed for: r7v11, types: [kotlin.jvm.internal.Ref$ObjectRef] */",
+            "JADX WARN: Type inference failed for: r7v17 */",
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */"
+          ]
+        ]
+      },
+      "sources/com/quark/aistudio/bgm/manager/BGMCacheManager.java": {
+        "A": [
+          [
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */",
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */",
+            "JADX WARN: Code duplicated, block: B:11:0x0029  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Code duplicated, block: B:11:0x002c  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Code duplicated, block: B:11:0x0028  */"
+          ]
+        ],
+        "B": [
+          [
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */",
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */",
+            "JADX WARN: Code duplicated, block: B:11:0x0029  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Code duplicated, block: B:11:0x002c  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Code duplicated, block: B:11:0x0028  */"
+          ],
+          [
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */",
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */",
+            "JADX WARN: Code duplicated, block: B:11:0x0029  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Code duplicated, block: B:11:0x002c  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Code duplicated, block: B:11:0x0026  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Failed to analyze thrown exceptions",
+            "JADX WARN: Code duplicated, block: B:11:0x0028  */"
+          ]
+        ]
+      },
+      "sources/com/taobao/accs/utl/UtilityImpl.java": {
+        "A": [
+          [
+            "JADX WARN: Bottom block not found for handler: all -> 0x001e */",
+            "JADX WARN: Code restructure failed: missing block: B:13:0x0028, code lost:",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Bottom block not found for handler: all -> 0x001e */",
+            "JADX WARN: Code restructure failed: missing block: B:13:0x0028, code lost:",
+            "JADX WARN: Multi-variable type inference failed */"
+          ],
+          [
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Multi-variable type inference failed */"
+          ]
+        ],
+        "B": [
+          [
+            "JADX WARN: Bottom block not found for handler: all -> 0x001f */",
+            "JADX WARN: Code restructure failed: missing block: B:13:0x0029, code lost:",
+            "JADX WARN: Bottom block not found for handler: all -> 0x001e */",
+            "JADX WARN: Code restructure failed: missing block: B:13:0x0028, code lost:",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Bottom block not found for handler: all -> 0x001e */",
+            "JADX WARN: Code restructure failed: missing block: B:13:0x0028, code lost:",
+            "JADX WARN: Multi-variable type inference failed */"
+          ],
+          [
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Multi-variable type inference failed */"
+          ]
+        ]
+      },
+      "sources/com/uc/compass/preheat/PrerenderManager.java": {
+        "A": [
+          [
+            "JADX WARN: Code duplicated, block: B:21:0x007f  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r1v6, types: [com.uc.compass.preheat.PrerenderManager$$ExternalSyntheticLambda6] */",
+            "JADX WARN: Bottom block not found for handler: all -> 0x0054 */",
+            "JADX WARN: Code duplicated, block: B:25:0x0058  */",
+            "JADX WARN: Code duplicated, block: B:40:0x0088  */",
+            "JADX WARN: Bottom block not found for handler: all -> 0x0049 */",
+            "JADX WARN: Code duplicated, block: B:38:0x0069  */",
+            "JADX WARN: Code duplicated, block: B:46:0x006f A[SYNTHETIC] */",
+            "JADX WARN: Code duplicated, block: B:49:0x0077 A[SYNTHETIC] */"
+          ],
+          [
+            "JADX WARN: Code duplicated, block: B:21:0x007f  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r1v6, types: [com.uc.compass.preheat.PrerenderManager$$ExternalSyntheticLambda6] */",
+            "JADX WARN: Code duplicated, block: B:25:0x0058  */",
+            "JADX WARN: Code duplicated, block: B:40:0x0088  */",
+            "JADX WARN: Bottom block not found for handler: all -> 0x0049 */",
+            "JADX WARN: Code duplicated, block: B:38:0x0069  */",
+            "JADX WARN: Code duplicated, block: B:46:0x006f A[SYNTHETIC] */",
+            "JADX WARN: Code duplicated, block: B:49:0x0077 A[SYNTHETIC] */"
+          ],
+          [
+            "JADX WARN: Code duplicated, block: B:21:0x007f  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r1v6, types: [com.uc.compass.preheat.PrerenderManager$$ExternalSyntheticLambda6] */",
+            "JADX WARN: Code duplicated, block: B:25:0x0058  */",
+            "JADX WARN: Code duplicated, block: B:40:0x0088  */",
+            "JADX WARN: Code duplicated, block: B:38:0x0069  */",
+            "JADX WARN: Code duplicated, block: B:46:0x006f A[SYNTHETIC] */",
+            "JADX WARN: Code duplicated, block: B:49:0x0077 A[SYNTHETIC] */"
+          ]
+        ],
+        "B": [
+          [
+            "JADX WARN: Code duplicated, block: B:21:0x007f  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r1v6, types: [com.uc.compass.preheat.PrerenderManager$$ExternalSyntheticLambda6] */",
+            "JADX WARN: Bottom block not found for handler: all -> 0x0054 */",
+            "JADX WARN: Code duplicated, block: B:25:0x0058  */",
+            "JADX WARN: Code duplicated, block: B:40:0x0088  */",
+            "JADX WARN: Bottom block not found for handler: all -> 0x0049 */",
+            "JADX WARN: Code duplicated, block: B:38:0x0069  */",
+            "JADX WARN: Code duplicated, block: B:46:0x006f A[SYNTHETIC] */",
+            "JADX WARN: Code duplicated, block: B:49:0x0077 A[SYNTHETIC] */"
+          ],
+          [
+            "JADX WARN: Code duplicated, block: B:21:0x007f  */",
+            "JADX WARN: Multi-variable type inference failed */",
+            "JADX WARN: Type inference failed for: r1v6, types: [com.uc.compass.preheat.PrerenderManager$$ExternalSyntheticLambda6] */",
+            "JADX WARN: Bottom block not found for handler: all -> 0x0054 */",
+            "JADX WARN: Code duplicated, block: B:25:0x0058  */",
+            "JADX WARN: Code duplicated, block: B:40:0x0088  */",
+            "JADX WARN: Code duplicated, block: B:38:0x0069  */",
+            "JADX WARN: Code duplicated, block: B:46:0x006f A[SYNTHETIC] */",
+            "JADX WARN: Code duplicated, block: B:49:0x0077 A[SYNTHETIC] */"
+          ]
+        ]
+      },
+      "sources/com/uc/nezha/plugin/adblock/ADBlock.java": {
+        "A": [
+          []
+        ],
+        "B": [
+          [],
+          [
+            "JADX WARN: Failed to analyze thrown exceptions"
+          ]
+        ]
+      },
+      "sources/com/uc/pars/impl/j.java": {
+        "A": [
+          [],
+          [
+            "JADX WARN: Bottom block not found for handler: all -> 0x0055 */",
+            "JADX WARN: Code restructure failed: missing block: B:34:?, code lost:",
+            "JADX WARN: Code restructure failed: missing block: B:35:?, code lost:"
+          ],
+          [
+            "JADX WARN: Bottom block not found for handler: all -> 0x0055 */",
+            "JADX WARN: Code restructure failed: missing block: B:34:?, code lost:",
+            "JADX WARN: Code restructure failed: missing block: B:35:?, code lost:",
+            "JADX WARN: Bottom block not found for handler: all -> 0x0055 */"
+          ]
+        ],
+        "B": [
+          [
+            "JADX WARN: Bottom block not found for handler: all -> 0x0055 */"
+          ],
+          [
+            "JADX WARN: Bottom block not found for handler: all -> 0x0055 */",
+            "JADX WARN: Code restructure failed: missing block: B:34:?, code lost:",
+            "JADX WARN: Code restructure failed: missing block: B:35:?, code lost:",
+            "JADX WARN: Bottom block not found for handler: all -> 0x0055 */"
+          ]
+        ]
+      },
+      "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java": {
+        "A": [
+          [
+            "JADX WARN: Code duplicated, block: B:27:0x0067  */"
+          ]
+        ],
+        "B": [
+          [
+            "JADX WARN: Code restructure failed: missing block: B:44:?, code lost:",
+            "JADX WARN: Code duplicated, block: B:27:0x0067  */"
+          ]
+        ]
+      }
+    }
+  }
+}

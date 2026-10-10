@@ -1,0 +1,2 @@
+apk	A_exit	A_errors	A_java_files	A_omitted	A_repeat_token_files	B_exit	B_errors	B_java_files	B_omitted	B_repeat_token_files	pair_missing	pair_extra	pair_changed	pair_java_tokens_changed	pair_error_changes	B_stable_new_omitted	B_any_new_omitted	B_novel_token_files	stable_different_token_files	B_novel_error_variants	B_novel_warning_variants
+qwen-7.3.6	3,3,3	1032..1032	71047..71047	903..915	78..83	3,3,3	1032..1032	71047..71047	909..921	73..95	0..0	0..0	67..79	63..74	1..1	1	3	53	4	0	8

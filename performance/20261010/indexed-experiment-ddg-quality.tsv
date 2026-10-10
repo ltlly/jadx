@@ -1,0 +1,2 @@
+apk	A_exit	A_errors	A_java_files	A_omitted	A_repeat_token_files	B_exit	B_errors	B_java_files	B_omitted	B_repeat_token_files	pair_missing	pair_extra	pair_changed	pair_java_tokens_changed	pair_error_changes	B_stable_new_omitted	B_any_new_omitted	B_novel_token_files	stable_different_token_files	B_novel_error_variants	B_novel_warning_variants
+duckduckgo-5.297.1	3,3,3	520..520	31108..31108	1480..1480	6..11	3,3,3	520..520	31108..31108	1480..1480	7..9	0..0	0..0	6..15	6..7	0..0	0	0	4	0	0	2
