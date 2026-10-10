@@ -1,0 +1,1913 @@
+{
+  "kind": "diagnostic-only; not an optimization or equivalence proof",
+  "raw_root": "out/jadx-perf/20261011/dependency-profile",
+  "artifacts": {
+    "A": {
+      "source_commit": "720368750275925ab6740135e6de879c1c4b4dc0",
+      "dirty": false,
+      "diagnostic_instrumentation": false,
+      "distribution_sha256": {
+        "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+        "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+        "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+        "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+        "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+        "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+        "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+        "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+        "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+        "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+        "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+        "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+        "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+        "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+        "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+        "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+        "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+        "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+        "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+        "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+        "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+        "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+        "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+        "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+        "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+        "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+        "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+        "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+        "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+        "lib/jadx-core-dev.jar": "1aadf08c8b2f26623207e86eb591fd44f94e5bff794c8f6e74bd85cd21175792",
+        "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+        "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+        "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+        "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+        "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+        "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+        "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+        "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+        "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+        "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+        "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+        "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+        "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+        "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+        "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+        "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+        "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+        "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+        "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+        "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+        "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+        "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+        "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+        "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+        "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+        "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+        "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+        "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+        "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+        "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+        "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+        "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+      }
+    },
+    "B": {
+      "source_commit": "6d0836be5c51fe3c7e32c104b7dfea43d6f17ed5",
+      "dirty": false,
+      "diagnostic_instrumentation": true,
+      "distribution_sha256": {
+        "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+        "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+        "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+        "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+        "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+        "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+        "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+        "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+        "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+        "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+        "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+        "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+        "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+        "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+        "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+        "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+        "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+        "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+        "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+        "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+        "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+        "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+        "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+        "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+        "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+        "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+        "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+        "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+        "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+        "lib/jadx-core-dev.jar": "56cb5254b866096bd6c89fd6cb0c91f131151c87f13670b3baa7de126ec675a3",
+        "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+        "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+        "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+        "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+        "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+        "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+        "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+        "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+        "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+        "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+        "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+        "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+        "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+        "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+        "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+        "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+        "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+        "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+        "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+        "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+        "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+        "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+        "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+        "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+        "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+        "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+        "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+        "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+        "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+        "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+        "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+        "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+      }
+    }
+  },
+  "full_checks": {
+    "jadx-core": {
+      "tests": 1102,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "jadx-cli": {
+      "tests": 24,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    }
+  },
+  "controls": {
+    "A": {
+      "runs": [
+        {
+          "wall_s": 143.76,
+          "user_s": 855.82,
+          "sys_s": 21.35,
+          "rss_kib": 16245976.0,
+          "cpu_percent": "610%",
+          "exit": 3,
+          "files": 71047,
+          "java_files": 71047
+        },
+        {
+          "wall_s": 133.86,
+          "user_s": 783.3,
+          "sys_s": 17.96,
+          "rss_kib": 16151828.0,
+          "cpu_percent": "598%",
+          "exit": 3,
+          "files": 71047,
+          "java_files": 71047
+        },
+        {
+          "wall_s": 134.03,
+          "user_s": 797.1,
+          "sys_s": 16.34,
+          "rss_kib": 16171148.0,
+          "cpu_percent": "606%",
+          "exit": 3,
+          "files": 71047,
+          "java_files": 71047
+        }
+      ],
+      "median": {
+        "wall_s": 134.03,
+        "cpu_s": 813.44,
+        "rss_kib": 16171148.0
+      }
+    },
+    "B": {
+      "runs": [
+        {
+          "wall_s": 146.78,
+          "user_s": 837.05,
+          "sys_s": 18.67,
+          "rss_kib": 16213932.0,
+          "cpu_percent": "583%",
+          "exit": 3,
+          "files": 71047,
+          "java_files": 71047
+        },
+        {
+          "wall_s": 138.5,
+          "user_s": 824.99,
+          "sys_s": 16.61,
+          "rss_kib": 16054692.0,
+          "cpu_percent": "607%",
+          "exit": 3,
+          "files": 71047,
+          "java_files": 71047
+        },
+        {
+          "wall_s": 127.3,
+          "user_s": 784.8,
+          "sys_s": 16.78,
+          "rss_kib": 16591800.0,
+          "cpu_percent": "629%",
+          "exit": 3,
+          "files": 71047,
+          "java_files": 71047
+        }
+      ],
+      "median": {
+        "wall_s": 138.5,
+        "cpu_s": 841.6,
+        "rss_kib": 16213932.0
+      }
+    }
+  },
+  "diagnostic": {
+    "metrics": {
+      "wall_s": 139.23,
+      "user_s": 839.48,
+      "sys_s": 24.82,
+      "rss_kib": 16637604.0,
+      "cpu_percent": "620%",
+      "exit": 3,
+      "files": 71047,
+      "java_files": 71047
+    },
+    "status": {
+      "active_scopes": "0",
+      "invalid_scopes": "0",
+      "dropped_trace_events": "0",
+      "origin_uptime_ms": "2029"
+    },
+    "all_stage_cpu_known": true,
+    "stage_self_cpu_s": 505.339462111,
+    "repeat_pass_self_cpu_s": 183.826385822,
+    "repeat_pass_fraction_of_observed_process_cpu": 0.21268817056808975,
+    "stages": [
+      {
+        "stage": "CODEGEN",
+        "recovery": "false",
+        "calls": "71607",
+        "cpu_known_calls": "71607",
+        "cpu_inclusive_ns": "31745937226",
+        "cpu_self_ns": "31745937226",
+        "wall_inclusive_ns": "44625411421",
+        "wall_self_ns": "44625411421",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "GENERATE_REQUEST",
+        "recovery": "false",
+        "calls": "71612",
+        "cpu_known_calls": "71612",
+        "cpu_inclusive_ns": "505339462111",
+        "cpu_self_ns": "973828780",
+        "wall_inclusive_ns": "801173582458",
+        "wall_self_ns": "1404268496",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "LOAD_CLASS",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "12254127018",
+        "cpu_self_ns": "12254127018",
+        "wall_inclusive_ns": "15956376174",
+        "wall_self_ns": "15956376174",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "LOAD_CLASS",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "8478850915",
+        "cpu_self_ns": "8478850915",
+        "wall_inclusive_ns": "12930414953",
+        "wall_self_ns": "12930414953",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/0/CheckCode",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "165508",
+        "cpu_self_ns": "165508",
+        "wall_inclusive_ns": "174157",
+        "wall_self_ns": "174157",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/1/DebugInfoAttachVisitor",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "189674",
+        "cpu_self_ns": "189674",
+        "wall_inclusive_ns": "188555",
+        "wall_self_ns": "188555",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/10/MoveInlineVisitor",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "19306",
+        "cpu_self_ns": "19306",
+        "wall_inclusive_ns": "19437",
+        "wall_self_ns": "19437",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/11/ConstructorVisitor",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "109755",
+        "cpu_self_ns": "109755",
+        "wall_inclusive_ns": "109051",
+        "wall_self_ns": "109051",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/12/InitCodeVariables",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "83495",
+        "cpu_self_ns": "83495",
+        "wall_inclusive_ns": "83503",
+        "wall_self_ns": "83503",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/2/AttachTryCatchVisitor",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "121808",
+        "cpu_self_ns": "121808",
+        "wall_inclusive_ns": "122317",
+        "wall_self_ns": "122317",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/3/AttachCommentsVisitor",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "5651",
+        "cpu_self_ns": "5651",
+        "wall_inclusive_ns": "5821",
+        "wall_self_ns": "5821",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/4/AttachMethodDetails",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "167252",
+        "cpu_self_ns": "167252",
+        "wall_inclusive_ns": "166835",
+        "wall_self_ns": "166835",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/5/ProcessInstructionsVisitor",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "50274",
+        "cpu_self_ns": "50274",
+        "wall_inclusive_ns": "50157",
+        "wall_self_ns": "50157",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/6/BlockSplitter",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "303997",
+        "cpu_self_ns": "303997",
+        "wall_inclusive_ns": "303429",
+        "wall_self_ns": "303429",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/7/BlockProcessor",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "2380814",
+        "cpu_self_ns": "2380814",
+        "wall_inclusive_ns": "2392204",
+        "wall_self_ns": "2392204",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/8/BlockFinisher",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "33242",
+        "cpu_self_ns": "33242",
+        "wall_inclusive_ns": "33766",
+        "wall_self_ns": "33766",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_PASS/9/SSATransform",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "1495643",
+        "cpu_self_ns": "1495643",
+        "wall_inclusive_ns": "1510943",
+        "wall_self_ns": "1510943",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "METHOD_RECOVERY",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "6544387",
+        "cpu_self_ns": "660474",
+        "wall_inclusive_ns": "6587154",
+        "wall_self_ns": "670300",
+        "lock_acquire_ns": "65507"
+      },
+      {
+        "stage": "PASS/0/CheckCode",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "2151799763",
+        "cpu_self_ns": "2151799763",
+        "wall_inclusive_ns": "3097774330",
+        "wall_self_ns": "3097774330",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/0/CheckCode",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "1545244811",
+        "cpu_self_ns": "1545244811",
+        "wall_inclusive_ns": "1805045166",
+        "wall_self_ns": "1805045166",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/1/DebugInfoAttachVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "4144445091",
+        "cpu_self_ns": "4144445091",
+        "wall_inclusive_ns": "5745221727",
+        "wall_self_ns": "5745221727",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/1/DebugInfoAttachVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "2975834662",
+        "cpu_self_ns": "2975834662",
+        "wall_inclusive_ns": "4067249043",
+        "wall_self_ns": "4067249043",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/10/MoveInlineVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1718435869",
+        "cpu_self_ns": "1718435869",
+        "wall_inclusive_ns": "2503879465",
+        "wall_self_ns": "2503879465",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/10/MoveInlineVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "1344305744",
+        "cpu_self_ns": "1344305744",
+        "wall_inclusive_ns": "1933139530",
+        "wall_self_ns": "1933139530",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/11/ConstructorVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "2197769489",
+        "cpu_self_ns": "2197769489",
+        "wall_inclusive_ns": "2923522353",
+        "wall_self_ns": "2923522353",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/11/ConstructorVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "1579803446",
+        "cpu_self_ns": "1579803446",
+        "wall_inclusive_ns": "1986643398",
+        "wall_self_ns": "1986643398",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/12/InitCodeVariables",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "2674297119",
+        "cpu_self_ns": "2674297119",
+        "wall_inclusive_ns": "3455661013",
+        "wall_self_ns": "3455661013",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/12/InitCodeVariables",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "2000453212",
+        "cpu_self_ns": "2000453212",
+        "wall_inclusive_ns": "2668592923",
+        "wall_self_ns": "2668592923",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/13/MarkFinallyVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "9216480817",
+        "cpu_self_ns": "9212288261",
+        "wall_inclusive_ns": "13761341477",
+        "wall_self_ns": "13757121917",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/13/MarkFinallyVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "7274459264",
+        "cpu_self_ns": "7272107433",
+        "wall_inclusive_ns": "9658878721",
+        "wall_self_ns": "9656511127",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/14/ConstInlineVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "5347136563",
+        "cpu_self_ns": "5347136563",
+        "wall_inclusive_ns": "7181609395",
+        "wall_self_ns": "7181609395",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/14/ConstInlineVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "4101389976",
+        "cpu_self_ns": "4101389976",
+        "wall_inclusive_ns": "5620923678",
+        "wall_self_ns": "5620923678",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/15/TypeInferenceVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "27454377147",
+        "cpu_self_ns": "27454377147",
+        "wall_inclusive_ns": "38456732151",
+        "wall_self_ns": "38456732151",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/15/TypeInferenceVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "20353590281",
+        "cpu_self_ns": "20353590281",
+        "wall_inclusive_ns": "27000833275",
+        "wall_self_ns": "27000833275",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/16/DebugInfoApplyVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "241220116",
+        "cpu_self_ns": "241220116",
+        "wall_inclusive_ns": "283064461",
+        "wall_self_ns": "283064461",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/16/DebugInfoApplyVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "149172489",
+        "cpu_self_ns": "149172489",
+        "wall_inclusive_ns": "162424510",
+        "wall_self_ns": "162424510",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/17/FixTypesVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "51120410128",
+        "cpu_self_ns": "51120410128",
+        "wall_inclusive_ns": "67130209669",
+        "wall_self_ns": "67130209669",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/17/FixTypesVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "39229606025",
+        "cpu_self_ns": "39229606025",
+        "wall_inclusive_ns": "50526980012",
+        "wall_self_ns": "50526980012",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/18/FinishTypeInference",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "675696968",
+        "cpu_self_ns": "675696968",
+        "wall_inclusive_ns": "930791536",
+        "wall_self_ns": "930791536",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/18/FinishTypeInference",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "482172128",
+        "cpu_self_ns": "482172128",
+        "wall_inclusive_ns": "668249501",
+        "wall_self_ns": "668249501",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/19/ProcessKotlinInternals",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1665603084",
+        "cpu_self_ns": "1665603084",
+        "wall_inclusive_ns": "2001425867",
+        "wall_self_ns": "2001425867",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/19/ProcessKotlinInternals",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "1235753310",
+        "cpu_self_ns": "1235753310",
+        "wall_inclusive_ns": "1802148485",
+        "wall_self_ns": "1802148485",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/2/AttachTryCatchVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "484353932",
+        "cpu_self_ns": "484353932",
+        "wall_inclusive_ns": "606430794",
+        "wall_self_ns": "606430794",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/2/AttachTryCatchVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "308132971",
+        "cpu_self_ns": "308132971",
+        "wall_inclusive_ns": "328289973",
+        "wall_self_ns": "328289973",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/20/KotlinMetadataDecompile",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1995066805",
+        "cpu_self_ns": "1995066805",
+        "wall_inclusive_ns": "3064290118",
+        "wall_self_ns": "3064290118",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/20/KotlinMetadataDecompile",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "1184389428",
+        "cpu_self_ns": "1184389428",
+        "wall_inclusive_ns": "1779527449",
+        "wall_self_ns": "1779527449",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/21/CodeRenameVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "109770406",
+        "cpu_self_ns": "109770406",
+        "wall_inclusive_ns": "130934644",
+        "wall_self_ns": "130934644",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/21/CodeRenameVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "55851493",
+        "cpu_self_ns": "55851493",
+        "wall_inclusive_ns": "60162662",
+        "wall_self_ns": "60162662",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/22/InlineMethods",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "33599657106",
+        "cpu_self_ns": "7499875529",
+        "wall_inclusive_ns": "44935960623",
+        "wall_self_ns": "10145057041",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/22/InlineMethods",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "6071163615",
+        "cpu_self_ns": "6071163615",
+        "wall_inclusive_ns": "8241648428",
+        "wall_self_ns": "8241648428",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/23/GenericTypesVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "578313118",
+        "cpu_self_ns": "578313118",
+        "wall_inclusive_ns": "828436544",
+        "wall_self_ns": "828436544",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/23/GenericTypesVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "416992406",
+        "cpu_self_ns": "416992406",
+        "wall_inclusive_ns": "1007046724",
+        "wall_self_ns": "1007046724",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/24/ShadowFieldVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "736050365",
+        "cpu_self_ns": "736050365",
+        "wall_inclusive_ns": "1191332824",
+        "wall_self_ns": "1191332824",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/24/ShadowFieldVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "501768878",
+        "cpu_self_ns": "501768878",
+        "wall_inclusive_ns": "549089608",
+        "wall_self_ns": "549089608",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/25/DeboxingVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "492378830",
+        "cpu_self_ns": "492378830",
+        "wall_inclusive_ns": "799473942",
+        "wall_self_ns": "799473942",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/25/DeboxingVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "327020265",
+        "cpu_self_ns": "327020265",
+        "wall_inclusive_ns": "336586336",
+        "wall_self_ns": "336586336",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/26/AnonymousClassVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "266549549",
+        "cpu_self_ns": "266549549",
+        "wall_inclusive_ns": "385711677",
+        "wall_self_ns": "385711677",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/26/AnonymousClassVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "70825859",
+        "cpu_self_ns": "70825859",
+        "wall_inclusive_ns": "78405331",
+        "wall_self_ns": "78405331",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/27/ModVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "3244319534",
+        "cpu_self_ns": "3244319534",
+        "wall_inclusive_ns": "5838806794",
+        "wall_self_ns": "5838806794",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/27/ModVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "2322886207",
+        "cpu_self_ns": "2322886207",
+        "wall_inclusive_ns": "3345502387",
+        "wall_self_ns": "3345502387",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/28/CodeShrinkVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "8098401623",
+        "cpu_self_ns": "8098401623",
+        "wall_inclusive_ns": "11985701361",
+        "wall_self_ns": "11985701361",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/28/CodeShrinkVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "6258565775",
+        "cpu_self_ns": "6258565775",
+        "wall_inclusive_ns": "7510749076",
+        "wall_self_ns": "7510749076",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/29/ReplaceNewArray",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "428041023",
+        "cpu_self_ns": "428041023",
+        "wall_inclusive_ns": "902037164",
+        "wall_self_ns": "902037164",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/29/ReplaceNewArray",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "284968647",
+        "cpu_self_ns": "284968647",
+        "wall_inclusive_ns": "299078024",
+        "wall_self_ns": "299078024",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/3/AttachCommentsVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "114668980",
+        "cpu_self_ns": "114668980",
+        "wall_inclusive_ns": "145943758",
+        "wall_self_ns": "145943758",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/3/AttachCommentsVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "57091675",
+        "cpu_self_ns": "57091675",
+        "wall_inclusive_ns": "70724647",
+        "wall_self_ns": "70724647",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/30/RegionMakerVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "20414682204",
+        "cpu_self_ns": "20414682204",
+        "wall_inclusive_ns": "29912601827",
+        "wall_self_ns": "29912601827",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/30/RegionMakerVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "15757055796",
+        "cpu_self_ns": "15757055796",
+        "wall_inclusive_ns": "20509917703",
+        "wall_self_ns": "20509917703",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/31/IfRegionVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "8753236567",
+        "cpu_self_ns": "8753236567",
+        "wall_inclusive_ns": "13048919592",
+        "wall_self_ns": "13048919592",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/31/IfRegionVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "6813402919",
+        "cpu_self_ns": "6813402919",
+        "wall_inclusive_ns": "9254624388",
+        "wall_self_ns": "9254624388",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/32/SwitchOverStringVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "341967743",
+        "cpu_self_ns": "341967743",
+        "wall_inclusive_ns": "412708960",
+        "wall_self_ns": "412708960",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/32/SwitchOverStringVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "227382974",
+        "cpu_self_ns": "227382974",
+        "wall_inclusive_ns": "249407653",
+        "wall_self_ns": "249407653",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/33/ReturnVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "831072680",
+        "cpu_self_ns": "831072680",
+        "wall_inclusive_ns": "1179070095",
+        "wall_self_ns": "1179070095",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/33/ReturnVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "587765481",
+        "cpu_self_ns": "587765481",
+        "wall_inclusive_ns": "604789373",
+        "wall_self_ns": "604789373",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/34/CleanRegions",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1191721929",
+        "cpu_self_ns": "1191721929",
+        "wall_inclusive_ns": "1661836649",
+        "wall_self_ns": "1661836649",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/34/CleanRegions",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "906332270",
+        "cpu_self_ns": "906332270",
+        "wall_inclusive_ns": "1154170181",
+        "wall_self_ns": "1154170181",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/35/MethodThrowsVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "4476735100",
+        "cpu_self_ns": "4476735100",
+        "wall_inclusive_ns": "6502782014",
+        "wall_self_ns": "6502782014",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/35/MethodThrowsVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "295364490",
+        "cpu_self_ns": "295364490",
+        "wall_inclusive_ns": "306082602",
+        "wall_self_ns": "306082602",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/36/CodeShrinkVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "4660276766",
+        "cpu_self_ns": "4660276766",
+        "wall_inclusive_ns": "6238857956",
+        "wall_self_ns": "6238857956",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/36/CodeShrinkVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "3546075877",
+        "cpu_self_ns": "3546075877",
+        "wall_inclusive_ns": "4737758165",
+        "wall_self_ns": "4737758165",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/37/MethodInvokeVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "13265718768",
+        "cpu_self_ns": "13265718768",
+        "wall_inclusive_ns": "19692330315",
+        "wall_self_ns": "19692330315",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/37/MethodInvokeVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "9838386843",
+        "cpu_self_ns": "9838386843",
+        "wall_inclusive_ns": "13164090482",
+        "wall_self_ns": "13164090482",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/38/SimplifyVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "4377896052",
+        "cpu_self_ns": "4377896052",
+        "wall_inclusive_ns": "6030960611",
+        "wall_self_ns": "6030960611",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/38/SimplifyVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "3302233994",
+        "cpu_self_ns": "3302233994",
+        "wall_inclusive_ns": "4863455081",
+        "wall_self_ns": "4863455081",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/39/CheckRegions",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "2096419928",
+        "cpu_self_ns": "2096419928",
+        "wall_inclusive_ns": "2731552677",
+        "wall_self_ns": "2731552677",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/39/CheckRegions",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "1546911105",
+        "cpu_self_ns": "1546911105",
+        "wall_inclusive_ns": "2718781410",
+        "wall_self_ns": "2718781410",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/4/AttachMethodDetails",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "2829670805",
+        "cpu_self_ns": "2829670805",
+        "wall_inclusive_ns": "4006018700",
+        "wall_self_ns": "4006018700",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/4/AttachMethodDetails",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "1888257515",
+        "cpu_self_ns": "1888257515",
+        "wall_inclusive_ns": "2257876079",
+        "wall_self_ns": "2257876079",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/40/EnumVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "433452906",
+        "cpu_self_ns": "433452906",
+        "wall_inclusive_ns": "608993325",
+        "wall_self_ns": "608993325",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/40/EnumVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "273594524",
+        "cpu_self_ns": "273594524",
+        "wall_inclusive_ns": "298498535",
+        "wall_self_ns": "298498535",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/41/FixSwitchOverEnum",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "506759989",
+        "cpu_self_ns": "506759989",
+        "wall_inclusive_ns": "747034127",
+        "wall_self_ns": "747034127",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/41/FixSwitchOverEnum",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "341105604",
+        "cpu_self_ns": "341105604",
+        "wall_inclusive_ns": "520758724",
+        "wall_self_ns": "520758724",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/42/NonFinalResIdsVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "344293478",
+        "cpu_self_ns": "344293478",
+        "wall_inclusive_ns": "366265220",
+        "wall_self_ns": "366265220",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/42/NonFinalResIdsVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "228336330",
+        "cpu_self_ns": "228336330",
+        "wall_inclusive_ns": "238750498",
+        "wall_self_ns": "238750498",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/43/ExtractFieldInit",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1178168088",
+        "cpu_self_ns": "1178168088",
+        "wall_inclusive_ns": "1785558375",
+        "wall_self_ns": "1785558375",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/43/ExtractFieldInit",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "701356864",
+        "cpu_self_ns": "701356864",
+        "wall_inclusive_ns": "980868888",
+        "wall_self_ns": "980868888",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/44/FixAccessModifiers",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1239853638",
+        "cpu_self_ns": "1239853638",
+        "wall_inclusive_ns": "1593997051",
+        "wall_self_ns": "1593997051",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/44/FixAccessModifiers",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "948247882",
+        "cpu_self_ns": "948247882",
+        "wall_inclusive_ns": "1564167719",
+        "wall_self_ns": "1564167719",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/45/ClassModifier",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "654798619",
+        "cpu_self_ns": "654798619",
+        "wall_inclusive_ns": "922210857",
+        "wall_self_ns": "922210857",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/45/ClassModifier",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "306961270",
+        "cpu_self_ns": "306961270",
+        "wall_inclusive_ns": "325683196",
+        "wall_self_ns": "325683196",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/46/LoopRegionVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1976814924",
+        "cpu_self_ns": "1976814924",
+        "wall_inclusive_ns": "3121895478",
+        "wall_self_ns": "3121895478",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/46/LoopRegionVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "1443747812",
+        "cpu_self_ns": "1443747812",
+        "wall_inclusive_ns": "2212352673",
+        "wall_self_ns": "2212352673",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/47/SwitchBreakVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "489269574",
+        "cpu_self_ns": "489269574",
+        "wall_inclusive_ns": "540209829",
+        "wall_self_ns": "540209829",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/47/SwitchBreakVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "356008597",
+        "cpu_self_ns": "356008597",
+        "wall_inclusive_ns": "365705594",
+        "wall_self_ns": "365705594",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/48/MarkMethodsForInline",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "809215221",
+        "cpu_self_ns": "809215221",
+        "wall_inclusive_ns": "1296315882",
+        "wall_self_ns": "1296315882",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/48/MarkMethodsForInline",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "77227763",
+        "cpu_self_ns": "77227763",
+        "wall_inclusive_ns": "312190091",
+        "wall_self_ns": "312190091",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/49/ProcessVariables",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "8270692541",
+        "cpu_self_ns": "8270692541",
+        "wall_inclusive_ns": "11020455161",
+        "wall_self_ns": "11020455161",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/49/ProcessVariables",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "6533175897",
+        "cpu_self_ns": "6533175897",
+        "wall_inclusive_ns": "9244437873",
+        "wall_self_ns": "9244437873",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/5/ProcessInstructionsVisitor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1108644232",
+        "cpu_self_ns": "1108644232",
+        "wall_inclusive_ns": "1599225433",
+        "wall_self_ns": "1599225433",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/5/ProcessInstructionsVisitor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "803524033",
+        "cpu_self_ns": "803524033",
+        "wall_inclusive_ns": "1096665903",
+        "wall_self_ns": "1096665903",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/50/ApplyVariableNames",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1987323868",
+        "cpu_self_ns": "1987323868",
+        "wall_inclusive_ns": "4290747570",
+        "wall_self_ns": "4290747570",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/50/ApplyVariableNames",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "1393438703",
+        "cpu_self_ns": "1393438703",
+        "wall_inclusive_ns": "1809639353",
+        "wall_self_ns": "1809639353",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/51/PrepareForCodeGen",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "4271664345",
+        "cpu_self_ns": "4271664345",
+        "wall_inclusive_ns": "6347800380",
+        "wall_self_ns": "6347800380",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/51/PrepareForCodeGen",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "3105861878",
+        "cpu_self_ns": "3105861878",
+        "wall_inclusive_ns": "3899902269",
+        "wall_self_ns": "3899902269",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/6/BlockSplitter",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "5034352530",
+        "cpu_self_ns": "5034352530",
+        "wall_inclusive_ns": "7152473260",
+        "wall_self_ns": "7152473260",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/6/BlockSplitter",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "3703165999",
+        "cpu_self_ns": "3703165999",
+        "wall_inclusive_ns": "5164690791",
+        "wall_self_ns": "5164690791",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/7/BlockProcessor",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "11035872626",
+        "cpu_self_ns": "11035872626",
+        "wall_inclusive_ns": "16919549184",
+        "wall_self_ns": "16919549184",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/7/BlockProcessor",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "8171061222",
+        "cpu_self_ns": "8171061222",
+        "wall_inclusive_ns": "12292429317",
+        "wall_self_ns": "12292429317",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/8/BlockFinisher",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "1197756269",
+        "cpu_self_ns": "1197756269",
+        "wall_inclusive_ns": "1721909986",
+        "wall_self_ns": "1721909986",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/8/BlockFinisher",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "914049268",
+        "cpu_self_ns": "914049268",
+        "wall_inclusive_ns": "2069207120",
+        "wall_self_ns": "2069207120",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/9/SSATransform",
+        "recovery": "false",
+        "calls": "93679",
+        "cpu_known_calls": "93679",
+        "cpu_inclusive_ns": "12616284663",
+        "cpu_self_ns": "12616284663",
+        "wall_inclusive_ns": "17867484428",
+        "wall_self_ns": "17867484428",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PASS/9/SSATransform",
+        "recovery": "true",
+        "calls": "51573",
+        "cpu_known_calls": "51573",
+        "cpu_inclusive_ns": "9687262176",
+        "cpu_self_ns": "9687262176",
+        "wall_inclusive_ns": "13969287139",
+        "wall_self_ns": "13969287139",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "PROCESS/LEGACY/false",
+        "recovery": "false",
+        "calls": "32207",
+        "cpu_known_calls": "32207",
+        "cpu_inclusive_ns": "97801921166",
+        "cpu_self_ns": "3201220204",
+        "wall_inclusive_ns": "134611837420",
+        "wall_self_ns": "8526785989",
+        "lock_acquire_ns": "4477614742"
+      },
+      {
+        "stage": "PROCESS/LEGACY/false",
+        "recovery": "true",
+        "calls": "23",
+        "cpu_known_calls": "23",
+        "cpu_inclusive_ns": "39662198",
+        "cpu_self_ns": "3014929",
+        "wall_inclusive_ns": "40052007",
+        "wall_self_ns": "3108156",
+        "lock_acquire_ns": "21792"
+      },
+      {
+        "stage": "PROCESS/LEGACY/true",
+        "recovery": "false",
+        "calls": "71607",
+        "cpu_known_calls": "71607",
+        "cpu_inclusive_ns": "104717742792",
+        "cpu_self_ns": "5621457913",
+        "wall_inclusive_ns": "157406638371",
+        "wall_self_ns": "11272629829",
+        "lock_acquire_ns": "1327671085"
+      },
+      {
+        "stage": "PROCESS/METADATA_DEPENDENCY/false",
+        "recovery": "false",
+        "calls": "21119",
+        "cpu_known_calls": "21119",
+        "cpu_inclusive_ns": "128987137437",
+        "cpu_self_ns": "2497452473",
+        "wall_inclusive_ns": "271313124731",
+        "wall_self_ns": "93807318338",
+        "lock_acquire_ns": "89894140832"
+      },
+      {
+        "stage": "PROCESS/METADATA_DEPENDENCY/false",
+        "recovery": "true",
+        "calls": "51550",
+        "cpu_known_calls": "51550",
+        "cpu_inclusive_ns": "198918951315",
+        "cpu_self_ns": "6648010016",
+        "wall_inclusive_ns": "271188565015",
+        "wall_self_ns": "10600986226",
+        "lock_acquire_ns": "1157772459"
+      },
+      {
+        "stage": "RELOAD_METHOD",
+        "recovery": "true",
+        "calls": "5",
+        "cpu_known_calls": "5",
+        "cpu_inclusive_ns": "757494",
+        "cpu_self_ns": "757494",
+        "wall_inclusive_ns": "756679",
+        "wall_self_ns": "756679",
+        "lock_acquire_ns": "0"
+      },
+      {
+        "stage": "UNLOAD_CLASS",
+        "recovery": "false",
+        "calls": "71607",
+        "cpu_known_calls": "71607",
+        "cpu_inclusive_ns": "1036747083",
+        "cpu_self_ns": "1036747083",
+        "wall_inclusive_ns": "1537020142",
+        "wall_self_ns": "1537020142",
+        "lock_acquire_ns": "0"
+      }
+    ],
+    "decode_attempts": [
+      {
+        "caller_stage": "CODEGEN",
+        "caller_recovery": "false",
+        "target_state": "PROCESS_COMPLETE",
+        "calls": "458"
+      },
+      {
+        "caller_stage": "LOAD_CLASS",
+        "caller_recovery": "false",
+        "target_state": "NOT_LOADED",
+        "calls": "815539"
+      },
+      {
+        "caller_stage": "LOAD_CLASS",
+        "caller_recovery": "true",
+        "target_state": "NOT_LOADED",
+        "calls": "626907"
+      },
+      {
+        "caller_stage": "RELOAD_METHOD",
+        "caller_recovery": "true",
+        "target_state": "PROCESS_STARTED",
+        "calls": "5"
+      }
+    ],
+    "foreign_getter_calls": 149901,
+    "foreign_target_methods": 67545,
+    "getter_stages": [
+      [
+        [
+          "CODEGEN",
+          "false"
+        ],
+        125080
+      ],
+      [
+        [
+          "PASS/35/MethodThrowsVisitor",
+          "false"
+        ],
+        21619
+      ],
+      [
+        [
+          "PASS/49/ProcessVariables",
+          "true"
+        ],
+        2522
+      ],
+      [
+        [
+          "PASS/22/InlineMethods",
+          "false"
+        ],
+        625
+      ],
+      [
+        [
+          "PASS/49/ProcessVariables",
+          "false"
+        ],
+        55
+      ]
+    ]
+  },
+  "audits": {
+    "audit-1": {
+      "missing": 0,
+      "extra": 0,
+      "byte_identical": 70945,
+      "changed": 102,
+      "comment_only": 18,
+      "java_tokens_changed": 84,
+      "error_changes": {
+        "sources/com/alibaba/analytics/utils/Base64.java": {
+          "before": [
+            "JADX ERROR: JadxOverflowException in pass: RegionMakerVisitor"
+          ],
+          "after": [
+            "JADX ERROR: StackOverflowError in pass: RegionMakerVisitor"
+          ]
+        }
+      }
+    },
+    "audit-2": {
+      "missing": 0,
+      "extra": 0,
+      "byte_identical": 70946,
+      "changed": 101,
+      "comment_only": 14,
+      "java_tokens_changed": 87,
+      "error_changes": {
+        "sources/com/alibaba/analytics/utils/Base64.java": {
+          "before": [
+            "JADX ERROR: JadxOverflowException in pass: RegionMakerVisitor"
+          ],
+          "after": [
+            "JADX ERROR: StackOverflowError in pass: RegionMakerVisitor"
+          ]
+        }
+      }
+    },
+    "audit-3": {
+      "missing": 0,
+      "extra": 0,
+      "byte_identical": 70940,
+      "changed": 107,
+      "comment_only": 15,
+      "java_tokens_changed": 92,
+      "error_changes": {
+        "sources/com/aliyun/tongyi/uikit/widget/statuscontainer/d.java": {
+          "before": [],
+          "after": [
+            "JADX ERROR: JadxRuntimeException in pass: InlineMethods"
+          ]
+        }
+      }
+    },
+    "A-repeat-2": {
+      "missing": 0,
+      "extra": 0,
+      "byte_identical": 70989,
+      "changed": 58,
+      "comment_only": 7,
+      "java_tokens_changed": 51,
+      "error_changes": {}
+    },
+    "A-repeat-3": {
+      "missing": 0,
+      "extra": 0,
+      "byte_identical": 70964,
+      "changed": 83,
+      "comment_only": 8,
+      "java_tokens_changed": 75,
+      "error_changes": {
+        "sources/com/alibaba/analytics/utils/Base64.java": {
+          "before": [
+            "JADX ERROR: JadxOverflowException in pass: RegionMakerVisitor"
+          ],
+          "after": [
+            "JADX ERROR: StackOverflowError in pass: RegionMakerVisitor"
+          ]
+        }
+      }
+    },
+    "B-repeat-2": {
+      "missing": 0,
+      "extra": 0,
+      "byte_identical": 70927,
+      "changed": 120,
+      "comment_only": 8,
+      "java_tokens_changed": 112,
+      "error_changes": {}
+    },
+    "B-repeat-3": {
+      "missing": 0,
+      "extra": 0,
+      "byte_identical": 70950,
+      "changed": 97,
+      "comment_only": 7,
+      "java_tokens_changed": 90,
+      "error_changes": {
+        "sources/com/aliyun/tongyi/uikit/widget/statuscontainer/d.java": {
+          "before": [],
+          "after": [
+            "JADX ERROR: JadxRuntimeException in pass: InlineMethods"
+          ]
+        }
+      }
+    },
+    "probe-enabled-audit": {
+      "missing": 0,
+      "extra": 0,
+      "byte_identical": 70948,
+      "changed": 99,
+      "comment_only": 10,
+      "java_tokens_changed": 89,
+      "error_changes": {}
+    }
+  },
+  "placeholder_union": {
+    "A": 920,
+    "B": 925,
+    "B_not_in_any_A": [
+      [
+        "sources/com/aliyun/tongyi/uikit/widget/statuscontainer/d.java",
+        "com.aliyun.tongyi.uikit.widget.statuscontainer.d.invoke(java.lang.Object):java.lang.Object"
+      ],
+      [
+        "sources/com/amap/api/maps/model/Circle.java",
+        "com.amap.api.maps.model.Circle.setHoleOptions(java.util.List):void"
+      ],
+      [
+        "sources/com/efs/sdk/base/newsharedpreferences/a.java",
+        "com.efs.sdk.base.newsharedpreferences.a.b(boolean):void"
+      ],
+      [
+        "sources/com/taobao/accs/utl/Utils.java",
+        "com.taobao.accs.utl.Utils.clearAllSharePreferences(android.content.Context):void"
+      ],
+      [
+        "sources/com/uc/compass/preheat/PrerenderManager.java",
+        "com.uc.compass.preheat.PrerenderManager.releaseAttachedPrerender(com.uc.compass.export.view.ICompassWebView):void"
+      ],
+      [
+        "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java",
+        "com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void"
+      ]
+    ],
+    "probe_not_in_any_A": [
+      [
+        "sources/com/taobao/accs/utl/Utils.java",
+        "com.taobao.accs.utl.Utils.clearAllSharePreferences(android.content.Context):void"
+      ]
+    ],
+    "probe_not_in_any_B": []
+  },
+  "caveats": [
+    "Host contention and kswapd activity recorded; do not compare with historical timing or infer gains.",
+    "B3 has additional InlineMethods error; new placeholder variants remain unreviewed.",
+    "Default-off diagnostic control has added getter/try-resource code; stack depth and scheduling can change.",
+    "Incomplete qwen-diagnostic excluded; completed replacement is qwen-diagnostic-2.",
+    "No production recovery fast path, strict wall savings bound, or whole-JVM critical path proved."
+  ],
+  "raw_sha256": {
+    "qwen-diagnostic-2/dependency-profile/body-reads.tsv": "8b49f2716f66786a02a97ae462e69ac16a827f1ac07b119a0f5c88e9c79fe73b",
+    "qwen-diagnostic-2/dependency-profile/classes.tsv": "bd6edb46b403b8b0b0cbecfe851abefcb8188ef411ed3d3a7d332da162b5c260",
+    "qwen-diagnostic-2/dependency-profile/decode-attempts.tsv": "7594566a4500876f009c980aa18010888e50c78a1105711098e4cbd6c801e6e1",
+    "qwen-diagnostic-2/dependency-profile/stages.tsv": "f680049d94cc71ff3868dec74908178cf5e844684793920a1d1b733ff18f8ca2",
+    "qwen-diagnostic-2/dependency-profile/status.tsv": "7b9a04f5c937753cab7dac417acadb4aaa92c653a4cc5640fbc05242478ba776",
+    "qwen-diagnostic-2/dependency-profile/timeline.tsv": "5632a22e46150922315a6b04775ee17591a4ad412758febba365ab1cf5546e3c"
+  }
+}

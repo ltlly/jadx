@@ -1,2 +1,3 @@
 __pycache__/
 !dependency-recovery-checks.json
+!dependency-profile-results.json

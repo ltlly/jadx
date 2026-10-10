@@ -45,4 +45,4 @@ recovery 对 class process 指**真正拿到现有类监视器后**观察到 GEN
 - 第一轮完整 core：1102 项，1 失败、1 跳过。失败为原有 `DependencySummaryConcurrencyTest.eightWorkersPublishOnce`（期望一次恢复，观察为零）；CLI 检查/构建当时未到达。
 - 未插桩端点完整 core 复测成功，不能声称在那里复现了失败。但静态流程表明八线程 save 不保证 Shared 先生成，原夹具没有建立恢复前置状态。现在在并发 save 前显式生成 Shared，并断言 GENERATED_AND_UNLOADED、摘要存在；原来的一次恢复、状态和错误断言全部保留，生产摘要代码未改。
 - 修正前置条件后全量 core/CLI：1126 项，0 failures/errors、1 跳过（原 Java 17 条件测试在 Java 11 profile 的假设跳过）；core/CLI Spotless、主/测试 Checkstyle 和 installDist 均成功。原始日志为本机 `logs/jadx-perf/structural-recovery/profile-full-checks-stable-fixture.txt`。
-- 尚未完成 APK 诊断、源码审计或正式三轮 A/B。
+- 六次关闭采集对照与一次完整 APK 诊断已完成；首个中断诊断排除，完成项为 qwen-diagnostic-2。源码审计发现未解释的占位/错误差异，尚未通过语义等价门槛。详见 [DEPENDENCY_PROFILE_FINDINGS.md](DEPENDENCY_PROFILE_FINDINGS.md)；不是性能优化成果。
