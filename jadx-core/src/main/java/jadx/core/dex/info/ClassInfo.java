@@ -30,13 +30,23 @@ public final class ClassInfo implements Comparable<ClassInfo> {
 
 	public static ClassInfo fromType(RootNode root, ArgType type) {
 		ArgType clsType = checkClassType(type);
-		ClassInfo cls = root.getInfoStorage().getCls(clsType);
+		InfoStorage infoStorage = root.getInfoStorage();
+		// fast path: lock-free lookup
+		ClassInfo cls = infoStorage.getCls(clsType);
 		if (cls != null) {
 			return cls;
 		}
-		boolean canBeInner = root.getArgs().isMoveInnerClasses();
-		ClassInfo newClsInfo = new ClassInfo(root, clsType, canBeInner);
-		return root.getInfoStorage().putCls(newClsInfo);
+		// slow path: single-flight creation under the per-root creation monitor,
+		// reentrant lock allows recursive outer class creation from a miss path
+		synchronized (infoStorage.getClassesLock()) {
+			cls = infoStorage.getCls(clsType);
+			if (cls != null) {
+				return cls;
+			}
+			boolean canBeInner = root.getArgs().isMoveInnerClasses();
+			ClassInfo newClsInfo = new ClassInfo(root, clsType, canBeInner);
+			return infoStorage.putCls(newClsInfo);
+		}
 	}
 
 	public static ClassInfo fromName(RootNode root, String clsName) {
