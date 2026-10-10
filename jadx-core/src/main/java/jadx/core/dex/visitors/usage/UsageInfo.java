@@ -199,9 +199,17 @@ public class UsageInfo implements IUsageInfoData {
 					if (entry.isPrepareSerially()) {
 						results.add(null);
 					} else {
-						@SuppressWarnings("unchecked")
-						Set<V> values = (Set<V>) entry.getSourceValues();
-						results.add(transform.apply(sortedList(values)));
+						try {
+							@SuppressWarnings("unchecked")
+							Set<V> values = (Set<V>) entry.getSourceValues();
+							results.add(transform.apply(sortedList(values)));
+						} catch (RuntimeException e) {
+							// keep the prepared prefix, the failure is rethrown at this entry
+							// during serial publish (serial failure prefix semantics)
+							entry.setFailure(e);
+							results.add(null);
+							break;
+						}
 					}
 				}
 				return results;
@@ -240,7 +248,8 @@ public class UsageInfo implements IUsageInfoData {
 					throw new JadxRuntimeException("Usage info publish interrupted", e);
 				}
 				List<UsageInfoParallelExecutor.PreparedEntry<K, V>> chunk = pending.chunk;
-				for (int i = 0; i < chunk.size(); i++) {
+				// a chunk preparation can stop early at a failed entry
+				for (int i = 0; i < results.size(); i++) {
 					UsageInfoParallelExecutor.PreparedEntry<K, V> entry = chunk.get(i);
 					if (!entry.isPrepareSerially()) {
 						entry.setValue(results.get(i));
@@ -249,6 +258,13 @@ public class UsageInfo implements IUsageInfoData {
 			}
 			// serial publish in original map entry order
 			for (UsageInfoParallelExecutor.PreparedEntry<K, V> entry : pending.chunk) {
+				RuntimeException failure = entry.getFailure();
+				if (failure != null) {
+					// stop at the failed entry: already published entries keep
+					// the serial failure prefix semantics
+					executor.cancelRunningTasks();
+					throw failure;
+				}
 				if (entry.isPrepareSerially()) {
 					@SuppressWarnings("unchecked")
 					Set<V> values = (Set<V>) entry.getSourceValues();

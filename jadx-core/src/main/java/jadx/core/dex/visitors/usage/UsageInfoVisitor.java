@@ -148,13 +148,23 @@ public class UsageInfoVisitor extends AbstractVisitor {
 		while (next < shards.size() || !inFlight.isEmpty()) {
 			// bounded number of in-flight shards
 			while (inFlight.size() < executor.getParallelism() && next < shards.size()) {
-				Shard shard = shards.get(next++);
+				Shard shard = shards.get(next);
+				if (shard.isTooBigForLocal() && !inFlight.isEmpty()) {
+					// oversize shard scans the global graph directly,
+					// it must run only after all earlier shards are merged to keep scan order
+					break;
+				}
+				next++;
 				if (shard.isTooBigForLocal()) {
 					// oversize class: direct serial scan into the global graph
 					processShardSerially(shard, usageInfo);
 				} else {
 					inFlight.add(executor.submit(() -> runShard(shard, root, executor)));
 				}
+			}
+			if (inFlight.isEmpty()) {
+				// remaining shards were all processed inline, nothing to merge
+				continue;
 			}
 			Future<ShardResult> future = inFlight.pollFirst();
 			ShardResult result;

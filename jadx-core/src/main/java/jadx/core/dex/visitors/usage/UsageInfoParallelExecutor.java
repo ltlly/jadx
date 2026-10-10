@@ -42,7 +42,8 @@ final class UsageInfoParallelExecutor implements AutoCloseable {
 	// non-final to allow tests to force oversize fallbacks
 	private long shardBudget = DEFAULT_SHARD_BUDGET;
 
-	private UsageInfoParallelExecutor(int parallelism, @Nullable ExecutorService pool) {
+	// package-private to allow tests to inject a controlled worker pool
+	UsageInfoParallelExecutor(int parallelism, @Nullable ExecutorService pool) {
 		this.parallelism = parallelism;
 		this.pool = pool;
 	}
@@ -174,6 +175,9 @@ final class UsageInfoParallelExecutor implements AutoCloseable {
 		private final @Nullable Set<?> sourceValues;
 		private @Nullable List<V> value;
 		private boolean prepareSerially;
+		// recoverable preparation failure: the successfully prepared prefix is still published,
+		// the exception is rethrown at this entry to match the serial publish failure semantics
+		private @Nullable RuntimeException failure;
 
 		PreparedEntry(K key, @Nullable Set<?> sourceValues) {
 			this.key = key;
@@ -204,6 +208,15 @@ final class UsageInfoParallelExecutor implements AutoCloseable {
 
 		void setPrepareSerially(boolean prepareSerially) {
 			this.prepareSerially = prepareSerially;
+		}
+
+		@Nullable
+		RuntimeException getFailure() {
+			return failure;
+		}
+
+		void setFailure(@Nullable RuntimeException failure) {
+			this.failure = failure;
 		}
 	}
 }
