@@ -1,0 +1,3 @@
+role	version	name	sha256	bytes	source
+compile/test	11.0.32.1+1	OpenJDK11U-jdk_x64_linux_hotspot_11.0.32.1_1.tar.gz	5c3f68887c325d36d852ba534303e1f5f1f5cae7d6cc1e951d73e0d8e98a058d	195609919	https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.32.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.32.1_1.tar.gz
+Gradle	25.0.4.1+1	OpenJDK25U-jdk_x64_linux_hotspot_25.0.4.1_1.tar.gz	dbb698396d478e7fa2b1e50f4103324b2a99b90569ee27c33f2261f9215cf41e	141329719	https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jdk_x64_linux_hotspot_25.0.4.1_1.tar.gz

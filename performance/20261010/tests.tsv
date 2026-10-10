@@ -1,0 +1,5 @@
+distribution	module	tests	failures	errors	skipped
+fixed-baseline	jadx-core	1030	0	0	1
+fixed-baseline	jadx-cli	24	0	0	0
+fixed-use-after	jadx-core	1039	0	0	1
+fixed-use-after	jadx-cli	24	0	0	0

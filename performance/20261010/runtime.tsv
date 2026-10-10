@@ -1,0 +1,6 @@
+role	path	sha256	bytes	source
+performance archive	/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/toolchains/jdk-openjdk-27.u35-1-x86_64.pkg.tar.zst	8f83a26e6bf178a006fdaf9dccd33f3ac9ab82f5445a18261364b34aa99123a9	424609923	/var/cache/pacman/pkg/jdk-openjdk-27.u35-1-x86_64.pkg.tar.zst
+performance runtime file	/usr/lib/jvm/java-27-openjdk/bin/java	8f9be20e940d4e4fec9497a9179b80bbf3e7f1704df7ea77500b0968c024eaca	14416	jdk-openjdk-27.u35-1-x86_64.pkg.tar.zst
+performance runtime file	/usr/lib/jvm/java-27-openjdk/lib/server/libjvm.so	43309cd90454678e0af31935f35151e1fc1956244ec873897fe8bf170becf291	19092968	jdk-openjdk-27.u35-1-x86_64.pkg.tar.zst
+performance runtime file	/usr/lib/jvm/java-27-openjdk/lib/modules	6adc428946d05607a84be2425db80e1fc90ec437d9ab862f6e7d1734155b2b69	147670887	jdk-openjdk-27.u35-1-x86_64.pkg.tar.zst
+performance runtime file	/usr/lib/jvm/java-27-openjdk/release	84fe5c0a1dc71a7f998abafd744205cb48b553318fcd271b29b104b6fcf219bb	1095	jdk-openjdk-27.u35-1-x86_64.pkg.tar.zst

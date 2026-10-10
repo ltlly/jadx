@@ -1,0 +1,904 @@
+[
+  {
+    "stage": "cfg-iteration",
+    "file": "sources/com/taobao/android/nanocompose/foundation/observer/TemplateDownloadNotificationCenter.java",
+    "observation": "All three A omit an outer catch(Throwable t){throw t;}; all three B include it. Existing inner Exception handler and method synchronization preserved. This pure rethrow has no semantic effect.",
+    "evidence": "verified/incremental/cfg-iteration/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "cfg-iteration",
+    "file": "sources/com/UCMobile/Apollo/upstream/DefaultHttpDataSource.java",
+    "method": "com.UCMobile.Apollo.upstream.DefaultHttpDataSource.close():void",
+    "verdict": "observed in common corrected baseline",
+    "evidence": [
+      "verified/profiles/baseline",
+      "verified/incremental/outer-switch/qwen-7.3.6-A3"
+    ],
+    "core_sha256": "27ee799f7f49e7838ccaf52c8d7641b56ba86cbbc837577bf8a58dbdec4588c3"
+  },
+  {
+    "stage": "cfg-iteration",
+    "file": "sources/com/uc/base/net/unet/diag/traceroute/ping_impl/PingCmdImpl.java",
+    "method": "com.uc.base.net.unet.diag.traceroute.ping_impl.PingCmdImpl.ReadPingResultRunnable.run():void",
+    "verdict": "observed in common corrected baseline",
+    "evidence": [
+      "verified/profiles/baseline",
+      "verified/incremental/outer-switch/qwen-7.3.6-A2",
+      "verified/incremental/outer-switch/qwen-7.3.6-A3"
+    ],
+    "core_sha256": "27ee799f7f49e7838ccaf52c8d7641b56ba86cbbc837577bf8a58dbdec4588c3"
+  },
+  {
+    "stage": "cfg-iteration",
+    "file": "sources/com/uc/wpk/UCDataFlow.java",
+    "method": "com.uc.wpk.UCDataFlow.run():void",
+    "verdict": "observed in common corrected baseline",
+    "evidence": [
+      "verified/profiles/baseline",
+      "verified/incremental/outer-switch/qwen-7.3.6-A1"
+    ],
+    "core_sha256": "27ee799f7f49e7838ccaf52c8d7641b56ba86cbbc837577bf8a58dbdec4588c3"
+  },
+  {
+    "stage": "cfg-iteration",
+    "file": "sources/com/ucpro/feature/setting/developer/customize/s.java",
+    "method": "com.ucpro.feature.setting.developer.customize.s.onItemClick():void",
+    "verdict": "observed in common corrected baseline",
+    "evidence": [
+      "verified/incremental/outer-switch/qwen-7.3.6-A1"
+    ],
+    "core_sha256": "27ee799f7f49e7838ccaf52c8d7641b56ba86cbbc837577bf8a58dbdec4588c3"
+  },
+  {
+    "stage": "bottom-order",
+    "file": "sources/com/UCMobile/Apollo/support/NativeSupport.java",
+    "verdict": "equivalent pure Throwable rethrow wrapper",
+    "evidence": "verified/incremental/bottom-order/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "bottom-order",
+    "file": "sources/com/aliyun/tongyi/livechat/jsapi/LiveChatJsApiManager.java",
+    "verdict": "throws declaration depends on original class generation order; also reproduced on common fixed baseline",
+    "evidence": [
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/repro-original-throws-order.txt",
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/repro-fixed-throws-order.txt",
+      "verified/repro-throws-original",
+      "verified/repro-throws-fixed-baseline"
+    ]
+  },
+  {
+    "stage": "bottom-order",
+    "file": "sources/com/taobao/android/dinamicx/widget/DXWidgetNode.java",
+    "verdict": "A1 and B1 both have ConcurrentModificationException in ClassNode.searchField; affected offsets and method differ",
+    "evidence": "verified/incremental/bottom-order/qwen-7.3.6-{A1,B1}/output/sources/com/taobao/android/dinamicx/widget/DXWidgetNode.java"
+  },
+  {
+    "stage": "bottom-order",
+    "file": "sources/com/ucpro/feature/setting/developer/customize/j0.java",
+    "verdict": "same consumer reproduced under dependency unload on original and common fixed baseline; different class states visible in race",
+    "evidence": [
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/repro-baseline-unload.log",
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/repro-fixed-unload.txt"
+    ]
+  },
+  {
+    "stage": "root-names",
+    "file": "sources/com/alibaba/analytics/core/db/DBMgr.java",
+    "verdict": "only adds/removes pure Throwable rethrow wrapper; indentation-stripped exact hunk reviewed",
+    "evidence": "verified/incremental/root-names/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "root-names",
+    "file": "sources/com/aliyun/tongyi/network/utils/NetworkCenter.java",
+    "verdict": "only adds/removes pure Throwable rethrow wrapper; indentation-stripped exact hunk reviewed",
+    "evidence": "verified/incremental/root-names/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "root-names",
+    "file": "sources/com/flybird/deploy/FBTemplateStorage.java",
+    "verdict": "only adds/removes pure Throwable rethrow wrapper; indentation-stripped exact hunk reviewed",
+    "evidence": "verified/incremental/root-names/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "root-names",
+    "file": "sources/com/taobao/android/rtqandroid/monitor/RTQAppStateMonitor.java",
+    "verdict": "only adds/removes pure Throwable rethrow wrapper; indentation-stripped exact hunk reviewed",
+    "evidence": "verified/incremental/root-names/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "root-names",
+    "file": "sources/kotlinx/coroutines/flow/FlowKt__ZipKt$combineTransform$$inlined$combineTransformUnsafe$FlowKt__ZipKt$5.java",
+    "verdict": "B keeps stateless singleton reference; identical form observed on common fixed baseline profile. Other pair form expands null-returning callback anonymously.",
+    "evidence": "verified/profiles/baseline/output/sources/kotlinx/coroutines/flow/FlowKt__ZipKt$combineTransform$$inlined$combineTransformUnsafe$FlowKt__ZipKt$5.java"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/com/taobao/accs/utl/Utils.java",
+    "method": "com.taobao.accs.utl.Utils.setMode(android.content.Context, int):void",
+    "verdict": "baseline observations",
+    "evidence": [
+      "verified/profiles/baseline",
+      "verified/incremental/outer-switch/qwen-7.3.6-A3",
+      "qwen-outer-A1",
+      "qwen-outer-A2"
+    ]
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/com/UCMobile/Apollo/upstream/DefaultHttpDataSource.java",
+    "verdict": "B restores method body; A has known finally Bottom block not found placeholder",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/io/ktor/http/URLBuilderKt.java",
+    "verdict": "joinTo$default expands with own correct mask (60/126/124/48/112/56 depending call), callback preserved; inferred IOException declarations also vary with processing order. Original SimpleType control still planned.",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/io/ktor/http/cio/ConnectionOptions.java",
+    "verdict": "joinTo$default expands with own correct mask (60/126/124/48/112/56 depending call), callback preserved; inferred IOException declarations also vary with processing order. Original SimpleType control still planned.",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/kotlin/collections/CollectionsKt___CollectionsKt.java",
+    "verdict": "synthetic joinTo$default helper omitted by existing inline pass after caller expansion, not an analysis skip",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/kotlin/io/FilesKt__UtilsKt.java",
+    "verdict": "joinTo$default expands with own correct mask (60/126/124/48/112/56 depending call), callback preserved; inferred IOException declarations also vary with processing order. Original SimpleType control still planned.",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/kotlin/reflect/jvm/internal/ReflectionObjectRenderer.java",
+    "verdict": "joinTo$default expands with own correct mask (60/126/124/48/112/56 depending call), callback preserved; inferred IOException declarations also vary with processing order. Original SimpleType control still planned.",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/kotlin/reflect/jvm/internal/calls/AnnotationConstructorCallerKt.java",
+    "verdict": "joinTo$default expands with own correct mask (60/126/124/48/112/56 depending call), callback preserved; inferred IOException declarations also vary with processing order. Original SimpleType control still planned.",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/kotlin/reflect/jvm/internal/impl/renderer/DescriptorRendererImpl.java",
+    "verdict": "joinTo$default expands with own correct mask (60/126/124/48/112/56 depending call), callback preserved; inferred IOException declarations also vary with processing order. Original SimpleType control still planned.",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/kotlin/reflect/jvm/internal/impl/types/SimpleType.java",
+    "verdict": "joinTo$default expands with own correct mask (60/126/124/48/112/56 depending call), callback preserved; inferred IOException declarations also vary with processing order. Original SimpleType control still planned.",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/kotlin/text/StringsKt__IndentKt.java",
+    "verdict": "joinTo$default expands with own correct mask (60/126/124/48/112/56 depending call), callback preserved; inferred IOException declarations also vary with processing order. Original SimpleType control still planned.",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/kotlinx/datetime/internal/format/parser/ParseException.java",
+    "verdict": "joinTo$default expands with own correct mask (60/126/124/48/112/56 depending call), callback preserved; inferred IOException declarations also vary with processing order. Original SimpleType control still planned.",
+    "evidence": "verified/incremental/lazy-candidates/qwen-7.3.6-audit-{1,2,3}.diff"
+  },
+  {
+    "stage": "use-after",
+    "file": "sources/com/autonavi/aps/amapapi/utils/h.java",
+    "verdict": "Real exception-flow variation, identical inner-catch omission already observed on original baseline and common fixed baseline. Not a formatting change or a new proven regression.",
+    "evidence": [
+      "verified/profiles/baseline/output/sources/com/autonavi/aps/amapapi/utils/h.java",
+      "verified/incremental/outer-switch/qwen-7.3.6-A2/output/sources/com/autonavi/aps/amapapi/utils/h.java",
+      "verified/incremental/use-after/qwen-7.3.6-B1/output/sources/com/autonavi/aps/amapapi/utils/h.java"
+    ],
+    "token_equal_to_common_baseline": true,
+    "original_evidence": "qwen-outer-A1/output/sources/com/autonavi/aps/amapapi/utils/h.java"
+  },
+  {
+    "stage": "use-after",
+    "file": "sources/com/autonavi/aps/amapapi/utils/h.java",
+    "verdict": "Original unmodified baseline ordinary single-class generation also reproduces both exception-flow variants under legal enum identity hashes: priming0=2 catches, priming11=1 catch.",
+    "evidence": [
+      "verified/repro-h-hash-original/0.java",
+      "verified/repro-h-hash-original/11.java",
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/quality-controls.txt"
+    ]
+  },
+  {
+    "stage": "use-after",
+    "file": "sources/com/uc/pars/impl/j.java",
+    "method": "com.uc.pars.impl.j.a(android.content.Context, int, java.util.Map, android.webkit.ValueCallback):void",
+    "verdict": "Exact omitted method observed in original and common corrected baseline",
+    "evidence": [
+      "final-corpus/qwen-7.3.6-A2",
+      "verified/profiles/baseline",
+      "verified/incremental/outer-switch/qwen-7.3.6-A2"
+    ]
+  },
+  {
+    "stage": "root-names",
+    "file": "sources/com/ucpro/feature/setting/developer/customize/i0.java",
+    "method": "com.ucpro.feature.setting.developer.customize.CleanTestConfigFactory.AnonymousClass3.run():void",
+    "verdict": "Exact omitted method observed in common corrected baseline",
+    "evidence": [
+      "verified/incremental/outer-switch/qwen-7.3.6-A3"
+    ]
+  },
+  {
+    "stage": "lazy-candidates",
+    "file": "sources/kotlin/reflect/jvm/internal/impl/types/SimpleType.java",
+    "verdict": "Original unmodified baseline generates toString() throws IOException under both class orders; independently confirms invalid checked-exception declaration predates performance patches. This particular control did not toggle the declaration.",
+    "evidence": [
+      "verified/repro-simpletype-original/target-first.java",
+      "verified/repro-simpletype-original/target-last.java",
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/quality-controls.txt"
+    ]
+  },
+  {
+    "stage": "correctness-fix",
+    "file": "sources/io/ktor/http/URLBuilderKt.java",
+    "verdict": "Common fixed baseline original-order control retains correct60 mask and callback in both class orders; no112 contamination.",
+    "evidence": [
+      "verified/repro-mask-fixed-baseline/target-first.java",
+      "verified/repro-mask-fixed-baseline/target-last.java"
+    ]
+  },
+  {
+    "stage": "use-after",
+    "file": "sources/com/autonavi/base/amap/mapcore/NativeBase.java",
+    "verdict": "Real per-item exception-flow variation; entire B1 class matches common corrected baseline profile token-for-token.",
+    "evidence": [
+      "verified/profiles/baseline/output/sources/com/autonavi/base/amap/mapcore/NativeBase.java",
+      "verified/incremental/use-after/qwen-7.3.6-B1/output/sources/com/autonavi/base/amap/mapcore/NativeBase.java"
+    ]
+  },
+  {
+    "stage": "outer-switch",
+    "file": "sources/com/ucpro/feature/setting/developer/customize/h0.java",
+    "verdict": "Same h0/i0 consumer class reproduces missing argument registers in onItemClick on common fixed baseline under dependency unload. Normal control succeeds. The specific anonymous run/onCleanResult omissions seen in CLI were NOT reproduced by this control; retain this distinction.",
+    "evidence": [
+      "verified/repro-fixed-unload-h0/control.java",
+      "verified/repro-fixed-unload-h0/interleaved.java",
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/measure-live-reuse.txt"
+    ]
+  },
+  {
+    "stage": "root-names",
+    "file": "sources/com/ucpro/feature/setting/developer/customize/i0.java",
+    "verdict": "Same h0/i0 consumer class reproduces missing argument registers in onItemClick on common fixed baseline under dependency unload. Normal control succeeds. The specific anonymous run/onCleanResult omissions seen in CLI were NOT reproduced by this control; retain this distinction.",
+    "evidence": [
+      "verified/repro-fixed-unload-i0/control.java",
+      "verified/repro-fixed-unload-i0/interleaved.java",
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/measure-live-reuse.txt"
+    ]
+  },
+  {
+    "stage": "use-after",
+    "file": "sources/com/ucpro/feature/compass/megability/bridge/i.java",
+    "verdict": "B removes unused synthetic capture fields and invalid anonymous constructor self-assignments; callback bodies and actual final captured parameters unchanged. Removed fields have no uses in emitted callback; A constructor already invalid Java. No exact whole-class match was found in the baseline runs searched.",
+    "evidence": []
+  },
+  {
+    "stage": "live-reuse-withdrawn",
+    "file": "sources/mtopsdk/mtop/intf/Mtop.java",
+    "method": "mtopsdk.mtop.intf.Mtop.setLaunchFirstFrame():void",
+    "verdict": "Exact omitted method already observed on common corrected and original baselines",
+    "evidence": [
+      "verified/incremental/outer-switch/qwen-7.3.6-A1",
+      "verified/incremental/outer-switch/qwen-7.3.6-A2",
+      "verified/incremental/outer-switch/qwen-7.3.6-A3",
+      "qwen-outer-A3"
+    ]
+  },
+  {
+    "stage": "live-reuse-withdrawn",
+    "file": "sources/com/alibaba/analytics/AnalyticsMgr.java",
+    "method": "com.alibaba.analytics.AnalyticsMgr.notifyWaitLocked():void",
+    "verdict": "Exact omitted method already observed on common corrected and original baselines",
+    "evidence": [
+      "verified/incremental/outer-switch/qwen-7.3.6-A2",
+      "verified/incremental/outer-switch/qwen-7.3.6-A3",
+      "qwen-outer-A1",
+      "qwen-outer-A2"
+    ]
+  },
+  {
+    "stage": "final-qwen",
+    "file": "sources/com/amap/api/col/p0003sl/m.java",
+    "method": "m.b.a(ay)",
+    "observation": "B2 loses a swallowing catch; this is a real exception-flow difference. Full method tokens exactly match common baseline final A2 and outer-switch A3, not just the error family.",
+    "evidence": [
+      "verified/corpus/qwen-7.3.6-A2",
+      "verified/incremental/outer-switch/qwen-7.3.6-A3"
+    ]
+  },
+  {
+    "stage": "final-qwen",
+    "file": "sources/com/google/common/util/concurrent/AggregateFuture.java",
+    "method": "AggregateFuture.i",
+    "observation": "Finally differs from catch/rethrow: the A form could call k(null) twice if its first call throws. Do not label equivalent. Entire B2 class tokens match unmodified original qwen-outer-A1/A2/A3 and historical original full A1.",
+    "evidence": [
+      "qwen-outer-A1",
+      "qwen-outer-A2",
+      "qwen-outer-A3",
+      "final-corpus/qwen-7.3.6-A1"
+    ]
+  },
+  {
+    "stage": "final-qwen",
+    "file": "sources/com/ucpro/feature/study/cropview/CropImageView.java",
+    "observation": "All three new throws Throwable declarations (applyThumbnail/getImage/getThumbnail) also appear with ordinary getCode API on unmodified original JAR, both ClassOrder outcomes. Method bodies unchanged.",
+    "evidence": [
+      "verified/repro-crop-original/target-first.java",
+      "verified/repro-crop-original/target-last.java"
+    ]
+  },
+  {
+    "stage": "final-qwen",
+    "file": "sources/com/ucpro/feature/study/cropview/util/CropViewUtils.java",
+    "observation": "New d throws Throwable also appears with ordinary getCode API on unmodified original JAR, both ClassOrder outcomes. Method body unchanged.",
+    "evidence": [
+      "verified/repro-crop-utils-original/target-first.java",
+      "verified/repro-crop-utils-original/target-last.java"
+    ]
+  },
+  {
+    "stage": "final-qwen",
+    "file": "sources/kotlinx/coroutines/flow/FlowKt__ZipKt$combineTransform$$inlined$combineTransformUnsafe$FlowKt__ZipKt$5.java",
+    "method": "invokeSuspend(Object)",
+    "observation": "Final B1 has new placeholder caused by inlineAnonymousConstructor -> ensureProcessed of nullArrayFactory$1 at SGET 0x0020. Same method/dependency/check/placeholder reproduced in original and common corrected baseline with a controlled core reload/concurrency window after every real visitor. False controls complete method body, true controls fail. Controlled state is PROCESS_STARTED; natural B1 message PROCESS_COMPLETE can reflect its second unsynchronized state read. This is not reproduction in a normal full baseline CLI: no such error in the three final A runs. Ten ordinary shuffled eight-thread Flow-package controls did not reproduce it, nor simple unload/reload attempts.",
+    "evidence": [
+      "verified/repro-flow-state-forced-baseline/false.java",
+      "verified/repro-flow-state-forced-baseline/true.java",
+      "verified/repro-flow-state-forced-fixed-baseline/false.java",
+      "verified/repro-flow-state-forced-fixed-baseline/true.java",
+      "verified/repro-flow-concurrency-fixed",
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/repro-flow-state-forced.txt"
+    ]
+  },
+  {
+    "stage": "final-qwen",
+    "observation": "56 changed declarations individually checked: 18 non-Kotlin new declarations appear in original full runs; Crop declarations appear in unmodified original ordinary ClassOrder controls; remaining Kotlin IOException declarations appear in common corrected baseline ordinary ClassOrder controls. Exact line and reference inventory retained. Synthetic joinTo/copy default masks and callbacks inspected separately; source-level throws changes are not dismissed as formatting.",
+    "evidence": [
+      "verified/qwen-declaration-review.json",
+      "verified/repro-kotlin-throws-fixed-baseline"
+    ]
+  },
+  {
+    "stage": "final-telegram",
+    "observation": "Three corrected A/B pairs: 46.03 [45.50,46.61] ->34.58 [34.09,35.00] seconds (24.8751%), CPU187.38->169.82 (9.3713%), RSS median-.1318%. All16163 Java files, no missing/extra,236errors and250omitted bodies each, no new omitted method union. Final six shadow allsix counterszero. 72 inspected whole-class variants:37 exactly match current/historical original baseline,1 pure outer rethrow,34 differ only in declarations/imports after body tokens comparison. Individual checked-exception combinations need controlled provenance; do not yet certify all declarations.",
+    "evidence": [
+      "verified/corpus/quality.tsv",
+      "verified/corpus/measurements.summary.tsv",
+      "verified/telegram-token-review.json",
+      "verified/telegram-declaration-review.json",
+      "verified/final-shadows/telegram"
+    ]
+  },
+  {
+    "stage": "final-termux",
+    "file": "sources/kotlinx/coroutines/SupervisorKt.java",
+    "observation": "B2 calls Continuation.get$context(), while its interface output declares getContext(). This is an actual invalid-reference difference, not semantic alias equivalence. Whole B2 SupervisorKt tokens exactly match historical unmodified original final-verified-corpus/termux-A3. Current other changed callers contain both spellings in baseline variants. No new omitted bodies, all files match.",
+    "evidence": [
+      "verified/corpus/termux-0.118.3-B2",
+      "final-verified-corpus/termux-0.118.3-A3"
+    ]
+  },
+  {
+    "stage": "final-firefox",
+    "file": "sources/com/sun/jna/internal/Cleaner.java",
+    "method": "Cleaner.CleanerRef.clean()",
+    "observation": "New union placeholder in final B also appears naturally in historical original full CLI runs with same Bottom block not found handler 0x003d; not inferred from error counts.",
+    "evidence": [
+      "final-verified-corpus/firefox-A1",
+      "final-verified-corpus/firefox-A3"
+    ]
+  },
+  {
+    "stage": "final-telegram",
+    "file": "sources/org/telegram/messenger/AndroidUtilities.java",
+    "observation": "All original/common-baseline/final false and true controls pass. Pausing after real BlockSplitter before BlockProcessor allows recursive MethodThrowsVisitor to see incomplete catch metadata, mark pinned throws attribute visited, and add ExecutionException, InterruptedException, TimeoutException to doSafe. All real passes finish. Exact doSafe declaration reproduced, but not natural full baseline CLI or individual certification of all 113 unseen headers.",
+    "evidence": [
+      "verified/repro-throws-state/baseline",
+      "verified/repro-throws-state/fixed-baseline",
+      "verified/repro-throws-state/fixed-use-after",
+      "/home/ltlly/Code/jadx-perf/logs/jadx-perf/20261010/quality-gap.txt"
+    ]
+  },
+  {
+    "stage": "final-wikipedia",
+    "file": "sources/androidx/media3/exoplayer/source/SampleDataQueue.java",
+    "method": "androidx.media3.exoplayer.source.SampleDataQueue.discardDownstreamTo(long):void",
+    "observation": "Common fixed baseline, unmodified production JAR, normal class generation API plus enum identity-hash priming: seed 0 complete, seed 1 exact same omitted method and Bottom block not found for handler all -> 0x0042. Controlled normal API order/hash outcome; not ordinary full CLI repeat.",
+    "evidence": [
+      "verified/repro-wikipedia-finally/0",
+      "verified/repro-wikipedia-finally/1",
+      "verified/repro-wikipedia-finally/results.json"
+    ]
+  },
+  {
+    "stage": "final-signal",
+    "file": "sources/org/thoughtcrime/securesms/database/UnknownStorageIdTable.java",
+    "method": "org.thoughtcrime.securesms.database.UnknownStorageIdTable.getAllUnknownIds():java.util.List",
+    "observation": "Final B2 whole-class tokens exactly match historical unmodified original full CLI final-verified-corpus/signal-8.29.3-A3, including the new-union placeholder; B1 and B3 have full body.",
+    "evidence": [
+      "verified/corpus/signal-8.29.3-B2",
+      "final-verified-corpus/signal-8.29.3-A3"
+    ]
+  },
+  {
+    "stage": "final-wikipedia",
+    "file": "sources/androidx/compose/runtime/GapComposer.java; sources/com/google/mlkit/nl/languageid/bundled/internal/ThickLanguageIdentifier.java",
+    "observation": "Stable token differences manually read: added pure catch(Throwable t){throw t;} around synchronized section, existing handlers preserved; downstream catch variable names consistently renumbered. No side effect in inserted rethrow. Other Wikipedia variants separately reviewed.",
+    "evidence": [
+      "verified/wikipedia-manual-review.diff"
+    ]
+  },
+  {
+    "stage": "final-vlc",
+    "file": "sources/io/ktor/http/HttpUrlEncodedKt.java and Kotlin joinTo users",
+    "observation": "Stable default helper inlining reviewed with each call original own masks: 60 preserves transform callback and custom separator, 126 all defaults, 48 preserves prefix/postfix/callback, 112 preserves prefix/postfix, 124 preserves separator. Removed helper declaration is normal existing inline pass; no pass skipped. Cases with anonymous captured this remain existing decompiler limitations, not asserted as globally compilable.",
+    "evidence": [
+      "verified/vlc-3.7.1-manual-review.diff"
+    ]
+  },
+  {
+    "stage": "final-vlc-signal",
+    "observation": "RegionMaker recursion failures differ between JadxOverflowException and StackOverflowError; affected methods already omitted in all A/B, no new omitted method from these headers. Retain full stack diffs and classify as existing failed methods, not success.",
+    "evidence": [
+      "verified/corpus/vlc-3.7.1-audit-1.diff",
+      "verified/corpus/signal-8.29.3-audit-1.diff"
+    ]
+  },
+  {
+    "stage": "final-edge",
+    "observation": "B2 error summary is 354 while A all 353 and B1/B3 353. No new source error header variant or omitted method; default CLI logs contain summary only. Extra error event is not attributed and must not be described as a proven duplicate. ErrorsCounter counts events separately from node set, but that fact alone is insufficient.",
+    "evidence": [
+      "verified/corpus/edge-B2/stdout.txt",
+      "verified/corpus/quality.tsv"
+    ]
+  },
+  {
+    "stage": "final-signal",
+    "files": [
+      "sources/androidx/compose/ui/node/HitTestResultKt.java",
+      "sources/com/bumptech/glide/load/model/UnitModelLoader.java",
+      "sources/org/signal/registration/screens/allownotifications/AllowNotificationsScreenKt.java",
+      "sources/org/signal/registration/screens/permissions/PermissionsScreenKt.java"
+    ],
+    "observation": "Manual body review: HitTestResult local variable consistently renamed, one invocation retained; UnitModelLoader constants b=0,b2=1 replaced by b=1 and byte 0 at corresponding cases, values preserved. TextFields constructor casts to Object removed; target has same unique matching argument shape. Byte narrowing constructor cases remain separate original-control items.",
+    "evidence": [
+      "verified/signal-8.29.3-manual-review.diff"
+    ]
+  },
+  {
+    "stage": "final-signal",
+    "files": [
+      "sources/org/signal/libsignal/protocol/ecc/ECPrivateKey.java",
+      "sources/org/signal/libsignal/svr2/PinHash$$ExternalSyntheticLambda0.java",
+      "sources/org/signal/libsignal/usernames/Username.java",
+      "sources/org/thoughtcrime/securesms/components/settings/app/backups/remote/RemoteBackupsSettingsFragmentKt.java",
+      "sources/org/thoughtcrime/securesms/conversation/v2/ConversationFragment.java"
+    ],
+    "observation": "Normal synthetic helper inlining/retention pairs manually reviewed against changed callers: Native.ECPrivateKey_Agree keeps f$0,j order; added signature wrapper calls existing calculateSignature with bArr,j order; Username verify wrapper calls same Native.Username_Verify with same byte arrays. RemoteBackups and registration helpers return Unit.INSTANCE with no additional body operations. Conversation dialog wrappers ignore dialog/int and invoke same conversation onBlock/onReportSpam operations as former accessors. These are local output transformations, not whole-APK behavior-equivalence claims.",
+    "evidence": [
+      "verified/signal-8.29.3-manual-review.diff",
+      "verified/corpus/signal-8.29.3-B2/output/sources/org/signal/libsignal/protocol/ecc/ECPublicKey$$ExternalSyntheticLambda3.java"
+    ]
+  },
+  {
+    "stage": "final-firefox",
+    "files": [
+      "sources/org/mozilla/fenix/GleanMetrics/FxSuggest$$ExternalSyntheticLambda6.java",
+      "sources/org/mozilla/fenix/GleanMetrics/TrackingProtection$$ExternalSyntheticLambda8.java",
+      "sources/org/mozilla/fenix/downloads/listscreen/DownloadsScreenKt.java"
+    ],
+    "observation": "Manual review: the added local temporaries simply store and return the same single call result; DownloadsScreen uses byte constant 1 in place of byte local b initialized to 1. No evaluation lost or duplicated. Bridge names, constructor retention and throws remain separately tracked.",
+    "evidence": [
+      "verified/firefox-manual-review.diff"
+    ]
+  },
+  {
+    "stage": "final-duckduckgo-pair1",
+    "file": "sources/androidx/room/support/PrePackagedCopyOpenHelper.java",
+    "observation": "Getter alias changed getName -> getDatabaseName, with corresponding local variable rename. Unchanged SupportSQLiteOpenHelper interface output declares getDatabaseName(), so B matches declared interface and A getName call is an existing invalid reference. This is an API/name difference, not a comment-only change; broader bridge/alias issues are separately controlled.",
+    "evidence": [
+      "verified/corpus/duckduckgo-5.297.1-audit-1.diff",
+      "verified/corpus/duckduckgo-5.297.1-A1/output/sources/androidx/sqlite/db/SupportSQLiteOpenHelper.java"
+    ]
+  },
+  {
+    "stage": "final-duckduckgo",
+    "files": [
+      "sources/com/google/android/gms/common/zzo.java",
+      "sources/kotlinx/coroutines/reactive/PublisherCoroutine.java"
+    ],
+    "observation": "All six omitted-method signature inventories identical (1480). Finally/catch cleanup forms can differ semantically if cleanup throws; not labeled format equivalence. Whole zzo B1/B2/B3 tokens exactly match historical unmodified original complete A1/A2/A3. Whole PublisherCoroutine B1/B2/B3 tokens exactly match current common baseline A2/A3 plus historical original complete runs.",
+    "evidence": [
+      "verified/duckduckgo-finally-review.json",
+      "final-corpus/duckduckgo-5.297.1-A1",
+      "verified/corpus/duckduckgo-5.297.1-A2",
+      "verified/corpus/duckduckgo-5.297.1-A3"
+    ]
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/C54839OuB.java",
+    "verdict": "B1 entire class tokens exactly match historical original full CLI A1; finally vs repeated cleanup is a real exception-path difference, not formatting",
+    "evidence": [
+      "final-verified-corpus/whatsapp-A1/output/sources/X/C54839OuB.java",
+      "verified/corpus/whatsapp-B1/output/sources/X/C54839OuB.java",
+      "verified/corpus/whatsapp-A2/output/sources/X/C54839OuB.java"
+    ],
+    "core_sha256": "baacf19b36565ebf6fd9e96c27187ab7ed968cb816a3d5fcc103fe2d54bd7c2e"
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/AbstractRunnableC59959RGk.java",
+    "verdict": "B1 entire class tokens exactly match common corrected baseline full CLI A2; finally vs cleanup plus catch is a real exception-path difference already present in baseline",
+    "evidence": [
+      "verified/corpus/whatsapp-A2/output/sources/X/AbstractRunnableC59959RGk.java",
+      "verified/corpus/whatsapp-B1/output/sources/X/AbstractRunnableC59959RGk.java"
+    ]
+  },
+  {
+    "stage": "final-edge",
+    "file": "sources/defpackage/fmf0.java",
+    "method": "c",
+    "verdict": "Original normal API with enum identity hash priming1 reproduces exact B2 method tokens including finally; priming0 has cleanup-plus-catch. This is a real inherited exception-path difference, not formatting.",
+    "evidence": [
+      "verified/repro-edge-fmf0-finally/results.json",
+      "verified/repro-edge-fmf0-finally/{0,1}/target.java"
+    ]
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/AbstractServiceC31041ad.java",
+    "method": "A0B",
+    "verdict": "Exact B method tokens reproduced using original normal class generation API and legal enum hash priming4; preserves evidence of real cleanup/finally differences, does not assert equivalence.",
+    "evidence": [
+      "verified/repro-whatsapp-registration-finally/results.json",
+      "verified/repro-whatsapp-registration-finally/4/target.java"
+    ]
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/C58546QhD.java",
+    "method": "A0J",
+    "verdict": "Exact B method tokens reproduced using original normal class generation API and legal enum hash priming0; preserves evidence of real cleanup/finally differences, does not assert equivalence.",
+    "evidence": [
+      "verified/whatsapp-qhd-finally/results.json",
+      "verified/whatsapp-qhd-finally/0/target.java"
+    ]
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/R0Q.java",
+    "method": "CFP",
+    "verdict": "Exact B method tokens reproduced using original normal class generation API and legal enum hash priming5; preserves evidence of real cleanup/finally differences, does not assert equivalence.",
+    "evidence": [
+      "verified/whatsapp-r0q-finally/results.json",
+      "verified/whatsapp-r0q-finally/5/target.java"
+    ]
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/C119595Lg.java",
+    "method": "X.C119595Lg.A01(android.content.Context):void",
+    "verdict": "Omitted B variant entire class tokens exactly match historical ORIGINAL complete CLI A1. C14710kr is absent from current corrected A1/A2/A3 omitted inventories and present in all three B; this stable difference remains explicit.",
+    "evidence": [
+      "verified/whatsapp-token-review.json",
+      "final-verified-corpus/whatsapp-A1/output/sources/X/C119595Lg.java",
+      "verified/corpus/quality.details.json"
+    ],
+    "core_sha256": "baacf19b36565ebf6fd9e96c27187ab7ed968cb816a3d5fcc103fe2d54bd7c2e"
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/C14710kr.java",
+    "method": "X.C14710kr.A0a():X.Aqq",
+    "verdict": "Omitted B variant entire class tokens exactly match historical ORIGINAL complete CLI A1. C14710kr is absent from current corrected A1/A2/A3 omitted inventories and present in all three B; this stable difference remains explicit.",
+    "evidence": [
+      "verified/whatsapp-token-review.json",
+      "final-verified-corpus/whatsapp-A1/output/sources/X/C14710kr.java",
+      "verified/corpus/quality.details.json"
+    ],
+    "core_sha256": "baacf19b36565ebf6fd9e96c27187ab7ed968cb816a3d5fcc103fe2d54bd7c2e"
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/C32971dp.java",
+    "method": "X.C32971dp.A00(X.1dp):void",
+    "verdict": "Omitted B variant entire class tokens exactly match historical ORIGINAL complete CLI A1. C14710kr is absent from current corrected A1/A2/A3 omitted inventories and present in all three B; this stable difference remains explicit.",
+    "evidence": [
+      "verified/whatsapp-token-review.json",
+      "final-verified-corpus/whatsapp-A1/output/sources/X/C32971dp.java",
+      "verified/corpus/quality.details.json"
+    ],
+    "core_sha256": "baacf19b36565ebf6fd9e96c27187ab7ed968cb816a3d5fcc103fe2d54bd7c2e"
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/C8JS.java",
+    "method": "X.C8JS.run():void",
+    "verdict": "Omitted B variant entire class tokens exactly match historical ORIGINAL complete CLI A1. C14710kr is absent from current corrected A1/A2/A3 omitted inventories and present in all three B; this stable difference remains explicit.",
+    "evidence": [
+      "verified/whatsapp-token-review.json",
+      "final-verified-corpus/whatsapp-A1/output/sources/X/C8JS.java",
+      "verified/corpus/quality.details.json"
+    ],
+    "core_sha256": "baacf19b36565ebf6fd9e96c27187ab7ed968cb816a3d5fcc103fe2d54bd7c2e"
+  },
+  {
+    "stage": "final-whatsapp",
+    "verdict": "191 unique B variants over 125 novel-token files:81 entire-class baseline-identical,18 pure rethrows,92 manual.77 manual variants change only declarations/imports; individual inherited throws declarations are not all reproduced. Remaining15 body candidates reviewed separately; lexical buckets are not a semantic oracle.",
+    "evidence": [
+      "verified/whatsapp-token-review.json",
+      "verified/whatsapp-manual-review.diff",
+      "verified/whatsapp-body-candidates.diff"
+    ]
+  },
+  {
+    "stage": "final-whatsapp",
+    "files": [
+      "sources/X/AbstractC40357HoZ.java",
+      "sources/X/C28443Cb3.java",
+      "sources/X/C40369Hor.java",
+      "sources/X/HMR.java",
+      "sources/X/KE4.java"
+    ],
+    "verdict": "Manually reviewed added direct Throwable rethrows and consistent catch-variable renumbering. Existing resource-close/suppression and nontrivial handlers retained; HMR adds a final direct rethrow after existing Exception handler.",
+    "evidence": [
+      "verified/whatsapp-body-candidates.diff"
+    ]
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/C5TW.java",
+    "verdict": "Manual branch review: duplicate A03 initialization branches merge under the same A03==null guard after A04 initialization. Both reads occur once under the same synchronized lock; JSON payloads, initialization order and Exception handling retained; extra outer Throwable catch directly rethrows.",
+    "evidence": [
+      "verified/whatsapp-body-candidates.diff",
+      "verified/corpus/whatsapp-{A1,B1}/output/sources/X/C5TW.java"
+    ]
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/C23754Aal.java",
+    "verdict": "Only local c2t8A08->c2t8A01 renaming; invoked method, arguments and all local uses unchanged.",
+    "evidence": "verified/whatsapp-body-candidates.diff"
+  },
+  {
+    "stage": "final-whatsapp",
+    "files": [
+      "sources/X/C14240k5.java",
+      "sources/X/C158166tm.java",
+      "sources/X/C177927pB.java",
+      "sources/X/C28474Cbd.java",
+      "sources/X/C28561CdJ.java"
+    ],
+    "verdict": "B restores bodies omitted in current baseline variants. Restoration is not proof the newly emitted body is correct or recompilable; these remain decompiler-quality limitations, not successes certified by token review.",
+    "evidence": "verified/whatsapp-body-candidates.diff"
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/androidx/navigation/Navigator$$ExternalSyntheticBUOutline0.java",
+    "verdict": "Original normal class-generation order control reproduces exact complete B class tokens; this shows inherited output variants, not that all emitted Java is valid.",
+    "matches": [
+      {
+        "control": "target-first.java",
+        "exact_B_class": [
+          "B1"
+        ]
+      },
+      {
+        "control": "target-last.java",
+        "exact_B_class": [
+          "B1"
+        ]
+      }
+    ],
+    "evidence": [
+      "verified/extra-order-controls/review.json",
+      "verified/extra-order-controls/wiki-synthetic-ctor"
+    ]
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/org/mozilla/fenix/settings/RemoteImprovementsFragment$$ExternalSyntheticLambda1.java",
+    "verdict": "Original normal class-generation order control reproduces exact complete B class tokens; this shows inherited output variants, not that all emitted Java is valid.",
+    "matches": [
+      {
+        "control": "target-first.java",
+        "exact_B_class": [
+          "B1"
+        ]
+      },
+      {
+        "control": "target-last.java",
+        "exact_B_class": [
+          "B1"
+        ]
+      }
+    ],
+    "evidence": [
+      "verified/extra-order-controls/review.json",
+      "verified/extra-order-controls/firefox-synthetic-ctor"
+    ]
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/kotlinx/coroutines/sync/MutexKt.java",
+    "verdict": "Original normal class-generation order control reproduces exact complete B class tokens; this shows inherited output variants, not that all emitted Java is valid.",
+    "matches": [
+      {
+        "control": "target-first.java",
+        "exact_B_class": [
+          "B2"
+        ]
+      },
+      {
+        "control": "target-last.java",
+        "exact_B_class": [
+          "B1",
+          "B3"
+        ]
+      }
+    ],
+    "evidence": [
+      "verified/extra-order-controls/review.json",
+      "verified/extra-order-controls/wiki-byte-casts"
+    ]
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/androidx/fragment/app/BackStackRecordState.java",
+    "verdict": "Original normal class-generation order control reproduces exact complete B class tokens; this shows inherited output variants, not that all emitted Java is valid.",
+    "matches": [
+      {
+        "control": "target-first.java",
+        "exact_B_class": [
+          "B1",
+          "B2",
+          "B3"
+        ]
+      }
+    ],
+    "evidence": [
+      "verified/extra-order-controls/review.json",
+      "verified/extra-order-controls/signal-fragment-byte-casts"
+    ]
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/androidx/compose/foundation/text/selection/SelectionAdjustment$Companion.java",
+    "verdict": "Original normal class-generation order control reproduces exact complete B class tokens; this shows inherited output variants, not that all emitted Java is valid.",
+    "matches": [
+      {
+        "control": "target-first.java",
+        "exact_B_class": [
+          "B1",
+          "B2",
+          "B3"
+        ]
+      }
+    ],
+    "evidence": [
+      "verified/extra-order-controls/review.json",
+      "verified/extra-order-controls/signal-byte-casts"
+    ]
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/mozilla/appservices/suggest/FfiConverterString.java",
+    "verdict": "Original normal class-generation order control reproduces exact complete B class tokens; this shows inherited output variants, not that all emitted Java is valid.",
+    "matches": [
+      {
+        "control": "target-first.java",
+        "exact_B_class": [
+          "B3"
+        ]
+      },
+      {
+        "control": "target-last.java",
+        "exact_B_class": [
+          "B3"
+        ]
+      }
+    ],
+    "evidence": [
+      "verified/extra-order-controls/review.json",
+      "verified/extra-order-controls/firefox-suggest-bridges"
+    ]
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/mozilla/appservices/merino/FfiConverterOptionalString.java",
+    "verdict": "Original normal class-generation order control reproduces exact complete B class tokens; this shows inherited output variants, not that all emitted Java is valid.",
+    "matches": [
+      {
+        "control": "target-first.java",
+        "exact_B_class": [
+          "B3"
+        ]
+      },
+      {
+        "control": "target-last.java",
+        "exact_B_class": [
+          "B1",
+          "B2"
+        ]
+      }
+    ],
+    "evidence": [
+      "verified/extra-order-controls/review.json",
+      "verified/extra-order-controls/firefox-merino-bridges"
+    ]
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/androidx/lifecycle/LiveData.java",
+    "verdict": "Original normal class-generation order control reproduces exact complete B class tokens; this shows inherited output variants, not that all emitted Java is valid.",
+    "matches": [
+      {
+        "control": "target-first.java",
+        "exact_B_class": [
+          "B1",
+          "B2"
+        ]
+      },
+      {
+        "control": "target-last.java",
+        "exact_B_class": [
+          "B1",
+          "B2"
+        ]
+      }
+    ],
+    "evidence": [
+      "verified/extra-order-controls/review.json",
+      "verified/extra-order-controls/vlc-visibility"
+    ]
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/org/thoughtcrime/securesms/jobs/DeviceNameChangeJob.java",
+    "verdict": "Original normal API both orders reproduce concrete invalid 0==true DefaultConstructorMarker expressions. Whole class is not identical to B; this is statement-level provenance only.",
+    "evidence": "verified/extra-order-controls/signal-constructor"
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "file": "sources/androidx/core/content/res/ColorStateListInflaterCompat.java",
+    "verdict": "Original normal API both orders reproduce exact B createFromXmlInner header with XmlPullParserException,IOException; whole class differs.",
+    "evidence": "verified/extra-order-controls/wiki-throws"
+  },
+  {
+    "stage": "final-extra-normal-api",
+    "files": [
+      "sources/org/mozilla/fenix/components/toolbar/CustomTabBrowserToolbarMiddleware.java",
+      "sources/androidx/lifecycle/LiveData.java"
+    ],
+    "verdict": "Additional original serial class-order controls do NOT reproduce getHostFromUrl throws Throwable or VLC postValue public. Both getHost controls omit throws; both LiveData controls remain protected. These concrete variants remain individually unproven; do not count controls as passes.",
+    "evidence": [
+      "verified/extra-order-controls/firefox-throws",
+      "verified/extra-order-controls/vlc-visibility"
+    ]
+  },
+  {
+    "stage": "final-whatsapp",
+    "file": "sources/X/C14710kr.java",
+    "method": "A0a",
+    "verdict": "Exact B stable omitted method tokens and handler0x002c reproduced on COMMON CORRECTED baseline8e35 using ordinary class generation API and legal enum hash priming0. Current three normal full A runs do not omit it; all three B do. This control is stronger than original-only provenance but is not a normal full CLI repetition.",
+    "evidence": [
+      "verified/whatsapp-stable-omission-fixed-baseline/results.json",
+      "verified/whatsapp-stable-omission-fixed-baseline/0/target.java"
+    ],
+    "core_sha256": "27ee799f7f49e7838ccaf52c8d7641b56ba86cbbc837577bf8a58dbdec4588c3"
+  }
+]
