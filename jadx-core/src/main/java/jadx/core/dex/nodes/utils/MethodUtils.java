@@ -1,11 +1,17 @@
 package jadx.core.dex.nodes.utils;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.AtomicInteger;
 
 import org.jetbrains.annotations.Nullable;
 
 import jadx.core.clsp.ClspClass;
+import jadx.core.clsp.ClspClassSource;
 import jadx.core.clsp.ClspMethod;
 import jadx.core.dex.attributes.AType;
 import jadx.core.dex.attributes.nodes.MethodBridgeAttr;
@@ -23,6 +29,21 @@ import jadx.core.dex.nodes.RootNode;
 import jadx.core.utils.Utils;
 
 public class MethodUtils {
+	/**
+	 * Kill switch: fall back to the original linear scan over the whole methods map.
+	 */
+	private static final boolean OVERLOAD_INDEX_ENABLED =
+			Boolean.parseBoolean(System.getProperty("jadx.cache.overload-index", "true"));
+
+	// bounds protect against unbounded growth of the per-Root index
+	private static final int MAX_INDEXED_CLASSES = 1_024;
+	private static final int MAX_INDEXED_METHODS = 65_536;
+
+	// per-Root index for load-frozen external ClspClasses, lives and dies with this RootNode
+	private final ConcurrentHashMap<ClspClass, Map<OverloadKey, List<ClspMethod>>> overloadIndexes = new ConcurrentHashMap<>();
+	private final AtomicInteger indexedClassCount = new AtomicInteger();
+	private final AtomicInteger indexedMethodCount = new AtomicInteger();
+
 	private final RootNode root;
 
 	public MethodUtils(RootNode rootNode) {
@@ -130,12 +151,25 @@ public class MethodUtils {
 				// class info not available
 				return false;
 			}
-			for (ClspMethod clspMth : clsDetails.getMethodsMap().values()) {
-				if (mthInfo.isOverloadedBy(clspMth.getMethodInfo())) {
-					if (collectedMths == null) {
-						return true;
+			List<ClspMethod> candidates = getOverloadCandidates(clsDetails, mthInfo);
+			if (candidates != null) {
+				// bucket holds methods with same name and args count in original encounter order
+				for (ClspMethod clspMth : candidates) {
+					if (mthInfo.isOverloadedBy(clspMth.getMethodInfo())) {
+						if (collectedMths == null) {
+							return true;
+						}
+						collectedMths.add(clspMth);
 					}
-					collectedMths.add(clspMth);
+				}
+			} else {
+				for (ClspMethod clspMth : clsDetails.getMethodsMap().values()) {
+					if (mthInfo.isOverloadedBy(clspMth.getMethodInfo())) {
+						if (collectedMths == null) {
+							return true;
+						}
+						collectedMths.add(clspMth);
+					}
 				}
 			}
 			if (!isMthConstructor) {
@@ -149,6 +183,85 @@ public class MethodUtils {
 			}
 		}
 		return false;
+	}
+
+	@Nullable
+	List<ClspMethod> getOverloadCandidates(ClspClass clsDetails, MethodInfo mthInfo) {
+		if (!OVERLOAD_INDEX_ENABLED || clsDetails.getSource() == ClspClassSource.APP) {
+			// app classes are rebuilt on reload, don't cache their methods
+			return null;
+		}
+		Map<OverloadKey, List<ClspMethod>> index = overloadIndexes.get(clsDetails);
+		if (index == null) {
+			index = tryBuildAndPutIndex(clsDetails);
+			if (index == null) {
+				return null;
+			}
+		}
+		return index.get(new OverloadKey(mthInfo.getName(), mthInfo.getArgsCount()));
+	}
+
+	@Nullable
+	private Map<OverloadKey, List<ClspMethod>> tryBuildAndPutIndex(ClspClass clsDetails) {
+		int clsMethodCount = clsDetails.getMethodsMap().size();
+		if (indexedClassCount.incrementAndGet() > MAX_INDEXED_CLASSES
+				|| indexedMethodCount.addAndGet(clsMethodCount) > MAX_INDEXED_METHODS) {
+			// over budget: keep the original linear scan for this and further classes
+			indexedClassCount.decrementAndGet();
+			indexedMethodCount.addAndGet(-clsMethodCount);
+			return null;
+		}
+		Map<OverloadKey, List<ClspMethod>> index = buildOverloadIndex(clsDetails);
+		Map<OverloadKey, List<ClspMethod>> prev = overloadIndexes.putIfAbsent(clsDetails, index);
+		if (prev != null) {
+			// lost a construction race, winner's index is identical: release reserved budget
+			indexedClassCount.decrementAndGet();
+			indexedMethodCount.addAndGet(-clsMethodCount);
+			return prev;
+		}
+		return index;
+	}
+
+	static Map<OverloadKey, List<ClspMethod>> buildOverloadIndex(ClspClass clsDetails) {
+		Map<OverloadKey, List<ClspMethod>> index = new HashMap<>();
+		for (ClspMethod clspMth : clsDetails.getMethodsMap().values()) {
+			MethodInfo mthInfo = clspMth.getMethodInfo();
+			index.computeIfAbsent(new OverloadKey(mthInfo.getName(), mthInfo.getArgsCount()), k -> new ArrayList<>())
+					.add(clspMth);
+		}
+		for (Map.Entry<OverloadKey, List<ClspMethod>> entry : index.entrySet()) {
+			entry.setValue(Collections.unmodifiableList(entry.getValue()));
+		}
+		return index;
+	}
+
+	static final class OverloadKey {
+		private final String name;
+		private final int argsCount;
+		private final int hash;
+
+		OverloadKey(String name, int argsCount) {
+			this.name = name;
+			this.argsCount = argsCount;
+			this.hash = name.hashCode() * 31 + argsCount;
+		}
+
+		@Override
+		public boolean equals(Object o) {
+			if (this == o) {
+				return true;
+			}
+			if (!(o instanceof OverloadKey)) {
+				return false;
+			}
+			OverloadKey other = (OverloadKey) o;
+			return argsCount == other.argsCount && name.equals(other.name);
+		}
+
+		@Override
+		public int hashCode() {
+			return hash;
+		}
 	}
 
 	@Nullable
