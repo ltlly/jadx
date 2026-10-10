@@ -3,6 +3,7 @@ package jadx.core.dex.nodes.deps;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -13,12 +14,18 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
 import jadx.api.JadxDecompiler;
+import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.attributes.AType;
+import jadx.core.dex.attributes.nodes.ClassTypeVarsAttr;
 import jadx.core.dex.attributes.nodes.MethodThrowsAttr;
+import jadx.core.dex.instructions.args.ArgType;
 import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.FieldNode;
 import jadx.core.dex.nodes.MethodNode;
+import jadx.core.dex.nodes.ProcessState;
 import jadx.core.dex.nodes.RootNode;
+import jadx.core.dex.visitors.IDexTreeVisitor;
+import jadx.core.dex.visitors.PrepareForCodeGen;
 import jadx.tests.api.SmaliTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -29,8 +36,9 @@ import static org.assertj.core.api.Assertions.assertThat;
  * recovery must be equal to the full legacy re-process result
  * (process(dep, false) after GENERATED_AND_UNLOADED).
  *
- * Tests drive the real generated-unload recovery path (no DONT_UNLOAD_CLASS)
- * through explicit class decompile order on fresh decompilers.
+ * Summary equivalence tests drive the real generated-unload recovery path
+ * through explicit class decompile order on fresh decompilers. Boundary checks
+ * also exercise metadata-only reads and a deliberately unsafe resident control.
  */
 class DependencySummaryTest extends SmaliTest {
 
@@ -464,6 +472,112 @@ class DependencySummaryTest extends SmaliTest {
 		assertThat(right1).isEqualTo(rightL);
 		assertThat(left2).isEqualTo(leftL);
 		assertThat(right2).isEqualTo(rightL);
+	}
+
+	@Test
+	void genericMetadataReadDoesNotRequireBodyRecovery() {
+		JadxDecompiler legacy = loadLegacy(fixtureFiles("GenericBase.smali", "GenericDerived.smali"));
+		RootNode root = legacy.getRoot();
+		ClassNode base = cls(root, "dst.GenericBase");
+		ClassNode derived = cls(root, "dst.Derived");
+		ClassTypeVarsAttr before = root.getTypeUtils().getClassTypeVars(derived.getType());
+		assertThat(before).isNotNull();
+		Map<ArgType, ArgType> expected = new HashMap<>(before.getTypeVarsMapFor(base.getType()));
+		assertThat(expected.values()).containsExactly(ArgType.STRING);
+
+		derived.decompile();
+		assertThat(derived.getState()).isEqualTo(ProcessState.GENERATED_AND_UNLOADED);
+		assertThat(derived.get(AType.CLASS_TYPE_VARS)).isNull();
+		for (MethodNode mth : derived.getMethods()) {
+			assertThat(mth.isLoaded()).isFalse();
+		}
+		int errors = legacy.getErrorsCount();
+		int warnings = legacy.getWarnsCount();
+
+		// This is a lazy metadata read, not a dependency re-entry or summary recovery.
+		ClassTypeVarsAttr rebuilt = root.getTypeUtils().getClassTypeVars(derived.getType());
+		assertThat(rebuilt).isNotNull().isNotSameAs(before);
+		assertThat(rebuilt.getTypeVarsMapFor(base.getType())).isEqualTo(expected);
+		assertThat(derived.getState()).isEqualTo(ProcessState.GENERATED_AND_UNLOADED);
+		for (MethodNode mth : derived.getMethods()) {
+			assertThat(mth.isLoaded()).isFalse();
+		}
+		assertThat(legacy.getErrorsCount()).isEqualTo(errors);
+		assertThat(legacy.getWarnsCount()).isEqualTo(warnings);
+	}
+
+	@Test
+	void retainingCodedDependencyDropsAnnotationEffects() {
+		List<File> files = fixtureFiles("Consts.smali", "AnnotatedCodedData.smali", "AnnotatedDataUser.smali");
+
+		JadxDecompiler legacy = loadLegacy(files);
+		RootNode legacyRoot = legacy.getRoot();
+		ClassNode legacyData = cls(legacyRoot, "dst.AnnotatedData");
+		assertThat(legacyData.getMethods().get(0).isNoCode()).isFalse();
+		legacyData.decompile();
+		assertThat(legacyData.getState()).isEqualTo(ProcessState.GENERATED_AND_UNLOADED);
+		cls(legacyRoot, "dst.AnnotatedDataUser").decompile();
+		assertThat(legacyData.getState()).isEqualTo(ProcessState.PROCESS_COMPLETE);
+		List<String> legacyUses = mthIds(cls(legacyRoot, "dst.Consts").getFields().get(0).getUseIn());
+		// JadxArgs is shared by this harness; freeze oracle output before resetting its cache.
+		String legacyDataCode = legacyData.getCode().getCodeStr();
+		String legacyUserCode = cls(legacyRoot, "dst.AnnotatedDataUser").getCode().getCodeStr();
+		int legacyErrors = legacy.getErrorsCount();
+		int legacyWarnings = legacy.getWarnsCount();
+
+		JadxDecompiler resident = loadLegacy(files);
+		RootNode residentRoot = resident.getRoot();
+		ClassNode residentData = cls(residentRoot, "dst.AnnotatedData");
+		residentData.add(AFlag.DONT_UNLOAD_CLASS);
+		residentData.decompile();
+		residentData.remove(AFlag.DONT_UNLOAD_CLASS);
+		assertThat(residentData.getState()).isEqualTo(ProcessState.PROCESS_COMPLETE);
+		cls(residentRoot, "dst.AnnotatedDataUser").decompile();
+		List<String> residentUses = mthIds(cls(residentRoot, "dst.Consts").getFields().get(0).getUseIn());
+
+		// Retaining the body skips the second annotation-use publication even
+		// though the cached Java outputs happen to match in this fixture.
+		assertThat(residentUses).containsExactly("dst.AnnotatedData#read()Ljava/lang/String;");
+		assertThat(legacyUses).containsExactly(residentUses.get(0), residentUses.get(0));
+		assertThat(residentData.getCode().getCodeStr()).isEqualTo(legacyDataCode);
+		assertThat(cls(residentRoot, "dst.AnnotatedDataUser").getCode().getCodeStr()).isEqualTo(legacyUserCode);
+		assertThat(resident.getErrorsCount()).isEqualTo(legacyErrors);
+		assertThat(resident.getWarnsCount()).isEqualTo(legacyWarnings);
+	}
+
+	@Test
+	void codedAnnotationClassEffectCanBeReplayedWithoutBodyRecovery() throws Exception {
+		List<File> files = fixtureFiles("Consts.smali", "AnnotatedCodedData.smali", "AnnotatedDataUser.smali");
+		JadxDecompiler legacy = loadLegacy(files);
+		RootNode legacyRoot = legacy.getRoot();
+		ClassNode legacyData = cls(legacyRoot, "dst.AnnotatedData");
+		legacyData.decompile();
+		legacyRoot.getProcessClasses().forceProcess(legacyData);
+		assertThat(legacyData.getState()).isEqualTo(ProcessState.PROCESS_COMPLETE);
+		List<String> expectedUses = mthIds(cls(legacyRoot, "dst.Consts").getFields().get(0).getUseIn());
+
+		JadxDecompiler effectOnly = loadLegacy(files);
+		RootNode effectRoot = effectOnly.getRoot();
+		ClassNode effectData = cls(effectRoot, "dst.AnnotatedData");
+		effectData.decompile();
+		PrepareForCodeGen prepare = null;
+		for (IDexTreeVisitor pass : effectRoot.getProcessClasses().getPasses()) {
+			if (pass instanceof PrepareForCodeGen) {
+				prepare = (PrepareForCodeGen) pass;
+				break;
+			}
+		}
+		assertThat(prepare).isNotNull();
+		// Direct callback probe: compare one class-level effect against LEGACY
+		// forceProcess, not complete metadata-dependency recovery.
+		prepare.visit(effectData);
+		assertThat(mthIds(cls(effectRoot, "dst.Consts").getFields().get(0).getUseIn())).isEqualTo(expectedUses);
+		assertThat(effectData.getState()).isEqualTo(ProcessState.GENERATED_AND_UNLOADED);
+		for (MethodNode mth : effectData.getMethods()) {
+			assertThat(mth.isLoaded()).isFalse();
+		}
+		assertThat(effectOnly.getErrorsCount()).isEqualTo(legacy.getErrorsCount());
+		assertThat(effectOnly.getWarnsCount()).isEqualTo(legacy.getWarnsCount());
 	}
 
 	@Test

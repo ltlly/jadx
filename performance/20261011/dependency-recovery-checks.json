@@ -1,0 +1,104 @@
+{
+  "date": "2026-10-11",
+  "kind": "research-boundary-tests-not-a-performance-optimization",
+  "base_commit": "6e44d0218d75dae7ed2bdc8727ec4640231f1367",
+  "branch": "codex/dependency-recovery-research",
+  "production_code_changed": false,
+  "summary_enabled_for_experiments": false,
+  "build_java_version_requested": 11,
+  "gradle_runner_jdk": "25.0.4.1+1",
+  "baseline_summary_test": {
+    "tests": 14,
+    "failures": 0,
+    "errors": 0,
+    "skipped": 0
+  },
+  "final_verification": {
+    "suites": [
+      {
+        "class": "jadx.core.dex.nodes.deps.DependencySummaryCertificateTest",
+        "tests": 5,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "jadx.core.dex.nodes.deps.DependencySummaryConcurrencyTest",
+        "tests": 1,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      },
+      {
+        "class": "jadx.core.dex.nodes.deps.DependencySummaryTest",
+        "tests": 17,
+        "failures": 0,
+        "errors": 0,
+        "skipped": 0
+      }
+    ],
+    "totals": {
+      "tests": 23,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "source_sha256": {
+      "jadx-core/src/test/java/jadx/core/dex/nodes/deps/DependencySummaryTest.java": "c495204b52d20aaa980af37a2cac969a20c721a45add0ae76591f6cd067ebdff",
+      "jadx-core/src/test/smali/others/TestDependencySummary/AnnotatedCodedData.smali": "c8a2ec08b191142cc32e10e5dec5a0fd36aad803471ecefe44fe20604b91f9bd",
+      "jadx-core/src/test/smali/others/TestDependencySummary/GenericDerived.smali": "4f75cc991683dc0a5fc0bcf8dcb16a3dc727018b1eef8bc79cffc7c316519da0"
+    }
+  },
+  "gradle_exit": 0,
+  "checks": {
+    "spotlessJavaCheck": "passed",
+    "checkstyleMain": "passed (up-to-date in final run)",
+    "checkstyleTest": "passed",
+    "diff_check": "passed"
+  },
+  "reproduce_command": "JADX_BUILD_JAVA_VERSION=11 ./gradlew --no-parallel --max-workers=2 :jadx-core:test --tests 'jadx.core.dex.nodes.deps.*' :jadx-core:spotlessJavaCheck :jadx-core:checkstyleMain :jadx-core:checkstyleTest",
+  "hypotheses": {
+    "retained_coded_state_equals_legacy_recovery": {
+      "result": "rejected on the annotated coded fixture",
+      "legacy_field_use_in": [
+        "dst.AnnotatedData#read()Ljava/lang/String;",
+        "dst.AnnotatedData#read()Ljava/lang/String;"
+      ],
+      "retained_field_use_in": [
+        "dst.AnnotatedData#read()Ljava/lang/String;"
+      ],
+      "cached_java_equal": true,
+      "oracle_frozen_before_second_decompiler": true,
+      "diagnostic_counts_equal": true,
+      "initial_equality_assertion_failed": true
+    },
+    "generic_mapping_read_requires_body_recovery": {
+      "result": "not required for the valid generic fixture",
+      "inherited_mapping_value": "java.lang.String",
+      "rebuilt_attribute_is_new": true,
+      "class_state_before_and_after": "GENERATED_AND_UNLOADED",
+      "method_bodies_loaded_after_read": false,
+      "diagnostic_counts_unchanged": true,
+      "initial_inherited_fixture_sanity_failure": "Derived.smali yielded an empty mapping; its signature fragments contain a misplaced semicolon; replaced only in this research test with GenericDerived.smali"
+    },
+    "class_annotation_effect_requires_body_recovery": {
+      "result": "not required for this fixture and this single class callback",
+      "original_prepare_for_codegen_class_callback_used": true,
+      "field_use_in_matches_full_legacy_reprocess": true,
+      "class_state_after_effect": "GENERATED_AND_UNLOADED",
+      "method_bodies_loaded_after_effect": false,
+      "diagnostic_counts_equal_on_fixture": true,
+      "complete_recovery_claimed": false
+    }
+  },
+  "unverified": [
+    "complete coded recovery equivalence",
+    "critical-path savings",
+    "full APK A/B and peak RSS",
+    "full core/CLI suite",
+    "GUI",
+    "new recovery implementation under deep reload or concurrency",
+    "APK recompilation"
+  ],
+  "artifact_scope": "summary and test-source hashes only; raw XML/logs not included; rerun the tests"
+}
