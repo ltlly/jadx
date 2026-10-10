@@ -4,6 +4,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import java.util.concurrent.atomic.AtomicReferenceArray;
 import java.util.function.Function;
 
 import org.jetbrains.annotations.NotNull;
@@ -81,16 +82,26 @@ public abstract class ArgType {
 
 	protected int hash;
 
+	private static final boolean OBJECT_TYPE_INTERN_ENABLED =
+			Boolean.parseBoolean(System.getProperty("jadx.cache.argtype-intern", "true"));
+
+	// direct-mapped cache for plain ObjectType: bounded size, slot replaced on collision,
+	// long names are never cached to keep retention of a few MiB at most
+	private static final int OBJECT_TYPE_CACHE_SIZE = 1 << 12;
+	private static final int OBJECT_TYPE_NAME_MAX_LEN = 1_024;
+	private static final int OBJECT_TYPE_CACHE_MASK = OBJECT_TYPE_CACHE_SIZE - 1;
+	private static final AtomicReferenceArray<ObjectType> OBJECT_TYPE_CACHE =
+			new AtomicReferenceArray<>(OBJECT_TYPE_CACHE_SIZE);
+
 	private static ArgType primitive(PrimitiveType stype) {
 		return new PrimitiveArg(stype);
 	}
 
-	private static ArgType objectNoCache(String obj) {
+	static ArgType objectNoCache(String obj) {
 		return new ObjectType(obj);
 	}
 
 	public static ArgType object(String obj) {
-		// TODO: add caching
 		String cleanObjectName = Utils.cleanObjectName(obj);
 		switch (cleanObjectName) {
 			case Consts.CLASS_OBJECT:
@@ -104,8 +115,25 @@ public abstract class ArgType {
 			case Consts.CLASS_EXCEPTION:
 				return EXCEPTION;
 			default:
-				return new ObjectType(cleanObjectName);
+				return cachedObjectType(cleanObjectName);
 		}
+	}
+
+	private static ArgType cachedObjectType(String cleanObjectName) {
+		if (!OBJECT_TYPE_INTERN_ENABLED) {
+			return new ObjectType(cleanObjectName);
+		}
+		int hash = cleanObjectName.hashCode();
+		int slot = (hash ^ (hash >>> 16)) & OBJECT_TYPE_CACHE_MASK;
+		ObjectType cachedType = OBJECT_TYPE_CACHE.get(slot);
+		if (cachedType != null && cachedType.getObject().equals(cleanObjectName)) {
+			return cachedType;
+		}
+		ObjectType newType = new ObjectType(cleanObjectName);
+		if (cleanObjectName.length() <= OBJECT_TYPE_NAME_MAX_LEN) {
+			OBJECT_TYPE_CACHE.set(slot, newType);
+		}
+		return newType;
 	}
 
 	public static ArgType genericType(String type) {
