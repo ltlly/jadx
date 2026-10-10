@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NavigableSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
@@ -180,7 +181,7 @@ public class DepthRegionTraversal {
 			traverseIterative(mth, visitor);
 			return;
 		}
-		TreeSet<Integer> pendingRanks = new TreeSet<>();
+		NavigableSet<Integer> pendingRanks = new TreeSet<>();
 		for (int rank = candidates.size() - 1; rank >= 0; rank--) {
 			pendingRanks.add(rank);
 		}
@@ -199,7 +200,7 @@ public class DepthRegionTraversal {
 
 	private static boolean traverseWorkSetStep(MethodNode mth, IRegionIterativeVisitor visitor,
 			List<IRegion> candidates, Map<IRegion, Integer> ranks,
-			Map<IRegion, IRegion> parents, TreeSet<Integer> pendingRanks) {
+			Map<IRegion, IRegion> parents, NavigableSet<Integer> pendingRanks) {
 		while (!pendingRanks.isEmpty()) {
 			IRegion region = candidates.get(pendingRanks.pollFirst());
 			if (visitor.visitRegion(mth, region)) {

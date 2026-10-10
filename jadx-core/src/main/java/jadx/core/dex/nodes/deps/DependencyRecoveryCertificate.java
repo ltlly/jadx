@@ -3,8 +3,8 @@ package jadx.core.dex.nodes.deps;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.TreeSet;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.jetbrains.annotations.Nullable;
@@ -21,7 +21,8 @@ import jadx.core.dex.nodes.RootNode;
 /**
  * Built-in certification allowlist for dependency summaries (stage-2a).
  *
- * <p>stage-2a scope (recovery reduction): classes whose only v1 blockers were
+ * <p>
+ * stage-2a scope (recovery reduction): classes whose only v1 blockers were
  * pinned annotations now certify. {@code AnnotationsAttr},
  * {@code MethodParametersAttr}-style pinned annotation payloads and
  * {@code EncodedValue} survive unload, so the recovery replays the original
@@ -33,7 +34,8 @@ import jadx.core.dex.nodes.RootNode;
  * {@code DepthTraversal}, so behavior is identical to the legacy second round
  * on the same live seed.
  *
- * <p>TODO-verify verdicts for the conditionally-SKIP candidates of the
+ * <p>
+ * TODO-verify verdicts for the conditionally-SKIP candidates of the
  * design pass matrix (CFG/SSA/type/region/shrink): all stay KEEP for coded
  * classes. {@code CheckRegions} emits root-visible warnings on second-round
  * coded methods (CheckRegions.java:68,81) and reads regions/blocks
@@ -45,13 +47,15 @@ import jadx.core.dex.nodes.RootNode;
  * reading, so per the fail-closed contract coded classes are not certified
  * ({@code METHOD_WITH_CODE}) until stage-2b evidence exists.
  *
- * <p>T8 guard: {@code MethodParametersAttr} is pinned and
+ * <p>
+ * T8 guard: {@code MethodParametersAttr} is pinned and
  * {@code DebugInfoApplyVisitor.processMethodParametersAttribute} has no
  * isNoCode guard, so a legacy recovery would rename {@code CodeVar}s of
  * noCode methods while the no-reload recovery cannot — any method carrying
  * that attribute fails the whole subtree ({@code METHOD_PARAMETERS_ATTR}).
  *
- * <p>Every named miss reason keeps fallbacks diagnosable; any doubt falls
+ * <p>
+ * Every named miss reason keeps fallbacks diagnosable; any doubt falls
  * back to the full legacy recovery.
  */
 public final class DependencyRecoveryCertificate {

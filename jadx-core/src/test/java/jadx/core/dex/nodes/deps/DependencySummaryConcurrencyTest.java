@@ -11,7 +11,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import jadx.api.JadxDecompiler;
 import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.RootNode;
 import jadx.tests.api.SmaliTest;
@@ -132,7 +131,8 @@ class DependencySummaryConcurrencyTest extends SmaliTest {
 								+ "    sget-object v0, Ldst/Shared;->TAG:Ljava/lang/String;\n"
 								+ "\n"
 								+ "    return-object v0\n"
-								+ ".end method\n", name));
+								+ ".end method\n",
+						name));
 				file.deleteOnExit();
 				dir.deleteOnExit();
 				return file;

@@ -135,8 +135,7 @@ class UsageInfoPublishFailureTest {
 				}
 				return values;
 			};
-			BiConsumer<OrderedKey, List<Integer>> setter = (key, value) ->
-					published.add(key + "=" + value);
+			BiConsumer<OrderedKey, List<Integer>> setter = (key, value) -> published.add(key + "=" + value);
 			invokePublishUseSet(usageInfo, executor, useSet, transform, setter);
 			throw new AssertionError("publish must fail at the failing entry");
 		} catch (ReflectiveOperationException e) {

@@ -9,12 +9,11 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import jadx.api.JadxDecompiler;
 import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.RootNode;
 import jadx.core.dex.visitors.ClassModifier;
-import jadx.core.dex.visitors.fixaccessmodifiers.FixAccessModifiers;
 import jadx.core.dex.visitors.MethodThrowsVisitor;
+import jadx.core.dex.visitors.fixaccessmodifiers.FixAccessModifiers;
 import jadx.tests.api.SmaliTest;
 
 import static org.assertj.core.api.Assertions.assertThat;

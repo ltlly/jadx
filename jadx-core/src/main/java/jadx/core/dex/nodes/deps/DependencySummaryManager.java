@@ -12,9 +12,9 @@ import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import jadx.api.impl.passes.DecompilePassWrapper;
 import jadx.api.plugins.pass.JadxPass;
 import jadx.api.plugins.pass.types.JadxDependencySummaryPass;
-import jadx.api.impl.passes.DecompilePassWrapper;
 import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.MethodNode;
@@ -29,11 +29,13 @@ import static jadx.core.dex.nodes.ProcessState.GENERATED_AND_UNLOADED;
  * switch, byte budget, prepare/certify/recover orchestration and miss-reason
  * counters.
  *
- * <p>All summary state transitions happen under the existing
+ * <p>
+ * All summary state transitions happen under the existing
  * {@code synchronized(cls.getClassInfo())} monitor discipline; this class adds
  * no locks of its own. Enabled only during a full source save epoch.
  *
- * <p>Kill switch: {@code -Djadx.deps.summary=false} keeps the full legacy
+ * <p>
+ * Kill switch: {@code -Djadx.deps.summary=false} keeps the full legacy
  * re-process behavior. Missing property defaults to {@code false} (development
  * default); an invalid value is treated as {@code false} with one log record.
  */

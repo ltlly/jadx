@@ -7,7 +7,8 @@ import org.jetbrains.annotations.Nullable;
  * after its own codegen round, describing how the class can be recovered at a
  * later metadata dependency request without a full legacy re-process.
  *
- * <p>The v1 payload is deliberately compact: it stores epoch/pass identity and
+ * <p>
+ * The v1 payload is deliberately compact: it stores epoch/pass identity and
  * demand classification only. All structural witnesses are re-verified live
  * from node state at recovery time, so no IR/SSA/flag copies are retained.
  */

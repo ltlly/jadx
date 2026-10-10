@@ -10,15 +10,16 @@ import jadx.api.plugins.pass.types.JadxDependencySummaryPass;
 import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.RootNode;
+import jadx.core.dex.visitors.ClassModifier;
 import jadx.core.dex.visitors.DepthTraversal;
 import jadx.core.dex.visitors.IDexTreeVisitor;
-import jadx.core.dex.visitors.ClassModifier;
 import jadx.core.utils.exceptions.JadxRuntimeException;
 
 /**
  * Original ordered residual-stage dispatcher for certified dependency recovery.
  *
- * <p>Reuses the original visitor instances from the production pass list, so the
+ * <p>
+ * Reuses the original visitor instances from the production pass list, so the
  * executed code is byte-identical to a legacy recovery round for the residual
  * stages. Effects are applied in Jadx pass-major order followed by
  * DepthTraversal class/inner/method order, exactly as in legacy processing.
