@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
 import jadx.core.dex.nodes.ClassNode;
+import jadx.core.dex.nodes.ProcessState;
 import jadx.core.dex.nodes.RootNode;
 import jadx.tests.api.SmaliTest;
 
@@ -75,6 +76,13 @@ class DependencySummaryConcurrencyTest extends SmaliTest {
 		manager.setRecoveryObserver(observerRuns::incrementAndGet);
 		manager.beginEpoch();
 
+		// The scheduler need not generate Shared before its consumers.
+		// Establish the recovery precondition rather than depending on worker timing.
+		ClassNode shared = root.resolveClass("dst.Shared");
+		shared.decompile();
+		assertThat(shared.getState()).isEqualTo(ProcessState.GENERATED_AND_UNLOADED);
+		assertThat(shared.getDependencySummary()).isNotNull();
+
 		// full save pipeline: real scheduler, eight worker threads, epoch hooks
 		jadxDecompiler.save(1000, (done, total) -> {
 			// progress not needed
@@ -85,7 +93,6 @@ class DependencySummaryConcurrencyTest extends SmaliTest {
 				.as("exactly one residual recovery across all workers")
 				.isEqualTo(1);
 		assertThat(manager.getSummaryRecoveries()).isEqualTo(1);
-		ClassNode shared = root.resolveClass("dst.Shared");
 		assertThat(shared.getDependencySummary().isRecovered()).isTrue();
 		assertThat(shared.getState().isProcessComplete()).isTrue();
 		// consumers were saved with identical code semantics
