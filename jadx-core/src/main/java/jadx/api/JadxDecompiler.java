@@ -195,6 +195,9 @@ public final class JadxDecompiler implements Closeable {
 
 	@Override
 	public void close() {
+		if (root != null && root.getDependencyProcessingProfile() != null) {
+			root.getDependencyProcessingProfile().dumpIfRequested();
+		}
 		reset();
 		closeAll(loadedInputs);
 		closeAll(customCodeLoaders);

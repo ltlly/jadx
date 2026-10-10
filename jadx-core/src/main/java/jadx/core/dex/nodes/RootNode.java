@@ -45,6 +45,7 @@ import jadx.core.dex.info.InfoStorage;
 import jadx.core.dex.info.MethodInfo;
 import jadx.core.dex.info.PackageInfo;
 import jadx.core.dex.instructions.args.ArgType;
+import jadx.core.dex.nodes.deps.DependencyProcessingProfile;
 import jadx.core.dex.nodes.utils.MethodUtils;
 import jadx.core.dex.nodes.utils.SelectFromDuplicates;
 import jadx.core.dex.nodes.utils.TypeUtils;
@@ -94,6 +95,7 @@ public class RootNode extends AttrNode {
 	private List<IDexTreeVisitor> preDecompilePasses;
 	private ProcessClass processClasses;
 	private jadx.core.dex.nodes.deps.DependencySummaryManager dependencySummaryManager;
+	private final @Nullable DependencyProcessingProfile dependencyProcessingProfile;
 
 	private ClspGraph clsp;
 	private @Nullable String appPackage;
@@ -121,6 +123,9 @@ public class RootNode extends AttrNode {
 	private RootNode(@Nullable JadxDecompiler decompiler, JadxArgs args) {
 		this.decompiler = decompiler;
 		this.args = args;
+		this.dependencyProcessingProfile = Boolean.getBoolean(DependencyProcessingProfile.ENABLE_PROPERTY)
+				? new DependencyProcessingProfile()
+				: null;
 		this.preDecompilePasses = Jadx.getPreDecompilePassesList();
 		this.processClasses = new ProcessClass(Jadx.getPassesList(args));
 		this.dependencySummaryManager = new jadx.core.dex.nodes.deps.DependencySummaryManager(this);
@@ -695,6 +700,11 @@ public class RootNode extends AttrNode {
 
 	public jadx.core.dex.nodes.deps.DependencySummaryManager getDependencySummaryManager() {
 		return dependencySummaryManager;
+	}
+
+	@Nullable
+	public DependencyProcessingProfile getDependencyProcessingProfile() {
+		return dependencyProcessingProfile;
 	}
 
 	public List<IDexTreeVisitor> getPasses() {

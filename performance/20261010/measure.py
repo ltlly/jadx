@@ -40,6 +40,8 @@ def main():
     parser.add_argument('apk', type=Path)
     parser.add_argument('run', type=Path)
     parser.add_argument('--profile', action='store_true')
+    parser.add_argument('--dependency-profile', action='store_true',
+                        help='Collect dependency processing diagnostics, not a formal performance run')
     args = parser.parse_args()
     run = args.run.resolve()
     run.mkdir(parents=True, exist_ok=False)
@@ -48,6 +50,9 @@ def main():
                '-XX:ParallelGCThreads=3', '-Djdk.util.zip.disableZip64ExtraFieldValidation=true',
                '--enable-native-access=ALL-UNNAMED', '-Dfile.encoding=UTF-8',
                '-Duser.language=en', '-Duser.country=US']
+    if args.dependency_profile:
+        command += ['-Djadx.deps.profile=true',
+                    f'-Djadx.deps.profile.output={run}/dependency-profile']
     if args.profile:
         command += ['-XX:FlightRecorderOptions=stackdepth=256',
                     f'-XX:StartFlightRecording=settings=profile,filename={run}/profile.jfr,dumponexit=true']
@@ -58,6 +63,7 @@ def main():
         environment.pop(key, None)
     metadata = {'command': command, 'apk_sha256': digest(args.apk),
                 'distribution': manifest(args.distribution), 'profiled': args.profile,
+                'dependency_profiled': args.dependency_profile,
                 'jdk': subprocess.run([java, '-version'], capture_output=True, text=True).stderr,
                 'started': time.strftime('%Y-%m-%dT%H:%M:%S%z')}
     (run / 'metadata.json').write_text(json.dumps(metadata, indent=2))

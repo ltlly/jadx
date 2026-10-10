@@ -38,6 +38,7 @@ import jadx.core.dex.instructions.args.ArgType;
 import jadx.core.dex.instructions.args.InsnArg;
 import jadx.core.dex.instructions.args.RegisterArg;
 import jadx.core.dex.instructions.args.SSAVar;
+import jadx.core.dex.nodes.deps.DependencyProcessingProfile;
 import jadx.core.dex.nodes.utils.TypeUtils;
 import jadx.core.dex.regions.Region;
 import jadx.core.dex.trycatch.ExceptionHandler;
@@ -174,6 +175,10 @@ public class MethodNode extends NotificationAttrNode implements IMethodDetails, 
 				// don't load instructions for method with errors
 				this.instructions = EMPTY_INSN_ARRAY;
 			} else {
+				DependencyProcessingProfile profile = root().getDependencyProcessingProfile();
+				if (profile != null) {
+					profile.recordDecodeAttempt(this);
+				}
 				InsnDecoder decoder = new InsnDecoder(this);
 				this.instructions = decoder.process(codeReader);
 			}
@@ -307,6 +312,7 @@ public class MethodNode extends NotificationAttrNode implements IMethodDetails, 
 	}
 
 	public List<RegisterArg> getArgRegs() {
+		profileBodyRead("getArgRegs", argsList != null);
 		if (argsList == null) {
 			throw new JadxRuntimeException("Method arg registers not loaded: " + this
 					+ ", class status: " + parentClass.getTopParentClass().getState());
@@ -364,8 +370,17 @@ public class MethodNode extends NotificationAttrNode implements IMethodDetails, 
 		return noCode;
 	}
 
+	private void profileBodyRead(String accessor, boolean present) {
+		DependencyProcessingProfile profile = root().getDependencyProcessingProfile();
+		if (profile != null) {
+			profile.recordBodyRead(this, accessor, present);
+		}
+	}
+
 	public InsnNode[] getInstructions() {
-		return instructions;
+		InsnNode[] value = instructions;
+		profileBodyRead("getInstructions", value != null);
+		return value;
 	}
 
 	public void unloadInsnArr() {
@@ -383,7 +398,9 @@ public class MethodNode extends NotificationAttrNode implements IMethodDetails, 
 	}
 
 	public List<BlockNode> getBasicBlocks() {
-		return blocks;
+		List<BlockNode> value = blocks;
+		profileBodyRead("getBasicBlocks", value != null);
+		return value;
 	}
 
 	public void setBasicBlocks(List<BlockNode> blocks) {
@@ -623,7 +640,9 @@ public class MethodNode extends NotificationAttrNode implements IMethodDetails, 
 	}
 
 	public Region getRegion() {
-		return region;
+		Region value = region;
+		profileBodyRead("getRegion", value != null);
+		return value;
 	}
 
 	public void setRegion(Region region) {

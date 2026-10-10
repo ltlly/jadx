@@ -21,6 +21,8 @@ import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.LoadStage;
 import jadx.core.dex.nodes.MethodNode;
 import jadx.core.dex.nodes.RootNode;
+import jadx.core.dex.nodes.deps.DependencyProcessingProfile;
+import jadx.core.dex.nodes.deps.DependencyProcessingProfile.Span;
 import jadx.core.dex.nodes.deps.DependencySummaryManager;
 import jadx.core.dex.visitors.DepthTraversal;
 import jadx.core.dex.visitors.IDexTreeVisitor;
@@ -68,80 +70,109 @@ public class ProcessClass {
 			return null;
 		}
 		Utils.checkThreadInterrupt();
-		synchronized (cls.getClassInfo()) {
-			DependencySummaryManager summaryManager = null;
-			if (!codegen && requestKind == RequestKind.METADATA_DEPENDENCY
-					&& cls.getState() == GENERATED_AND_UNLOADED) {
-				// recheck summary/epoch under the monitor (pre-lock check would be a TOCTOU)
-				summaryManager = cls.root().getDependencySummaryManager();
-				if (summaryManager.tryRecover(cls)) {
+		DependencyProcessingProfile profile = cls.root().getDependencyProcessingProfile();
+		try (Span span = profile == null
+				? null
+				: profile.begin(cls, "PROCESS/" + requestKind + '/' + codegen, false, true)) {
+			synchronized (cls.getClassInfo()) {
+				if (span != null) {
+					span.acquiredMonitor(cls.getState() == GENERATED_AND_UNLOADED);
+				}
+				DependencySummaryManager summaryManager = null;
+				if (!codegen && requestKind == RequestKind.METADATA_DEPENDENCY
+						&& cls.getState() == GENERATED_AND_UNLOADED) {
+					// recheck summary/epoch under the monitor (pre-lock check would be a TOCTOU)
+					summaryManager = cls.root().getDependencySummaryManager();
+					if (summaryManager.tryRecover(cls)) {
+						return null;
+					}
+					summaryManager.recordFallbackReentry();
+				}
+				long recoveryStart = summaryManager == null ? 0L : System.nanoTime();
+				try {
+					if (cls.contains(AFlag.CLASS_DEEP_RELOAD)) {
+						cls.remove(AFlag.CLASS_DEEP_RELOAD);
+						cls.deepUnload();
+						cls.add(AFlag.CLASS_UNLOADED);
+					}
+					if (cls.contains(AFlag.CLASS_UNLOADED)) {
+						cls.root().runPreDecompileStageForClass(cls);
+						cls.remove(AFlag.CLASS_UNLOADED);
+					}
+					if (cls.getState() == GENERATED_AND_UNLOADED) {
+						// force loading code again
+						cls.setState(NOT_LOADED);
+					}
+					if (codegen) {
+						cls.setLoadStage(LoadStage.CODEGEN_STAGE);
+						if (cls.contains(AFlag.RELOAD_AT_CODEGEN_STAGE)) {
+							cls.remove(AFlag.RELOAD_AT_CODEGEN_STAGE);
+							unloadClass(cls, profile);
+						}
+					} else {
+						cls.setLoadStage(LoadStage.PROCESS_STAGE);
+					}
+					if (cls.getState() == NOT_LOADED) {
+						loadClass(cls, profile);
+					}
+					if (codegen && cls.getState() == PROCESS_COMPLETE && cls.isSummaryRecoveredResidency()) {
+						// summary-only residency: regenerate like legacy does from a
+						// recovered resident body — reload bodies, don't re-run passes
+						loadClass(cls, profile);
+						cls.setState(PROCESS_COMPLETE);
+					}
+					if (cls.getState() == LOADED) {
+						cls.setState(PROCESS_STARTED);
+						int ordinal = 0;
+						for (IDexTreeVisitor visitor : passes) {
+							try (Span passSpan = profile == null
+									? null
+									: profile.beginStage(cls, "PASS/" + ordinal + '/' + visitor.getName())) {
+								DepthTraversal.visit(visitor, cls);
+							}
+							ordinal++;
+						}
+						cls.setState(PROCESS_COMPLETE);
+					}
+					if (codegen) {
+						Utils.checkThreadInterrupt();
+						ICodeInfo code;
+						try (Span codeSpan = profile == null ? null : profile.beginStage(cls, "CODEGEN")) {
+							code = CodeGen.generate(cls);
+						}
+						if (!cls.contains(AFlag.DONT_UNLOAD_CLASS)) {
+							// capture prepared summary before the ordinary generated unload
+							cls.root().getDependencySummaryManager().prepareAfterCodegen(cls);
+							unloadClass(cls, profile);
+							cls.setState(GENERATED_AND_UNLOADED);
+						}
+						return code;
+					}
 					return null;
-				}
-				summaryManager.recordFallbackReentry();
-			}
-			long recoveryStart = summaryManager == null ? 0L : System.nanoTime();
-			try {
-				if (cls.contains(AFlag.CLASS_DEEP_RELOAD)) {
-					cls.remove(AFlag.CLASS_DEEP_RELOAD);
-					cls.deepUnload();
-					cls.add(AFlag.CLASS_UNLOADED);
-				}
-				if (cls.contains(AFlag.CLASS_UNLOADED)) {
-					cls.root().runPreDecompileStageForClass(cls);
-					cls.remove(AFlag.CLASS_UNLOADED);
-				}
-				if (cls.getState() == GENERATED_AND_UNLOADED) {
-					// force loading code again
-					cls.setState(NOT_LOADED);
-				}
-				if (codegen) {
-					cls.setLoadStage(LoadStage.CODEGEN_STAGE);
-					if (cls.contains(AFlag.RELOAD_AT_CODEGEN_STAGE)) {
-						cls.remove(AFlag.RELOAD_AT_CODEGEN_STAGE);
-						cls.unload();
+				} catch (StackOverflowError | Exception e) {
+					if (codegen) {
+						throw e;
 					}
-				} else {
-					cls.setLoadStage(LoadStage.PROCESS_STAGE);
-				}
-				if (cls.getState() == NOT_LOADED) {
-					cls.load();
-				}
-				if (codegen && cls.getState() == PROCESS_COMPLETE && cls.isSummaryRecoveredResidency()) {
-					// summary-only residency: regenerate like legacy does from a
-					// recovered resident body — reload bodies, don't re-run passes
-					cls.load();
-					cls.setState(PROCESS_COMPLETE);
-				}
-				if (cls.getState() == LOADED) {
-					cls.setState(PROCESS_STARTED);
-					for (IDexTreeVisitor visitor : passes) {
-						DepthTraversal.visit(visitor, cls);
+					cls.addError("Class process error: " + e.getClass().getSimpleName(), e);
+					return null;
+				} finally {
+					if (summaryManager != null) {
+						summaryManager.recordLegacyRecovery(System.nanoTime() - recoveryStart);
 					}
-					cls.setState(PROCESS_COMPLETE);
-				}
-				if (codegen) {
-					Utils.checkThreadInterrupt();
-					ICodeInfo code = CodeGen.generate(cls);
-					if (!cls.contains(AFlag.DONT_UNLOAD_CLASS)) {
-						// capture prepared summary before the ordinary generated unload
-						cls.root().getDependencySummaryManager().prepareAfterCodegen(cls);
-						cls.unload();
-						cls.setState(GENERATED_AND_UNLOADED);
-					}
-					return code;
-				}
-				return null;
-			} catch (StackOverflowError | Exception e) {
-				if (codegen) {
-					throw e;
-				}
-				cls.addError("Class process error: " + e.getClass().getSimpleName(), e);
-				return null;
-			} finally {
-				if (summaryManager != null) {
-					summaryManager.recordLegacyRecovery(System.nanoTime() - recoveryStart);
 				}
 			}
+		}
+	}
+
+	private static void loadClass(ClassNode cls, @Nullable DependencyProcessingProfile profile) {
+		try (Span span = profile == null ? null : profile.beginStage(cls, "LOAD_CLASS")) {
+			cls.load();
+		}
+	}
+
+	private static void unloadClass(ClassNode cls, @Nullable DependencyProcessingProfile profile) {
+		try (Span span = profile == null ? null : profile.beginStage(cls, "UNLOAD_CLASS")) {
+			cls.unload();
 		}
 	}
 
@@ -151,27 +182,30 @@ public class ProcessClass {
 		if (topParentClass != cls) {
 			return generateCode(topParentClass);
 		}
-		try {
-			if (cls.contains(AFlag.DONT_GENERATE)) {
-				process(cls, false);
-				return NOT_GENERATED;
-			}
-			for (ClassNode depCls : cls.getDependencies()) {
-				process(depCls, false, RequestKind.METADATA_DEPENDENCY);
-			}
-			if (!cls.getCodegenDeps().isEmpty()) {
-				process(cls, false);
-				for (ClassNode codegenDep : cls.getCodegenDeps()) {
-					process(codegenDep, false);
+		DependencyProcessingProfile profile = cls.root().getDependencyProcessingProfile();
+		try (Span span = profile == null ? null : profile.begin(cls, "GENERATE_REQUEST", false, true)) {
+			try {
+				if (cls.contains(AFlag.DONT_GENERATE)) {
+					process(cls, false);
+					return NOT_GENERATED;
 				}
+				for (ClassNode depCls : cls.getDependencies()) {
+					process(depCls, false, RequestKind.METADATA_DEPENDENCY);
+				}
+				if (!cls.getCodegenDeps().isEmpty()) {
+					process(cls, false);
+					for (ClassNode codegenDep : cls.getCodegenDeps()) {
+						process(codegenDep, false);
+					}
+				}
+				ICodeInfo code = process(cls, true);
+				if (code == null) {
+					throw new JadxRuntimeException("Codegen failed");
+				}
+				return code;
+			} catch (StackOverflowError | Exception e) {
+				throw new JadxRuntimeException("Failed to generate code for class: " + cls.getFullName(), e);
 			}
-			ICodeInfo code = process(cls, true);
-			if (code == null) {
-				throw new JadxRuntimeException("Codegen failed");
-			}
-			return code;
-		} catch (StackOverflowError | Exception e) {
-			throw new JadxRuntimeException("Failed to generate code for class: " + cls.getFullName(), e);
 		}
 	}
 
@@ -270,20 +304,34 @@ public class ProcessClass {
 	}
 
 	public boolean processMethodToVisitor(MethodNode mth, IDexTreeVisitor lastPassToProcess) {
-		synchronized (mth.getTopParentClass().getClassInfo()) {
-			try {
-				mth.unload();
-				mth.load();
-				for (IDexTreeVisitor pass : passes) {
-					DepthTraversal.visit(pass, mth);
-					if (pass == lastPassToProcess) {
-						return true;
-					}
+		DependencyProcessingProfile profile = mth.root().getDependencyProcessingProfile();
+		try (Span span = profile == null ? null : profile.begin(mth.getTopParentClass(), "METHOD_RECOVERY", true, true)) {
+			synchronized (mth.getTopParentClass().getClassInfo()) {
+				if (span != null) {
+					span.acquiredMonitor(true);
 				}
-			} catch (Exception e) {
-				throw new JadxRuntimeException("Failed to process method to visitor: " + lastPassToProcess, e);
+				try {
+					try (Span loadSpan = profile == null ? null : profile.beginStage(mth.getTopParentClass(), "RELOAD_METHOD")) {
+						mth.unload();
+						mth.load();
+					}
+					int ordinal = 0;
+					for (IDexTreeVisitor pass : passes) {
+						try (Span passSpan = profile == null
+								? null
+								: profile.beginStage(mth.getTopParentClass(), "METHOD_PASS/" + ordinal + '/' + pass.getName())) {
+							DepthTraversal.visit(pass, mth);
+						}
+						ordinal++;
+						if (pass == lastPassToProcess) {
+							return true;
+						}
+					}
+				} catch (Exception e) {
+					throw new JadxRuntimeException("Failed to process method to visitor: " + lastPassToProcess, e);
+				}
+				return false;
 			}
-			return false;
 		}
 	}
 
