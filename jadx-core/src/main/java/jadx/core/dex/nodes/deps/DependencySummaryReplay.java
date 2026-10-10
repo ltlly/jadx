@@ -52,6 +52,10 @@ public final class DependencySummaryReplay {
 			}
 			DependencyRecoveryCertificate.PassClassification classification =
 					DependencyRecoveryCertificate.classify(pass.getName());
+			// stage-2a residuals run the original pass on the live (unloaded) seed:
+			// MethodThrows, FixAccess, Mod (annotation const replacement),
+			// NonFinalResIds (annotation scan), PrepareForCodeGen (annotation field
+			// usage), ClassModifier synthetic-flag partial; all at original ordinals
 			switch (classification) {
 				case RESIDUAL:
 					runResidualPass(pass, topCls, strict);

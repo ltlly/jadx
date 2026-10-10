@@ -79,6 +79,14 @@ public final class DependencySummaryManager {
 	private final LongAdder legacyFallbackRecoveryNanos = new LongAdder();
 	private final LongAdder summaryRecoveryNanos = new LongAdder();
 	private final Map<String, LongAdder> missReasons = new ConcurrentHashMap<>();
+	// stage-2a stats: first-reentry multi-reason bitmasks and per-reason legacy time
+	private final Map<String, LongAdder> missBitmasks = new ConcurrentHashMap<>();
+	private final Map<String, LongAdder> missReasonNanos = new ConcurrentHashMap<>();
+	private final LongAdder verifyNanos = new LongAdder();
+	private final LongAdder replayNanos = new LongAdder();
+	private final LongAdder annotationRecoveries = new LongAdder();
+	/** miss reason of the re-entry currently falling back on this thread */
+	private final ThreadLocal<String> pendingMissReason = new ThreadLocal<>();
 	/** package-private test observation hook: invoked after each recovery attempt. */
 	volatile @Nullable Runnable recoveryObserver;
 
@@ -261,16 +269,17 @@ public final class DependencySummaryManager {
 		if (summary.getEpochId() != currentEpochId) {
 			summary.setInvalid();
 			releaseBudget(summary.getEstimatedBytes());
-			miss("EPOCH_MISMATCH");
+			recordReentryMiss(topCls, "EPOCH_MISMATCH");
 			return false;
 		}
 		if (topCls.contains(AFlag.CLASS_DEEP_RELOAD) || topCls.contains(AFlag.CLASS_UNLOADED)) {
 			summary.setInvalid();
 			releaseBudget(summary.getEstimatedBytes());
-			miss("RELOAD_PENDING");
+			recordReentryMiss(topCls, "RELOAD_PENDING");
 			return false;
 		}
 		// verification happens strictly before any residual mutation
+		long verifyStart = System.nanoTime();
 		String missReason = DependencyRecoveryCertificate.verifySubtree(topCls);
 		if (missReason == null) {
 			missReason = DependencyRecoveryCertificate.verifyThrowsWitness(topCls);
@@ -283,10 +292,11 @@ public final class DependencySummaryManager {
 				}
 			}
 		}
+		verifyNanos.add(System.nanoTime() - verifyStart);
 		if (missReason != null) {
 			summary.setInvalid();
 			releaseBudget(summary.getEstimatedBytes());
-			miss(missReason);
+			recordReentryMiss(topCls, missReason);
 			return false;
 		}
 		// recheck state under the monitor: another thread may have recovered already
@@ -295,6 +305,10 @@ public final class DependencySummaryManager {
 		}
 		long start = System.nanoTime();
 		replay.execute(topCls, summary);
+		replayNanos.add(System.nanoTime() - start);
+		if (statsEnabled && DependencyRecoveryCertificate.hasPinnedAnnotations(topCls)) {
+			annotationRecoveries.increment();
+		}
 		topCls.setLoadStage(jadx.core.dex.nodes.LoadStage.PROCESS_STAGE);
 		summary.setRecovered();
 		// publish state last so other threads observe recovered state via HB
@@ -308,6 +322,28 @@ public final class DependencySummaryManager {
 
 	public void recordLegacyRecovery(long nanos) {
 		legacyFallbackRecoveryNanos.add(nanos);
+		// attribute the fallback time to the miss reason recorded by the failed
+		// recovery attempt on this thread (nested recoveries may drain earlier)
+		String reason = pendingMissReason.get();
+		if (reason != null) {
+			pendingMissReason.remove();
+			missReasonNanos.computeIfAbsent(reason, r -> new LongAdder()).add(nanos);
+		}
+	}
+
+	/**
+	 * Record a re-entry miss: primary first-reason counter (v1 semantics), plus
+	 * the stage-2a multi-reason bitmask and the pending reason for per-reason
+	 * legacy time attribution.
+	 */
+	private void recordReentryMiss(ClassNode topCls, String reason) {
+		miss(reason);
+		pendingMissReason.set(reason);
+		if (statsEnabled) {
+			List<String> all = DependencyRecoveryCertificate.collectAllMissReasons(topCls);
+			String mask = all.isEmpty() ? reason : String.join("+", all);
+			missBitmasks.computeIfAbsent(mask, m -> new LongAdder()).increment();
+		}
 	}
 
 	/** Public counter for re-entries which fell back to the legacy recovery. */
@@ -348,20 +384,34 @@ public final class DependencySummaryManager {
 		missReasons.computeIfAbsent(reason, r -> new LongAdder()).increment();
 	}
 
-	private void printStatsLine() {
+	String formatStatsLine() {
 		long recoveries = summaryRecoveries.sum();
 		long fallbacks = fallbackReentries.sum();
 		long legacyNanos = legacyFallbackRecoveryNanos.sum();
-		long summaryNanos = summaryRecoveryNanos.sum();
-		List<String> reasonList = new ArrayList<>(missReasons.size());
-		missReasons.forEach((k, v) -> reasonList.add(k + ":" + v.sum()));
-		reasonList.sort(String::compareTo);
-		System.err.println("[jadx-deps-summary] prepared=" + preparedCount.sum()
+		long summaryN = summaryRecoveryNanos.sum();
+		return "[jadx-deps-summary] prepared=" + preparedCount.sum()
 				+ " summary-recoveries=" + recoveries
 				+ " fallback-reentries=" + fallbacks
-				+ " summary-time-ms=" + summaryNanos / 1_000_000
+				+ " reentries=" + (recoveries + fallbacks)
+				+ " summary-time-ms=" + summaryN / 1_000_000
 				+ " legacy-time-ms=" + legacyNanos / 1_000_000
-				+ " misses=[" + String.join(",", reasonList) + ']');
+				+ " verify-time-ms=" + verifyNanos.sum() / 1_000_000
+				+ " replay-time-ms=" + replayNanos.sum() / 1_000_000
+				+ " annotation-recoveries=" + annotationRecoveries.sum()
+				+ " misses=[" + formatMap(missReasons) + ']'
+				+ " miss-bitmasks=[" + formatMap(missBitmasks) + ']'
+				+ " miss-time-ms=[" + formatMap(missReasonNanos) + ']';
+	}
+
+	private static String formatMap(Map<String, LongAdder> map) {
+		List<String> entries = new ArrayList<>(map.size());
+		map.forEach((k, v) -> entries.add(k + ":" + v.sum()));
+		entries.sort(String::compareTo);
+		return String.join(",", entries);
+	}
+
+	private void printStatsLine() {
+		System.err.println(formatStatsLine());
 	}
 
 	// test/diagnostic accessors (package-private or read-only)
@@ -391,6 +441,26 @@ public final class DependencySummaryManager {
 
 	Map<String, LongAdder> getMissReasons() {
 		return missReasons;
+	}
+
+	Map<String, LongAdder> getMissBitmasks() {
+		return missBitmasks;
+	}
+
+	Map<String, LongAdder> getMissReasonNanos() {
+		return missReasonNanos;
+	}
+
+	long getVerifyNanos() {
+		return verifyNanos.sum();
+	}
+
+	long getReplayNanos() {
+		return replayNanos.sum();
+	}
+
+	long getAnnotationRecoveries() {
+		return annotationRecoveries.sum();
 	}
 
 	void setRecoveryObserver(@Nullable Runnable observer) {

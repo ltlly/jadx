@@ -46,6 +46,7 @@ class DependencySummaryTest extends SmaliTest {
 	public void restoreProperties() {
 		System.clearProperty(DependencySummaryManager.ENABLE_PROPERTY);
 		System.clearProperty(DependencySummaryManager.STRICT_PROPERTY);
+		System.clearProperty(DependencySummaryManager.STATS_PROPERTY);
 	}
 
 	private static List<File> fixtureFiles(String... names) {
@@ -463,6 +464,136 @@ class DependencySummaryTest extends SmaliTest {
 		assertThat(right1).isEqualTo(rightL);
 		assertThat(left2).isEqualTo(leftL);
 		assertThat(right2).isEqualTo(rightL);
+	}
+
+	@Test
+	void annotatedNoCodeClassRecoveryMatchesLegacy() {
+		// stage-2a: pinned annotation payloads are served from live state plus the
+		// original annotation residual passes (Mod class visit, NonFinalResIds,
+		// PrepareForCodeGen class/field annotation usage)
+		List<File> files = fixtureFiles("Consts.smali", "AnnotatedData.smali", "AnnotatedDataUser.smali");
+		System.setProperty(DependencySummaryManager.STATS_PROPERTY, "true");
+
+		JadxDecompiler legacy = loadLegacy(files);
+		RootNode legacyRoot = legacy.getRoot();
+		ClassNode lData = cls(legacyRoot, "dst.AnnotatedData");
+		lData.decompile();
+		cls(legacyRoot, "dst.AnnotatedDataUser").decompile();
+		String lDataCode = lData.getCode().getCodeStr();
+		String lUserCode = cls(legacyRoot, "dst.AnnotatedDataUser").getCode().getCodeStr();
+		int legacyErrors = legacy.getErrorsCount();
+		int legacyWarns = legacy.getWarnsCount();
+
+		JadxDecompiler on = loadWithSummaries(files);
+		RootNode onRoot = on.getRoot();
+		ClassNode sData = cls(onRoot, "dst.AnnotatedData");
+		sData.decompile();
+		assertThat(sData.getDependencySummary()).as("summary prepared for annotated class").isNotNull();
+		cls(onRoot, "dst.AnnotatedDataUser").decompile();
+		endEpoch(on);
+
+		DependencySummaryManager manager = onRoot.getDependencySummaryManager();
+		assertThat(manager.getSummaryRecoveries()).as("annotated no-code recovery").isEqualTo(1);
+		assertThat(manager.getAnnotationRecoveries()).as("annotation residual recoveries").isEqualTo(1);
+		// the former v1 annotation blockers are gone
+		assertThat(manager.getMissReasons()).doesNotContainKeys(
+				"CLASS_ANNOTATIONS", "FIELD_ANNOTATIONS", "METHOD_ANNOTATIONS");
+
+		assertPublishedStateEquals(legacyRoot, onRoot);
+		assertThat(sData.getCode().getCodeStr()).isEqualTo(lDataCode);
+		assertThat(cls(onRoot, "dst.AnnotatedDataUser").getCode().getCodeStr()).isEqualTo(lUserCode);
+		// identical diagnostics multiplicity (annotation residual warnings included)
+		assertThat(on.getErrorsCount()).isEqualTo(legacyErrors);
+		assertThat(on.getWarnsCount()).isEqualTo(legacyWarns);
+
+		// stats line exposes the stage-2a coverage fields
+		String stats = manager.formatStatsLine();
+		assertThat(stats).contains("annotation-recoveries=1");
+		assertThat(stats).contains("reentries=1");
+	}
+
+	@Test
+	void codedDiamondFallsBackToFullLegacyReprocess() {
+		// stage-2a fail-closed verdict: no CFG/SSA/type/region/shrink pass was
+		// proven skippable for coded methods, so coded classes keep the full
+		// legacy re-process; the certificate must not claim them
+		List<File> files = fixtureFiles(
+				"CodedShared.smali", "CodedLeft.smali", "CodedRight.smali", "CodedTop.smali");
+
+		JadxDecompiler legacy = loadLegacy(files);
+		RootNode legacyRoot = legacy.getRoot();
+		ClassNode lShared = cls(legacyRoot, "dst.CodedShared");
+		lShared.decompile();
+		cls(legacyRoot, "dst.CodedLeft").decompile();
+		cls(legacyRoot, "dst.CodedRight").decompile();
+		cls(legacyRoot, "dst.CodedTop").decompile();
+		String lSharedCode = lShared.getCode().getCodeStr();
+		String lLeftCode = cls(legacyRoot, "dst.CodedLeft").getCode().getCodeStr();
+		String lRightCode = cls(legacyRoot, "dst.CodedRight").getCode().getCodeStr();
+		String lTopCode = cls(legacyRoot, "dst.CodedTop").getCode().getCodeStr();
+
+		JadxDecompiler on = loadWithSummaries(files);
+		RootNode onRoot = on.getRoot();
+		DependencySummaryManager manager = onRoot.getDependencySummaryManager();
+		ClassNode sShared = cls(onRoot, "dst.CodedShared");
+		sShared.decompile();
+		// prepare must fail closed on the coded method, before any consumer runs
+		assertThat(sShared.getDependencySummary()).as("no summary for coded class").isNull();
+		assertThat(manager.getMissReasons().get("METHOD_WITH_CODE")).isNotNull();
+		cls(onRoot, "dst.CodedLeft").decompile();
+		// exactly one legacy fallback re-entry, later consumers reuse residency
+		assertThat(manager.getFallbackReentries()).isEqualTo(1);
+		cls(onRoot, "dst.CodedRight").decompile();
+		cls(onRoot, "dst.CodedTop").decompile();
+		endEpoch(on);
+
+		assertThat(manager.getSummaryRecoveries()).isEqualTo(0);
+		assertThat(sShared.getMethods().get(0).isLoaded()).isTrue();
+		assertPublishedStateEquals(legacyRoot, onRoot);
+		assertThat(sShared.getCode().getCodeStr()).isEqualTo(lSharedCode);
+		assertThat(cls(onRoot, "dst.CodedLeft").getCode().getCodeStr()).isEqualTo(lLeftCode);
+		assertThat(cls(onRoot, "dst.CodedRight").getCode().getCodeStr()).isEqualTo(lRightCode);
+		assertThat(cls(onRoot, "dst.CodedTop").getCode().getCodeStr()).isEqualTo(lTopCode);
+	}
+
+	@Test
+	void reentryMissBitmaskAndPerReasonTime() {
+		List<File> files = fixtureFiles("Leaf.smali", "Shared.smali", "Left.smali", "Right.smali");
+		System.setProperty(DependencySummaryManager.STATS_PROPERTY, "true");
+
+		JadxDecompiler on = loadWithSummaries(files);
+		RootNode onRoot = on.getRoot();
+		DependencySummaryManager manager = onRoot.getDependencySummaryManager();
+		cls(onRoot, "dst.Shared").decompile();
+		endEpoch(on);
+		// a new epoch invalidates the prepared summary only at re-entry
+		onRoot.getDependencySummaryManager().beginEpoch();
+
+		JadxDecompiler legacy = loadLegacy(files);
+		RootNode legacyRoot = legacy.getRoot();
+		cls(legacyRoot, "dst.Shared").decompile();
+		cls(legacyRoot, "dst.Left").decompile();
+		String lLeftCode = cls(legacyRoot, "dst.Left").getCode().getCodeStr();
+
+		System.setProperty(DependencySummaryManager.ENABLE_PROPERTY, "true");
+		getArgs().setCodeCache(new jadx.api.impl.InMemoryCodeCache());
+		cls(onRoot, "dst.Left").decompile();
+		endEpoch(on);
+
+		assertThat(manager.getSummaryRecoveries()).isEqualTo(0);
+		java.util.concurrent.atomic.LongAdder bitmask = manager.getMissBitmasks().get("EPOCH_MISMATCH");
+		assertThat(bitmask).as("multi-reason bitmask counter").isNotNull();
+		assertThat(bitmask.sum()).isEqualTo(1);
+		java.util.concurrent.atomic.LongAdder reasonNanos = manager.getMissReasonNanos().get("EPOCH_MISMATCH");
+		assertThat(reasonNanos).as("per-reason fallback time").isNotNull();
+		assertThat(reasonNanos.sum()).isGreaterThan(0L);
+		String stats = manager.formatStatsLine();
+		assertThat(stats).contains("miss-bitmasks=[EPOCH_MISMATCH:1]");
+		assertThat(stats).contains("miss-time-ms=[EPOCH_MISMATCH:");
+		assertThat(stats).contains("verify-time-ms=");
+		assertThat(stats).contains("replay-time-ms=");
+		assertPublishedStateEquals(legacyRoot, onRoot);
+		assertThat(cls(onRoot, "dst.Left").getCode().getCodeStr()).isEqualTo(lLeftCode);
 	}
 
 	@Test

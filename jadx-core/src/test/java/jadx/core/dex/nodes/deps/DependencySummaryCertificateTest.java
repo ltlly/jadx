@@ -58,9 +58,25 @@ class DependencySummaryCertificateTest extends SmaliTest {
 				.isEqualTo(DependencyRecoveryCertificate.PassClassification.RESIDUAL);
 		assertThat(DependencyRecoveryCertificate.classify("ClassModifier"))
 				.isEqualTo(DependencyRecoveryCertificate.PassClassification.RESIDUAL_PARTIAL);
+		// stage-2a annotation residuals: original passes replayed on live pinned data
+		assertThat(DependencyRecoveryCertificate.classify("ModVisitor"))
+				.isEqualTo(DependencyRecoveryCertificate.PassClassification.RESIDUAL);
+		assertThat(DependencyRecoveryCertificate.classify("NonFinalResIdsVisitor"))
+				.isEqualTo(DependencyRecoveryCertificate.PassClassification.RESIDUAL);
+		assertThat(DependencyRecoveryCertificate.classify("PrepareForCodeGen"))
+				.isEqualTo(DependencyRecoveryCertificate.PassClassification.RESIDUAL);
 		// unclassified/unknown passes are unsupported -> global disable
 		assertThat(DependencyRecoveryCertificate.classify("TotallyUnknownPass"))
 				.isEqualTo(DependencyRecoveryCertificate.PassClassification.UNSUPPORTED);
+		// stage-2a TODO-verify verdict: no CFG/SSA/type/region/shrink pass was
+		// proven skippable for coded classes; they stay LOCAL_IR_ONLY (no-code
+		// shapes) and coded classes fail closed via METHOD_WITH_CODE
+		assertThat(DependencyRecoveryCertificate.classify("SSATransform"))
+				.isEqualTo(DependencyRecoveryCertificate.PassClassification.LOCAL_IR_ONLY);
+		assertThat(DependencyRecoveryCertificate.classify("RegionMakerVisitor"))
+				.isEqualTo(DependencyRecoveryCertificate.PassClassification.LOCAL_IR_ONLY);
+		assertThat(DependencyRecoveryCertificate.classify("CheckRegions"))
+				.isEqualTo(DependencyRecoveryCertificate.PassClassification.LOCAL_IR_ONLY);
 	}
 
 	@Test
@@ -84,14 +100,20 @@ class DependencySummaryCertificateTest extends SmaliTest {
 	}
 
 	@Test
-	void annotatedMembersAndErrorStatesFailClosed() {
+	void annotatedNoCodeMembersCertifyInStage2a() {
+		// stage-2a: pinned annotation payloads are served from live state and the
+		// original annotation residual passes; the former v1 blockers are lifted
 		System.setProperty(DependencySummaryManager.ENABLE_PROPERTY, "true");
 		jadxDecompiler = loadFiles(fixtureFiles("Annotated.smali"));
 		RootNode root = jadxDecompiler.getRoot();
 		root.resolveClass("dst.Annotated").decompile();
 
-		assertThat(certify(root.resolveClass("dst.Annotated")))
-				.isEqualTo("METHOD_ANNOTATIONS");
+		assertThat(certify(root.resolveClass("dst.Annotated"))).isNull();
+		// stats helper sees the pinned method annotation payload
+		assertThat(DependencyRecoveryCertificate.hasPinnedAnnotations(root.resolveClass("dst.Annotated"))).isTrue();
+		// stats helpers: certified subtree has no reasons, but pinned annotations
+		assertThat(DependencyRecoveryCertificate.collectAllMissReasons(root.resolveClass("dst.Annotated")))
+				.isEmpty();
 	}
 
 	@Test
