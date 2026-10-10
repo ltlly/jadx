@@ -43,7 +43,7 @@ public class IfRegionVisitor extends AbstractVisitor {
 	private static void process(MethodNode mth) {
 		TernaryMod.process(mth);
 		DepthRegionTraversal.traverse(mth, PROCESS_IF_REGION_VISITOR);
-		DepthRegionTraversal.traverseIterative(mth, REMOVE_REDUNDANT_ELSE_VISITOR);
+		DepthRegionTraversal.traverseIterativeWorkSet(mth, REMOVE_REDUNDANT_ELSE_VISITOR);
 	}
 
 	private static class ProcessIfRegionVisitor extends AbstractRegionVisitor {

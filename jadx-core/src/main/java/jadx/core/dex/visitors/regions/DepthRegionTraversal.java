@@ -2,8 +2,12 @@ package jadx.core.dex.visitors.regions;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.IdentityHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
+import java.util.Set;
+import java.util.TreeSet;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -12,6 +16,7 @@ import jadx.core.dex.nodes.IContainer;
 import jadx.core.dex.nodes.IRegion;
 import jadx.core.dex.nodes.InsnContainer;
 import jadx.core.dex.nodes.MethodNode;
+import jadx.core.dex.regions.conditions.IfRegion;
 import jadx.core.dex.trycatch.ExceptionHandler;
 import jadx.core.utils.ListUtils;
 import jadx.core.utils.exceptions.JadxRuntimeException;
@@ -149,5 +154,101 @@ public class DepthRegionTraversal {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Performs the same sequence of rewrites as {@link #traverseIterative} for a visitor which
+	 * replaces a region occurrence with a wrapper region (all other region occurrences keep their
+	 * relative DFS order) and which after a rewrite can change its result only for ancestors of
+	 * the rewritten region (e.g. removal of a redundant `else` block in {@code IfRegionVisitor}).
+	 * <p>
+	 * Instead of restarting the scan from the root after each successful rewrite, all candidate
+	 * region occurrences are indexed once in DFS visit order and re-checked through an ordered
+	 * work set: after a rewrite only affected ancestors are rescheduled, so a chain of K rewrites
+	 * over R region occurrences costs O(R + K log R) visits instead of O(K * R).
+	 * Falls back to the full rescan traversal if the region tree doesn't satisfy required invariants.
+	 */
+	static void traverseIterativeWorkSet(MethodNode mth, IRegionIterativeVisitor visitor) {
+		IRegion root = mth.getRegion();
+		if (root == null) {
+			return;
+		}
+		Map<IRegion, Integer> ranks = new IdentityHashMap<>();
+		Map<IRegion, IRegion> parents = new IdentityHashMap<>();
+		List<IRegion> candidates = new ArrayList<>();
+		if (!indexCandidateRegions(root, ranks, parents, candidates)) {
+			traverseIterative(mth, visitor);
+			return;
+		}
+		TreeSet<Integer> pendingRanks = new TreeSet<>();
+		for (int rank = candidates.size() - 1; rank >= 0; rank--) {
+			pendingRanks.add(rank);
+		}
+		int limit = ITERATIVE_LIMIT_MULTIPLIER * mth.getBasicBlocks().size();
+		boolean repeat;
+		int k = 0;
+		do {
+			repeat = traverseWorkSetStep(mth, visitor, candidates, ranks, parents, pendingRanks);
+			if (k++ > limit) {
+				throw new JadxRuntimeException("Iterative traversal limit reached: "
+						+ "limit: " + limit + ", visitor: " + visitor.getClass().getName()
+						+ ", blocks count: " + mth.getBasicBlocks().size());
+			}
+		} while (repeat);
+	}
+
+	private static boolean traverseWorkSetStep(MethodNode mth, IRegionIterativeVisitor visitor,
+			List<IRegion> candidates, Map<IRegion, Integer> ranks,
+			Map<IRegion, IRegion> parents, TreeSet<Integer> pendingRanks) {
+		while (!pendingRanks.isEmpty()) {
+			IRegion region = candidates.get(pendingRanks.pollFirst());
+			if (visitor.visitRegion(mth, region)) {
+				// a rewrite can change results only in ancestors, reschedule them for a re-check
+				IRegion ancestor = parents.get(region);
+				while (ancestor != null) {
+					Integer ancestorRank = ranks.get(ancestor);
+					if (ancestorRank != null) {
+						pendingRanks.add(ancestorRank);
+					}
+					ancestor = parents.get(ancestor);
+				}
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private static boolean indexCandidateRegions(IRegion startRegion, Map<IRegion, Integer> ranks,
+			Map<IRegion, IRegion> parents, List<IRegion> candidates) {
+		List<IRegion> stack = new ArrayList<>();
+		List<IRegion> parentStack = new ArrayList<>();
+		Set<IRegion> visited = Collections.newSetFromMap(new IdentityHashMap<>());
+		stack.add(startRegion);
+		parentStack.add(null);
+		while (!stack.isEmpty()) {
+			IRegion region = ListUtils.removeLast(stack);
+			IRegion parent = ListUtils.removeLast(parentStack);
+			if (!visited.add(region)) {
+				return false; // shared region occurrence or a cycle
+			}
+			parents.put(region, parent);
+			if (region instanceof IfRegion) {
+				if (region.getParent() != parent) {
+					return false; // inconsistent parent link can change rewrite behavior
+				}
+				ranks.put(region, candidates.size());
+				candidates.add(region);
+			}
+			List<IContainer> subBlocks = region.getSubBlocks();
+			// add in reverse order to keep original order during visit
+			for (int i = subBlocks.size() - 1; i >= 0; i--) {
+				IContainer subBlock = subBlocks.get(i);
+				if (subBlock instanceof IRegion) {
+					stack.add((IRegion) subBlock);
+					parentStack.add(region);
+				}
+			}
+		}
+		return true;
 	}
 }
