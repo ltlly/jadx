@@ -1,0 +1,4 @@
+path	sha256	bytes	role	rationale
+/Users/nmsl/work/tb_ld_fuzz/apks/com.aliyun.tongyi_7.2.1.3009.apk	586651f1010008a59e216784032633d1b308b93cf4869f5e0f6293fd2eddb1ef	121203197	primary	Main benchmark APK for the macOS A/B study (com.aliyun.tongyi 7.2.1.3009; same package as historical corpus entry qwen-7.3.6 but different version)
+/Users/nmsl/work/tb_ld_fuzz/apks/com.alibaba.android.rimet_8.5.1.apk	aa6cdd1db5188e3ea8f11aa8c561445bbff7861ee36fd2a5d1828a4772c24faa	318227228	secondary	Largest candidate APK (DingTalk 8.5.1) for scale/timeout stress checks
+/Users/nmsl/work/tb_ld_fuzz/apks/com.autonavi.minimap_16.23.0.2005.apk	377345fc58569295c16a826ccfea8439aa6fdd865d438ef3e33e6ff851cb1fec	167577252	secondary	Mid-size candidate APK (Amap 16.23.0.2005) for size coverage
