@@ -2,6 +2,7 @@ package jadx.core.dex.visitors;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.concurrent.CountDownLatch;
@@ -31,6 +32,7 @@ import jadx.core.dex.visitors.usage.UsageInfoVisitor;
 import jadx.tests.api.SmaliTest;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.assertj.core.api.SoftAssertions.assertSoftly;
 
 class InlineMethodsUsageTest extends SmaliTest {
@@ -133,6 +135,75 @@ class InlineMethodsUsageTest extends SmaliTest {
 		assertThat(left.getUsed()).containsExactly(target);
 		assertThat(right.getUsed()).containsExactly(target);
 		assertThat(source.getUsed()).isEmpty();
+	}
+
+	@Test
+	void concurrentUsageUpdatesPreserveLargeSnapshots() throws Exception {
+		RootNode root = loadFixture();
+		ClassNode owner = root.resolveClass("inline.concurrent.Target");
+		FieldNode field = getField(owner, "value");
+		MethodNode bridge = getMethod(root.resolveClass("inline.concurrent.Bridge"), "bridge");
+		MethodNode left = getMethod(root.resolveClass("inline.concurrent.Left"), "call");
+		MethodNode right = getMethod(root.resolveClass("inline.concurrent.Right"), "call");
+		owner.setUseInMth(Collections.nCopies(512, bridge));
+		owner.setUseIn(Collections.nCopies(512, bridge.getParentClass()));
+		field.setUseIn(Collections.nCopies(512, bridge));
+		List<MethodNode> previousMethods = owner.getUseInMth();
+		List<ClassNode> previousClasses = owner.getUseIn();
+		List<MethodNode> previousFieldMethods = field.getUseIn();
+		ExecutorService executor = Executors.newFixedThreadPool(2);
+		CountDownLatch start = new CountDownLatch(1);
+		try {
+			List<Future<?>> tasks = new ArrayList<>();
+			for (MethodNode caller : List.of(left, right)) {
+				tasks.add(executor.submit(() -> {
+					assertThat(start.await(5, TimeUnit.SECONDS)).isTrue();
+					for (int i = 0; i < 100; i++) {
+						owner.replaceUsage(bridge, caller);
+						field.replaceUseIn(bridge, caller);
+					}
+					return null;
+				}));
+			}
+			start.countDown();
+			for (Future<?> task : tasks) {
+				task.get(10, TimeUnit.SECONDS);
+			}
+		} finally {
+			executor.shutdownNow();
+			assertThat(executor.awaitTermination(5, TimeUnit.SECONDS)).isTrue();
+		}
+		assertThat(previousMethods).containsExactlyElementsOf(Collections.nCopies(512, bridge));
+		assertThat(previousClasses).containsExactlyElementsOf(Collections.nCopies(512, bridge.getParentClass()));
+		assertThat(previousFieldMethods).containsExactlyElementsOf(Collections.nCopies(512, bridge));
+		assertThat(owner.getUseInMth()).hasSize(512);
+		assertThat(owner.getUseInMth().stream().filter(left::equals).count()).isEqualTo(100);
+		assertThat(owner.getUseInMth().stream().filter(right::equals).count()).isEqualTo(100);
+		assertThat(owner.getUseInMth().stream().filter(bridge::equals).count()).isEqualTo(312);
+		assertThat(owner.getUseIn()).hasSize(512);
+		assertThat(owner.getUseIn().stream().filter(left.getParentClass()::equals).count()).isEqualTo(100);
+		assertThat(owner.getUseIn().stream().filter(right.getParentClass()::equals).count()).isEqualTo(100);
+		assertThat(owner.getUseIn().stream().filter(bridge.getParentClass()::equals).count()).isEqualTo(312);
+		assertThat(field.getUseIn()).hasSize(512);
+		assertThat(field.getUseIn().stream().filter(left::equals).count()).isEqualTo(100);
+		assertThat(field.getUseIn().stream().filter(right::equals).count()).isEqualTo(100);
+		assertThat(field.getUseIn().stream().filter(bridge::equals).count()).isEqualTo(312);
+	}
+
+	@Test
+	void classUsageReplacementPreservesPartialPublicationOnNull() {
+		RootNode root = loadFixture();
+		ClassNode owner = root.resolveClass("inline.concurrent.Target");
+		MethodNode bridge = getMethod(root.resolveClass("inline.concurrent.Bridge"), "bridge");
+		owner.setUseInMth(Collections.nCopies(512, bridge));
+		owner.setUseIn(Collections.nCopies(512, bridge.getParentClass()));
+		List<MethodNode> previousMethods = owner.getUseInMth();
+		List<ClassNode> previousClasses = owner.getUseIn();
+		assertThatThrownBy(() -> owner.replaceUsage(bridge, null)).isInstanceOf(NullPointerException.class);
+		assertThat(owner.getUseInMth().get(0)).isNull();
+		assertThat(owner.getUseInMth().subList(1, 512)).containsOnly(bridge);
+		assertThat(owner.getUseIn()).containsExactlyElementsOf(previousClasses);
+		assertThat(previousMethods).containsOnly(bridge).hasSize(512);
 	}
 
 	private RootNode loadFixture() {
