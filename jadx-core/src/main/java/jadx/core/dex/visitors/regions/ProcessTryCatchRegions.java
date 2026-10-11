@@ -11,6 +11,7 @@ import jadx.core.dex.attributes.AType;
 import jadx.core.dex.instructions.ArithNode;
 import jadx.core.dex.instructions.ArithOp;
 import jadx.core.dex.instructions.IndexInsnNode;
+import jadx.core.dex.instructions.args.ArgType;
 import jadx.core.dex.nodes.BlockNode;
 import jadx.core.dex.nodes.IBlock;
 import jadx.core.dex.nodes.IBranchRegion;
@@ -180,7 +181,14 @@ public class ProcessTryCatchRegions extends AbstractRegionVisitor {
 		switch (insn.getType()) {
 			case ARITH:
 				ArithOp op = ((ArithNode) insn).getOp();
-				return op == ArithOp.DIV || op == ArithOp.REM;
+				if (op != ArithOp.DIV && op != ArithOp.REM) {
+					return false;
+				}
+				ArgType type = insn.getArg(0).getType();
+				if (type.equals(ArgType.FLOAT) || type.equals(ArgType.DOUBLE)) {
+					return false;
+				}
+				return !insn.getArg(1).isLiteral() || insn.getArg(1).isZeroLiteral();
 
 			case CAST:
 				return !((IndexInsnNode) insn).getIndexAsType().isPrimitive();
