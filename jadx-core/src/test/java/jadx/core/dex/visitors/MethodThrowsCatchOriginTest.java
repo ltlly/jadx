@@ -1,5 +1,8 @@
 package jadx.core.dex.visitors;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import org.junit.jupiter.api.Test;
 
 import jadx.core.dex.attributes.AFlag;
@@ -13,6 +16,7 @@ import jadx.core.dex.instructions.args.RegisterArg;
 import jadx.core.dex.instructions.args.SSAVar;
 import jadx.core.dex.nodes.BlockNode;
 import jadx.core.dex.nodes.InsnNode;
+import jadx.core.dex.trycatch.CatchAttr;
 import jadx.core.dex.trycatch.ExcHandlerAttr;
 import jadx.core.dex.trycatch.ExceptionHandler;
 
@@ -117,6 +121,65 @@ class MethodThrowsCatchOriginTest {
 		PhiInsn cyclic = phi(caught(ArgType.THROWABLE));
 		cyclic.bindArg(cyclic.getResult().duplicate(), new BlockNode(1, 1, 1));
 		assertThat(isCaught(cyclic.getResult())).isFalse();
+	}
+
+	@Test
+	void recognizesLinearCleanupRethrow() {
+		assertThat(MethodThrowsVisitor.isRethrowingHandler(linearRethrow())).isTrue();
+	}
+
+	@Test
+	void rejectsFilteredRethrowAndSwallowingExit() {
+		ExceptionHandler handler = linearRethrow();
+		BlockNode start = handler.getHandlerBlock();
+		start.getInstructions().add(new InsnNode(InsnType.IF, 0));
+		// A clean successor list can omit a loop edge: the branch must still be rejected.
+		assertThat(MethodThrowsVisitor.isRethrowingHandler(handler)).isFalse();
+		BlockNode returned = new BlockNode(2, 2, 2);
+		returned.getInstructions().add(new InsnNode(InsnType.RETURN, 0));
+		start.getSuccessors().add(returned);
+		start.updateCleanSuccessors();
+		assertThat(MethodThrowsVisitor.isRethrowingHandler(handler)).isFalse();
+	}
+
+	@Test
+	void rejectsCycleAndCaughtRethrow() {
+		ExceptionHandler handler = linearRethrow();
+		BlockNode start = handler.getHandlerBlock();
+		BlockNode end = start.getCleanSuccessors().get(0);
+		start.getSuccessors().set(0, start);
+		start.updateCleanSuccessors();
+		assertThat(MethodThrowsVisitor.isRethrowingHandler(handler)).isFalse();
+		start.getSuccessors().set(0, end);
+		start.updateCleanSuccessors();
+		ExceptionHandler outer = ExceptionHandler.build(null, 10, null);
+		end.getInstructions().get(0).addAttr(CatchAttr.build(new ArrayList<>(Collections.singletonList(outer))));
+		assertThat(MethodThrowsVisitor.isRethrowingHandler(handler)).isFalse();
+	}
+
+	@Test
+	void rejectsAnotherHandlersThrowable() {
+		ExceptionHandler handler = linearRethrow();
+		BlockNode end = handler.getHandlerBlock().getCleanSuccessors().get(0);
+		end.getInstructions().get(0).setArg(0, movedCatch().duplicate());
+		assertThat(MethodThrowsVisitor.isRethrowingHandler(handler)).isFalse();
+	}
+
+	private static ExceptionHandler linearRethrow() {
+		ExceptionHandler handler = ExceptionHandler.build(null, 0, null);
+		RegisterArg arg = caught(ArgType.THROWABLE);
+		arg.getAssignInsn().addAttr(new ExcHandlerAttr(handler));
+		handler.setArg(arg);
+		BlockNode start = new BlockNode(0, 0, 0);
+		start.getInstructions().add(arg.getAssignInsn());
+		handler.setHandlerBlock(start);
+		BlockNode end = new BlockNode(1, 1, 1);
+		InsnNode rethrow = new InsnNode(InsnType.THROW, 1);
+		rethrow.addArg(arg.duplicate());
+		end.getInstructions().add(rethrow);
+		start.getSuccessors().add(end);
+		start.updateCleanSuccessors();
+		return handler;
 	}
 
 	private static boolean isCaught(RegisterArg arg) {

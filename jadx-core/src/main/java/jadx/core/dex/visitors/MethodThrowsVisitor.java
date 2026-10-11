@@ -42,6 +42,7 @@ import jadx.core.dex.trycatch.ExceptionHandler;
 import jadx.core.dex.visitors.regions.RegionMakerVisitor;
 import jadx.core.dex.visitors.typeinference.TypeCompare;
 import jadx.core.dex.visitors.typeinference.TypeCompareEnum;
+import jadx.core.utils.BlockUtils;
 import jadx.core.utils.ListUtils;
 import jadx.core.utils.exceptions.JadxException;
 
@@ -264,31 +265,24 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 			return;
 		}
 		try {
+			Set<ExceptionHandler> rethrowingHandlers = collectUncaughtRethrows(mth);
 			for (BlockNode block : mth.getBasicBlocks()) {
 				// Skip e.g. throw instructions of synchronized regions
 				boolean skipExceptions = block.contains(AFlag.REMOVE) || block.contains(AFlag.DONT_GENERATE);
 				Set<String> excludedExceptions = new HashSet<>();
-				insns: for (InsnNode insn : block.getInstructions()) {
+				for (InsnNode insn : block.getInstructions()) {
 					excludedExceptions.clear();
 					// Moved instructions retain their original catch context.
 					CatchAttr catchAttr = insn.get(AType.EXC_CATCH);
 					if (catchAttr == null) {
 						catchAttr = block.get(AType.EXC_CATCH);
 					}
-					if (catchAttr != null) {
-						for (ExceptionHandler handler : catchAttr.getHandlers()) {
-							if (handler.isRemoved() || handler.isFinally()) {
-								continue;
-							}
-							if (handler.isCatchAll()) {
-								continue insns;
-							}
-							for (ClassInfo catchType : handler.getCatchTypes()) {
-								excludedExceptions.add(catchType.getRawName());
-							}
-						}
+					if (collectExcludedExceptions(catchAttr, rethrowingHandlers, excludedExceptions)) {
+						checkInsn(mth, insn, excludedExceptions, skipExceptions, analysis, facts);
 					}
-					checkInsn(mth, insn, excludedExceptions, skipExceptions, analysis, facts);
+					if (!rethrowingHandlers.isEmpty()) {
+						processWrappedRethrows(mth, insn, catchAttr, skipExceptions, analysis, facts, rethrowingHandlers);
+					}
 				}
 			}
 		} catch (Exception e) {
@@ -303,6 +297,100 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 			}
 			mth.addWarnComment("Failed to analyze thrown exceptions", e);
 		}
+	}
+
+	private static boolean collectExcludedExceptions(@Nullable CatchAttr catchAttr, Set<ExceptionHandler> rethrowingHandlers,
+			Set<String> excludedExceptions) {
+		if (catchAttr != null) {
+			for (ExceptionHandler handler : catchAttr.getHandlers()) {
+				if (handler.isRemoved() || handler.isFinally() || rethrowingHandlers.contains(handler)) {
+					continue;
+				}
+				if (handler.isCatchAll()) {
+					return false;
+				}
+				for (ClassInfo catchType : handler.getCatchTypes()) {
+					excludedExceptions.add(catchType.getRawName());
+				}
+			}
+		}
+		return true;
+	}
+
+	private void processWrappedRethrows(MethodNode mth, InsnNode insn, @Nullable CatchAttr enclosingCatch, boolean skipExceptions,
+			ThrowsAnalysis analysis, @Nullable ScanFacts facts, Set<ExceptionHandler> rethrowingHandlers) throws JadxException {
+		// shortcut: scan wrapped calls only for proven rethrow handlers; general wrapped throws need separate coverage.
+		for (InsnArg arg : insn.getArguments()) {
+			if (!(arg instanceof InsnWrapArg)) {
+				continue;
+			}
+			InsnNode wrapped = ((InsnWrapArg) arg).getWrapInsn();
+			CatchAttr catchAttr = wrapped.get(AType.EXC_CATCH);
+			if (catchAttr == null) {
+				catchAttr = enclosingCatch;
+			}
+			if (wrapped.getType() == InsnType.INVOKE && catchAttr != null
+					&& !Collections.disjoint(catchAttr.getHandlers(), rethrowingHandlers)) {
+				Set<String> excludedExceptions = new HashSet<>();
+				if (collectExcludedExceptions(catchAttr, rethrowingHandlers, excludedExceptions)) {
+					checkInsn(mth, wrapped, excludedExceptions, skipExceptions, analysis, facts);
+				}
+			}
+			processWrappedRethrows(mth, wrapped, catchAttr, skipExceptions, analysis, facts, rethrowingHandlers);
+		}
+	}
+
+	private static Set<ExceptionHandler> collectUncaughtRethrows(MethodNode mth) {
+		if (mth.getExceptionHandlersCount() == 0) {
+			return Collections.emptySet();
+		}
+		Set<ExceptionHandler> handlers = Collections.newSetFromMap(new IdentityHashMap<>());
+		for (ExceptionHandler handler : mth.getExceptionHandlers()) {
+			if (isRethrowingHandler(handler)) {
+				handlers.add(handler);
+			}
+		}
+		return handlers;
+	}
+
+	static boolean isRethrowingHandler(ExceptionHandler handler) {
+		if (handler.isRemoved() || handler.isFinally()) {
+			return false;
+		}
+		Set<BlockNode> visited = new HashSet<>();
+		BlockNode block = handler.getHandlerBlock();
+		while (block != null && visited.add(block)) {
+			if (block.contains(AFlag.REMOVE) || block.contains(AFlag.DONT_GENERATE)) {
+				return false;
+			}
+			InsnNode insn = BlockUtils.getLastInsn(block);
+			if (insn != null && insn.getType() == InsnType.THROW) {
+				if (insn.contains(AFlag.DONT_GENERATE) || !(insn.getArg(0) instanceof RegisterArg)) {
+					return false;
+				}
+				CatchAttr catchAttr = insn.get(AType.EXC_CATCH);
+				if (catchAttr == null) {
+					catchAttr = block.get(AType.EXC_CATCH);
+				}
+				if (catchAttr != null) {
+					for (ExceptionHandler outerHandler : catchAttr.getHandlers()) {
+						if (!outerHandler.isRemoved() && !outerHandler.isFinally()) {
+							return false;
+						}
+					}
+				}
+				Set<ExceptionHandler> caught = Collections.newSetFromMap(new IdentityHashMap<>());
+				return isCaughtThrowable((RegisterArg) insn.getArg(0), new IdentityHashMap<>(), caught)
+						&& caught.size() == 1 && caught.contains(handler);
+			}
+			// shortcut: only linear rethrows are transparent; branching handlers need a path proof.
+			if (insn != null && (insn.getType() == InsnType.IF || insn.getType() == InsnType.SWITCH)
+					|| block.getCleanSuccessors().size() != 1) {
+				return false;
+			}
+			block = block.getCleanSuccessors().get(0);
+		}
+		return false;
 	}
 
 	private void checkInsn(MethodNode mth, InsnNode insn, Set<String> excludedExceptions, boolean skipExceptions,
@@ -360,10 +448,11 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 	}
 
 	static boolean isCaughtThrowable(RegisterArg arg) {
-		return isCaughtThrowable(arg, new IdentityHashMap<>());
+		return isCaughtThrowable(arg, new IdentityHashMap<>(), null);
 	}
 
-	private static boolean isCaughtThrowable(RegisterArg arg, Map<InsnNode, Boolean> checked) {
+	private static boolean isCaughtThrowable(RegisterArg arg, Map<InsnNode, Boolean> checked,
+			@Nullable Set<ExceptionHandler> caughtHandlers) {
 		InsnNode assign = arg.getAssignInsn();
 		if (assign == null || !arg.getType().equals(ArgType.THROWABLE)) {
 			return false;
@@ -377,7 +466,7 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 				return false;
 			}
 			for (InsnArg source : assign.getArguments()) {
-				if (!(source instanceof RegisterArg) || !isCaughtThrowable((RegisterArg) source, checked)) {
+				if (!(source instanceof RegisterArg) || !isCaughtThrowable((RegisterArg) source, checked, caughtHandlers)) {
 					return false;
 				}
 			}
@@ -388,6 +477,10 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 			return false;
 		}
 		if (assign.getType() == InsnType.MOVE_EXCEPTION) {
+			ExcHandlerAttr handler = assign.get(AType.EXC_HANDLER);
+			if (caughtHandlers != null && handler != null) {
+				caughtHandlers.add(handler.getHandler());
+			}
 			checked.put(assign, Boolean.TRUE);
 			return true;
 		}
@@ -396,6 +489,9 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 			ExcHandlerAttr handler = assign.get(AType.EXC_HANDLER);
 			boolean caught = source instanceof NamedArg && source.getType().equals(ArgType.THROWABLE)
 					&& handler != null && handler.getHandler().getArg() == source;
+			if (caught && caughtHandlers != null) {
+				caughtHandlers.add(handler.getHandler());
+			}
 			checked.put(assign, caught);
 			return caught;
 		}
