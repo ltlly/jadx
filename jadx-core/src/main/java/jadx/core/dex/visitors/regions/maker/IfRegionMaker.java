@@ -70,14 +70,7 @@ final class IfRegionMaker {
 			currentIf = mergedIf;
 		} else {
 			// invert simple condition (compiler often do it)
-			// ensure that we only ever invert once, because if multiple regions contain this block
-			// we'll change the block after it's already been included in a region, which can cause
-			// other regions containing the block to believe the condition has been flipped when it
-			// has not, or vice versa.
-			if (!block.contains(AFlag.DONT_INVERT)) {
-				currentIf = IfInfo.invert(currentIf);
-				block.add(AFlag.DONT_INVERT);
-			}
+			currentIf = IfInfo.invert(currentIf);
 		}
 		IfInfo modifiedIf = restructureIf(block, currentIf);
 		if (modifiedIf != null) {

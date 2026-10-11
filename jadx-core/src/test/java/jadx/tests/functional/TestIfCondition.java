@@ -42,6 +42,20 @@ public class TestIfCondition {
 	}
 
 	@Test
+	public void testNegationKeepsSharedComparison() {
+		IfCondition condition = makeCondition(IfOp.EQ, mockArg(), InsnArg.lit(0, ArgType.INT));
+		IfCondition inverted = IfCondition.invert(condition);
+		assertThat(condition.getCompare().getOp()).isEqualTo(IfOp.EQ);
+		assertThat(inverted.getCompare().getOp()).isEqualTo(IfOp.NE);
+		assertThat(inverted.getCompare().getInsn()).isSameAs(condition.getCompare().getInsn());
+		assertThat(IfCondition.invert(inverted).getCompare().getOp()).isEqualTo(IfOp.EQ);
+		assertThat(not(condition).getCompare().getOp()).isEqualTo(IfOp.NE);
+		IfCondition copy = inverted.copy();
+		assertThat(copy.getCompare().getOp()).isEqualTo(IfOp.NE);
+		assertThat(copy.getCompare().getInsn()).isNotSameAs(condition.getCompare().getInsn());
+	}
+
+	@Test
 	public void testNormalize() {
 		// 'a != false' => 'a == true'
 		InsnArg a = mockArg();
@@ -52,6 +66,16 @@ public class TestIfCondition {
 		Compare compare = simp.getCompare();
 		assertThat(compare.getA()).isEqualTo(a);
 		assertThat(compare.getB()).isEqualTo(LiteralArg.litTrue());
+	}
+
+	@Test
+	public void testNormalizeSharedInvertedComparison() {
+		IfCondition condition = makeCondition(IfOp.EQ, mockArg(), LiteralArg.litFalse());
+		Compare inverted = condition.getCompare().invert();
+		inverted.normalize();
+		assertThat(condition.getCompare().getOp()).isEqualTo(IfOp.NE);
+		assertThat(inverted.getOp()).isEqualTo(IfOp.EQ);
+		assertThat(inverted.getB()).isEqualTo(LiteralArg.litTrue());
 	}
 
 	@Test

@@ -97,7 +97,7 @@ public final class IfCondition extends AttrNode {
 	public IfCondition copy() {
 		IfCondition copy;
 		if (mode == Mode.COMPARE) {
-			copy = fromIfNode(compare.getInsn().copyWithoutResult());
+			copy = new IfCondition(compare.copy());
 		} else {
 			List<IfCondition> copyArgs = new ArrayList<>(args.size());
 			for (IfCondition arg : args) {
@@ -244,7 +244,7 @@ public final class IfCondition extends AttrNode {
 				if (c.getB().getType() == ArgType.BOOLEAN) {
 					ArithOp arithOp = ((ArithNode) wrapInsn).getOp();
 					if (arithOp == ArithOp.OR || arithOp == ArithOp.AND) {
-						IfOp ifOp = c.getInsn().getOp();
+						IfOp ifOp = c.getOp();
 						boolean isTrue = ifOp == IfOp.NE && lit == 0
 								|| ifOp == IfOp.EQ && lit == 1;
 

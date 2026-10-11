@@ -72,11 +72,11 @@ public class IfNode extends GotoNode {
 	}
 
 	/**
-	 * Change 'a != false' to 'a == true'
+	 * Normalize boolean comparisons to compare with true.
 	 */
 	public void normalize() {
-		if (getOp() == IfOp.NE && getArg(1).isFalse()) {
-			changeCondition(IfOp.EQ, getArg(0), LiteralArg.litTrue());
+		if ((getOp() == IfOp.EQ || getOp() == IfOp.NE) && getArg(1).isFalse()) {
+			changeCondition(getOp().invert(), getArg(0), LiteralArg.litTrue());
 		}
 	}
 
