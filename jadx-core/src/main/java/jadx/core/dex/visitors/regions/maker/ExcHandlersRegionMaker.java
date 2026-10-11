@@ -144,6 +144,9 @@ public class ExcHandlersRegionMaker {
 			// fallback to simple frontier
 			BitSet domFrontier = dom.getDomFrontier();
 			handlerExits.addAll(BlockUtils.bitSetToBlocks(mth, domFrontier));
+			List<BlockNode> trySuccessors = BlockUtils.collectAllSuccessors(mth, BlockUtils.getTopSplitterForHandler(start), true);
+			// A separate return shared with an outer branch must remain inside the handler.
+			handlerExits.removeIf(exit -> BlockUtils.followEmptyPath(exit).isReturnBlock() && !trySuccessors.contains(exit));
 		}
 
 		boolean inLoop = mth.getLoopForBlock(start) != null;
