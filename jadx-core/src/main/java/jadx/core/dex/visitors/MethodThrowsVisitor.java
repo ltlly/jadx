@@ -1,5 +1,6 @@
 package jadx.core.dex.visitors;
 
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
@@ -18,6 +19,8 @@ import jadx.core.clsp.ClspMethod;
 import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.attributes.AType;
 import jadx.core.dex.attributes.nodes.MethodThrowsAttr;
+import jadx.core.dex.attributes.nodes.MethodThrowsAttr.Call;
+import jadx.core.dex.attributes.nodes.MethodThrowsAttr.PendingInfo;
 import jadx.core.dex.info.ClassInfo;
 import jadx.core.dex.info.MethodInfo;
 import jadx.core.dex.instructions.InsnType;
@@ -56,7 +59,18 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 
 	private static final class ThrowsAnalysis {
 		private final Map<MethodNode, Set<String>> methods = new LinkedHashMap<>();
+		private final Map<MethodNode, PendingInfo> facts = new LinkedHashMap<>();
 		private boolean pending;
+	}
+
+	private static final class ScanFacts {
+		private final Set<String> ownThrows;
+		private final List<Call> calls = new ArrayList<>();
+		private boolean complete = true;
+
+		private ScanFacts(Set<String> ownThrows) {
+			this.ownThrows = new HashSet<>(ownThrows);
+		}
 	}
 
 	@Override
@@ -77,7 +91,7 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 		do {
 			previousSize = size;
 			for (MethodNode method : new ArrayList<>(analysis.methods.keySet())) {
-				processInstructions(method, analysis);
+				processInstructions(method, analysis, null);
 			}
 			size = countExceptions(analysis);
 		} while (size != previousSize);
@@ -85,7 +99,8 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 			Set<String> exceptions = entry.getValue();
 			mergeExceptions(exceptions);
 			// Publish only stable sets; a pending analysis is replaced on its next visit.
-			MethodThrowsAttr methodAttr = new MethodThrowsAttr(exceptions);
+			MethodThrowsAttr methodAttr = new MethodThrowsAttr(exceptions,
+					analysis.pending ? analysis.facts.get(entry.getKey()) : null);
 			methodAttr.setVisited(!analysis.pending);
 			entry.getKey().addAttr(methodAttr);
 		}
@@ -97,6 +112,93 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 			count += exceptions.size();
 		}
 		return count;
+	}
+
+	/** Refresh captured throws facts under the top class monitor, after dependency processing. */
+	public static void refreshPendingThrows(ClassNode cls) {
+		MethodThrowsVisitor visitor = new MethodThrowsVisitor();
+		visitor.root = cls.root();
+		ThrowsAnalysis analysis = new ThrowsAnalysis();
+		for (ClassNode inner : cls.selfAndInnerClasses()) {
+			for (MethodNode mth : inner.getMethods()) {
+				visitor.collectRecordedThrows(mth, analysis);
+			}
+		}
+		long previousSize;
+		long size = countExceptions(analysis);
+		do {
+			previousSize = size;
+			for (Map.Entry<MethodNode, PendingInfo> entry : analysis.facts.entrySet()) {
+				MethodNode mth = entry.getKey();
+				for (Call call : entry.getValue().getCalls()) {
+					for (String exception : visitor.getRecordedCalleeThrows(call, analysis)) {
+						visitor.visitThrows(mth, ArgType.object(exception), call.getExcludedExceptions(), analysis, null,
+								mth.getTopParentClass() == cls);
+					}
+				}
+			}
+			size = countExceptions(analysis);
+		} while (size != previousSize);
+		for (Map.Entry<MethodNode, Set<String>> entry : analysis.methods.entrySet()) {
+			MethodNode mth = entry.getKey();
+			if (mth.getTopParentClass() == cls) {
+				Set<String> exceptions = entry.getValue();
+				visitor.mergeExceptions(exceptions);
+				MethodThrowsAttr attr = new MethodThrowsAttr(exceptions, analysis.pending ? analysis.facts.get(mth) : null);
+				attr.setVisited(!analysis.pending);
+				mth.addAttr(attr);
+			}
+		}
+	}
+
+	private void collectRecordedThrows(MethodNode mth, ThrowsAnalysis analysis) {
+		ArrayDeque<MethodNode> queue = new ArrayDeque<>();
+		queue.add(mth);
+		while (!queue.isEmpty()) {
+			MethodNode method = queue.removeFirst();
+			if (analysis.methods.containsKey(method)) {
+				continue;
+			}
+			MethodThrowsAttr attr = method.get(AType.METHOD_THROWS);
+			if (attr == null || attr.isVisited()) {
+				analysis.pending |= attr == null && !method.isNoCode();
+				continue;
+			}
+			PendingInfo facts = attr.getPendingInfo();
+			if (facts == null || !facts.isScanComplete()) {
+				analysis.pending = true;
+				continue;
+			}
+			analysis.methods.put(method, new HashSet<>(facts.getOwnThrows()));
+			analysis.facts.put(method, facts);
+			for (Call call : facts.getCalls()) {
+				MethodNode callee = root.resolveMethod(call.getMethod());
+				if (callee == null) {
+					analysis.pending = true;
+				} else {
+					queue.addLast(callee);
+				}
+			}
+		}
+	}
+
+	private Iterable<String> getRecordedCalleeThrows(Call call, ThrowsAnalysis analysis) {
+		MethodNode callee = root.resolveMethod(call.getMethod());
+		if (callee == null) {
+			analysis.pending = true;
+			return Collections.emptyList();
+		}
+		Set<String> exceptions = analysis.methods.get(callee);
+		if (exceptions != null) {
+			return exceptions;
+		}
+		MethodThrowsAttr attr = callee.get(AType.METHOD_THROWS);
+		if (attr != null) {
+			analysis.pending |= !attr.isVisited();
+			return attr.getList();
+		}
+		analysis.pending |= !callee.isNoCode();
+		return getDeclaredThrows(callee);
 	}
 
 	private void analyzeMethod(MethodNode mth, ThrowsAnalysis analysis) {
@@ -125,7 +227,10 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 		if (!invalid.isEmpty()) {
 			mth.addWarnComment("Byte code manipulation detected: skipped illegal throws declarations: " + invalid);
 		}
-		processInstructions(mth, analysis);
+		ScanFacts facts = new ScanFacts(throwsSet);
+		// Later passes can wrap or remove calls and their catch blocks.
+		processInstructions(mth, analysis, facts);
+		analysis.facts.put(mth, new PendingInfo(facts.ownThrows, facts.calls, facts.complete));
 	}
 
 	private void mergeExceptions(Set<String> excSet) {
@@ -151,7 +256,7 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 		toRemove.forEach(excSet::remove);
 	}
 
-	private void processInstructions(MethodNode mth, ThrowsAnalysis analysis) {
+	private void processInstructions(MethodNode mth, ThrowsAnalysis analysis, @Nullable ScanFacts facts) {
 		if (mth.isNoCode() || mth.getBasicBlocks() == null) {
 			return;
 		}
@@ -170,38 +275,40 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 					}
 				}
 				for (InsnNode insn : block.getInstructions()) {
-					checkInsn(mth, insn, excludedExceptions, skipExceptions, analysis);
+					checkInsn(mth, insn, excludedExceptions, skipExceptions, analysis, facts);
 				}
 			}
 		} catch (Exception e) {
 			analysis.pending = true;
+			if (facts != null) {
+				facts.complete = false;
+			} else {
+				PendingInfo previous = analysis.facts.get(mth);
+				if (previous != null) {
+					analysis.facts.put(mth, new PendingInfo(previous.getOwnThrows(), previous.getCalls(), false));
+				}
+			}
 			mth.addWarnComment("Failed to analyze thrown exceptions", e);
 		}
 	}
 
 	private void checkInsn(MethodNode mth, InsnNode insn, Set<String> excludedExceptions, boolean skipExceptions,
-			ThrowsAnalysis analysis) throws JadxException {
+			ThrowsAnalysis analysis, @Nullable ScanFacts facts) throws JadxException {
 		if (!skipExceptions && insn.getType() == InsnType.THROW && !insn.contains(AFlag.DONT_GENERATE)) {
 			InsnArg throwArg = insn.getArg(0);
 			if (throwArg instanceof RegisterArg) {
 				RegisterArg regArg = (RegisterArg) throwArg;
 				ArgType exceptionType = regArg.getType();
-				if (exceptionType.equals(ArgType.THROWABLE)) {
-
-					InsnNode assignInsn = regArg.getAssignInsn();
-					if (assignInsn != null
-							&& assignInsn.getType() == InsnType.MOVE_EXCEPTION
-							&& assignInsn.getResult().contains(AFlag.CUSTOM_DECLARE)) {
-						// arg variable is from catch statement, ignore Throwable rethrow
-						return;
-					}
+				if (exceptionType.equals(ArgType.THROWABLE) && isCaughtThrowable(regArg)) {
+					// Ignore a rethrow of caught Throwable.
+					return;
 				}
-				visitThrows(mth, exceptionType, excludedExceptions, analysis);
+				visitThrows(mth, exceptionType, excludedExceptions, analysis, facts);
 			} else {
 				if (throwArg instanceof InsnWrapArg) {
 					InsnWrapArg insnWrapArg = (InsnWrapArg) throwArg;
 					ArgType exceptionType = insnWrapArg.getType();
-					visitThrows(mth, exceptionType, excludedExceptions, analysis);
+					visitThrows(mth, exceptionType, excludedExceptions, analysis, facts);
 				}
 			}
 			return;
@@ -219,8 +326,11 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 				if (cMth == null) {
 					return;
 				}
+				if (facts != null) {
+					facts.calls.add(new Call(cMth.getMethodInfo(), excludedExceptions));
+				}
 				for (String argTypeStr : getCalleeThrows(mth, cMth, analysis)) {
-					visitThrows(mth, ArgType.object(argTypeStr), excludedExceptions, analysis);
+					visitThrows(mth, ArgType.object(argTypeStr), excludedExceptions, analysis, null);
 				}
 			} else {
 				ClspClass clsDetails = root.getClsp().getClsDetails(classInfo.getType());
@@ -228,12 +338,18 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 					ClspMethod cMth = searchOverriddenMethod(clsDetails, signature);
 					if (cMth != null && cMth.getThrows() != null && !cMth.getThrows().isEmpty()) {
 						for (ArgType argType : cMth.getThrows()) {
-							visitThrows(mth, argType, excludedExceptions, analysis);
+							visitThrows(mth, argType, excludedExceptions, analysis, facts);
 						}
 					}
 				}
 			}
 		}
+	}
+
+	static boolean isCaughtThrowable(RegisterArg arg) {
+		InsnNode assign = arg.getAssignInsn();
+		return assign != null && assign.getType() == InsnType.MOVE_EXCEPTION
+				&& assign.getResult().contains(AFlag.CUSTOM_DECLARE);
 	}
 
 	private Iterable<String> getCalleeThrows(MethodNode mth, MethodNode callee, ThrowsAnalysis analysis) {
@@ -254,14 +370,24 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 		if (!callee.isNoCode()) {
 			analysis.pending = true;
 		}
+		return getDeclaredThrows(callee);
+	}
+
+	private Iterable<String> getDeclaredThrows(MethodNode callee) {
 		ExceptionsAttr exceptions = callee.get(JadxAttrType.EXCEPTIONS);
 		return exceptions == null
 				? Collections.emptyList()
 				: ListUtils.filter(exceptions.getList(), type -> validateException(ArgType.object(type)) != ExceptionType.NO_EXCEPTION);
 	}
 
-	private void visitThrows(MethodNode mth, ArgType excType, Set<String> excludedExceptions, ThrowsAnalysis analysis) {
-		if (excType.isTypeKnown() && isThrowsRequired(mth, excType)) {
+	private void visitThrows(MethodNode mth, ArgType excType, Set<String> excludedExceptions, ThrowsAnalysis analysis,
+			@Nullable ScanFacts facts) {
+		visitThrows(mth, excType, excludedExceptions, analysis, facts, true);
+	}
+
+	private void visitThrows(MethodNode mth, ArgType excType, Set<String> excludedExceptions, ThrowsAnalysis analysis,
+			@Nullable ScanFacts facts, boolean addComments) {
+		if (excType.isTypeKnown() && isThrowsRequired(mth, excType, addComments)) {
 			for (String excludedException : excludedExceptions) {
 				if (isBaseException(excType.getObject(), excludedException)) {
 					return;
@@ -269,13 +395,18 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 			}
 
 			analysis.methods.get(mth).add(excType.getObject());
+			if (facts != null) {
+				facts.ownThrows.add(excType.getObject());
+			}
 		}
 	}
 
-	private boolean isThrowsRequired(MethodNode mth, ArgType type) {
+	private boolean isThrowsRequired(MethodNode mth, ArgType type, boolean addComments) {
 		ExceptionType result = validateException(type);
 		if (result == ExceptionType.UNKNOWN_TYPE) {
-			mth.addInfoComment("Thrown type has an unknown type hierarchy: " + type);
+			if (addComments) {
+				mth.addInfoComment("Thrown type has an unknown type hierarchy: " + type);
+			}
 			return true; // assume an exception
 		}
 		return result == ExceptionType.THROWS_REQUIRED;

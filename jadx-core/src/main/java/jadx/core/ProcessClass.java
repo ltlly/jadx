@@ -26,6 +26,7 @@ import jadx.core.dex.nodes.deps.DependencyProcessingProfile.Span;
 import jadx.core.dex.nodes.deps.DependencySummaryManager;
 import jadx.core.dex.visitors.DepthTraversal;
 import jadx.core.dex.visitors.IDexTreeVisitor;
+import jadx.core.dex.visitors.MethodThrowsVisitor;
 import jadx.core.utils.Utils;
 import jadx.core.utils.exceptions.JadxRuntimeException;
 
@@ -136,6 +137,7 @@ public class ProcessClass {
 					}
 					if (codegen) {
 						Utils.checkThreadInterrupt();
+						MethodThrowsVisitor.refreshPendingThrows(cls);
 						ICodeInfo code;
 						try (Span codeSpan = profile == null ? null : profile.beginStage(cls, "CODEGEN")) {
 							code = CodeGen.generate(cls);
