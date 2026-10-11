@@ -8,7 +8,7 @@ import jadx.api.JadxDecompiler;
 import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.trycatch.TryEdgeType;
 
-/** Observe baseline finally output under different legal enum identity hashes. */
+/** Observe baseline finally output under different legal enum identity hashes. Comma-separated targets run in order. */
 public class ReproduceFinallyHash {
 
 	public static void main(String[] args) throws Exception {
@@ -27,16 +27,19 @@ public class ReproduceFinallyHash {
 		options.setThreadsCount(8);
 		try (JadxDecompiler jadx = new JadxDecompiler(options)) {
 			jadx.load();
-			ClassNode target = jadx.getRoot().resolveClass(args[1]);
-			if (target == null) {
-				throw new AssertionError("Class missing: " + args[1]);
+			String[] targets = args[1].split(",");
+			for (String name : targets) {
+				ClassNode target = jadx.getRoot().resolveClass(name);
+				if (target == null) {
+					throw new AssertionError("Class missing: " + name);
+				}
+				String code = target.getCode().getCodeStr();
+				Path destination = targets.length == 1 ? Path.of(args[3]) : Path.of(args[3], name + ".java");
+				Files.createDirectories(destination.getParent());
+				Files.writeString(destination, code);
+				System.out.println("target=" + name + ", omitted=" + code.contains("Method not decompiled:")
+						+ ", missingBottom=" + code.contains("Bottom block not found for handler:"));
 			}
-			String code = target.getCode().getCodeStr();
-			Path destination = Path.of(args[3]);
-			Files.createDirectories(destination.getParent());
-			Files.writeString(destination, code);
-			System.out.println("omitted=" + code.contains("Method not decompiled:")
-					+ ", missingBottom=" + code.contains("Bottom block not found for handler:"));
 		}
 	}
 }

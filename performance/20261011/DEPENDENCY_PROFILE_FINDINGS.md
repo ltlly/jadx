@@ -1,5 +1,7 @@
 # 千问依赖恢复：本轮诊断结论
 
+> 后续质量复核见 [DEPENDENCY_PROFILE_QUALITY_AUDIT.md](DEPENDENCY_PROFILE_QUALITY_AUDIT.md)：五个新增异常区域占位体已有未插桩基线的整类 token 精确复现，内联错误仍未闭合；另修正了独立的作用域漏出口缺陷。下文保留首轮诊断的原始观测，不把后续复现当作语义等价或性能验收。
+
 入口：分支 `codex/dependency-recovery-research`。工具契约见 [DEPENDENCY_PROCESSING_PROFILE.md](DEPENDENCY_PROCESSING_PROFILE.md)，汇总与构建绑定见 [dependency-profile-results.json](dependency-profile-results.json)，完整 pass 表见 [qwen-dependency-stages.tsv](qwen-dependency-stages.tsv)。这是研究进展，不是新的提速结果；50% 和 1 秒目标均未达到。
 
 ## 已完成与中断

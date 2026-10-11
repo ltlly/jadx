@@ -1,0 +1,1603 @@
+{
+  "kind": "quality audit and independent correctness fix; not a performance or equivalence result",
+  "raw_root": "out/jadx-perf/20261011/profile-quality-audit",
+  "baseline_artifact_sha256": "bd6fa05e992f4abef875d4acceec3796710f95e86161888c1112fedb6bb194bd",
+  "instrumented_artifact_sha256": "bd08b27d8fd797347c17a636f2d4ad6cddd34b54f595f5def3ccc915e883fd9a",
+  "apk_sha256": "b793d73e8365b9ef591c9b343d83c62123f96a05b1e167ec792ba91c0350b7f1",
+  "frozen_distributions_verified_files": {
+    "baseline": 62,
+    "instrumented": 62
+  },
+  "identical_original_A_B_classes": {
+    "jadx/core/utils/ListUtils.class": "bfef6c955befa64a0260841d7b9bf39a26992d20de08c2d7e4943f086eed1d2f",
+    "jadx/core/dex/visitors/InlineMethods.class": "48ab07e0604e00aa65f059ffd731a323cde42efba5b6462ecd1926611c916fe1",
+    "jadx/core/dex/trycatch/TryEdge.class": "41495afe53fc90362f9d405d646640a0f615c1ea67d862aaca8361960a38e412",
+    "jadx/core/dex/trycatch/TryEdgeScopeGroupMap.class": "b038a80df37db9afdac305e8e4363eefc3aa58d5d242b0d17d30431cf3c5781c",
+    "jadx/core/dex/visitors/finaly/MarkFinallyVisitor.class": "471e489c1f3f91a99a70851b0fc9985c757bfb7cca4bda0fc59cef69338bceba",
+    "jadx/core/dex/visitors/finaly/TryCatchEdgeBlockMap.class": "c5ea057b61c589aededfc206508bb3276c3d73e22fedbed48b8e180bfa45bbff"
+  },
+  "cases": [
+    {
+      "path": "sources/com/amap/api/maps/model/Circle.java",
+      "method": "com.amap.api.maps.model.Circle.setHoleOptions(java.util.List):void",
+      "original": {
+        "qwen-A1": {
+          "file_sha256": "70b1d56235a8d9ce65a05a66f3cb4f95e6bb10bc55f1d163fcefc4c98bf06aa5",
+          "omitted": false
+        },
+        "qwen-A2": {
+          "file_sha256": "70b1d56235a8d9ce65a05a66f3cb4f95e6bb10bc55f1d163fcefc4c98bf06aa5",
+          "omitted": false
+        },
+        "qwen-A3": {
+          "file_sha256": "70b1d56235a8d9ce65a05a66f3cb4f95e6bb10bc55f1d163fcefc4c98bf06aa5",
+          "omitted": false
+        },
+        "qwen-B1": {
+          "file_sha256": "38e3c882fe385d28b21323d0c0839ab2638bf24747b4c7e388796c85cd586974",
+          "omitted": true
+        },
+        "qwen-B2": {
+          "file_sha256": "70b1d56235a8d9ce65a05a66f3cb4f95e6bb10bc55f1d163fcefc4c98bf06aa5",
+          "omitted": false
+        },
+        "qwen-B3": {
+          "file_sha256": "70b1d56235a8d9ce65a05a66f3cb4f95e6bb10bc55f1d163fcefc4c98bf06aa5",
+          "omitted": false
+        },
+        "qwen-diagnostic-2": {
+          "file_sha256": "70b1d56235a8d9ce65a05a66f3cb4f95e6bb10bc55f1d163fcefc4c98bf06aa5",
+          "omitted": false
+        }
+      },
+      "controls": {
+        "finally-batch-0": {
+          "priming": 0,
+          "file_sha256": "575eed2c9f82e3e487e9ed05bc93e87905a5e39ad942f2d1ecef518dee9ea5b9",
+          "tokens_sha256": "2beb059847ca583fa6c1aa70d5838f64afd397d257e751cc03a08cf6341eda25",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B1"
+          ],
+          "one_line_fix_file_sha256": "575eed2c9f82e3e487e9ed05bc93e87905a5e39ad942f2d1ecef518dee9ea5b9",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-1-retry": {
+          "priming": 1,
+          "file_sha256": "f7d1c02fd7a19e8d3e170af92cc454415be09bc8ffdc81c2397a244374c6a135",
+          "tokens_sha256": "3fcd17675b2f9bef1436e3166645849222d54340f878017777b805f0ac972042",
+          "omitted": false,
+          "whole_class_token_matches": [
+            "qwen-A1",
+            "qwen-A2",
+            "qwen-A3",
+            "qwen-B2",
+            "qwen-B3",
+            "qwen-diagnostic-2"
+          ],
+          "one_line_fix_file_sha256": "f7d1c02fd7a19e8d3e170af92cc454415be09bc8ffdc81c2397a244374c6a135",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-2": {
+          "priming": 2,
+          "file_sha256": "575eed2c9f82e3e487e9ed05bc93e87905a5e39ad942f2d1ecef518dee9ea5b9",
+          "tokens_sha256": "2beb059847ca583fa6c1aa70d5838f64afd397d257e751cc03a08cf6341eda25",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B1"
+          ],
+          "one_line_fix_file_sha256": "575eed2c9f82e3e487e9ed05bc93e87905a5e39ad942f2d1ecef518dee9ea5b9",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-3": {
+          "priming": 3,
+          "file_sha256": "f7d1c02fd7a19e8d3e170af92cc454415be09bc8ffdc81c2397a244374c6a135",
+          "tokens_sha256": "3fcd17675b2f9bef1436e3166645849222d54340f878017777b805f0ac972042",
+          "omitted": false,
+          "whole_class_token_matches": [
+            "qwen-A1",
+            "qwen-A2",
+            "qwen-A3",
+            "qwen-B2",
+            "qwen-B3",
+            "qwen-diagnostic-2"
+          ],
+          "one_line_fix_file_sha256": "f7d1c02fd7a19e8d3e170af92cc454415be09bc8ffdc81c2397a244374c6a135",
+          "one_line_fix_tokens_unchanged": true
+        }
+      }
+    },
+    {
+      "path": "sources/com/efs/sdk/base/newsharedpreferences/a.java",
+      "method": "com.efs.sdk.base.newsharedpreferences.a.b(boolean):void",
+      "original": {
+        "qwen-A1": {
+          "file_sha256": "952b7656693ccc0e9817a8bb00098ab9d7bd840cd3214b2fa7447975030009b8",
+          "omitted": false
+        },
+        "qwen-A2": {
+          "file_sha256": "952b7656693ccc0e9817a8bb00098ab9d7bd840cd3214b2fa7447975030009b8",
+          "omitted": false
+        },
+        "qwen-A3": {
+          "file_sha256": "952b7656693ccc0e9817a8bb00098ab9d7bd840cd3214b2fa7447975030009b8",
+          "omitted": false
+        },
+        "qwen-B1": {
+          "file_sha256": "1daca8db7f4c212791dea202b7da947c780c932791dcb91c5ca2f878495236b2",
+          "omitted": true
+        },
+        "qwen-B2": {
+          "file_sha256": "952b7656693ccc0e9817a8bb00098ab9d7bd840cd3214b2fa7447975030009b8",
+          "omitted": false
+        },
+        "qwen-B3": {
+          "file_sha256": "952b7656693ccc0e9817a8bb00098ab9d7bd840cd3214b2fa7447975030009b8",
+          "omitted": false
+        },
+        "qwen-diagnostic-2": {
+          "file_sha256": "952b7656693ccc0e9817a8bb00098ab9d7bd840cd3214b2fa7447975030009b8",
+          "omitted": false
+        }
+      },
+      "controls": {
+        "finally-batch-0": {
+          "priming": 0,
+          "file_sha256": "06473b3b795d4938c928d9d7968f0be28357e139714f22ec5dc65235d3437448",
+          "tokens_sha256": "51bd82f20d9f0a0cfcf6d5bfeb01d524df79cc6573afbe7fd8bdf9397c52db76",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B1"
+          ],
+          "one_line_fix_file_sha256": "06473b3b795d4938c928d9d7968f0be28357e139714f22ec5dc65235d3437448",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-1-retry": {
+          "priming": 1,
+          "file_sha256": "80763474eb7374e17ced0d65df123285bbf87212271c4a61a78d63f10974d3e4",
+          "tokens_sha256": "c229588be02533ef47885f08d367a680d6059d74a3246ca3618bbbb4196c6ee7",
+          "omitted": false,
+          "whole_class_token_matches": [
+            "qwen-A1",
+            "qwen-A2",
+            "qwen-A3",
+            "qwen-B2",
+            "qwen-B3",
+            "qwen-diagnostic-2"
+          ],
+          "one_line_fix_file_sha256": "80763474eb7374e17ced0d65df123285bbf87212271c4a61a78d63f10974d3e4",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-2": {
+          "priming": 2,
+          "file_sha256": "80763474eb7374e17ced0d65df123285bbf87212271c4a61a78d63f10974d3e4",
+          "tokens_sha256": "c229588be02533ef47885f08d367a680d6059d74a3246ca3618bbbb4196c6ee7",
+          "omitted": false,
+          "whole_class_token_matches": [
+            "qwen-A1",
+            "qwen-A2",
+            "qwen-A3",
+            "qwen-B2",
+            "qwen-B3",
+            "qwen-diagnostic-2"
+          ],
+          "one_line_fix_file_sha256": "80763474eb7374e17ced0d65df123285bbf87212271c4a61a78d63f10974d3e4",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-3": {
+          "priming": 3,
+          "file_sha256": "06473b3b795d4938c928d9d7968f0be28357e139714f22ec5dc65235d3437448",
+          "tokens_sha256": "51bd82f20d9f0a0cfcf6d5bfeb01d524df79cc6573afbe7fd8bdf9397c52db76",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B1"
+          ],
+          "one_line_fix_file_sha256": "06473b3b795d4938c928d9d7968f0be28357e139714f22ec5dc65235d3437448",
+          "one_line_fix_tokens_unchanged": true
+        }
+      }
+    },
+    {
+      "path": "sources/com/taobao/accs/utl/Utils.java",
+      "method": "com.taobao.accs.utl.Utils.clearAllSharePreferences(android.content.Context):void",
+      "original": {
+        "qwen-A1": {
+          "file_sha256": "c943d3bbb80ee62ebd9b9aaddb3bd3b02f6a2735568c97684ed590e4af645671",
+          "omitted": false
+        },
+        "qwen-A2": {
+          "file_sha256": "c943d3bbb80ee62ebd9b9aaddb3bd3b02f6a2735568c97684ed590e4af645671",
+          "omitted": false
+        },
+        "qwen-A3": {
+          "file_sha256": "c943d3bbb80ee62ebd9b9aaddb3bd3b02f6a2735568c97684ed590e4af645671",
+          "omitted": false
+        },
+        "qwen-B1": {
+          "file_sha256": "c943d3bbb80ee62ebd9b9aaddb3bd3b02f6a2735568c97684ed590e4af645671",
+          "omitted": false
+        },
+        "qwen-B2": {
+          "file_sha256": "e66ac0afe6d1babeddfe2ca74fdec564a17df1ae30bc005a10b079db1ebfdfa5",
+          "omitted": true
+        },
+        "qwen-B3": {
+          "file_sha256": "e66ac0afe6d1babeddfe2ca74fdec564a17df1ae30bc005a10b079db1ebfdfa5",
+          "omitted": true
+        },
+        "qwen-diagnostic-2": {
+          "file_sha256": "77a4a1e3b2707a67132d8061bf1c8857ae36e24c6753f5592f357af3b8baa91e",
+          "omitted": true
+        }
+      },
+      "controls": {
+        "finally-batch-0": {
+          "priming": 0,
+          "file_sha256": "611cb69c84036addb1cfabb1b8f6295ff0d06a6f2e72373c693728854af41469",
+          "tokens_sha256": "e122cca0f385235c032ba001be1b36cc32fd5e57f56fbcd2fdaab23d0290594d",
+          "omitted": false,
+          "whole_class_token_matches": [],
+          "one_line_fix_file_sha256": "611cb69c84036addb1cfabb1b8f6295ff0d06a6f2e72373c693728854af41469",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-1-retry": {
+          "priming": 1,
+          "file_sha256": "2000701f6b1b698472ee852c1d9bd3368fafe2cee715e085a2ae9ba5cfbbf797",
+          "tokens_sha256": "2d4e14d44859e0a69cf5f4b8be333880767389c2b55ebe6a52179fff8324f7be",
+          "omitted": false,
+          "whole_class_token_matches": [
+            "qwen-A1",
+            "qwen-A2",
+            "qwen-A3",
+            "qwen-B1"
+          ],
+          "one_line_fix_file_sha256": "2000701f6b1b698472ee852c1d9bd3368fafe2cee715e085a2ae9ba5cfbbf797",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-2": {
+          "priming": 2,
+          "file_sha256": "611cb69c84036addb1cfabb1b8f6295ff0d06a6f2e72373c693728854af41469",
+          "tokens_sha256": "e122cca0f385235c032ba001be1b36cc32fd5e57f56fbcd2fdaab23d0290594d",
+          "omitted": false,
+          "whole_class_token_matches": [],
+          "one_line_fix_file_sha256": "611cb69c84036addb1cfabb1b8f6295ff0d06a6f2e72373c693728854af41469",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-3": {
+          "priming": 3,
+          "file_sha256": "23114d2e7311c9ea60b6ae63c6ca90bcf248372cce80ed82a540ccd688065dab",
+          "tokens_sha256": "84ac949788e913491cc8291783db74ee5c9adbd222fb31fded01ee2161d56df9",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B2",
+            "qwen-B3"
+          ],
+          "one_line_fix_file_sha256": "23114d2e7311c9ea60b6ae63c6ca90bcf248372cce80ed82a540ccd688065dab",
+          "one_line_fix_tokens_unchanged": true
+        }
+      }
+    },
+    {
+      "path": "sources/com/uc/compass/preheat/PrerenderManager.java",
+      "method": "com.uc.compass.preheat.PrerenderManager.releaseAttachedPrerender(com.uc.compass.export.view.ICompassWebView):void",
+      "original": {
+        "qwen-A1": {
+          "file_sha256": "36eed146c3e5d841897c7a1d448b64a5ed1ba7b6ab259f11554fcad1a4da23a5",
+          "omitted": false
+        },
+        "qwen-A2": {
+          "file_sha256": "447d9bfd0a3b5058a941cac972f5c3a60d912b04858c883c0038566a1609a193",
+          "omitted": false
+        },
+        "qwen-A3": {
+          "file_sha256": "447d9bfd0a3b5058a941cac972f5c3a60d912b04858c883c0038566a1609a193",
+          "omitted": false
+        },
+        "qwen-B1": {
+          "file_sha256": "447d9bfd0a3b5058a941cac972f5c3a60d912b04858c883c0038566a1609a193",
+          "omitted": false
+        },
+        "qwen-B2": {
+          "file_sha256": "36eed146c3e5d841897c7a1d448b64a5ed1ba7b6ab259f11554fcad1a4da23a5",
+          "omitted": false
+        },
+        "qwen-B3": {
+          "file_sha256": "da0b637dc7dc8227463a5b81fb1254e371e8f6d7b04ac37b69644a213851b71c",
+          "omitted": true
+        },
+        "qwen-diagnostic-2": {
+          "file_sha256": "447d9bfd0a3b5058a941cac972f5c3a60d912b04858c883c0038566a1609a193",
+          "omitted": false
+        }
+      },
+      "controls": {
+        "finally-batch-0": {
+          "priming": 0,
+          "file_sha256": "f1bc3597e68489159db15ddf83c9429012e47320b3b2490eb1775d49ee49ae74",
+          "tokens_sha256": "c14a27193ba75bd0d3b3c2f57428b1a5daadcc7cb86ac1b252fca1f3702ade3b",
+          "omitted": false,
+          "whole_class_token_matches": [
+            "qwen-A1",
+            "qwen-B2"
+          ],
+          "one_line_fix_file_sha256": "f1bc3597e68489159db15ddf83c9429012e47320b3b2490eb1775d49ee49ae74",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-1-retry": {
+          "priming": 1,
+          "file_sha256": "f1bc3597e68489159db15ddf83c9429012e47320b3b2490eb1775d49ee49ae74",
+          "tokens_sha256": "c14a27193ba75bd0d3b3c2f57428b1a5daadcc7cb86ac1b252fca1f3702ade3b",
+          "omitted": false,
+          "whole_class_token_matches": [
+            "qwen-A1",
+            "qwen-B2"
+          ],
+          "one_line_fix_file_sha256": "f1bc3597e68489159db15ddf83c9429012e47320b3b2490eb1775d49ee49ae74",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-2": {
+          "priming": 2,
+          "file_sha256": "ae716699170c28326875af27359aebc738b5fc7ec3a39b0b933f3367678c2bd9",
+          "tokens_sha256": "8ede252959e28fc07ad32e776573c5b0e2c036dd7982ba2f86c07425e2898931",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B3"
+          ],
+          "one_line_fix_file_sha256": "ae716699170c28326875af27359aebc738b5fc7ec3a39b0b933f3367678c2bd9",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-3": {
+          "priming": 3,
+          "file_sha256": "e36af0439c18531f8ed2758d5dbbf8dc2f1f4e53cf89de837b2dc8d096caf4e4",
+          "tokens_sha256": "d60371de9b87b9eb47b6e9334e38cbd01ad6aebdbc8c3611319c483bf2399ed9",
+          "omitted": false,
+          "whole_class_token_matches": [
+            "qwen-A2",
+            "qwen-A3",
+            "qwen-B1",
+            "qwen-diagnostic-2"
+          ],
+          "one_line_fix_file_sha256": "e36af0439c18531f8ed2758d5dbbf8dc2f1f4e53cf89de837b2dc8d096caf4e4",
+          "one_line_fix_tokens_unchanged": true
+        }
+      }
+    },
+    {
+      "path": "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java",
+      "method": "com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void",
+      "original": {
+        "qwen-A1": {
+          "file_sha256": "3833a76f4d03aadeff0b5e82d38d10e6ed6db887568322173e4788951f651197",
+          "omitted": false
+        },
+        "qwen-A2": {
+          "file_sha256": "3833a76f4d03aadeff0b5e82d38d10e6ed6db887568322173e4788951f651197",
+          "omitted": false
+        },
+        "qwen-A3": {
+          "file_sha256": "3833a76f4d03aadeff0b5e82d38d10e6ed6db887568322173e4788951f651197",
+          "omitted": false
+        },
+        "qwen-B1": {
+          "file_sha256": "0bbff11bdef4eb442130d68f53c7641dc5cded592b5d67d048445e0c4d1721a0",
+          "omitted": true
+        },
+        "qwen-B2": {
+          "file_sha256": "3833a76f4d03aadeff0b5e82d38d10e6ed6db887568322173e4788951f651197",
+          "omitted": false
+        },
+        "qwen-B3": {
+          "file_sha256": "3833a76f4d03aadeff0b5e82d38d10e6ed6db887568322173e4788951f651197",
+          "omitted": false
+        },
+        "qwen-diagnostic-2": {
+          "file_sha256": "3833a76f4d03aadeff0b5e82d38d10e6ed6db887568322173e4788951f651197",
+          "omitted": false
+        }
+      },
+      "controls": {
+        "finally-batch-0": {
+          "priming": 0,
+          "file_sha256": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+          "tokens_sha256": "e92d425c4694faf4306449dfb7fc99f8d6f1695ac7804377f98ced6d1bb5d5ad",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B1"
+          ],
+          "one_line_fix_file_sha256": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-1-retry": {
+          "priming": 1,
+          "file_sha256": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+          "tokens_sha256": "e92d425c4694faf4306449dfb7fc99f8d6f1695ac7804377f98ced6d1bb5d5ad",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B1"
+          ],
+          "one_line_fix_file_sha256": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-2": {
+          "priming": 2,
+          "file_sha256": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+          "tokens_sha256": "e92d425c4694faf4306449dfb7fc99f8d6f1695ac7804377f98ced6d1bb5d5ad",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B1"
+          ],
+          "one_line_fix_file_sha256": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+          "one_line_fix_tokens_unchanged": true
+        },
+        "finally-batch-3": {
+          "priming": 3,
+          "file_sha256": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+          "tokens_sha256": "e92d425c4694faf4306449dfb7fc99f8d6f1695ac7804377f98ced6d1bb5d5ad",
+          "omitted": true,
+          "whole_class_token_matches": [
+            "qwen-B1"
+          ],
+          "one_line_fix_file_sha256": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+          "one_line_fix_tokens_unchanged": true
+        }
+      }
+    }
+  ],
+  "runs": {
+    "circle-0": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle",
+          "0",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/circle-0/target.java"
+        ],
+        "kind": "controlled class API; not performance A/B",
+        "source_sha256": "ffafd88f1c6f55fcdbddbb94f88104a7bb358b77415064bb9bb01fc277be07b8",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json"
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "a4b1b537f3c3edd71426f36a05ce01010297d3e17311642f64b96262aa29acb1",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "6066be1909d4b8980713afa2d52b8723c61a3157e3822e4166b05e8cf7dca9a7",
+        "target.java": "575eed2c9f82e3e487e9ed05bc93e87905a5e39ad942f2d1ecef518dee9ea5b9",
+        "time.txt": "e8fac7e4b44c3337507f0525e8ec58f1f7f255e07837e566893af4ea740d1cda"
+      },
+      "time_raw": "39.23 92.70 11.18 5673084 264% 0\n"
+    },
+    "circle-1": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle",
+          "1",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/circle-1/target.java"
+        ],
+        "kind": "controlled class API; not performance A/B",
+        "source_sha256": "ffafd88f1c6f55fcdbddbb94f88104a7bb358b77415064bb9bb01fc277be07b8",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json"
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "763d908091c94e73a698c3d0399ef9bc41d3e06af576d90036d815ef61c156a1",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "f523a84ce9384bef9874138b66c293a0b37ee99c3071eb18e945e4cf2a61ecb1",
+        "target.java": "f7d1c02fd7a19e8d3e170af92cc454415be09bc8ffdc81c2397a244374c6a135",
+        "time.txt": "b08eecf722ffdd5e944a544c74412b216a7c8619d4e2365dd1468a6981b8f2a7"
+      },
+      "time_raw": "35.53 96.63 4.75 5856952 285% 0\n"
+    },
+    "finally-batch-0": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/batch-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle,com.efs.sdk.base.newsharedpreferences.a,com.taobao.accs.utl.Utils,com.uc.compass.preheat.PrerenderManager,com.uc.picturemode.pictureviewer.interfaces.RecommendConfig",
+          "0",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/finally-batch-0/output"
+        ],
+        "kind": "controlled sequential class API; not full CLI or performance A/B",
+        "source_sha256": "ee40fc80bf826951a685c113fa5892e165c6b3f90d84d4864d5f84b56394f508",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json"
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "0e32ccac5e06e96310489190d708d6c71c3dc4c2288aef85e5426fa4c229e1f7",
+        "output/com.amap.api.maps.model.Circle.java": "575eed2c9f82e3e487e9ed05bc93e87905a5e39ad942f2d1ecef518dee9ea5b9",
+        "output/com.efs.sdk.base.newsharedpreferences.a.java": "06473b3b795d4938c928d9d7968f0be28357e139714f22ec5dc65235d3437448",
+        "output/com.taobao.accs.utl.Utils.java": "611cb69c84036addb1cfabb1b8f6295ff0d06a6f2e72373c693728854af41469",
+        "output/com.uc.compass.preheat.PrerenderManager.java": "f1bc3597e68489159db15ddf83c9429012e47320b3b2490eb1775d49ee49ae74",
+        "output/com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.java": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "6e57bfd13ea10c5c98318738a095e0308c5226a5d2ebf0f08492b3da01118ef9",
+        "time.txt": "b1d42eb47b5f96b9e8fcf9411e4dd6499e45d81bf13d38ae43f9006a180e00a6"
+      },
+      "time_raw": "36.39 100.16 8.75 5802112 299% 0\n"
+    },
+    "finally-batch-1-retry": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/batch-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle,com.efs.sdk.base.newsharedpreferences.a,com.taobao.accs.utl.Utils,com.uc.compass.preheat.PrerenderManager,com.uc.picturemode.pictureviewer.interfaces.RecommendConfig",
+          "1",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/finally-batch-1-retry/output"
+        ],
+        "kind": "controlled sequential class API; not full CLI or performance A/B",
+        "source_sha256": "ee40fc80bf826951a685c113fa5892e165c6b3f90d84d4864d5f84b56394f508",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json"
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "90c7556db5b335f7a0782ff2e796b811398aedd0d4549a9e2c4b839f2ad17b6c",
+        "output/com.amap.api.maps.model.Circle.java": "f7d1c02fd7a19e8d3e170af92cc454415be09bc8ffdc81c2397a244374c6a135",
+        "output/com.efs.sdk.base.newsharedpreferences.a.java": "80763474eb7374e17ced0d65df123285bbf87212271c4a61a78d63f10974d3e4",
+        "output/com.taobao.accs.utl.Utils.java": "2000701f6b1b698472ee852c1d9bd3368fafe2cee715e085a2ae9ba5cfbbf797",
+        "output/com.uc.compass.preheat.PrerenderManager.java": "f1bc3597e68489159db15ddf83c9429012e47320b3b2490eb1775d49ee49ae74",
+        "output/com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.java": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "03c5f762e06cd5fa2e416afdf9ba81ca9b159b1c0f5438f02929a875e02e5210",
+        "time.txt": "1d3f1c0aa1c5b4722155e69e14a64617eb692ced1f046014bd4c1e7d955db796"
+      },
+      "time_raw": "42.94 106.76 12.93 5784360 278% 0\n"
+    },
+    "finally-batch-2": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/batch-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle,com.efs.sdk.base.newsharedpreferences.a,com.taobao.accs.utl.Utils,com.uc.compass.preheat.PrerenderManager,com.uc.picturemode.pictureviewer.interfaces.RecommendConfig",
+          "2",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/finally-batch-2/output"
+        ],
+        "kind": "controlled sequential class API; not full CLI or performance A/B",
+        "source_sha256": "ee40fc80bf826951a685c113fa5892e165c6b3f90d84d4864d5f84b56394f508",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json"
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "d0b4dab1f2c73267f5c8f18289dcc9d6e7122d6e9566b101851c618a91798108",
+        "output/com.amap.api.maps.model.Circle.java": "575eed2c9f82e3e487e9ed05bc93e87905a5e39ad942f2d1ecef518dee9ea5b9",
+        "output/com.efs.sdk.base.newsharedpreferences.a.java": "80763474eb7374e17ced0d65df123285bbf87212271c4a61a78d63f10974d3e4",
+        "output/com.taobao.accs.utl.Utils.java": "611cb69c84036addb1cfabb1b8f6295ff0d06a6f2e72373c693728854af41469",
+        "output/com.uc.compass.preheat.PrerenderManager.java": "ae716699170c28326875af27359aebc738b5fc7ec3a39b0b933f3367678c2bd9",
+        "output/com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.java": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "5a765975044205b8573ec37c598270fa6954d4aa27d0339f18e1b4a645b8ef0f",
+        "time.txt": "d559b44a1a0b587328fdbe91f91061340923f700a3656c51623ecda1adf47c23"
+      },
+      "time_raw": "36.55 105.03 3.80 5841476 297% 0\n"
+    },
+    "finally-batch-3": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/batch-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle,com.efs.sdk.base.newsharedpreferences.a,com.taobao.accs.utl.Utils,com.uc.compass.preheat.PrerenderManager,com.uc.picturemode.pictureviewer.interfaces.RecommendConfig",
+          "3",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/finally-batch-3/output"
+        ],
+        "kind": "controlled sequential class API; not full CLI or performance A/B",
+        "source_sha256": "ee40fc80bf826951a685c113fa5892e165c6b3f90d84d4864d5f84b56394f508",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json"
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "975b64c4dda15887e96d5ec6953e24cf9aed6762994634cb4fbc744e78ae7de3",
+        "output/com.amap.api.maps.model.Circle.java": "f7d1c02fd7a19e8d3e170af92cc454415be09bc8ffdc81c2397a244374c6a135",
+        "output/com.efs.sdk.base.newsharedpreferences.a.java": "06473b3b795d4938c928d9d7968f0be28357e139714f22ec5dc65235d3437448",
+        "output/com.taobao.accs.utl.Utils.java": "23114d2e7311c9ea60b6ae63c6ca90bcf248372cce80ed82a540ccd688065dab",
+        "output/com.uc.compass.preheat.PrerenderManager.java": "e36af0439c18531f8ed2758d5dbbf8dc2f1f4e53cf89de837b2dc8d096caf4e4",
+        "output/com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.java": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "7d4e9c00527d6f403854dfe6e63668678b1982d0d2151326f8f08d911c8937fe",
+        "time.txt": "2ccb022f09d405edfde3c7dd1363ecf342b8fa4f3d64eeb7d0c1475130fc8714"
+      },
+      "time_raw": "32.08 90.95 3.22 5713920 293% 0\n"
+    },
+    "scope-fix-0": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/batch-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle,com.efs.sdk.base.newsharedpreferences.a,com.taobao.accs.utl.Utils,com.uc.compass.preheat.PrerenderManager,com.uc.picturemode.pictureviewer.interfaces.RecommendConfig",
+          "0",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-0/output"
+        ],
+        "kind": "controlled sequential class API; baseline + one corrected class override, not full CLI/performance",
+        "source_sha256": "ee40fc80bf826951a685c113fa5892e165c6b3f90d84d4864d5f84b56394f508",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json",
+        "override_sha256": {
+          "jadx/core/dex/trycatch/TryEdgeScopeGroupMap.class": "7497e0c109003db06f383c4f617eaaff63fed171e26fd4e63177212be61748d4"
+        }
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "874a608081e19464c7a29006c530094339e1995a1f6e4988d8f5bb095c143182",
+        "output/com.amap.api.maps.model.Circle.java": "575eed2c9f82e3e487e9ed05bc93e87905a5e39ad942f2d1ecef518dee9ea5b9",
+        "output/com.efs.sdk.base.newsharedpreferences.a.java": "06473b3b795d4938c928d9d7968f0be28357e139714f22ec5dc65235d3437448",
+        "output/com.taobao.accs.utl.Utils.java": "611cb69c84036addb1cfabb1b8f6295ff0d06a6f2e72373c693728854af41469",
+        "output/com.uc.compass.preheat.PrerenderManager.java": "f1bc3597e68489159db15ddf83c9429012e47320b3b2490eb1775d49ee49ae74",
+        "output/com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.java": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "bd265f6f948635269f44fcc8a37f0c31b42b53b9d9e8c570699545515b905e08",
+        "time.txt": "f3cb68597b9624d236657280150b5d1b4f3f242316702e2ae958cdd2a5283c9b"
+      },
+      "time_raw": "34.90 93.72 3.51 5789244 278% 0\n"
+    },
+    "scope-fix-1": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/batch-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle,com.efs.sdk.base.newsharedpreferences.a,com.taobao.accs.utl.Utils,com.uc.compass.preheat.PrerenderManager,com.uc.picturemode.pictureviewer.interfaces.RecommendConfig",
+          "1",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-1/output"
+        ],
+        "kind": "controlled sequential class API; baseline + one corrected class override, not full CLI/performance",
+        "source_sha256": "ee40fc80bf826951a685c113fa5892e165c6b3f90d84d4864d5f84b56394f508",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json",
+        "override_sha256": {
+          "jadx/core/dex/trycatch/TryEdgeScopeGroupMap.class": "7497e0c109003db06f383c4f617eaaff63fed171e26fd4e63177212be61748d4"
+        }
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "924fb22381073789df68a152531ed535ad5b4ac75a4d43978197c16bf48cc779",
+        "output/com.amap.api.maps.model.Circle.java": "f7d1c02fd7a19e8d3e170af92cc454415be09bc8ffdc81c2397a244374c6a135",
+        "output/com.efs.sdk.base.newsharedpreferences.a.java": "80763474eb7374e17ced0d65df123285bbf87212271c4a61a78d63f10974d3e4",
+        "output/com.taobao.accs.utl.Utils.java": "2000701f6b1b698472ee852c1d9bd3368fafe2cee715e085a2ae9ba5cfbbf797",
+        "output/com.uc.compass.preheat.PrerenderManager.java": "f1bc3597e68489159db15ddf83c9429012e47320b3b2490eb1775d49ee49ae74",
+        "output/com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.java": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "57d849d1d61dc3ec6403921e8730e63a8d5828ce33af03f6e5f1e2f4b1f29c2c",
+        "time.txt": "286a24b305cc25ac817808e443abb2e74d09043709deaba70637c1973fb59c08"
+      },
+      "time_raw": "37.24 102.87 3.51 5732848 285% 0\n"
+    },
+    "scope-fix-2": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/batch-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle,com.efs.sdk.base.newsharedpreferences.a,com.taobao.accs.utl.Utils,com.uc.compass.preheat.PrerenderManager,com.uc.picturemode.pictureviewer.interfaces.RecommendConfig",
+          "2",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-2/output"
+        ],
+        "kind": "controlled sequential class API; baseline + one corrected class override, not full CLI/performance",
+        "source_sha256": "ee40fc80bf826951a685c113fa5892e165c6b3f90d84d4864d5f84b56394f508",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json",
+        "override_sha256": {
+          "jadx/core/dex/trycatch/TryEdgeScopeGroupMap.class": "7497e0c109003db06f383c4f617eaaff63fed171e26fd4e63177212be61748d4"
+        }
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "6876dadea245bbbe97606edc724071d3e44b50ecbed2422278990cdb4dce4870",
+        "output/com.amap.api.maps.model.Circle.java": "575eed2c9f82e3e487e9ed05bc93e87905a5e39ad942f2d1ecef518dee9ea5b9",
+        "output/com.efs.sdk.base.newsharedpreferences.a.java": "80763474eb7374e17ced0d65df123285bbf87212271c4a61a78d63f10974d3e4",
+        "output/com.taobao.accs.utl.Utils.java": "611cb69c84036addb1cfabb1b8f6295ff0d06a6f2e72373c693728854af41469",
+        "output/com.uc.compass.preheat.PrerenderManager.java": "ae716699170c28326875af27359aebc738b5fc7ec3a39b0b933f3367678c2bd9",
+        "output/com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.java": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "7274226ee4fb678500fe7e85621115ad481bada166d4fb082a7509d29c1d8e41",
+        "time.txt": "cdc0d75651ad719af0ef906a42ba5231a3fbf4bb823974ea72579cbae7ebb61d"
+      },
+      "time_raw": "32.67 91.31 3.32 5750720 289% 0\n"
+    },
+    "scope-fix-3": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/batch-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceFinallyHash",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk",
+          "com.amap.api.maps.model.Circle,com.efs.sdk.base.newsharedpreferences.a,com.taobao.accs.utl.Utils,com.uc.compass.preheat.PrerenderManager,com.uc.picturemode.pictureviewer.interfaces.RecommendConfig",
+          "3",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-3/output"
+        ],
+        "kind": "controlled sequential class API; baseline + one corrected class override, not full CLI/performance",
+        "source_sha256": "ee40fc80bf826951a685c113fa5892e165c6b3f90d84d4864d5f84b56394f508",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json",
+        "override_sha256": {
+          "jadx/core/dex/trycatch/TryEdgeScopeGroupMap.class": "7497e0c109003db06f383c4f617eaaff63fed171e26fd4e63177212be61748d4"
+        }
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "34cd34c8e9b36fe0e7c5a08a9be227dff30558a0a98adbc80f123c71c240e2d6",
+        "output/com.amap.api.maps.model.Circle.java": "f7d1c02fd7a19e8d3e170af92cc454415be09bc8ffdc81c2397a244374c6a135",
+        "output/com.efs.sdk.base.newsharedpreferences.a.java": "06473b3b795d4938c928d9d7968f0be28357e139714f22ec5dc65235d3437448",
+        "output/com.taobao.accs.utl.Utils.java": "23114d2e7311c9ea60b6ae63c6ca90bcf248372cce80ed82a540ccd688065dab",
+        "output/com.uc.compass.preheat.PrerenderManager.java": "e36af0439c18531f8ed2758d5dbbf8dc2f1f4e53cf89de837b2dc8d096caf4e4",
+        "output/com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.java": "7805ba0d402de102eb27d4e4e0449bf956d193b5725c47b4505974d814d4fa1b",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "f06ff697f8391fa387a9596130e176b9c0c9c390104b23a5ab677b9721abcec4",
+        "time.txt": "06875a2a4560249ea12d39bfae4a1334b93fdd7521924adfdfa17c3a5d5cff9a"
+      },
+      "time_raw": "34.44 98.63 3.49 5863916 296% 0\n"
+    },
+    "usage-list-race": {
+      "exit": 0,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/race-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceUsageListRace"
+        ],
+        "kind": "shared helper stress; not APK or full CLI",
+        "source_sha256": "e70e28854a5b06044208490ef3f7b1be9a299b6fa16e9231a03b032820e56027",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json"
+      },
+      "raw_sha256": {
+        "exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "metadata.json": "f63a31ce05e6b8224500e4d10214e54954da9b2351ee822f0d4a35a3055e0081",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "b6311d2462073ffe342302d1e598b551b3fd946b15cf69bade50319939f9eccb",
+        "time.txt": "ab3c2263dde8f45ea3a3b0ad45f4fb4ce6b9958fac3b2accaf5285fd42191fef"
+      },
+      "time_raw": "0.08 0.24 0.03 60708 326% 0\n"
+    },
+    "usage-list-add-race": {
+      "exit": 1,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/race-add-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceUsageListRace"
+        ],
+        "kind": "shared helper stress; not APK or full CLI",
+        "source_sha256": "eb29e09e6586f0c8d04a6d99f9b692b3c7b9ea8fb886247f1bf6224e4c6737c2",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json"
+      },
+      "raw_sha256": {
+        "exit.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "metadata.json": "6b717aab155bc5000fc2057b14dd214d1f8f283d126fb53efe1536a0f681759d",
+        "stderr.txt": "30292d2e3924d32cbd2c96f90e4890427c235dc6328307c08210ac1db12b5855",
+        "stdout.txt": "5f0f278e91ae4307d9f2b9adf1e71e41c85bad04f103d29ed8be832438bac09a",
+        "time.txt": "5a5e3d02cbc1f7922b99c85bf91c55042f37c64c197fb9fb09fe1adef85c261a"
+      },
+      "time_raw": "Command exited with non-zero status 1\n0.14 0.48 0.04 70160 371% 1\n"
+    },
+    "usage-list-add-race-interpreted": {
+      "exit": 1,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xint",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/race-add-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceUsageListRace"
+        ],
+        "kind": "interpreted shared helper stress; not APK or full CLI or performance measurement",
+        "source_sha256": "eb29e09e6586f0c8d04a6d99f9b692b3c7b9ea8fb886247f1bf6224e4c6737c2",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json"
+      },
+      "raw_sha256": {
+        "exit.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "metadata.json": "4e628b8419d355c9cdddb60e0482875cff137bc4b876ebdf64f9d6a80d3d536e",
+        "stderr.txt": "30292d2e3924d32cbd2c96f90e4890427c235dc6328307c08210ac1db12b5855",
+        "stdout.txt": "f9d1e6d8b6f47bce677208961998e13fbc8ef26d2e1899498e3c236f82b14124",
+        "time.txt": "3e0ec1a9accf64fdbe7a71ea5dfc986c9e2a9d5b421b798c8fb02f6d17f6c535"
+      },
+      "time_raw": "Command exited with non-zero status 1\n4.52 23.75 0.06 61740 526% 1\n"
+    },
+    "usage-list-growth-race": {
+      "exit": 1,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/race-growth-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceUsageListRace"
+        ],
+        "compile_command": [
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/toolchains/jdk-11.0.32.1+1/bin/javac",
+          "--release",
+          "11",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "-d",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/race-growth-classes",
+          "/home/ltlly/Code/jadx-perf/performance/20261011/ReproduceUsageListRace.java"
+        ],
+        "kind": "constructed full-capacity82 shared helper stress; not original APK/full inline reproduction",
+        "source_sha256": "818e2bb2e65dbda39de10bb6e2e02a8befc7676ffc8646a0f8ca337d824c9575",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json",
+        "timeout_s": 60
+      },
+      "raw_sha256": {
+        "compile.exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+        "compile.stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "compile.stdout.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "exit.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "metadata.json": "b89152f54dadc8f0dfdeee79c17206baa957759494c2bb702587968bb3c31729",
+        "stderr.txt": "79d3a92b717ac7d6106ac1b5020349abf76ca3827c45a8a23331697905851ec3",
+        "stdout.txt": "a1bfb2c5035ee972a5f195347e8a311ea7f951d24dcd5e110824d52c57a9798f",
+        "time.txt": "0a4a14cf5ab9af848205358e6cefc2fd3e84586de6f8f5d0e8d4e0a38c261a0c"
+      },
+      "time_raw": "Command exited with non-zero status 1\n0.76 1.04 0.46 96692 198% 1\n"
+    },
+    "usage-list-growth-race-interpreted": {
+      "exit": 1,
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-Xint",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/race-growth-classes:/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "ReproduceUsageListRace"
+        ],
+        "compile_command": [
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/toolchains/jdk-11.0.32.1+1/bin/javac",
+          "--release",
+          "11",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline/lib/*",
+          "-d",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/race-growth-classes",
+          "/home/ltlly/Code/jadx-perf/performance/20261011/ReproduceUsageListRace.java"
+        ],
+        "kind": "interpreted constructed full-capacity82 shared helper stress; not APK/full inline reproduction",
+        "source_sha256": "818e2bb2e65dbda39de10bb6e2e02a8befc7676ffc8646a0f8ca337d824c9575",
+        "baseline_artifact": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/dependency-profile/baseline-artifact.json",
+        "timeout_s": 60
+      },
+      "raw_sha256": {
+        "exit.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "metadata.json": "c368beb17e96485aabe8e7996c75d3db66c421ef53b9905194136ddd81189d8b",
+        "stderr.txt": "79d3a92b717ac7d6106ac1b5020349abf76ca3827c45a8a23331697905851ec3",
+        "stdout.txt": "4f4c2b18e3ba14738fcc12c85c5d772269a34020b835ac793cad1324cc1a15d6",
+        "time.txt": "42891c12d891106fd762d1e6f5aa5312ae10b973f46668eb0da33b020b3d4f97"
+      },
+      "time_raw": "Command exited with non-zero status 1\n1.31 1.75 0.44 76368 167% 1\n"
+    }
+  },
+  "scope_fix": {
+    "source": "jadx-core/src/main/java/jadx/core/dex/trycatch/TryEdgeScopeGroupMap.java",
+    "source_sha256": "58c00589d536285f89bad816d355350595d9b459f4da82666ff587a4ad63d46e",
+    "test_source_sha256": "4752267a18766d1b56bce7858fb4056ab6160b563f764e94b50ccb6c87546a1c",
+    "patch_sha256": "807f3e0e146bdb6b46ea4c72f7fd58947c3a036746ee636d0672093b136a8e70",
+    "old_regression": {
+      "tests": 1,
+      "failures": 1,
+      "reason": "isolated scope missing after already-grouped edges",
+      "log_sha256": "58f4948d8c7b99157cec412e107474094ddcc8a6b97c07fef57fc75138fb559c",
+      "xml_sha256": "39c4ec1786c78c507ba8dab21bf845df594a094c1af8593d2adbbf3045e6b01d"
+    },
+    "targeted_after": {
+      "tests": 94,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 0
+    },
+    "targeted_after_log_sha256": "02db83885fdbf83aea74a83876bfba3c85e98aaf334e058bf38f88b57d67ff41",
+    "targeted_after_xml_sha256": "1bd49f023e154bf1ca428873842a238c05e17d442c6202edf00d48d19a20cd06",
+    "controlled_APK_class_pairs": 20,
+    "controlled_APK_class_pairs_token_identical": 20,
+    "five_placeholder_cases_fixed": false,
+    "full_core_cli_checks": {
+      "tests": 1127,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1,
+      "build_exit": 0,
+      "log_sha256": "374403c5b108dd337eea53dc7f34a8d7fd10c99fbb00a99c11afce31f9b7f68b",
+      "test_xml_archive_sha256": "5de19e39ed035222e9c71665e141742e1387b7e19eff7be2b5275e38c3935e57",
+      "test_counts_sha256": "8e62b1dc558c99cf4d9912fc9d47996152844b81966689a8e0f3c685d48048df",
+      "tasks": [
+        "core/CLI test",
+        "core/CLI spotlessJavaCheck",
+        "core/CLI checkstyleMain",
+        "core/CLI checkstyleTest",
+        "CLI installDist"
+      ]
+    },
+    "candidate_artifact": {
+      "source_commit": "3674bf03b999e6522ac29907c221f8264012cc56",
+      "production_patch_sha256": "807f3e0e146bdb6b46ea4c72f7fd58947c3a036746ee636d0672093b136a8e70",
+      "working_tree_dirty": true,
+      "note": "HEAD plus recorded one-line production patch; research docs and tests also uncommitted",
+      "distribution_sha256": {
+        "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+        "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+        "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+        "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+        "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+        "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+        "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+        "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+        "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+        "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+        "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+        "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+        "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+        "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+        "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+        "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+        "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+        "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+        "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+        "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+        "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+        "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+        "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+        "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+        "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+        "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+        "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+        "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+        "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+        "lib/jadx-core-dev.jar": "01a06f2e01af6a807d5ae75068fd951948867750625937610ff1cc1660815a98",
+        "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+        "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+        "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+        "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+        "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+        "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+        "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+        "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+        "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+        "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+        "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+        "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+        "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+        "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+        "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+        "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+        "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+        "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+        "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+        "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+        "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+        "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+        "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+        "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+        "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+        "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+        "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+        "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+        "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+        "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+        "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+        "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+      }
+    },
+    "candidate_vs_instrumented_core_entry_changes": [
+      "jadx/core/dex/trycatch/TryEdgeScopeGroupMap.class"
+    ],
+    "commit": "0d56a8cdf737ef56b44fcf6b42e25c3d1d9a1943",
+    "full_APK_screen": {
+      "kind": "one full CLI output screen; not a repeated performance experiment or equivalence proof",
+      "metadata": {
+        "command": [
+          "/usr/lib/jvm/java-27-openjdk/bin/java",
+          "-XX:+IgnoreUnrecognizedVMOptions",
+          "-Xms256m",
+          "-Xmx16g",
+          "-XX:ParallelGCThreads=3",
+          "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+          "--enable-native-access=ALL-UNNAMED",
+          "-Dfile.encoding=UTF-8",
+          "-Duser.language=en",
+          "-Duser.country=US",
+          "-cp",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-distribution/lib/*",
+          "jadx.cli.JadxCLI",
+          "--no-res",
+          "--threads-count",
+          "8",
+          "-d",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/qwen-scope-fix-screen/output",
+          "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+        ],
+        "apk_sha256": "b793d73e8365b9ef591c9b343d83c62123f96a05b1e167ec792ba91c0350b7f1",
+        "distribution": {
+          "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+          "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+          "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+          "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+          "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+          "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+          "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+          "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+          "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+          "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+          "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+          "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+          "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+          "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+          "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+          "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+          "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+          "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+          "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+          "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+          "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+          "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+          "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+          "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+          "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+          "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+          "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+          "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+          "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+          "lib/jadx-core-dev.jar": "01a06f2e01af6a807d5ae75068fd951948867750625937610ff1cc1660815a98",
+          "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+          "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+          "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+          "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+          "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+          "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+          "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+          "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+          "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+          "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+          "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+          "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+          "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+          "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+          "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+          "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+          "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+          "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+          "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+          "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+          "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+          "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+          "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+          "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+          "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+          "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+          "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+          "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+          "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+          "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+          "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+          "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+        },
+        "profiled": false,
+        "dependency_profiled": false,
+        "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+        "started": "2026-10-11T11:44:23+0800"
+      },
+      "metrics": {
+        "wall_s": 128.41,
+        "user_s": 761.25,
+        "sys_s": 20.62,
+        "rss_kib": 15992172.0,
+        "cpu_percent": "608%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047
+      },
+      "decompiler_errors": 1032,
+      "body_audit": {
+        "omitted_bodies": 911,
+        "newly_omitted_vs_all_originals": [],
+        "original_union_restored_in_screen": [
+          [
+            "sources/androidx/media3/exoplayer/offline/ProgressiveDownloader.java",
+            "androidx.media3.exoplayer.offline.ProgressiveDownloader.download(androidx.media3.exoplayer.offline.Downloader$ProgressListener):void"
+          ],
+          [
+            "sources/anet/channel/strategy/StrategyInfoHolder.java",
+            "anet.channel.strategy.StrategyInfoHolder.saveData():void"
+          ],
+          [
+            "sources/com/alibaba/analytics/AnalyticsMgr.java",
+            "com.alibaba.analytics.AnalyticsMgr.notifyWaitLocked():void"
+          ],
+          [
+            "sources/com/aliyun/tongyi/uikit/widget/statuscontainer/d.java",
+            "com.aliyun.tongyi.uikit.widget.statuscontainer.d.invoke(java.lang.Object):java.lang.Object"
+          ],
+          [
+            "sources/com/amap/api/col/p0003sl/g.java",
+            "com.amap.api.col.p0003sl.g.a(android.os.Bundle):void"
+          ],
+          [
+            "sources/com/amap/api/col/p0003sl/h.java",
+            "com.amap.api.col.p0003sl.h.a(android.os.Bundle):void"
+          ],
+          [
+            "sources/com/amap/api/col/p0003sl/k.java",
+            "com.amap.api.col.p0003sl.k.a(android.os.Bundle):void"
+          ],
+          [
+            "sources/com/amap/api/maps/model/Circle.java",
+            "com.amap.api.maps.model.Circle.setHoleOptions(java.util.List):void"
+          ],
+          [
+            "sources/com/efs/sdk/base/newsharedpreferences/a.java",
+            "com.efs.sdk.base.newsharedpreferences.a.b(boolean):void"
+          ],
+          [
+            "sources/com/taobao/accs/utl/Utils.java",
+            "com.taobao.accs.utl.Utils.clearAllSharePreferences(android.content.Context):void"
+          ],
+          [
+            "sources/com/uc/compass/base/preferences/d.java",
+            "com.uc.compass.base.preferences.d.a(java.lang.String):com.uc.compass.base.preferences.a"
+          ],
+          [
+            "sources/com/uc/compass/preheat/PrerenderManager.java",
+            "com.uc.compass.preheat.PrerenderManager.releaseAttachedPrerender(com.uc.compass.export.view.ICompassWebView):void"
+          ],
+          [
+            "sources/com/uc/pars/impl/j.java",
+            "com.uc.pars.impl.j.a(java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.lang.String, android.webkit.ValueCallback, int):int"
+          ],
+          [
+            "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java",
+            "com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void"
+          ],
+          [
+            "sources/com/uc/pictureviewer/interfaces/RecommendConfig.java",
+            "com.uc.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void"
+          ]
+        ],
+        "comparisons": {
+          "qwen-B1": {
+            "java_tokens_changed": 91,
+            "missing": 0,
+            "extra": 0,
+            "error_changes": {
+              "sources/androidx/recyclerview/widget/GridLayoutManager.java": {
+                "before": [
+                  "JADX ERROR: JadxOverflowException in pass: RegionMakerVisitor"
+                ],
+                "after": [
+                  "JADX ERROR: StackOverflowError in pass: RegionMakerVisitor"
+                ]
+              }
+            },
+            "newly_omitted": [
+              [
+                "sources/androidx/media3/exoplayer/source/ProgressiveMediaPeriod.java",
+                "androidx.media3.exoplayer.source.ProgressiveMediaPeriod.ExtractingLoadable.load():void"
+              ],
+              [
+                "sources/com/UCMobile/Apollo/upstream/DefaultHttpDataSource.java",
+                "com.UCMobile.Apollo.upstream.DefaultHttpDataSource.close():void"
+              ],
+              [
+                "sources/com/alipay/mobile/common/transport/httpdns/HttpDns.java",
+                "com.alipay.mobile.common.transport.httpdns.HttpDns.GetAllByNameHelper.clearCache():void"
+              ],
+              [
+                "sources/com/alipay/mobile/common/transport/httpdns/HttpDns.java",
+                "com.alipay.mobile.common.transport.httpdns.HttpDns.GetAllByNameHelper.removeCache(java.lang.String):void"
+              ],
+              [
+                "sources/com/uc/base/net/unet/diag/traceroute/ping_impl/PingCmdImpl.java",
+                "com.uc.base.net.unet.diag.traceroute.ping_impl.PingCmdImpl.ReadPingResultRunnable.run():void"
+              ]
+            ],
+            "restored": [
+              [
+                "sources/androidx/media3/exoplayer/offline/ProgressiveDownloader.java",
+                "androidx.media3.exoplayer.offline.ProgressiveDownloader.download(androidx.media3.exoplayer.offline.Downloader$ProgressListener):void"
+              ],
+              [
+                "sources/com/alibaba/analytics/AnalyticsMgr.java",
+                "com.alibaba.analytics.AnalyticsMgr.notifyWaitLocked():void"
+              ],
+              [
+                "sources/com/amap/api/maps/model/Circle.java",
+                "com.amap.api.maps.model.Circle.setHoleOptions(java.util.List):void"
+              ],
+              [
+                "sources/com/efs/sdk/base/newsharedpreferences/a.java",
+                "com.efs.sdk.base.newsharedpreferences.a.b(boolean):void"
+              ],
+              [
+                "sources/com/uc/compass/base/preferences/d.java",
+                "com.uc.compass.base.preferences.d.a(java.lang.String):com.uc.compass.base.preferences.a"
+              ],
+              [
+                "sources/com/uc/pars/impl/j.java",
+                "com.uc.pars.impl.j.a(java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.lang.String, android.webkit.ValueCallback, int):int"
+              ],
+              [
+                "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java",
+                "com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void"
+              ],
+              [
+                "sources/com/uc/pictureviewer/interfaces/RecommendConfig.java",
+                "com.uc.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void"
+              ]
+            ]
+          },
+          "qwen-B2": {
+            "java_tokens_changed": 103,
+            "missing": 0,
+            "extra": 0,
+            "error_changes": {
+              "sources/androidx/recyclerview/widget/GridLayoutManager.java": {
+                "before": [
+                  "JADX ERROR: JadxOverflowException in pass: RegionMakerVisitor"
+                ],
+                "after": [
+                  "JADX ERROR: StackOverflowError in pass: RegionMakerVisitor"
+                ]
+              }
+            },
+            "newly_omitted": [
+              [
+                "sources/androidx/media3/exoplayer/source/ProgressiveMediaPeriod.java",
+                "androidx.media3.exoplayer.source.ProgressiveMediaPeriod.ExtractingLoadable.load():void"
+              ],
+              [
+                "sources/com/amap/api/col/p0003sl/kw.java",
+                "com.amap.api.col.p0003sl.kw.a(boolean, java.lang.String, java.lang.String, int):void"
+              ],
+              [
+                "sources/com/amap/api/col/p0003sl/m.java",
+                "com.amap.api.col.p0003sl.m.resetMinMaxZoomPreference():void"
+              ],
+              [
+                "sources/com/taobao/accs/utl/UtilityImpl.java",
+                "com.taobao.accs.utl.UtilityImpl.focusDisableService(android.content.Context):void"
+              ],
+              [
+                "sources/com/taobao/accs/utl/UtilityImpl.java",
+                "com.taobao.accs.utl.UtilityImpl.focusEnableService(android.content.Context):void"
+              ],
+              [
+                "sources/com/taobao/accs/utl/UtilityImpl.java",
+                "com.taobao.accs.utl.UtilityImpl.saveUtdid(java.lang.String, android.content.Context):void"
+              ],
+              [
+                "sources/com/taobao/accs/utl/Utils.java",
+                "com.taobao.accs.utl.Utils.setMode(android.content.Context, int):void"
+              ],
+              [
+                "sources/com/uc/android/homodisabler/CrashSDK.java",
+                "com.uc.android.homodisabler.CrashSDK.addHeaderInfo(java.lang.String, java.lang.String):void"
+              ],
+              [
+                "sources/com/uc/base/net/unet/diag/traceroute/ping_impl/PingCmdImpl.java",
+                "com.uc.base.net.unet.diag.traceroute.ping_impl.PingCmdImpl.ReadPingResultRunnable.run():void"
+              ],
+              [
+                "sources/com/uc/compass/preheat/PrerenderManager.java",
+                "com.uc.compass.preheat.PrerenderManager.a(java.util.ArrayList):void"
+              ],
+              [
+                "sources/com/uc/wpk/UCDataFlow.java",
+                "com.uc.wpk.UCDataFlow.run():void"
+              ]
+            ],
+            "restored": [
+              [
+                "sources/com/amap/api/col/p0003sl/g.java",
+                "com.amap.api.col.p0003sl.g.a(android.os.Bundle):void"
+              ],
+              [
+                "sources/com/amap/api/col/p0003sl/h.java",
+                "com.amap.api.col.p0003sl.h.a(android.os.Bundle):void"
+              ],
+              [
+                "sources/com/amap/api/col/p0003sl/k.java",
+                "com.amap.api.col.p0003sl.k.a(android.os.Bundle):void"
+              ],
+              [
+                "sources/com/taobao/accs/utl/Utils.java",
+                "com.taobao.accs.utl.Utils.clearAllSharePreferences(android.content.Context):void"
+              ],
+              [
+                "sources/com/uc/pars/impl/j.java",
+                "com.uc.pars.impl.j.a(java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.lang.String, android.webkit.ValueCallback, int):int"
+              ]
+            ]
+          },
+          "qwen-B3": {
+            "java_tokens_changed": 95,
+            "missing": 0,
+            "extra": 0,
+            "error_changes": {
+              "sources/androidx/recyclerview/widget/GridLayoutManager.java": {
+                "before": [
+                  "JADX ERROR: JadxOverflowException in pass: RegionMakerVisitor"
+                ],
+                "after": [
+                  "JADX ERROR: StackOverflowError in pass: RegionMakerVisitor"
+                ]
+              },
+              "sources/com/aliyun/tongyi/uikit/widget/statuscontainer/d.java": {
+                "before": [
+                  "JADX ERROR: JadxRuntimeException in pass: InlineMethods"
+                ],
+                "after": []
+              }
+            },
+            "newly_omitted": [
+              [
+                "sources/androidx/media3/exoplayer/offline/SegmentDownloader.java",
+                "androidx.media3.exoplayer.offline.SegmentDownloader.download(androidx.media3.exoplayer.offline.Downloader$ProgressListener):void"
+              ],
+              [
+                "sources/androidx/media3/exoplayer/source/ProgressiveMediaPeriod.java",
+                "androidx.media3.exoplayer.source.ProgressiveMediaPeriod.ExtractingLoadable.load():void"
+              ],
+              [
+                "sources/com/amap/api/col/p0003sl/kw.java",
+                "com.amap.api.col.p0003sl.kw.a(boolean, java.lang.String, java.lang.String, int):void"
+              ],
+              [
+                "sources/com/taobao/accs/utl/UtilityImpl.java",
+                "com.taobao.accs.utl.UtilityImpl.focusEnableService(android.content.Context):void"
+              ],
+              [
+                "sources/com/taobao/accs/utl/UtilityImpl.java",
+                "com.taobao.accs.utl.UtilityImpl.saveUtdid(java.lang.String, android.content.Context):void"
+              ],
+              [
+                "sources/com/taobao/accs/utl/Utils.java",
+                "com.taobao.accs.utl.Utils.setMode(android.content.Context, int):void"
+              ],
+              [
+                "sources/com/uc/compass/preheat/PrerenderManager.java",
+                "com.uc.compass.preheat.PrerenderManager.a(java.util.ArrayList):void"
+              ],
+              [
+                "sources/com/uc/pars/impl/j.java",
+                "com.uc.pars.impl.j.a(android.content.Context, int, java.util.Map, android.webkit.ValueCallback):void"
+              ]
+            ],
+            "restored": [
+              [
+                "sources/androidx/media3/exoplayer/offline/ProgressiveDownloader.java",
+                "androidx.media3.exoplayer.offline.ProgressiveDownloader.download(androidx.media3.exoplayer.offline.Downloader$ProgressListener):void"
+              ],
+              [
+                "sources/anet/channel/strategy/StrategyInfoHolder.java",
+                "anet.channel.strategy.StrategyInfoHolder.saveData():void"
+              ],
+              [
+                "sources/com/aliyun/tongyi/uikit/widget/statuscontainer/d.java",
+                "com.aliyun.tongyi.uikit.widget.statuscontainer.d.invoke(java.lang.Object):java.lang.Object"
+              ],
+              [
+                "sources/com/taobao/accs/utl/Utils.java",
+                "com.taobao.accs.utl.Utils.clearAllSharePreferences(android.content.Context):void"
+              ],
+              [
+                "sources/com/uc/compass/base/preferences/d.java",
+                "com.uc.compass.base.preferences.d.a(java.lang.String):com.uc.compass.base.preferences.a"
+              ],
+              [
+                "sources/com/uc/compass/preheat/PrerenderManager.java",
+                "com.uc.compass.preheat.PrerenderManager.releaseAttachedPrerender(com.uc.compass.export.view.ICompassWebView):void"
+              ],
+              [
+                "sources/com/uc/pars/impl/j.java",
+                "com.uc.pars.impl.j.a(java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.lang.String, android.webkit.ValueCallback, int):int"
+              ],
+              [
+                "sources/com/uc/pictureviewer/interfaces/RecommendConfig.java",
+                "com.uc.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void"
+              ]
+            ]
+          }
+        }
+      },
+      "raw_sha256": {
+        "body-audit.json": "cc7e5d71566dc29c85b10a22a922512f085472c4d6bd124c966a8288271e2602",
+        "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+        "host-before.txt": "90b97b4130c950b6c4a58e6e03a1addb6a642c9766446599a3f0e2041c940fac",
+        "host-cpu.jsonl": "4de5576ca26b81296954321f780a7fdb8ea5c63599a0cbead8e40b48832e9a1c",
+        "manifest.json": "e8ff5e12b65932c611890f67fab8effc87c4ff283825fa270bcdf68b0a307fe7",
+        "metadata.json": "ad3152e415f2033c8b488ba6103d297dc60124011ecfd216fcd7a9baab37ef0d",
+        "metrics.json": "9303f806e8d8255ebdd02aeab2bba6b0b30fd0cae9a388053fee861a389d6206",
+        "omitted-methods.json": "5a6dbe966ca5418a176da00e4a4ea159877ca4299a9aa8af51a3613f4a8c1b94",
+        "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "stdout.txt": "d304f3014e29fd1ed219f1e074c79beea2572b384ffc3356cd37111ecba034aa",
+        "time.txt": "f673d8fb097662336b2b4f1669520c7cf9e413d3947c487d2571d098514ff46d"
+      },
+      "comparison_raw_sha256": {
+        "scope-screen-vs-qwen-B1.diff": "f72ff583036652a009f5852f74301f689d0e241ae1bdaa51a32e433262c8c385",
+        "scope-screen-vs-qwen-B1.json": "36bf4a7e00d49bffbe08f13332cd02022671b956c7a86eab6d8be8327724d211",
+        "scope-screen-vs-qwen-B2.diff": "4b83386fdc26297a7117eda9f16b0c110ce09b16ccc923a3a59a4027feb7b95a",
+        "scope-screen-vs-qwen-B2.json": "db83877a83f7f93ee3d0744c348e1df72f5faabfdf53179b718d0918a0a5976d",
+        "scope-screen-vs-qwen-B3.diff": "87463d150c4efbe662c07ea7ad8cf871a83a35c8e2e060e43faf1d0fce738723",
+        "scope-screen-vs-qwen-B3.json": "1d200dc933048ede6f290c605235ff85e1f0afc3a17a4d928b4310ca22551802"
+      },
+      "all_token_changes_manually_reviewed": false
+    }
+  },
+  "excluded": [
+    {
+      "run": "finally-batch-1",
+      "reason": "interrupted; no completed exit record; JVM absence checked before retry"
+    }
+  ],
+  "quality_gate": "not passed: exact InlineMethods failure remains unresolved; original baseline output can also be wrong",
+  "inline_race": {
+    "target": "com.aliyun.tongyi.uikit.widget.statuscontainer.d.invoke(java.lang.Object):java.lang.Object",
+    "original_stack": "ArrayList.add -> ListUtils.safeReplace:157 -> InlineMethods.replaceClsUsage:193",
+    "helper_stress_only": true,
+    "original_add_frame_reproduced": false,
+    "full_target_reproduced": false,
+    "risk": "Instrumentation can alter scheduling and expose an existing race; this error is not waived.",
+    "constructed_growth_fixture": {
+      "initial_size_and_capacity": 82,
+      "updates_per_worker": 1,
+      "workers": 8,
+      "sequential_size": 90,
+      "attempt_limit": 10000,
+      "timeout_s": 60,
+      "note": "Constructed condition inspired by index83/length82; not inferred original list state",
+      "runs": {
+        "usage-list-growth-race": {
+          "exit": 1,
+          "attempts": 10000,
+          "wrong_size_rounds": 20,
+          "indexOf_frames": 0,
+          "add_frames": 0
+        },
+        "usage-list-growth-race-interpreted": {
+          "exit": 1,
+          "attempts": 10000,
+          "wrong_size_rounds": 50,
+          "indexOf_frames": 0,
+          "add_frames": 0
+        }
+      }
+    },
+    "historical_wide_stress": {
+      "sequential_size": 4097,
+      "observed_concurrent_lost_updates": true,
+      "observed_indexOf_bounds_error": true,
+      "default_and_interpreted_attempt_limits": 100,
+      "both_exact_add_stress_runs_exit": 1,
+      "historical_wide_stress_source": {
+        "path": "usage-list-wide-stress-source.java",
+        "sha256": "eb29e09e6586f0c8d04a6d99f9b692b3c7b9ea8fb886247f1bf6224e4c6737c2"
+      }
+    }
+  },
+  "sources_sha256": {
+    "performance/20261010/ReproduceFinallyHash.java": "ee40fc80bf826951a685c113fa5892e165c6b3f90d84d4864d5f84b56394f508",
+    "performance/20261011/ReproduceUsageListRace.java": "818e2bb2e65dbda39de10bb6e2e02a8befc7676ffc8646a0f8ca337d824c9575"
+  }
+}
