@@ -43,6 +43,7 @@ import jadx.core.utils.BlockUtils;
 import jadx.core.utils.InsnRemover;
 import jadx.core.utils.ListUtils;
 import jadx.core.utils.blocks.BlockSet;
+import jadx.core.utils.blocks.DFSIteration;
 import jadx.core.utils.exceptions.JadxRuntimeException;
 
 public class BlockExceptionHandler {
@@ -434,10 +435,13 @@ public class BlockExceptionHandler {
 
 	private static BlockNode searchTopBlock(MethodNode mth, List<BlockNode> blocks) {
 		BlockNode top = BlockUtils.getTopBlock(blocks);
-		if (top != null) {
+		if (top != null && ListUtils.allMatch(blocks, block -> block == top || block.isDominator(top))) {
 			return adjustTopBlock(top);
 		}
 		BlockNode topDom = BlockUtils.getCommonDominator(mth, blocks);
+		if (top != null && (topDom == null || !canMoveTryTop(mth, blocks, top, topDom))) {
+			return adjustTopBlock(top);
+		}
 		if (topDom != null) {
 			// dominator always return one up block if blocks already contains dominator, use successor instead
 			if (topDom.getSuccessors().size() == 1) {
@@ -449,6 +453,45 @@ public class BlockExceptionHandler {
 			return adjustTopBlock(topDom);
 		}
 		throw new JadxRuntimeException("Failed to find top block for try-catch from: " + blocks);
+	}
+
+	private static boolean canMoveTryTop(MethodNode mth, List<BlockNode> protectedBlocks, BlockNode top, BlockNode topDom) {
+		Set<BlockNode> originalBlocks = new HashSet<>();
+		// Earlier wrapping can leave stale clean edges and move loop targets before loop data is rebuilt.
+		DFSIteration traversal = new DFSIteration(mth, top, block -> block.contains(AFlag.LOOP_END)
+				? Collections.emptyList()
+				: ListUtils.filter(block.getCleanSuccessors(),
+						successor -> block.getSuccessors().contains(successor) && !BlockUtils.isExceptionHandlerPath(successor)));
+		for (BlockNode block = traversal.next(); block != null; block = traversal.next()) {
+			originalBlocks.add(block);
+		}
+		Set<BlockNode> beforeProtected = new HashSet<>(protectedBlocks);
+		Deque<BlockNode> queue = new ArrayDeque<>(protectedBlocks);
+		while (!queue.isEmpty()) {
+			BlockNode block = queue.removeFirst();
+			if (BlockUtils.isExceptionHandlerPath(block)) {
+				continue;
+			}
+			for (BlockNode predecessor : block.getPredecessors()) {
+				if (originalBlocks.contains(predecessor)
+						&& !predecessor.contains(AFlag.LOOP_END)
+						&& predecessor.getCleanSuccessors().contains(block)
+						&& predecessor.getSuccessors().contains(block)
+						&& beforeProtected.add(predecessor)) {
+					queue.addLast(predecessor);
+				}
+			}
+		}
+		// Shared gaps before protected blocks must be checked; cleanup after them remains outside the try.
+		originalBlocks.removeIf(block -> !protectedBlocks.contains(block) && !block.isDominator(top)
+				&& beforeProtected.contains(block));
+		List<BlockNode> prefix = BlockUtils.collectAllSuccessorsUntil(mth, topDom, false, originalBlocks::contains);
+		for (BlockNode block : prefix) {
+			if (!originalBlocks.contains(block) && ListUtils.anyMatch(block.getInstructions(), InsnNode::canThrowException)) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 	private static BlockNode adjustTopBlock(BlockNode topBlock) {
