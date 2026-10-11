@@ -155,6 +155,12 @@ public class ProcessTryCatchRegions extends AbstractRegionVisitor {
 			if (found != null) {
 				return endIndex;
 			}
+			if (endIndex < subBlocks.size()
+					&& subBlocks.get(i).contains(AFlag.EXC_TOP_SPLITTER)
+					&& subBlocks.get(i) != tb.getTopSplitter()) {
+				// Keep a following try's splitter with its excluded body.
+				endIndex = i;
+			}
 			Boolean canThrow = DepthRegionTraversal.traversePartial(mth, subBlocks.get(i), (visitMth, cont) -> {
 				if (cont instanceof IBlock && !cont.contains(AFlag.DONT_GENERATE)) {
 					for (InsnNode insn : ((IBlock) cont).getInstructions()) {
