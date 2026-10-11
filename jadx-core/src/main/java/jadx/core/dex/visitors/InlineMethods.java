@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 
 import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.attributes.AType;
+import jadx.core.dex.attributes.nodes.AnonymousClassAttr;
 import jadx.core.dex.attributes.nodes.MethodInlineAttr;
 import jadx.core.dex.info.FieldInfo;
 import jadx.core.dex.info.MethodInfo;
@@ -18,6 +19,7 @@ import jadx.core.dex.instructions.InvokeNode;
 import jadx.core.dex.instructions.args.InsnArg;
 import jadx.core.dex.instructions.args.RegisterArg;
 import jadx.core.dex.nodes.BlockNode;
+import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.FieldNode;
 import jadx.core.dex.nodes.IMethodDetails;
 import jadx.core.dex.nodes.InsnNode;
@@ -167,6 +169,9 @@ public class InlineMethods extends AbstractVisitor {
 					if (callMthNode != null) {
 						callMthNode.replaceUseIn(inlinedMth, mth);
 						callMthNode.getParentClass().replaceUsage(inlinedMth, mth);
+						if (innerInsn.getType() == InsnType.CONSTRUCTOR) {
+							addAnonymousCodegenDep(mth, callMthNode.getParentClass());
+						}
 					}
 					break;
 
@@ -179,9 +184,22 @@ public class InlineMethods extends AbstractVisitor {
 					if (fieldNode != null) {
 						fieldNode.replaceUseIn(inlinedMth, mth);
 						fieldNode.getParentClass().replaceUsage(inlinedMth, mth);
+						ClassNode fieldCls = fieldNode.getParentClass();
+						AnonymousClassAttr attr = fieldCls.get(AType.ANONYMOUS_CLASS);
+						if (innerInsn.getType() == InsnType.SGET && attr != null
+								&& attr.getInlineType() == AnonymousClassAttr.InlineType.INSTANCE_FIELD
+								&& fieldInfo.getType().equals(fieldCls.getClassInfo().getType())) {
+							addAnonymousCodegenDep(mth, fieldCls);
+						}
 					}
 					break;
 			}
 		});
+	}
+
+	private static void addAnonymousCodegenDep(MethodNode mth, ClassNode cls) {
+		if (cls.isTopClass() && cls.isAnonymous() && cls != mth.getTopParentClass()) {
+			mth.getTopParentClass().addCodegenDep(cls);
+		}
 	}
 }

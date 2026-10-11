@@ -8,15 +8,20 @@ import org.jetbrains.annotations.Nullable;
 import jadx.api.plugins.input.data.AccessFlags;
 import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.attributes.AType;
+import jadx.core.dex.attributes.nodes.AnonymousClassAttr;
 import jadx.core.dex.attributes.nodes.MethodInlineAttr;
 import jadx.core.dex.info.FieldInfo;
 import jadx.core.dex.instructions.IndexInsnNode;
 import jadx.core.dex.instructions.InsnType;
+import jadx.core.dex.instructions.InvokeCustomNode;
 import jadx.core.dex.instructions.InvokeNode;
 import jadx.core.dex.instructions.args.InsnArg;
 import jadx.core.dex.instructions.args.InsnWrapArg;
 import jadx.core.dex.instructions.args.RegisterArg;
 import jadx.core.dex.instructions.args.SSAVar;
+import jadx.core.dex.instructions.mods.ConstructorInsn;
+import jadx.core.dex.nodes.ClassNode;
+import jadx.core.dex.nodes.FieldNode;
 import jadx.core.dex.nodes.InsnNode;
 import jadx.core.dex.nodes.MethodNode;
 import jadx.core.dex.visitors.fixaccessmodifiers.FixAccessModifiers;
@@ -131,7 +136,7 @@ public class MarkMethodsForInline extends AbstractVisitor {
 	}
 
 	private static @Nullable MethodInlineAttr addInlineAttr(MethodNode mth, InsnNode insn, boolean isCopy) {
-		if (!fixVisibilityOfInlineCode(mth, insn)) {
+		if (referencesInlineBody(mth, insn) || !fixVisibilityOfInlineCode(mth, insn)) {
 			if (isCopy) {
 				unbindSsaVars(insn);
 			}
@@ -140,6 +145,35 @@ public class MarkMethodsForInline extends AbstractVisitor {
 		InsnNode inlInsn = isCopy ? insn : insn.copyWithoutResult();
 		unbindSsaVars(inlInsn);
 		return MethodInlineAttr.markForInline(mth, inlInsn);
+	}
+
+	private static boolean referencesInlineBody(MethodNode mth, InsnNode insn) {
+		Boolean found = insn.visitInsns(inner -> {
+			if (inner instanceof InvokeCustomNode) {
+				// Lambda bodies and constructor calls live outside the regular argument tree.
+				return Boolean.TRUE;
+			}
+			ClassNode cls;
+			if (inner.getType() == InsnType.CONSTRUCTOR) {
+				cls = mth.root().resolveClass(((ConstructorInsn) inner).getClassType());
+			} else if (inner.getType() == InsnType.SGET) {
+				FieldNode field = mth.root().resolveField((FieldInfo) ((IndexInsnNode) inner).getIndex());
+				if (field == null) {
+					return null;
+				}
+				cls = field.getParentClass();
+				AnonymousClassAttr attr = cls.get(AType.ANONYMOUS_CLASS);
+				if (attr == null || attr.getInlineType() != AnonymousClassAttr.InlineType.INSTANCE_FIELD
+						|| !field.getFieldInfo().getType().equals(cls.getClassInfo().getType())) {
+					return null;
+				}
+			} else {
+				return null;
+			}
+			// A pinned inline instruction can move to a different caller after its owner was unloaded.
+			return cls != null && cls.isInner() && cls.isAnonymous() ? Boolean.TRUE : null;
+		});
+		return found != null;
 	}
 
 	private static void unbindSsaVars(InsnNode insn) {

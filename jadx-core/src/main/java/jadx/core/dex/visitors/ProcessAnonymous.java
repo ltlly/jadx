@@ -91,6 +91,10 @@ public class ProcessAnonymous extends AbstractVisitor {
 		} else {
 			outerCls = anonymousConstructor.getUseIn().get(0).getParentClass();
 		}
+		if (cls.isInner() && cls.getTopParentClass() != outerCls.getTopParentClass()) {
+			// The original owner can unload the body while another class is generating code.
+			return;
+		}
 		outerCls.addInlinedClass(cls);
 		cls.addAttr(new AnonymousClassAttr(outerCls, baseType, inlineType));
 		cls.add(AFlag.DONT_GENERATE);
