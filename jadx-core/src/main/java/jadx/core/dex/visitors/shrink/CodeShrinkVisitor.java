@@ -9,6 +9,8 @@ import java.util.Set;
 import jadx.api.plugins.input.data.attributes.JadxAttrType;
 import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.info.FieldInfo;
+import jadx.core.dex.instructions.ArithNode;
+import jadx.core.dex.instructions.ArithOp;
 import jadx.core.dex.instructions.IndexInsnNode;
 import jadx.core.dex.instructions.InsnType;
 import jadx.core.dex.instructions.InvokeCustomNode;
@@ -180,6 +182,9 @@ public class CodeShrinkVisitor extends AbstractVisitor {
 
 	private static boolean canThrow(MethodNode mth, InsnNode insn) {
 		switch (insn.getType()) {
+			case ARITH:
+				ArithOp op = ((ArithNode) insn).getOp();
+				return op == ArithOp.DIV || op == ArithOp.REM;
 			case SGET:
 				if (insn.getOffset() < 0) {
 					FieldNode field = mth.root().resolveField((FieldInfo) ((IndexInsnNode) insn).getIndex());
