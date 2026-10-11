@@ -191,7 +191,7 @@ public final class TryEdgeScopeGroupMap implements Map<TryEdge, Map<TryEdge, Blo
 
 			if (isInList) {
 				// The isolated edge is not isolated with another handler - we can ignore this edge.
-				break;
+				continue;
 			}
 
 			// If an isolated edge has not been added to the groupings, we will add it now.
