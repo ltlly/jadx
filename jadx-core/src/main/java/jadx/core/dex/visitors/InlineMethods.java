@@ -18,7 +18,6 @@ import jadx.core.dex.instructions.InvokeNode;
 import jadx.core.dex.instructions.args.InsnArg;
 import jadx.core.dex.instructions.args.RegisterArg;
 import jadx.core.dex.nodes.BlockNode;
-import jadx.core.dex.nodes.ClassNode;
 import jadx.core.dex.nodes.FieldNode;
 import jadx.core.dex.nodes.IMethodDetails;
 import jadx.core.dex.nodes.InsnNode;
@@ -26,7 +25,6 @@ import jadx.core.dex.nodes.MethodNode;
 import jadx.core.dex.visitors.typeinference.TypeInferenceVisitor;
 import jadx.core.utils.BlockUtils;
 import jadx.core.utils.InsnRemover;
-import jadx.core.utils.ListUtils;
 import jadx.core.utils.exceptions.JadxException;
 import jadx.core.utils.exceptions.JadxRuntimeException;
 
@@ -158,9 +156,7 @@ public class InlineMethods extends AbstractVisitor {
 	}
 
 	private void updateUsageInfo(MethodNode mth, MethodNode inlinedMth, InsnNode insn) {
-		List<MethodNode> newUseIn = new ArrayList<>(inlinedMth.getUseIn());
-		newUseIn.remove(mth);
-		inlinedMth.setUseIn(newUseIn);
+		inlinedMth.removeUseIn(mth);
 		insn.visitInsns(innerInsn -> {
 			// TODO: share code with UsageInfoVisitor
 			switch (innerInsn.getType()) {
@@ -169,8 +165,8 @@ public class InlineMethods extends AbstractVisitor {
 					MethodInfo callMth = ((BaseInvokeNode) innerInsn).getCallMth();
 					MethodNode callMthNode = mth.root().resolveMethod(callMth);
 					if (callMthNode != null) {
-						callMthNode.setUseIn(ListUtils.safeReplace(new ArrayList<>(callMthNode.getUseIn()), inlinedMth, mth));
-						replaceClsUsage(mth, inlinedMth, callMthNode.getParentClass());
+						callMthNode.replaceUseIn(inlinedMth, mth);
+						callMthNode.getParentClass().replaceUsage(inlinedMth, mth);
 					}
 					break;
 
@@ -181,16 +177,11 @@ public class InlineMethods extends AbstractVisitor {
 					FieldInfo fieldInfo = (FieldInfo) ((IndexInsnNode) innerInsn).getIndex();
 					FieldNode fieldNode = mth.root().resolveField(fieldInfo);
 					if (fieldNode != null) {
-						fieldNode.setUseIn(ListUtils.safeReplace(new ArrayList<>(fieldNode.getUseIn()), inlinedMth, mth));
-						replaceClsUsage(mth, inlinedMth, fieldNode.getParentClass());
+						fieldNode.replaceUseIn(inlinedMth, mth);
+						fieldNode.getParentClass().replaceUsage(inlinedMth, mth);
 					}
 					break;
 			}
 		});
-	}
-
-	private void replaceClsUsage(MethodNode mth, MethodNode inlinedMth, ClassNode parentClass) {
-		parentClass.setUseInMth(ListUtils.safeReplace(parentClass.getUseInMth(), inlinedMth, mth));
-		parentClass.setUseIn(ListUtils.safeReplace(parentClass.getUseIn(), inlinedMth.getParentClass(), mth.getParentClass()));
 	}
 }

@@ -19,6 +19,14 @@ import org.jetbrains.annotations.Nullable;
 
 public class ListUtils {
 
+	/** Snapshot with the full List read API and support for null elements. */
+	public static <T> List<T> immutableCopy(List<T> list) {
+		if (list.isEmpty()) {
+			return Collections.emptyList();
+		}
+		return Collections.unmodifiableList(new ArrayList<>(list));
+	}
+
 	public static <T> List<T> mutableListOf(T obj) {
 		List<T> list = new ArrayList<>();
 		list.add(obj);

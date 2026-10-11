@@ -77,6 +77,7 @@ public class RootNode extends AttrNode {
 	private final ConstStorage constValues;
 	private final InfoStorage infoStorage = new InfoStorage();
 	private final CacheStorage cacheStorage = new CacheStorage();
+	private final Object usageInfoLock = new Object();
 	private final TypeUpdate typeUpdate;
 	private final MethodUtils methodUtils;
 	private final TypeUtils typeUtils;
@@ -696,6 +697,11 @@ public class RootNode extends AttrNode {
 
 	public ProcessClass getProcessClasses() {
 		return processClasses;
+	}
+
+	/** Guard usage updates only; never acquire class processing locks while holding this monitor. */
+	Object getUsageInfoLock() {
+		return usageInfoLock;
 	}
 
 	public jadx.core.dex.nodes.deps.DependencySummaryManager getDependencySummaryManager() {

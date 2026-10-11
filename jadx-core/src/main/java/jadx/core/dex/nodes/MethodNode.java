@@ -43,6 +43,7 @@ import jadx.core.dex.nodes.utils.TypeUtils;
 import jadx.core.dex.regions.Region;
 import jadx.core.dex.trycatch.ExceptionHandler;
 import jadx.core.dex.visitors.InitCodeVariables;
+import jadx.core.utils.ListUtils;
 import jadx.core.utils.Utils;
 import jadx.core.utils.exceptions.DecodeException;
 import jadx.core.utils.exceptions.JadxRuntimeException;
@@ -85,7 +86,7 @@ public class MethodNode extends NotificationAttrNode implements IMethodDetails, 
 	private Region region;
 
 	// Methods that use this method
-	private List<MethodNode> useIn = Collections.emptyList();
+	private volatile List<MethodNode> useIn = Collections.emptyList();
 	// Unresolved methods that use this method
 	private List<MethodInfo> unresolvedUsed = Collections.emptyList();
 	// Methods that this method uses
@@ -735,13 +736,44 @@ public class MethodNode extends NotificationAttrNode implements IMethodDetails, 
 		return codeReader;
 	}
 
+	/** Stable read-only snapshot; use the node methods to update usage. */
 	@Override
 	public List<MethodNode> getUseIn() {
 		return useIn;
 	}
 
-	// Do not modify passed list after setting
 	public void setUseIn(List<MethodNode> useIn) {
+		List<MethodNode> snapshot = ListUtils.immutableCopy(useIn);
+		synchronized (root().getUsageInfoLock()) {
+			publishUseIn(snapshot);
+		}
+	}
+
+	public void removeUseIn(MethodNode mth) {
+		synchronized (root().getUsageInfoLock()) {
+			List<MethodNode> updated = new ArrayList<>(useIn);
+			updated.remove(mth);
+			publishUseIn(Collections.unmodifiableList(updated));
+		}
+	}
+
+	public void replaceUseIn(MethodNode oldMth, MethodNode newMth) {
+		synchronized (root().getUsageInfoLock()) {
+			publishUseIn(Collections.unmodifiableList(ListUtils.safeReplace(new ArrayList<>(useIn), oldMth, newMth)));
+		}
+	}
+
+	public void mergeUseIn(MethodNode sourceMth) {
+		synchronized (root().getUsageInfoLock()) {
+			List<MethodNode> merged = new ArrayList<>(ListUtils.distinctMergeSortedLists(useIn, sourceMth.getUseIn()));
+			merged.remove(sourceMth);
+			publishUseIn(Collections.unmodifiableList(merged));
+			sourceMth.publishUseIn(Collections.emptyList());
+		}
+	}
+
+	// Requires the root usage lock and an immutable list.
+	private void publishUseIn(List<MethodNode> useIn) {
 		this.useIn = useIn;
 
 		// Notify all methods (callers) this method (callee) is used in
@@ -752,17 +784,25 @@ public class MethodNode extends NotificationAttrNode implements IMethodDetails, 
 
 	public void addUsed(MethodNode used) {
 		if (used != null) {
-			this.methodsUsed.add(used);
+			synchronized (root().getUsageInfoLock()) {
+				this.methodsUsed.add(used);
+			}
 		}
 	}
 
 	public void setUsed(List<MethodNode> methodsUsed) {
-		this.methodsUsed = new HashSet<>(methodsUsed);
+		Set<MethodNode> snapshot = new HashSet<>(methodsUsed);
+		synchronized (root().getUsageInfoLock()) {
+			this.methodsUsed = snapshot;
+		}
 	}
 
+	/** Detached snapshot of the currently valid reverse usage edges. */
 	public Set<MethodNode> getUsed() {
-		this.removeInvalidMethodsUsed();
-		return methodsUsed;
+		synchronized (root().getUsageInfoLock()) {
+			this.removeInvalidMethodsUsed();
+			return new HashSet<>(methodsUsed);
+		}
 	}
 
 	public List<MethodInfo> getUnresolvedUsed() {

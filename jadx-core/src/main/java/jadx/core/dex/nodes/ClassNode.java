@@ -117,11 +117,11 @@ public class ClassNode extends NotificationAttrNode
 	/**
 	 * Classes which uses this class
 	 */
-	private List<ClassNode> useIn = Collections.emptyList();
+	private volatile List<ClassNode> useIn = Collections.emptyList();
 	/**
 	 * Methods which uses this class (by instructions only, definition is excluded)
 	 */
-	private List<MethodNode> useInMth = Collections.emptyList();
+	private volatile List<MethodNode> useInMth = Collections.emptyList();
 
 	// cache maps
 	private Map<MethodInfo, MethodNode> mthInfoMap = Collections.emptyMap();
@@ -1022,20 +1022,52 @@ public class ClassNode extends NotificationAttrNode
 		return dependencies.size() + codegenDeps.size();
 	}
 
+	/** Stable read-only snapshot; use the node methods to update usage. */
 	public List<ClassNode> getUseIn() {
 		return useIn;
 	}
 
 	public void setUseIn(List<ClassNode> useIn) {
-		this.useIn = useIn;
+		List<ClassNode> snapshot = ListUtils.immutableCopy(useIn);
+		synchronized (root.getUsageInfoLock()) {
+			this.useIn = snapshot;
+		}
 	}
 
+	public void addUseIn(ClassNode cls) {
+		synchronized (root.getUsageInfoLock()) {
+			List<ClassNode> updated = new ArrayList<>(useIn);
+			updated.add(cls);
+			useIn = Collections.unmodifiableList(updated);
+		}
+	}
+
+	public void removeUseIn(ClassNode cls) {
+		synchronized (root.getUsageInfoLock()) {
+			List<ClassNode> updated = new ArrayList<>(useIn);
+			updated.remove(cls);
+			useIn = Collections.unmodifiableList(updated);
+		}
+	}
+
+	/** Stable read-only snapshot; use the node methods to update usage. */
 	public List<MethodNode> getUseInMth() {
 		return useInMth;
 	}
 
 	public void setUseInMth(List<MethodNode> useInMth) {
-		this.useInMth = useInMth;
+		List<MethodNode> snapshot = ListUtils.immutableCopy(useInMth);
+		synchronized (root.getUsageInfoLock()) {
+			this.useInMth = snapshot;
+		}
+	}
+
+	public void replaceUsage(MethodNode oldMth, MethodNode newMth) {
+		synchronized (root.getUsageInfoLock()) {
+			useInMth = Collections.unmodifiableList(ListUtils.safeReplace(new ArrayList<>(useInMth), oldMth, newMth));
+			useIn = Collections.unmodifiableList(ListUtils.safeReplace(new ArrayList<>(useIn),
+					oldMth.getParentClass(), newMth.getParentClass()));
+		}
 	}
 
 	@Override

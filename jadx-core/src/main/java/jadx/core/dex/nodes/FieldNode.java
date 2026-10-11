@@ -1,5 +1,6 @@
 package jadx.core.dex.nodes;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -20,7 +21,7 @@ public class FieldNode extends NotificationAttrNode implements ICodeNode, IField
 
 	private ArgType type;
 
-	private List<MethodNode> useIn = Collections.emptyList();
+	private volatile List<MethodNode> useIn = Collections.emptyList();
 
 	private JavaField javaNode;
 
@@ -99,16 +100,30 @@ public class FieldNode extends NotificationAttrNode implements ICodeNode, IField
 		return parentClass.getTopParentClass();
 	}
 
+	/** Stable read-only snapshot; use the node methods to update usage. */
 	public List<MethodNode> getUseIn() {
 		return useIn;
 	}
 
 	public void setUseIn(List<MethodNode> useIn) {
-		this.useIn = useIn;
+		List<MethodNode> snapshot = ListUtils.immutableCopy(useIn);
+		synchronized (root().getUsageInfoLock()) {
+			this.useIn = snapshot;
+		}
 	}
 
-	public synchronized void addUseIn(MethodNode mth) {
-		useIn = ListUtils.safeAdd(useIn, mth);
+	public void addUseIn(MethodNode mth) {
+		synchronized (root().getUsageInfoLock()) {
+			List<MethodNode> updated = new ArrayList<>(useIn);
+			updated.add(mth);
+			useIn = Collections.unmodifiableList(updated);
+		}
+	}
+
+	public void replaceUseIn(MethodNode oldMth, MethodNode newMth) {
+		synchronized (root().getUsageInfoLock()) {
+			useIn = Collections.unmodifiableList(ListUtils.safeReplace(new ArrayList<>(useIn), oldMth, newMth));
+		}
 	}
 
 	@Override

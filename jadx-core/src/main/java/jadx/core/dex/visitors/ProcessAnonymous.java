@@ -101,7 +101,7 @@ public class ProcessAnonymous extends AbstractVisitor {
 		// see ModVisitor.processAnonymousConstructor method
 		ClassNode topOuterCls = outerCls.getTopParentClass();
 		cls.removeDependency(topOuterCls);
-		ListUtils.safeRemove(outerCls.getUseIn(), cls);
+		outerCls.removeUseIn(cls);
 
 		// move dependency to codegen stage
 		if (cls.isTopClass()) {
@@ -114,7 +114,7 @@ public class ProcessAnonymous extends AbstractVisitor {
 		AnonymousClassAttr attr = cls.get(AType.ANONYMOUS_CLASS);
 		ClassNode outerCls = attr.getOuterCls();
 		cls.setDependencies(ListUtils.safeAdd(cls.getDependencies(), outerCls.getTopParentClass()));
-		outerCls.setUseIn(ListUtils.safeAdd(outerCls.getUseIn(), cls));
+		outerCls.addUseIn(cls);
 
 		cls.remove(AType.ANONYMOUS_CLASS);
 		cls.remove(AFlag.DONT_GENERATE);

@@ -41,7 +41,6 @@ import jadx.core.dex.visitors.JadxVisitor;
 import jadx.core.dex.visitors.OverrideMethodVisitor;
 import jadx.core.dex.visitors.SignatureProcessor;
 import jadx.core.dex.visitors.rename.RenameVisitor;
-import jadx.core.utils.ListUtils;
 import jadx.core.utils.exceptions.JadxRuntimeException;
 import jadx.core.utils.input.InsnDataUtils;
 
@@ -492,10 +491,7 @@ public class UsageInfoVisitor extends AbstractVisitor {
 	}
 
 	public static void replaceMethodUsage(MethodNode mergeIntoMth, MethodNode sourceMth) {
-		List<MethodNode> mergedUsage = ListUtils.distinctMergeSortedLists(mergeIntoMth.getUseIn(), sourceMth.getUseIn());
-		mergedUsage.remove(sourceMth);
-		mergeIntoMth.setUseIn(mergedUsage);
-		sourceMth.setUseIn(Collections.emptyList());
+		mergeIntoMth.mergeUseIn(sourceMth);
 	}
 
 	@Override
