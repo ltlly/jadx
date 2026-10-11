@@ -41,10 +41,26 @@ public class ProcessTryCatchRegions extends AbstractRegionVisitor {
 		if (tryBlocks.isEmpty()) {
 			return;
 		}
-		DepthRegionTraversal.traverseIncludingExcHandlers(mth, (regionMth, region) -> {
-			boolean changed = checkAndWrap(regionMth, tryBlocks, region);
-			return changed && !tryBlocks.isEmpty();
-		});
+		for (TryCatchBlockAttr tb : tryBlocks) {
+			AbstractRegionVisitor visitor = new AbstractRegionVisitor() {
+				@Override
+				public boolean enterRegion(MethodNode regionMth, IRegion region) {
+					if (region instanceof TryCatchRegion && ((TryCatchRegion) region).getTryCatchBlock() == tb) {
+						return false;
+					}
+					BlockNode topSplitter = tb.getTopSplitter();
+					if (region.getSubBlocks().contains(topSplitter) && !wrapBlocks(regionMth, region, tb, topSplitter)) {
+						regionMth.addWarn("Can't wrap try/catch for region: " + region);
+					}
+					return true;
+				}
+			};
+			// A shared handler tail can contain several occurrences of the same protected blocks.
+			DepthRegionTraversal.traverse(mth, visitor);
+			for (ExceptionHandler handler : mth.getExceptionHandlers()) {
+				DepthRegionTraversal.traverse(mth, handler.getHandlerRegion(), visitor);
+			}
+		}
 	}
 
 	private static List<TryCatchBlockAttr> collectTryCatchBlocks(MethodNode mth) {
@@ -55,21 +71,6 @@ public class ProcessTryCatchRegions extends AbstractRegionVisitor {
 		List<TryCatchBlockAttr> tryBlocks = new ArrayList<>(list);
 		tryBlocks.sort((a, b) -> a == b ? 0 : a.getOuterTryBlock() == b ? 1 : -1); // move parent try block to top
 		return tryBlocks;
-	}
-
-	private static boolean checkAndWrap(MethodNode mth, List<TryCatchBlockAttr> tryBlocks, IRegion region) {
-		// search top splitter block in this region (don't need to go deeper)
-		for (TryCatchBlockAttr tb : tryBlocks) {
-			BlockNode topSplitter = tb.getTopSplitter();
-			if (region.getSubBlocks().contains(topSplitter)) {
-				if (!wrapBlocks(mth, region, tb, topSplitter)) {
-					mth.addWarn("Can't wrap try/catch for region: " + region);
-				}
-				tryBlocks.remove(tb);
-				return true;
-			}
-		}
-		return false;
 	}
 
 	/**
