@@ -1,5 +1,7 @@
 # 依赖诊断输出差异：逐项复核
 
+> 后续已实现 [共享使用关系并发修复](INLINE_USAGE_FIX.md)：旧路径五项受控回归失败，修复后六项通过，完整 core/CLI 报告 1133 项、0 failures/errors、1 条件跳过。历史 APK 的实际写入者及精确 `ArrayList.add` 越界仍未受控重现；其他生命周期/字段列表竞态与整体语义等价仍开放。[后续类型候选](TYPE_BOUND_SELECTION.md) 因主样本未得收益撤回。下文保留本阶段的原始结论。
+
 本轮接续 [依赖诊断结论](DEPENDENCY_PROFILE_FINDINGS.md)，先解释六个新增占位方法。五个异常区域占位体已经在未插桩 A 中复现，且**整个类的 Java token** 与对应 B 输出相同；第六个内联错误仍未闭合。不能据此宣布插桩版本语义等价或获得新的性能收益。
 
 原始记录位于本机 `out/jadx-perf/20261011/profile-quality-audit`。结构化证据、文件哈希及检查结果见 [dependency-profile-quality-audit.json](dependency-profile-quality-audit.json)。历史 A/B 原始测量不修改。

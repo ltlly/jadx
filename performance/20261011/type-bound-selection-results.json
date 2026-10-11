@@ -1,0 +1,844 @@
+{
+  "decision": "withdraw",
+  "base": {
+    "base_commit": "20f2d41e2c931243e1b4c0609f548003ed6e7606",
+    "production_patch_sha256": "57ea4e5bb8d4b59e433698d1fc45d92168397b90fbc2cc31b2d4818c03a66697",
+    "changed_sources": {
+      "jadx-core/src/main/java/jadx/core/utils/ListUtils.java": "cead02d7fa18d2b1b96458b7c1fea9d8c74363c2c54ae3bfdf020c7a0ad53de0",
+      "jadx-core/src/main/java/jadx/core/dex/nodes/RootNode.java": "2b256d7c9d94b655802edb844597ea6b969822ad02f4a626ff7a3bd960155b90",
+      "jadx-core/src/main/java/jadx/core/dex/nodes/FieldNode.java": "2929994c695e17e5654e227e8227e549a5110e8da3dc674dd6d6efe94eb08532",
+      "jadx-core/src/main/java/jadx/core/dex/nodes/ClassNode.java": "79b0bb425a9647921f830ff1e630992a2d3f146a93d2e5e027d58ceeb461929a",
+      "jadx-core/src/main/java/jadx/core/dex/nodes/MethodNode.java": "74829fda3ae00e604267d0ca483a41bc6ec88b522d516409a7076acce9c14659",
+      "jadx-core/src/main/java/jadx/core/dex/visitors/ProcessAnonymous.java": "3b309b4360fc1de4ced006f892ff0ac1e8d5803e4f8d4f78a43d7ae8de299fb6",
+      "jadx-core/src/main/java/jadx/core/dex/visitors/InlineMethods.java": "5688715d22e28d2014ee867feac0f68ec71bf7aada9f4b1df2b07a63c3bc63f0",
+      "jadx-core/src/main/java/jadx/core/dex/visitors/usage/UsageInfoVisitor.java": "471e7a26c23c3248ae7d9680a1872ba3101139447348e8b6b5280b636bba72cd"
+    },
+    "distribution_sha256": {
+      "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+      "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+      "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+      "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+      "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+      "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+      "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+      "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+      "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+      "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+      "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+      "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+      "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+      "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+      "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+      "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+      "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+      "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+      "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+      "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+      "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+      "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+      "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+      "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+      "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+      "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+      "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+      "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+      "lib/jadx-core-dev.jar": "f550a2e2fc32ebf2dbe54fb923f23dc39eded638dcd933eaff7e4486360051e5",
+      "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+      "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+      "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+      "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+      "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+      "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+      "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+      "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+      "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+      "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+      "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+      "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+      "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+      "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+      "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+      "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+      "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+      "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+      "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+      "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+      "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+      "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+      "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+      "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+      "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+      "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+      "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+      "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+      "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+      "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+      "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+    },
+    "tests": {
+      "tests": 1133,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "evidence_sha256": {
+      "full-check-command.json": "80dcd9d63aaac28ab2ddd3edcf2d6ded76d59bf93df397600a23fa735f1bd278",
+      "full-check-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "full-check-results.zip": "0413a4bbb458b8858b585cad59a3ec3abcd601b54d805f281fa495f0aba8a155",
+      "full-check-counts.json": "761f97681750356398e7dfe123d56eacb66b0af9d7bf5bc998164ce6da49ca04",
+      "full-check.txt": "e842416488b1724c7b8502da2429217092a8949f9226a03f8f287befaa74b190"
+    },
+    "source_commit": "0bf6c9d67dbb65ead37476337a95996a7431dc3a",
+    "test_sources": {
+      "jadx-core/src/test/java/jadx/core/dex/visitors/InlineMethodsUsageTest.java": "39ff3015f80bfe0be0587cf7f2673e1b87209d6bf4f72d64fd4a4d0128e41b31",
+      "jadx-core/src/test/smali/inline/TestConcurrentMethodInline/Bridge.smali": "778969fbbb3cd6e9ba3f0527db0e8b64c107495af432d6e028990aae9622ba35",
+      "jadx-core/src/test/smali/inline/TestConcurrentMethodInline/Left.smali": "6f3d537cf73441e80a0672c02ec62c61342c8d822180b07c2ae44051a452ec63",
+      "jadx-core/src/test/smali/inline/TestConcurrentMethodInline/Right.smali": "e9fcd222475d0ac1ae61fee8beb0e3c1c404c06fd37c0b3113b739c69962ff8e",
+      "jadx-core/src/test/smali/inline/TestConcurrentMethodInline/Target.smali": "8feea7ced8e614e7d8cbff1a9ee8508cd9133be0e8fa2e9e0ff367b1b4f9b6c0"
+    }
+  },
+  "candidate": {
+    "base_commit": "0bf6c9d67dbb65ead37476337a95996a7431dc3a",
+    "production_patch_sha256": "f2468094f035a61294498c93d8df24b24a22767359362f05e89f9027f45eb34d",
+    "candidate_with_regression_patch_sha256": "c86647dab7ba1e9516bae5ff86057fb3fffaac06af0db8d1a2d02c7b95e12fe1",
+    "changed_sources": {
+      "jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/FixTypesVisitor.java": "c129689f7cd57829b776cd9fc59886b0e060131e33e718fb16119a15c57ad10c",
+      "jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/TypeInferenceVisitor.java": "12cd75f4f4f8671328344630b33b5821ce4f1c4d414dec23ad6796dd105af0d7"
+    },
+    "test_source": {
+      "path": "jadx-core/src/test/java/jadx/core/dex/visitors/typeinference/BestTypeSelectionTest.java",
+      "sha256": "4708bc17ad4e952d1882e732e64e24c775b96f775d4b8cf16eea0e040735be8f"
+    },
+    "distribution_sha256": {
+      "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+      "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+      "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+      "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+      "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+      "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+      "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+      "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+      "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+      "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+      "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+      "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+      "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+      "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+      "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+      "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+      "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+      "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+      "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+      "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+      "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+      "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+      "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+      "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+      "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+      "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+      "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+      "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+      "lib/jadx-core-dev.jar": "0cb480b3392a3ef5bace8dad1b11b999627ee25c6ddd9103781dc0399dcffd17",
+      "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+      "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+      "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+      "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+      "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+      "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+      "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+      "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+      "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+      "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+      "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+      "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+      "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+      "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+      "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+      "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+      "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+      "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+      "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+      "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+      "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+      "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+      "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+      "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+      "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+      "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+      "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+      "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+      "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+      "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+      "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+    },
+    "tests": {
+      "tests": 1151,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "evidence_sha256": {
+      "full-check-command.json": "80dcd9d63aaac28ab2ddd3edcf2d6ded76d59bf93df397600a23fa735f1bd278",
+      "full-check-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "full-check-results.zip": "742401086dc611c46f2e814fb070139c75ae15205ffef3d9f4edf81c2a3fabce",
+      "full-check-counts.json": "7f61e7393374256cda514551732e335d2750db582a48556c299e9efb90a7e3e2",
+      "full-check.txt": "c7c52bd20c30e1a0060bcbd94513a5d95beadb7a8c45c0a2bddbd6824731ff6b"
+    }
+  },
+  "measurements": {
+    "runs": [
+      {
+        "label": "A1",
+        "wall_s": 121.22,
+        "user_s": 718.75,
+        "sys_s": 17.37,
+        "rss_kib": 16158440.0,
+        "cpu_percent": "607%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "cpu_s": 736.12,
+        "errors": 1032,
+        "omitted": 914
+      },
+      {
+        "label": "B1",
+        "wall_s": 126.19,
+        "user_s": 734.23,
+        "sys_s": 17.46,
+        "rss_kib": 16258616.0,
+        "cpu_percent": "595%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "cpu_s": 751.69,
+        "errors": 1032,
+        "omitted": 910
+      },
+      {
+        "label": "A2",
+        "wall_s": 127.97,
+        "user_s": 739.73,
+        "sys_s": 17.86,
+        "rss_kib": 16151500.0,
+        "cpu_percent": "591%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "cpu_s": 757.59,
+        "errors": 1032,
+        "omitted": 906
+      },
+      {
+        "label": "B2",
+        "wall_s": 124.65,
+        "user_s": 705.7,
+        "sys_s": 17.69,
+        "rss_kib": 16232460.0,
+        "cpu_percent": "580%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "cpu_s": 723.39,
+        "errors": 1032,
+        "omitted": 902
+      },
+      {
+        "label": "A3",
+        "wall_s": 120.25,
+        "user_s": 704.71,
+        "sys_s": 17.02,
+        "rss_kib": 16087260.0,
+        "cpu_percent": "600%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "cpu_s": 721.73,
+        "errors": 1032,
+        "omitted": 915
+      },
+      {
+        "label": "B3",
+        "wall_s": 126.21,
+        "user_s": 718.82,
+        "sys_s": 17.25,
+        "rss_kib": 16125232.0,
+        "cpu_percent": "583%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "cpu_s": 736.07,
+        "errors": 1032,
+        "omitted": 911
+      }
+    ],
+    "medians": {
+      "A": {
+        "wall_s": 121.22,
+        "cpu_s": 736.12,
+        "rss_kib": 16151500.0
+      },
+      "B": {
+        "wall_s": 126.19,
+        "cpu_s": 736.07,
+        "rss_kib": 16232460.0
+      }
+    },
+    "ranges": {
+      "A": {
+        "wall_s": [
+          120.25,
+          127.97
+        ],
+        "cpu_s": [
+          721.73,
+          757.59
+        ],
+        "rss_kib": [
+          16087260.0,
+          16158440.0
+        ]
+      },
+      "B": {
+        "wall_s": [
+          124.65,
+          126.21
+        ],
+        "cpu_s": [
+          723.39,
+          751.69
+        ],
+        "rss_kib": [
+          16125232.0,
+          16258616.0
+        ]
+      }
+    },
+    "B_omitted_not_in_A": [
+      [
+        "sources/com/efs/sdk/base/newsharedpreferences/a.java",
+        "com.efs.sdk.base.newsharedpreferences.a.b(boolean):void"
+      ],
+      [
+        "sources/com/taobao/accs/utl/Utils.java",
+        "com.taobao.accs.utl.Utils.clearAllSharePreferences(android.content.Context):void"
+      ]
+    ],
+    "B_omitted_not_in_historical": [],
+    "A_omitted_not_in_B": [
+      [
+        "sources/com/amap/api/maps/model/Circle.java",
+        "com.amap.api.maps.model.Circle.setHoleOptions(java.util.List):void"
+      ],
+      [
+        "sources/com/uc/pars/impl/j.java",
+        "com.uc.pars.impl.j.a(java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.lang.String, android.webkit.ValueCallback, int):int"
+      ]
+    ],
+    "historical_inventory_paths": [
+      "out/jadx-perf/20261011/dependency-profile/qwen-A1/omitted-methods.json",
+      "out/jadx-perf/20261011/dependency-profile/qwen-A2/omitted-methods.json",
+      "out/jadx-perf/20261011/dependency-profile/qwen-A3/omitted-methods.json",
+      "out/jadx-perf/20261011/dependency-profile/qwen-B1/omitted-methods.json",
+      "out/jadx-perf/20261011/dependency-profile/qwen-B2/omitted-methods.json",
+      "out/jadx-perf/20261011/dependency-profile/qwen-B3/omitted-methods.json",
+      "out/jadx-perf/20261011/dependency-profile/qwen-diagnostic-2/omitted-methods.json",
+      "out/jadx-perf/20261011/profile-quality-audit/qwen-scope-fix-screen/omitted-methods.json",
+      "out/jadx-perf/20261011/inline-usage-fix/qwen-A1/omitted-methods.json",
+      "out/jadx-perf/20261011/inline-usage-fix/qwen-A2/omitted-methods.json",
+      "out/jadx-perf/20261011/inline-usage-fix/qwen-A3/omitted-methods.json",
+      "out/jadx-perf/20261011/inline-usage-fix/qwen-B1/omitted-methods.json",
+      "out/jadx-perf/20261011/inline-usage-fix/qwen-B2/omitted-methods.json",
+      "out/jadx-perf/20261011/inline-usage-fix/qwen-B3/omitted-methods.json"
+    ]
+  },
+  "pairs": {
+    "1": {
+      "left": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-A1",
+      "right": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-B1",
+      "missing": [],
+      "extra": [],
+      "byte_identical": 70564,
+      "changed": 483,
+      "comment_only": 387,
+      "java_tokens_changed": 96,
+      "error_changes": {}
+    },
+    "2": {
+      "left": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-A2",
+      "right": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-B2",
+      "missing": [],
+      "extra": [],
+      "byte_identical": 70583,
+      "changed": 464,
+      "comment_only": 381,
+      "java_tokens_changed": 83,
+      "error_changes": {}
+    },
+    "3": {
+      "left": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-A3",
+      "right": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-B3",
+      "missing": [],
+      "extra": [],
+      "byte_identical": 70579,
+      "changed": 468,
+      "comment_only": 383,
+      "java_tokens_changed": 85,
+      "error_changes": {}
+    }
+  },
+  "controls": {
+    "A1": {
+      "command": [
+        "/usr/lib/jvm/java-27-openjdk/bin/java",
+        "-XX:+IgnoreUnrecognizedVMOptions",
+        "-Xms256m",
+        "-Xmx16g",
+        "-XX:ParallelGCThreads=3",
+        "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+        "--enable-native-access=ALL-UNNAMED",
+        "-Dfile.encoding=UTF-8",
+        "-Duser.language=en",
+        "-Duser.country=US",
+        "-cp",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/fixed-distribution/lib/*",
+        "jadx.cli.JadxCLI",
+        "--no-res",
+        "--threads-count",
+        "8",
+        "-d",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-A1/output",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+      ],
+      "apk_sha256": "b793d73e8365b9ef591c9b343d83c62123f96a05b1e167ec792ba91c0350b7f1",
+      "started": "2026-10-11T12:33:43+0800",
+      "profiled": false,
+      "dependency_profiled": false
+    },
+    "A2": {
+      "command": [
+        "/usr/lib/jvm/java-27-openjdk/bin/java",
+        "-XX:+IgnoreUnrecognizedVMOptions",
+        "-Xms256m",
+        "-Xmx16g",
+        "-XX:ParallelGCThreads=3",
+        "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+        "--enable-native-access=ALL-UNNAMED",
+        "-Dfile.encoding=UTF-8",
+        "-Duser.language=en",
+        "-Duser.country=US",
+        "-cp",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/fixed-distribution/lib/*",
+        "jadx.cli.JadxCLI",
+        "--no-res",
+        "--threads-count",
+        "8",
+        "-d",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-A2/output",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+      ],
+      "apk_sha256": "b793d73e8365b9ef591c9b343d83c62123f96a05b1e167ec792ba91c0350b7f1",
+      "started": "2026-10-11T12:39:00+0800",
+      "profiled": false,
+      "dependency_profiled": false
+    },
+    "A3": {
+      "command": [
+        "/usr/lib/jvm/java-27-openjdk/bin/java",
+        "-XX:+IgnoreUnrecognizedVMOptions",
+        "-Xms256m",
+        "-Xmx16g",
+        "-XX:ParallelGCThreads=3",
+        "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+        "--enable-native-access=ALL-UNNAMED",
+        "-Dfile.encoding=UTF-8",
+        "-Duser.language=en",
+        "-Duser.country=US",
+        "-cp",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/fixed-distribution/lib/*",
+        "jadx.cli.JadxCLI",
+        "--no-res",
+        "--threads-count",
+        "8",
+        "-d",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-A3/output",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+      ],
+      "apk_sha256": "b793d73e8365b9ef591c9b343d83c62123f96a05b1e167ec792ba91c0350b7f1",
+      "started": "2026-10-11T12:44:08+0800",
+      "profiled": false,
+      "dependency_profiled": false
+    },
+    "B1": {
+      "command": [
+        "/usr/lib/jvm/java-27-openjdk/bin/java",
+        "-XX:+IgnoreUnrecognizedVMOptions",
+        "-Xms256m",
+        "-Xmx16g",
+        "-XX:ParallelGCThreads=3",
+        "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+        "--enable-native-access=ALL-UNNAMED",
+        "-Dfile.encoding=UTF-8",
+        "-Duser.language=en",
+        "-Duser.country=US",
+        "-cp",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/candidate-distribution/lib/*",
+        "jadx.cli.JadxCLI",
+        "--no-res",
+        "--threads-count",
+        "8",
+        "-d",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-B1/output",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+      ],
+      "apk_sha256": "b793d73e8365b9ef591c9b343d83c62123f96a05b1e167ec792ba91c0350b7f1",
+      "started": "2026-10-11T12:35:57+0800",
+      "profiled": false,
+      "dependency_profiled": false
+    },
+    "B2": {
+      "command": [
+        "/usr/lib/jvm/java-27-openjdk/bin/java",
+        "-XX:+IgnoreUnrecognizedVMOptions",
+        "-Xms256m",
+        "-Xmx16g",
+        "-XX:ParallelGCThreads=3",
+        "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+        "--enable-native-access=ALL-UNNAMED",
+        "-Dfile.encoding=UTF-8",
+        "-Duser.language=en",
+        "-Duser.country=US",
+        "-cp",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/candidate-distribution/lib/*",
+        "jadx.cli.JadxCLI",
+        "--no-res",
+        "--threads-count",
+        "8",
+        "-d",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-B2/output",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+      ],
+      "apk_sha256": "b793d73e8365b9ef591c9b343d83c62123f96a05b1e167ec792ba91c0350b7f1",
+      "started": "2026-10-11T12:41:15+0800",
+      "profiled": false,
+      "dependency_profiled": false
+    },
+    "B3": {
+      "command": [
+        "/usr/lib/jvm/java-27-openjdk/bin/java",
+        "-XX:+IgnoreUnrecognizedVMOptions",
+        "-Xms256m",
+        "-Xmx16g",
+        "-XX:ParallelGCThreads=3",
+        "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+        "--enable-native-access=ALL-UNNAMED",
+        "-Dfile.encoding=UTF-8",
+        "-Duser.language=en",
+        "-Duser.country=US",
+        "-cp",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/candidate-distribution/lib/*",
+        "jadx.cli.JadxCLI",
+        "--no-res",
+        "--threads-count",
+        "8",
+        "-d",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/type-bound-selection/qwen-B3/output",
+        "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+      ],
+      "apk_sha256": "b793d73e8365b9ef591c9b343d83c62123f96a05b1e167ec792ba91c0350b7f1",
+      "started": "2026-10-11T12:46:14+0800",
+      "profiled": false,
+      "dependency_profiled": false
+    }
+  },
+  "run_evidence_sha256": {
+    "A1": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "46fb94cc622878e07f5fc9e8b7fd58373ef79c171d71b0f223f0056a556fbed3",
+      "host-cpu.jsonl": "d121ddeac577dcfc10a66ed5e5b145e9faf604f77a0da1b06f2f86f250169200",
+      "manifest.json": "af246b136634dd249859962b5d58d8c448d92ea95efe976f6650f1c6ac70d753",
+      "metadata.json": "748506171c30638aa2b94fbe5586c7fe6cd21ec6477144e6374321348640cee1",
+      "metrics.json": "379a714555004b5b97f6f33365a1acaabe5b431a546ad2a00c9c418fa8255bc2",
+      "omitted-methods.json": "a21798d2b925590dfbcec8fb59bc0ce5fb4952e9223d8221c7cf1b9eba676abe",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "485b665db53ea172217d3db33619f19e7ca540aabbd41ee82abd3c4919ba9760",
+      "time.txt": "f18dade6b32a078fbd19928174efb6c975c407fb50d34d62612ecc123601dfd8"
+    },
+    "A2": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "1e1ccf97d0b5be63467c8f29c342fbc916f42b915ef1c54b7ba37146aa015627",
+      "host-cpu.jsonl": "1cbe98e647fcfb3eca56cbc1401a030bf7a2b810cd40f182eccfcf29fb997283",
+      "manifest.json": "9965de3dbfce080661ef88251e4e1b2c8a2e04c77167d765ef08b06abed3bd30",
+      "metadata.json": "dc2e79080c79baee98feef939c025f78d20fb76ed02c4518998144ad4c934713",
+      "metrics.json": "f68fa241485c806c11a52f95ccbdda00cdb3c1e7868393a69363e0b87d4194e8",
+      "omitted-methods.json": "7bdb0e64bbaa18c22690948952fa672d58d6b6450aa14f95eade523b4141baa9",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "c9c9b06d0828f1e81cc02967ec36c2571b1fc55bb15058f7f337bc14d7951c83",
+      "time.txt": "44db8a3a1588fb713bd75a5ad2884895aa50aa5deea28306cf9987e4ce73d0d7"
+    },
+    "A3": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "0f6332b2fb14e0004a7125a053a497aeb6f8d806ff4c4486df89bad4c778f774",
+      "host-cpu.jsonl": "a1c9b6dabbc792bb05065aad2cd1a7e1ff8d9cec3d4a3eaab9b7f9ef868c03cd",
+      "manifest.json": "17fadfeeb56f56edd476cbff17c333623fc55de994fa3f8baa85fdfb049a2e49",
+      "metadata.json": "3b5fffb39c617ff8ad0d3a585b2933bd8dfaeccc2ddf8885954444661c80972f",
+      "metrics.json": "b7edf8ec79a59d88361621d16d6a020e05c2f9c2a12b339da2195e63aca28b91",
+      "omitted-methods.json": "ac536353160b32d1def8af9703651b5aca2da6426edad61ada09d0e847e27ac4",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "15b98ad5cb0f80fd9552749b8aa8b56460b74c6dbd7b11b67abb7b7d9c7e67f8",
+      "time.txt": "5e5544719dcbe64377d4601965d36a2456a44320df0fbf6885fe7a8aff180c2a"
+    },
+    "B1": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "2e4514da8d5f7f6d1dfe1244204287d0aecbfaaab9523154becb418beefd701a",
+      "host-cpu.jsonl": "58782adc0299c57e5060145f0d93020e2baf81529d4ad6f8fd8ef66a50dcd5f9",
+      "manifest.json": "ae14740c84e0f4f8ca60ae9286d8d68495313c339a7dd4bc9dd3e3a0f012d02b",
+      "metadata.json": "6a5aef0dc529bafa0fd5a35ce38a602e4587b90c1f53595a95556e5d240934cc",
+      "metrics.json": "528afa93cbf04371abe06affce1f91b7b56b263db2ccbafc6b50bf2203f6e676",
+      "omitted-methods.json": "a9a4a4fc64d42f257e095c68f5757bf47b3a4de73bbe3213695e485529d5a999",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "69963b680b0d15a64106d14c93c85c64accede30fca310619004375da11168e0",
+      "time.txt": "f262c642022134ee0bd6cace406aac710d7d340d06fb0a39a66e606e7eca6ef9"
+    },
+    "B2": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "448b8889c52f17fcc5813b5f3fc589e8f48682a6312cd07bf8c7520c4befcd76",
+      "host-cpu.jsonl": "2685550c343627bde59c4c6fb8967f4955f80413a9c79e2635cfd18cab0958bc",
+      "manifest.json": "9331f9027f11807ba5af15b8e9036cb9f2a2f996094260667b6f982e09e59f70",
+      "metadata.json": "d3512d4bc4ead0135198735a7b5fa7115cc313c1352c188367df1ba6307b1c6c",
+      "metrics.json": "9afca51e68079f6aaf1cef2353bdb3254c69a44ffad91c0e79015cb06ffe0dba",
+      "omitted-methods.json": "2290ab91a86bb47446cd91c4a71810ea35f224c88b879495f115763d363c2c03",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "d2520daf3a0e9e74a222eec2c870d821ac7baa7e668b33487a08807c9b3c7566",
+      "time.txt": "c93ea468aa20d5832e0d9f9ac051a13de551aa42641cd70ab49f58e67bc9e869"
+    },
+    "B3": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "6ba8b2d1ba51445a876e08c0e57c791221cee667c9eb60316ede37bcc1b0fd54",
+      "host-cpu.jsonl": "ede49f3b845ebd49bb9e7e824ef0ce10c441ab9af717c6333895fd5355007063",
+      "manifest.json": "37587f8aa32694ff41598988088634e0e5b839800f93a48c6e877f09644280f6",
+      "metadata.json": "1b69eed7895bba0fcecfe6e155d46f32cab6fb1c20d98db3dcd17d58b67bbdd1",
+      "metrics.json": "a3ae72f9023f8bbf4b27d0bf5de3ed14c68a6dbae8987075dadcdbb7f3d59ad7",
+      "omitted-methods.json": "2c6069560fd320e3a73644b9e72d64b64dd7f96734a16532f7497c0882d818c7",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "452248f77721a49eb5cc086d538e0f6c8cc8cc1d9240403e2544b3ae466dabe3",
+      "time.txt": "5524cd843f6be7967ad6c5e3d89e946b7d97c6e1f9ad98eec72944f25c317178"
+    }
+  },
+  "evidence_sha256": {
+    "baseline-artifact.json": "b1bbc0cd9c995eeffa43646e9c8421355d03277d788bdad51d6962f863cd3cf4",
+    "baseline-regression-command.json": "1798ce0a6d8dabb2b2fb1343b5e067046902abdb7da4268d78347c402d6cafd0",
+    "baseline-regression-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "baseline-regression-source.java": "4708bc17ad4e952d1882e732e64e24c775b96f775d4b8cf16eea0e040735be8f",
+    "baseline-regression.txt": "c6ac97e6411b75e79f3a3f3448e93e5e8cddf797b2b6f434fab04b0b638a81e1",
+    "baseline-regression.xml": "44b3b45caf38a68c6d85ad4dd432cb37a7dde0ade3258bed8e70d166d014bde2",
+    "baseline-visibility.patch": "bfe60f4990381f638d0d9c7af1cf6ec18fcd2eb9d16dcea1fd942bde62ff1954",
+    "candidate-artifact.json": "710cac731a398641db3f179c6012e41a8c5fcf9ea68e56efdbde19cd7cd276b9",
+    "candidate-regression.xml": "3eb6c1e2fccb57f64158cb6f1374b817363b9cb3fdd36793551872573f9ed0ff",
+    "candidate-with-regression.patch": "c86647dab7ba1e9516bae5ff86057fb3fffaac06af0db8d1a2d02c7b95e12fe1",
+    "full-check-command.json": "80dcd9d63aaac28ab2ddd3edcf2d6ded76d59bf93df397600a23fa735f1bd278",
+    "full-check-counts.json": "7f61e7393374256cda514551732e335d2750db582a48556c299e9efb90a7e3e2",
+    "full-check-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "full-check-results.zip": "742401086dc611c46f2e814fb070139c75ae15205ffef3d9f4edf81c2a3fabce",
+    "full-check.txt": "c7c52bd20c30e1a0060bcbd94513a5d95beadb7a8c45c0a2bddbd6824731ff6b",
+    "measurements-and-quality.json": "77e2c6b77cb89dd10635e1d91f98a8d5cdf231553bf64a6238970f16e22cdb47",
+    "pair-1.diff": "e99997d46960a393e0b0ec34937ab5b52c62d25e4f8b19a5d286f2f65db718dc",
+    "pair-1.json": "a97c3b7f296eb33b2f3bc5322373497915515bf305d60c650657e618379b1b88",
+    "pair-2.diff": "7c70fcb7897b299822e780400fb8c84ba18fc9c2d7fc2863f9a1203c1a1ea4fe",
+    "pair-2.json": "07d9ad1773fe8f9323acbf671d59ff13f101d78a4ee9e22584d11fece6f848f3",
+    "pair-3.diff": "df8170957d530ae57c320e4723ac044292757038095184b0319c4617e6bb1e5d",
+    "pair-3.json": "e1ca1c15dd3a8acdf4253cd774c8706817549bf43c03b7b7d28c2dc925246c88",
+    "production.patch": "f2468094f035a61294498c93d8df24b24a22767359362f05e89f9027f45eb34d",
+    "profile-parser-self-check.json": "f89d7fb71d630fc8b875a76b848fb006e6ca103bcb7ef121ee98bdd2ac037811",
+    "qwen-A2-orchestration.json": "cff5d61965878ebd5ecbee6ccd56375baffc9e298962e4ee47359f4dc1ba4506",
+    "qwen-A2-wrapper-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "qwen-A3-orchestration.json": "7a7994b49bf506f90cb1e7b50dd88f6a7261a3e16f9d330877e21cc752a767c8",
+    "qwen-A3-wrapper-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "qwen-B2-orchestration.json": "37d37077a07b94fe57646efb10f56c5bdaf1f482126850c63f92793fd5495cfc",
+    "qwen-B2-wrapper-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "qwen-B3-orchestration.json": "a9f6cf7bb7bcf2fb657894cc803209ff74332ee2de18bb9fe622ebb24a96962e",
+    "qwen-B3-wrapper-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "restore-build-command.json": "f386b6a48748af61d889d0437c3f016994d20e92989e988e4c51b475f6a949a1",
+    "restore-build-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "restore-build.txt": "eed7913efe95a588c407c43dac0e28aa894187d624b74c9cfff780d949f74c65",
+    "withdrawal.json": "e4f28b85d5d2288b5f2e8489c72a23d9804c300d6542d5d876b4b820cd27bdc7",
+    "archive-check.json": "72edfb6cb90ab953b3cf1b98b0529c2f0c52d59d8cc9f5b446a541c7c801be06",
+    "historical-byte-matches.json": "b40a22f3cfe4acf81f0ac099d4538b8f6d6af99c99dc0ba7dc646890f0ac8cf9"
+  },
+  "restored_distribution_sha256": {
+    "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+    "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+    "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+    "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+    "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+    "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+    "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+    "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+    "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+    "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+    "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+    "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+    "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+    "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+    "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+    "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+    "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+    "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+    "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+    "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+    "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+    "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+    "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+    "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+    "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+    "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+    "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+    "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+    "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+    "lib/jadx-core-dev.jar": "f550a2e2fc32ebf2dbe54fb923f23dc39eded638dcd933eaff7e4486360051e5",
+    "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+    "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+    "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+    "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+    "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+    "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+    "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+    "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+    "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+    "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+    "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+    "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+    "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+    "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+    "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+    "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+    "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+    "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+    "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+    "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+    "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+    "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+    "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+    "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+    "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+    "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+    "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+    "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+    "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+    "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+    "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+    "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+  },
+  "withdrawal": {
+    "decision": "withdraw",
+    "reason": "Qwen median wall regressed by 4.10%, CPU flat and RSS +0.50%; no new performance acceptance.",
+    "commands": [
+      {
+        "command": [
+          "git",
+          "apply",
+          "--reverse",
+          "--check",
+          "out/jadx-perf/20261011/type-bound-selection/production.patch"
+        ],
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "apply",
+          "--reverse",
+          "out/jadx-perf/20261011/type-bound-selection/production.patch"
+        ],
+        "exit": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "restored_sources_sha256": {
+      "jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/FixTypesVisitor.java": "22cbc270e1c4480e7f00737d3c9a60a0ef14f8defd4ae738ff7bc5cbde9431d3",
+      "jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/TypeInferenceVisitor.java": "946a0f9d556fc35fa1a6850b5aa2cb66b923d6ac83bca326f548383e2a0357ea"
+    },
+    "removed_own_untracked_test": "jadx-core/src/test/java/jadx/core/dex/visitors/typeinference/BestTypeSelectionTest.java",
+    "archived_patch": "performance/20261011/type-bound-selection-candidate.patch"
+  },
+  "limits": [
+    "No overall semantic equivalence claim; token drift was not fully audited.",
+    "No independent APK screen or candidate JFR after Qwen failed wall/RSS screening.",
+    "1151 tests describe the archived candidate; retained fix reports 1133 tests, 1132 passed and 1 skipped."
+  ],
+  "archive_check": {
+    "original_full_patch_sha256": "c86647dab7ba1e9516bae5ff86057fb3fffaac06af0db8d1a2d02c7b95e12fe1",
+    "archived_zero_context_patch_sha256": "2bc932933c7bbfd127b5b0d0f96c21a3c67cff949097d4ca6fa403da517b67d3",
+    "apply_command": [
+      "git",
+      "apply",
+      "--unidiff-zero",
+      "performance/20261011/type-bound-selection-candidate.patch"
+    ],
+    "reconstructed_candidate_sources_match": {
+      "jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/FixTypesVisitor.java": "c129689f7cd57829b776cd9fc59886b0e060131e33e718fb16119a15c57ad10c",
+      "jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/TypeInferenceVisitor.java": "12cd75f4f4f8671328344630b33b5821ce4f1c4d414dec23ad6796dd105af0d7",
+      "jadx-core/src/test/java/jadx/core/dex/visitors/typeinference/BestTypeSelectionTest.java": "4708bc17ad4e952d1882e732e64e24c775b96f775d4b8cf16eea0e040735be8f"
+    }
+  },
+  "historical_byte_matches": [
+    {
+      "candidate_run": "out/jadx-perf/20261011/type-bound-selection/qwen-B1",
+      "file": "sources/com/efs/sdk/base/newsharedpreferences/a.java",
+      "sha256": "1daca8db7f4c212791dea202b7da947c780c932791dcb91c5ca2f878495236b2",
+      "byte_identical_historical_runs": [
+        {
+          "run": "out/jadx-perf/20261011/inline-usage-fix/qwen-A2",
+          "source_commit": "20f2d41e2c931243e1b4c0609f548003ed6e7606",
+          "metadata_sha256": "1c78d0330c0b38acd97058c07674728a8997925c7fe870fcd8e7131ef2c2eee2"
+        },
+        {
+          "run": "out/jadx-perf/20261011/inline-usage-fix/qwen-A3",
+          "source_commit": "20f2d41e2c931243e1b4c0609f548003ed6e7606",
+          "metadata_sha256": "9f25772203d63612f824a4e3a6211b4f318299e4ea9c3edbe16f0111850abdef"
+        }
+      ]
+    },
+    {
+      "candidate_run": "out/jadx-perf/20261011/type-bound-selection/qwen-B1",
+      "file": "sources/com/taobao/accs/utl/Utils.java",
+      "sha256": "e66ac0afe6d1babeddfe2ca74fdec564a17df1ae30bc005a10b079db1ebfdfa5",
+      "byte_identical_historical_runs": [
+        {
+          "run": "out/jadx-perf/20261011/inline-usage-fix/qwen-B1",
+          "source_commit": "0bf6c9d67dbb65ead37476337a95996a7431dc3a",
+          "metadata_sha256": "2d745aa0004bf4da4d48415227bd54ac53812ca75cfac296d46f512cbe2312ff"
+        }
+      ]
+    },
+    {
+      "candidate_run": "out/jadx-perf/20261011/type-bound-selection/qwen-B3",
+      "file": "sources/com/taobao/accs/utl/Utils.java",
+      "sha256": "77a4a1e3b2707a67132d8061bf1c8857ae36e24c6753f5592f357af3b8baa91e",
+      "byte_identical_historical_runs": [
+        {
+          "run": "out/jadx-perf/20261011/inline-usage-fix/qwen-A3",
+          "source_commit": "20f2d41e2c931243e1b4c0609f548003ed6e7606",
+          "metadata_sha256": "9f25772203d63612f824a4e3a6211b4f318299e4ea9c3edbe16f0111850abdef"
+        },
+        {
+          "run": "out/jadx-perf/20261011/inline-usage-fix/qwen-B2",
+          "source_commit": "0bf6c9d67dbb65ead37476337a95996a7431dc3a",
+          "metadata_sha256": "a01bc5711c54dbce90561ff607d343f78492aa3d61084d91c28fe7dbe23f51ec"
+        },
+        {
+          "run": "out/jadx-perf/20261011/inline-usage-fix/qwen-B3",
+          "source_commit": "0bf6c9d67dbb65ead37476337a95996a7431dc3a",
+          "metadata_sha256": "3cf02ad482d9952dfcf2b17d5dc96e90ccc9e3832cb7e56ec906fcccccb78e5e"
+        }
+      ]
+    }
+  ]
+}

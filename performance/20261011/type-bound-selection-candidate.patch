@@ -1,0 +1,245 @@
+diff --git a/jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/FixTypesVisitor.java b/jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/FixTypesVisitor.java
+--- a/jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/FixTypesVisitor.java
++++ b/jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/FixTypesVisitor.java
+@@ -5,0 +6 @@
++import java.util.Comparator;
+@@ -8 +8,0 @@
+-import java.util.Objects;
+@@ -173,5 +173,10 @@
+-	private Optional<ArgType> selectBestTypeFromBounds(Set<ITypeBound> bounds) {
+-		return bounds.stream()
+-				.map(ITypeBound::getType)
+-				.filter(Objects::nonNull)
+-				.max(typeUpdate.getTypeCompare().getComparator());
++	Optional<ArgType> selectBestTypeFromBounds(Set<ITypeBound> bounds) {
++		Comparator<ArgType> comparator = typeUpdate.getTypeCompare().getComparator();
++		ArgType bestType = null;
++		for (ITypeBound bound : bounds) {
++			ArgType type = bound.getType();
++			if (type != null && (bestType == null || comparator.compare(bestType, type) < 0)) {
++				bestType = type;
++			}
++		}
++		return Optional.ofNullable(bestType);
+diff --git a/jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/TypeInferenceVisitor.java b/jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/TypeInferenceVisitor.java
+--- a/jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/TypeInferenceVisitor.java
++++ b/jadx-core/src/main/java/jadx/core/dex/visitors/typeinference/TypeInferenceVisitor.java
+@@ -2,0 +3 @@
++import java.util.Comparator;
+@@ -4 +4,0 @@
+-import java.util.Objects;
+@@ -157,5 +157,10 @@
+-	private Optional<ArgType> selectBestTypeFromBounds(Set<ITypeBound> bounds) {
+-		return bounds.stream()
+-				.map(ITypeBound::getType)
+-				.filter(Objects::nonNull)
+-				.max(typeUpdate.getTypeCompare().getComparator());
++	Optional<ArgType> selectBestTypeFromBounds(Set<ITypeBound> bounds) {
++		Comparator<ArgType> comparator = typeUpdate.getTypeCompare().getComparator();
++		ArgType bestType = null;
++		for (ITypeBound bound : bounds) {
++			ArgType type = bound.getType();
++			if (type != null && (bestType == null || comparator.compare(bestType, type) < 0)) {
++				bestType = type;
++			}
++		}
++		return Optional.ofNullable(bestType);
+diff --git a/jadx-core/src/test/java/jadx/core/dex/visitors/typeinference/BestTypeSelectionTest.java b/jadx-core/src/test/java/jadx/core/dex/visitors/typeinference/BestTypeSelectionTest.java
+new file mode 100644
+--- /dev/null
++++ b/jadx-core/src/test/java/jadx/core/dex/visitors/typeinference/BestTypeSelectionTest.java
+@@ -0,0 +1,194 @@
++package jadx.core.dex.visitors.typeinference;
++
++import java.util.ArrayList;
++import java.util.Arrays;
++import java.util.Collections;
++import java.util.LinkedHashSet;
++import java.util.List;
++import java.util.Objects;
++import java.util.Optional;
++import java.util.Set;
++import java.util.function.Supplier;
++
++import org.junit.jupiter.api.BeforeEach;
++import org.junit.jupiter.params.ParameterizedTest;
++import org.junit.jupiter.params.provider.EnumSource;
++
++import jadx.api.JadxArgs;
++import jadx.core.dex.instructions.IndexInsnNode;
++import jadx.core.dex.instructions.InsnType;
++import jadx.core.dex.instructions.args.ArgType;
++import jadx.core.dex.instructions.args.RegisterArg;
++import jadx.core.dex.instructions.args.SSAVar;
++import jadx.core.dex.nodes.RootNode;
++
++import static org.assertj.core.api.Assertions.assertThat;
++import static org.assertj.core.api.Assertions.assertThatThrownBy;
++
++class BestTypeSelectionTest {
++
++	private enum Selector {
++		BASELINE_STREAM, TYPE_INFERENCE, FIX_TYPES
++	}
++
++	private RootNode root;
++	private TypeInferenceVisitor typeInference;
++	private FixTypesVisitor fixTypes;
++
++	@BeforeEach
++	void init() {
++		root = new RootNode(new JadxArgs());
++		typeInference = new TypeInferenceVisitor();
++		typeInference.init(root);
++		fixTypes = new FixTypesVisitor();
++		fixTypes.init(root);
++	}
++
++	@ParameterizedTest
++	@EnumSource(Selector.class)
++	void handlesEmptyAndNullTypes(Selector selector) {
++		assertThat(select(selector, Collections.emptySet())).isEmpty();
++		assertThat(select(selector, bounds(bound(() -> null)))).isEmpty();
++		assertThat(select(selector, bounds(bound(() -> null), bound(() -> ArgType.INT), bound(() -> null))))
++				.contains(ArgType.INT);
++		assertThatThrownBy(() -> select(selector, bounds((ITypeBound) null)))
++				.isInstanceOf(NullPointerException.class);
++	}
++
++	@ParameterizedTest
++	@EnumSource(Selector.class)
++	void preservesConflictOrderAndNarrowerTypes(Selector selector) {
++		assertThat(select(selector, bounds(bound(() -> ArgType.INT), bound(() -> ArgType.OBJECT))))
++				.contains(ArgType.OBJECT);
++		assertThat(select(selector, bounds(bound(() -> ArgType.OBJECT), bound(() -> ArgType.INT))))
++				.contains(ArgType.INT);
++		assertThat(select(selector, bounds(bound(() -> ArgType.INT), bound(() -> ArgType.LONG))))
++				.contains(ArgType.INT);
++		assertThat(select(selector, bounds(bound(() -> ArgType.LONG), bound(() -> ArgType.INT))))
++				.contains(ArgType.INT);
++	}
++
++	@ParameterizedTest
++	@EnumSource(Selector.class)
++	void keepsFirstEqualTypeIdentity(Selector selector) {
++		ArgType first = ArgType.array(ArgType.INT);
++		ArgType second = ArgType.array(ArgType.INT);
++		assertThat(second).isEqualTo(first).isNotSameAs(first);
++		assertThat(select(selector, bounds(bound(() -> first), bound(() -> second))).orElseThrow())
++				.isSameAs(first);
++		assertThat(select(selector, bounds(bound(() -> second), bound(() -> first))).orElseThrow())
++				.isSameAs(second);
++	}
++
++	@ParameterizedTest
++	@EnumSource(Selector.class)
++	void readsAndComparesEachDynamicBoundInOrder(Selector selector) {
++		ArgType first = ArgType.genericType("T");
++		ArgType second = ArgType.genericType("T", ArgType.STRING);
++		List<String> reads = new ArrayList<>();
++		Set<ITypeBound> bounds = bounds(
++				bound(() -> {
++					reads.add("first");
++					return first;
++				}),
++				bound(() -> {
++					reads.add("second");
++					return second;
++				}),
++				bound(() -> {
++					reads.add("last");
++					// The preceding comparison must see the narrower bound before this change.
++					second.setExtendTypes(Collections.emptyList());
++					return null;
++				}));
++		assertThat(select(selector, bounds).orElseThrow()).isSameAs(second);
++		assertThat(reads).containsExactly("first", "second", "last");
++
++		reads.clear();
++		assertThat(select(selector, bounds).orElseThrow()).isSameAs(first);
++		assertThat(reads).containsExactly("first", "second", "last");
++	}
++
++	@ParameterizedTest
++	@EnumSource(Selector.class)
++	void propagatesGetterFailureWithoutReadingLaterBounds(Selector selector) {
++		IllegalStateException failure = new IllegalStateException("bound failed");
++		List<String> reads = new ArrayList<>();
++		Set<ITypeBound> bounds = bounds(
++				bound(() -> {
++					reads.add("first");
++					return ArgType.INT;
++				}),
++				bound(() -> {
++					reads.add("failure");
++					throw failure;
++				}),
++				bound(() -> {
++					reads.add("last");
++					return ArgType.OBJECT;
++				}));
++		assertThatThrownBy(() -> select(selector, bounds)).isSameAs(failure);
++		assertThat(reads).containsExactly("first", "failure");
++	}
++
++	@ParameterizedTest
++	@EnumSource(Selector.class)
++	void rechecksCurrentCheckCastType(Selector selector) {
++		RegisterArg arg = new RegisterArg(0, ArgType.OBJECT);
++		SSAVar var = new SSAVar(0, 0, arg);
++		IndexInsnNode cast = new IndexInsnNode(InsnType.CHECK_CAST, ArgType.OBJECT, 1);
++		cast.addArg(arg);
++		Set<ITypeBound> bounds = bounds(new TypeBoundCheckCastAssign(root, cast));
++
++		var.setType(ArgType.STRING);
++		assertThat(select(selector, bounds)).contains(ArgType.STRING);
++		var.setType(ArgType.OBJECT);
++		assertThat(select(selector, bounds)).contains(ArgType.OBJECT);
++		cast.updateIndex(ArgType.STRING);
++		assertThat(select(selector, bounds)).contains(ArgType.STRING);
++	}
++
++	private Optional<ArgType> select(Selector selector, Set<ITypeBound> bounds) {
++		switch (selector) {
++			case BASELINE_STREAM:
++				return bounds.stream()
++						.map(ITypeBound::getType)
++						.filter(Objects::nonNull)
++						.max(root.getTypeCompare().getComparator());
++			case TYPE_INFERENCE:
++				return typeInference.selectBestTypeFromBounds(bounds);
++			case FIX_TYPES:
++				return fixTypes.selectBestTypeFromBounds(bounds);
++			default:
++				throw new IllegalArgumentException("Unknown selector: " + selector);
++		}
++	}
++
++	private static Set<ITypeBound> bounds(ITypeBound... bounds) {
++		return new LinkedHashSet<>(Arrays.asList(bounds));
++	}
++
++	private static ITypeBound bound(Supplier<ArgType> type) {
++		return new ITypeBoundDynamic() {
++			@Override
++			public BoundEnum getBound() {
++				return BoundEnum.ASSIGN;
++			}
++
++			@Override
++			public ArgType getType() {
++				return type.get();
++			}
++
++			@Override
++			public ArgType getType(TypeUpdateInfo updateInfo) {
++				throw new AssertionError("Selector must read the current bound type");
++			}
++
++			@Override
++			public RegisterArg getArg() {
++				return null;
++			}
++		};
++	}
++}

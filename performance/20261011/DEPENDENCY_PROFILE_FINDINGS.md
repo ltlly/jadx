@@ -1,5 +1,7 @@
 # 千问依赖恢复：本轮诊断结论
 
+> 最新后续：[InlineMethods 共享引用修复](INLINE_USAGE_FIX.md)（独立提交 `0bf6c9d`，保留版 1133 项检查）及 [类型边界候选筛选](TYPE_BOUND_SELECTION.md)。类型循环候选在三对主样本中未获得收益，已撤回；原始采样继续显示 TypeSearch.fillTypeCandidates 是主要类型修复热点，但动态边界、集合观察和异常语义限制了缓存捷径。历史实际竞争写入者、匿名构造器 IR 生命周期和字段列表并发问题尚未全部闭合，没有新的性能或整体语义等价验收。
+
 > 后续质量复核见 [DEPENDENCY_PROFILE_QUALITY_AUDIT.md](DEPENDENCY_PROFILE_QUALITY_AUDIT.md)：五个新增异常区域占位体已有未插桩基线的整类 token 精确复现，内联错误仍未闭合；另修正了独立的作用域漏出口缺陷。下文保留首轮诊断的原始观测，不把后续复现当作语义等价或性能验收。
 
 入口：分支 `codex/dependency-recovery-research`。工具契约见 [DEPENDENCY_PROCESSING_PROFILE.md](DEPENDENCY_PROCESSING_PROFILE.md)，汇总与构建绑定见 [dependency-profile-results.json](dependency-profile-results.json)，完整 pass 表见 [qwen-dependency-stages.tsv](qwen-dependency-stages.tsv)。这是研究进展，不是新的提速结果；50% 和 1 秒目标均未达到。

@@ -1,0 +1,1010 @@
+{
+  "fix_commit": "0bf6c9d67dbb65ead37476337a95996a7431dc3a",
+  "raw_directory": "out/jadx-perf/20261011/inline-usage-fix",
+  "baseline": {
+    "source_commit": "20f2d41e2c931243e1b4c0609f548003ed6e7606",
+    "distribution_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/profile-quality-audit/scope-fix-distribution",
+    "distribution_sha256": {
+      "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+      "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+      "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+      "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+      "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+      "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+      "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+      "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+      "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+      "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+      "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+      "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+      "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+      "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+      "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+      "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+      "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+      "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+      "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+      "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+      "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+      "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+      "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+      "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+      "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+      "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+      "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+      "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+      "lib/jadx-core-dev.jar": "01a06f2e01af6a807d5ae75068fd951948867750625937610ff1cc1660815a98",
+      "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+      "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+      "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+      "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+      "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+      "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+      "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+      "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+      "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+      "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+      "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+      "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+      "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+      "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+      "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+      "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+      "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+      "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+      "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+      "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+      "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+      "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+      "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+      "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+      "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+      "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+      "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+      "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+      "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+      "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+      "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+    },
+    "note": "Reuse previously frozen scope-fix distribution; production tree unchanged since build, later commits only research/docs"
+  },
+  "fixed": {
+    "base_commit": "20f2d41e2c931243e1b4c0609f548003ed6e7606",
+    "production_patch_sha256": "57ea4e5bb8d4b59e433698d1fc45d92168397b90fbc2cc31b2d4818c03a66697",
+    "changed_sources": {
+      "jadx-core/src/main/java/jadx/core/utils/ListUtils.java": "cead02d7fa18d2b1b96458b7c1fea9d8c74363c2c54ae3bfdf020c7a0ad53de0",
+      "jadx-core/src/main/java/jadx/core/dex/nodes/RootNode.java": "2b256d7c9d94b655802edb844597ea6b969822ad02f4a626ff7a3bd960155b90",
+      "jadx-core/src/main/java/jadx/core/dex/nodes/FieldNode.java": "2929994c695e17e5654e227e8227e549a5110e8da3dc674dd6d6efe94eb08532",
+      "jadx-core/src/main/java/jadx/core/dex/nodes/ClassNode.java": "79b0bb425a9647921f830ff1e630992a2d3f146a93d2e5e027d58ceeb461929a",
+      "jadx-core/src/main/java/jadx/core/dex/nodes/MethodNode.java": "74829fda3ae00e604267d0ca483a41bc6ec88b522d516409a7076acce9c14659",
+      "jadx-core/src/main/java/jadx/core/dex/visitors/ProcessAnonymous.java": "3b309b4360fc1de4ced006f892ff0ac1e8d5803e4f8d4f78a43d7ae8de299fb6",
+      "jadx-core/src/main/java/jadx/core/dex/visitors/InlineMethods.java": "5688715d22e28d2014ee867feac0f68ec71bf7aada9f4b1df2b07a63c3bc63f0",
+      "jadx-core/src/main/java/jadx/core/dex/visitors/usage/UsageInfoVisitor.java": "471e7a26c23c3248ae7d9680a1872ba3101139447348e8b6b5280b636bba72cd"
+    },
+    "distribution_sha256": {
+      "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+      "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+      "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+      "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+      "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+      "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+      "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+      "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+      "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+      "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+      "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+      "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+      "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+      "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+      "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+      "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+      "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+      "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+      "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+      "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+      "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+      "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+      "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+      "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+      "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+      "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+      "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+      "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+      "lib/jadx-core-dev.jar": "f550a2e2fc32ebf2dbe54fb923f23dc39eded638dcd933eaff7e4486360051e5",
+      "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+      "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+      "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+      "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+      "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+      "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+      "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+      "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+      "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+      "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+      "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+      "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+      "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+      "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+      "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+      "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+      "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+      "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+      "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+      "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+      "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+      "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+      "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+      "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+      "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+      "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+      "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+      "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+      "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+      "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+      "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+    },
+    "tests": {
+      "tests": 1133,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "evidence_sha256": {
+      "full-check-command.json": "80dcd9d63aaac28ab2ddd3edcf2d6ded76d59bf93df397600a23fa735f1bd278",
+      "full-check-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+      "full-check-results.zip": "0413a4bbb458b8858b585cad59a3ec3abcd601b54d805f281fa495f0aba8a155",
+      "full-check-counts.json": "761f97681750356398e7dfe123d56eacb66b0af9d7bf5bc998164ce6da49ca04",
+      "full-check.txt": "e842416488b1724c7b8502da2429217092a8949f9226a03f8f287befaa74b190"
+    },
+    "source_commit": "0bf6c9d67dbb65ead37476337a95996a7431dc3a",
+    "test_sources": {
+      "jadx-core/src/test/java/jadx/core/dex/visitors/InlineMethodsUsageTest.java": "39ff3015f80bfe0be0587cf7f2673e1b87209d6bf4f72d64fd4a4d0128e41b31",
+      "jadx-core/src/test/smali/inline/TestConcurrentMethodInline/Bridge.smali": "778969fbbb3cd6e9ba3f0527db0e8b64c107495af432d6e028990aae9622ba35",
+      "jadx-core/src/test/smali/inline/TestConcurrentMethodInline/Left.smali": "6f3d537cf73441e80a0672c02ec62c61342c8d822180b07c2ae44051a452ec63",
+      "jadx-core/src/test/smali/inline/TestConcurrentMethodInline/Right.smali": "e9fcd222475d0ac1ae61fee8beb0e3c1c404c06fd37c0b3113b739c69962ff8e",
+      "jadx-core/src/test/smali/inline/TestConcurrentMethodInline/Target.smali": "8feea7ced8e614e7d8cbff1a9ee8508cd9133be0e8fa2e9e0ff367b1b4f9b6c0"
+    }
+  },
+  "measurements": {
+    "runs": [
+      {
+        "wall_s": 123.54,
+        "user_s": 733.0,
+        "sys_s": 19.22,
+        "rss_kib": 16109864.0,
+        "cpu_percent": "608%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "label": "A1",
+        "cpu_s": 752.22,
+        "errors": 1032,
+        "omitted": 904
+      },
+      {
+        "wall_s": 126.99,
+        "user_s": 727.92,
+        "sys_s": 17.61,
+        "rss_kib": 16026020.0,
+        "cpu_percent": "587%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "label": "B1",
+        "cpu_s": 745.53,
+        "errors": 1032,
+        "omitted": 914
+      },
+      {
+        "wall_s": 122.86,
+        "user_s": 736.87,
+        "sys_s": 17.78,
+        "rss_kib": 16313224.0,
+        "cpu_percent": "614%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "label": "A2",
+        "cpu_s": 754.65,
+        "errors": 1032,
+        "omitted": 905
+      },
+      {
+        "wall_s": 123.39,
+        "user_s": 715.19,
+        "sys_s": 17.26,
+        "rss_kib": 16117664.0,
+        "cpu_percent": "593%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "label": "B2",
+        "cpu_s": 732.45,
+        "errors": 1033,
+        "omitted": 918
+      },
+      {
+        "wall_s": 125.44,
+        "user_s": 763.51,
+        "sys_s": 18.17,
+        "rss_kib": 16325648.0,
+        "cpu_percent": "623%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "label": "A3",
+        "cpu_s": 781.68,
+        "errors": 1032,
+        "omitted": 914
+      },
+      {
+        "wall_s": 128.35,
+        "user_s": 727.1,
+        "sys_s": 17.73,
+        "rss_kib": 16012824.0,
+        "cpu_percent": "580%",
+        "exit": 3,
+        "files": 71047,
+        "java_files": 71047,
+        "label": "B3",
+        "cpu_s": 744.83,
+        "errors": 1032,
+        "omitted": 912
+      }
+    ],
+    "medians": {
+      "A": {
+        "wall_s": 123.54,
+        "cpu_s": 754.65,
+        "rss_kib": 16313224.0
+      },
+      "B": {
+        "wall_s": 126.99,
+        "cpu_s": 744.83,
+        "rss_kib": 16026020.0
+      }
+    },
+    "ranges": {
+      "A": {
+        "wall_s": [
+          122.86,
+          125.44
+        ],
+        "cpu_s": [
+          752.22,
+          781.68
+        ],
+        "rss_kib": [
+          16109864.0,
+          16325648.0
+        ]
+      },
+      "B": {
+        "wall_s": [
+          123.39,
+          128.35
+        ],
+        "cpu_s": [
+          732.45,
+          745.53
+        ],
+        "rss_kib": [
+          16012824.0,
+          16117664.0
+        ]
+      }
+    },
+    "B_omitted_not_in_A": [
+      [
+        "sources/com/amap/api/col/p0003sl/m.java",
+        "com.amap.api.col.p0003sl.m.resetMinMaxZoomPreference():void"
+      ],
+      [
+        "sources/com/taobao/accs/utl/UtilityImpl.java",
+        "com.taobao.accs.utl.UtilityImpl.focusDisableService(android.content.Context):void"
+      ],
+      [
+        "sources/com/taobao/accs/utl/UtilityImpl.java",
+        "com.taobao.accs.utl.UtilityImpl.focusEnableService(android.content.Context):void"
+      ],
+      [
+        "sources/com/taobao/accs/utl/UtilityImpl.java",
+        "com.taobao.accs.utl.UtilityImpl.saveUtdid(java.lang.String, android.content.Context):void"
+      ],
+      [
+        "sources/com/uc/pars/impl/j.java",
+        "com.uc.pars.impl.j.a(java.lang.String, java.lang.String, java.lang.String, java.util.Map, java.lang.String, android.webkit.ValueCallback, int):int"
+      ],
+      [
+        "sources/com/uc/wpk/UCDataFlow.java",
+        "com.uc.wpk.UCDataFlow.run():void"
+      ],
+      [
+        "sources/com/ucpro/feature/setting/developer/customize/i0.java",
+        "com.ucpro.feature.setting.developer.customize.i0.onItemClick():void"
+      ]
+    ],
+    "B_omitted_not_in_historical8": [
+      [
+        "sources/com/ucpro/feature/setting/developer/customize/i0.java",
+        "com.ucpro.feature.setting.developer.customize.i0.onItemClick():void"
+      ]
+    ],
+    "A_omitted_not_in_B": [
+      [
+        "sources/com/alibaba/analytics/AnalyticsMgr.java",
+        "com.alibaba.analytics.AnalyticsMgr.notifyWaitLocked():void"
+      ],
+      [
+        "sources/com/efs/sdk/base/newsharedpreferences/a.java",
+        "com.efs.sdk.base.newsharedpreferences.a.b(boolean):void"
+      ],
+      [
+        "sources/com/uc/compass/base/preferences/d.java",
+        "com.uc.compass.base.preferences.d.a(java.lang.String):com.uc.compass.base.preferences.a"
+      ]
+    ]
+  },
+  "pairs": {
+    "1": {
+      "left": "out/jadx-perf/20261011/inline-usage-fix/qwen-A1",
+      "right": "out/jadx-perf/20261011/inline-usage-fix/qwen-B1",
+      "missing": [],
+      "extra": [],
+      "changed": 126,
+      "comment_only": 9,
+      "java_tokens_changed": 117,
+      "error_changes": {
+        "sources/com/alibaba/analytics/utils/Base64.java": {
+          "before": [
+            "JADX ERROR: JadxOverflowException in pass: RegionMakerVisitor"
+          ],
+          "after": [
+            "JADX ERROR: StackOverflowError in pass: RegionMakerVisitor"
+          ]
+        }
+      }
+    },
+    "2": {
+      "left": "out/jadx-perf/20261011/inline-usage-fix/qwen-A2",
+      "right": "out/jadx-perf/20261011/inline-usage-fix/qwen-B2",
+      "missing": [],
+      "extra": [],
+      "changed": 91,
+      "comment_only": 8,
+      "java_tokens_changed": 83,
+      "error_changes": {
+        "sources/com/alibaba/analytics/utils/Base64.java": {
+          "before": [
+            "JADX ERROR: JadxOverflowException in pass: RegionMakerVisitor"
+          ],
+          "after": [
+            "JADX ERROR: StackOverflowError in pass: RegionMakerVisitor"
+          ]
+        },
+        "sources/com/ucpro/feature/setting/developer/customize/i0.java": {
+          "before": [],
+          "after": [
+            "JADX ERROR: Method code generation error"
+          ]
+        }
+      }
+    },
+    "3": {
+      "left": "out/jadx-perf/20261011/inline-usage-fix/qwen-A3",
+      "right": "out/jadx-perf/20261011/inline-usage-fix/qwen-B3",
+      "missing": [],
+      "extra": [],
+      "changed": 111,
+      "comment_only": 16,
+      "java_tokens_changed": 95,
+      "error_changes": {
+        "sources/com/alibaba/analytics/utils/Base64.java": {
+          "before": [
+            "JADX ERROR: StackOverflowError in pass: RegionMakerVisitor"
+          ],
+          "after": [
+            "JADX ERROR: JadxOverflowException in pass: RegionMakerVisitor"
+          ]
+        }
+      }
+    }
+  },
+  "profile": {
+    "alignment_sensitivity_fix_samples": {
+      "-5": {
+        "first": 3682,
+        "recovery_metadata": 2957,
+        "unknown_before_lock": 48,
+        "unknown_outside_process": 48
+      },
+      "-1": {
+        "first": 3681,
+        "recovery_metadata": 2984,
+        "unknown_before_lock": 34,
+        "unknown_outside_process": 36
+      },
+      "0": {
+        "first": 3661,
+        "recovery_metadata": 3000,
+        "unknown_before_lock": 31,
+        "unknown_outside_process": 43
+      },
+      "1": {
+        "first": 3667,
+        "recovery_metadata": 3004,
+        "unknown_before_lock": 33,
+        "unknown_outside_process": 31
+      },
+      "5": {
+        "first": 3678,
+        "recovery_legacy": 1,
+        "recovery_metadata": 3005,
+        "unknown_before_lock": 26,
+        "unknown_outside_process": 25
+      }
+    },
+    "counts": {
+      "execution_samples": 37620,
+      "fix_samples": 6735,
+      "truncated_execution_samples": 423,
+      "truncated_fix_samples": 0,
+      "type_frames_without_fix_visit": 3044
+    },
+    "fix_resolver_allocation_weights": {
+      "applyFieldType": 53702424,
+      "other_or_unknown": 118663560,
+      "runMultiVariableSearch": 6967077968,
+      "tryDeduceTypes": 641173072,
+      "tryInsertAdditionalMove": 957611768,
+      "tryInsertCasts": 152690208,
+      "tryRemoveGenerics": 1113688,
+      "tryRestoreTypeVarCasts": 394793832,
+      "trySplitConstInsns": 276121096,
+      "tryToFixIncompatiblePrimitives": 204495032,
+      "tryToForceImmutableTypes": 4194272
+    },
+    "fix_resolver_samples": {
+      "all": {
+        "applyFieldType": 25,
+        "other_or_unknown": 77,
+        "runMultiVariableSearch": 6139,
+        "tryDeduceTypes": 99,
+        "tryInsertAdditionalMove": 169,
+        "tryInsertCasts": 34,
+        "tryRemoveGenerics": 3,
+        "tryRestoreTypeVarCasts": 83,
+        "trySplitConstInsns": 42,
+        "tryToFixIncompatiblePrimitives": 53,
+        "tryToForceImmutableTypes": 11
+      },
+      "first": {
+        "applyFieldType": 11,
+        "other_or_unknown": 31,
+        "runMultiVariableSearch": 3060,
+        "tryDeduceTypes": 40,
+        "tryInsertAdditionalMove": 86,
+        "tryInsertCasts": 9,
+        "tryRemoveGenerics": 1,
+        "tryRestoreTypeVarCasts": 27,
+        "trySplitConstInsns": 19,
+        "tryToFixIncompatiblePrimitives": 25,
+        "tryToForceImmutableTypes": 5
+      },
+      "recovery_metadata": {
+        "applyFieldType": 9,
+        "other_or_unknown": 22,
+        "runMultiVariableSearch": 2588,
+        "tryDeduceTypes": 37,
+        "tryInsertAdditionalMove": 65,
+        "tryInsertCasts": 10,
+        "tryRemoveGenerics": 1,
+        "tryRestoreTypeVarCasts": 28,
+        "trySplitConstInsns": 11,
+        "tryToFixIncompatiblePrimitives": 20,
+        "tryToForceImmutableTypes": 4
+      },
+      "unknown_before_lock": {
+        "applyFieldType": 2,
+        "other_or_unknown": 1,
+        "runMultiVariableSearch": 22,
+        "tryInsertAdditionalMove": 2,
+        "tryRestoreTypeVarCasts": 1
+      },
+      "unknown_boundary_1ms": {
+        "applyFieldType": 3,
+        "other_or_unknown": 23,
+        "runMultiVariableSearch": 469,
+        "tryDeduceTypes": 21,
+        "tryInsertAdditionalMove": 16,
+        "tryInsertCasts": 15,
+        "tryRemoveGenerics": 1,
+        "tryRestoreTypeVarCasts": 27,
+        "trySplitConstInsns": 12,
+        "tryToFixIncompatiblePrimitives": 8,
+        "tryToForceImmutableTypes": 2
+      },
+      "unknown_outside_process": {
+        "tryDeduceTypes": 1
+      }
+    },
+    "inputs": {
+      "events": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/qwen-type-profile/profile.events.json",
+      "jvm_info": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/qwen-type-profile/jvm-info.json",
+      "status": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/qwen-type-profile/dependency-profile/status.tsv",
+      "timeline": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/qwen-type-profile/dependency-profile/timeline.tsv"
+    },
+    "notes": [
+      "Approximate join; supply all inputs from the same run. Boundaries are not exact.",
+      "Resolver/search buckets are exclusive within each group; all includes every phase.",
+      "Search stages only cover stacks with both TypeSearch.run and FixTypesVisitor.visit.",
+      "Phase buckets exclude samples crossing a scope/phase boundary at +/-1ms; sensitivity uses raw offsets.",
+      "Offsets are added to the sample time relative to the estimated collector origin.",
+      "first means recovery=false for the innermost PROCESS; LEGACY and METHOD_RECOVERY are separate.",
+      "Clock anchors have millisecond precision and were not read atomically; sensitivity is not an error bound.",
+      "Execution counts are samples, allocation values are sampled byte weights, neither is exact CPU time.",
+      "These samples cannot retrospectively split the historical 39.230 CPU seconds from another run."
+    ],
+    "scope_or_phase_changes_vs_zero_offset": {
+      "-1": 419,
+      "-5": 1001,
+      "0": 0,
+      "1": 383,
+      "5": 876
+    },
+    "type_search_stage_samples_with_fix_visit": {
+      "all": {
+        "applyResolvedVars": 55,
+        "collectConstraints": 2,
+        "fillTypeCandidates": 5109,
+        "other_or_unknown": 10,
+        "resolveIndependentVariables": 7,
+        "search": 949
+      },
+      "first": {
+        "applyResolvedVars": 22,
+        "collectConstraints": 1,
+        "fillTypeCandidates": 2504,
+        "other_or_unknown": 3,
+        "resolveIndependentVariables": 3,
+        "search": 523
+      },
+      "recovery_metadata": {
+        "applyResolvedVars": 20,
+        "fillTypeCandidates": 2184,
+        "other_or_unknown": 5,
+        "resolveIndependentVariables": 2,
+        "search": 376
+      },
+      "unknown_before_lock": {
+        "applyResolvedVars": 2,
+        "fillTypeCandidates": 16,
+        "search": 4
+      },
+      "unknown_boundary_1ms": {
+        "applyResolvedVars": 11,
+        "collectConstraints": 1,
+        "fillTypeCandidates": 405,
+        "other_or_unknown": 2,
+        "resolveIndependentVariables": 2,
+        "search": 46
+      }
+    },
+    "type_stack_allocation_class_weights": [
+      [
+        "[Ljava/lang/Object;",
+        7154818112
+      ],
+      [
+        "java/util/LinkedHashMap$LinkedKeyIterator",
+        3586205736
+      ],
+      [
+        "[Ljava/util/HashMap$Node;",
+        2036818320
+      ],
+      [
+        "jadx/core/dex/visitors/typeinference/TypeUpdateRequest",
+        1656057648
+      ],
+      [
+        "java/util/stream/ReferencePipeline$Head",
+        1165345224
+      ],
+      [
+        "java/util/LinkedHashMap$Entry",
+        1105957392
+      ],
+      [
+        "java/util/HashMap",
+        1102734832
+      ],
+      [
+        "java/util/ArrayList",
+        1071502920
+      ],
+      [
+        "jadx/core/dex/visitors/typeinference/TypeUpdateEntry",
+        1039171344
+      ],
+      [
+        "jadx/core/dex/instructions/args/ArgType$GenericType",
+        1037211424
+      ],
+      [
+        "java/util/LinkedHashMap",
+        1026342272
+      ],
+      [
+        "jadx/core/dex/instructions/args/ArgType$ObjectType",
+        925147344
+      ],
+      [
+        "jadx/core/dex/visitors/typeinference/ArgsListUpdateCallback",
+        910598624
+      ],
+      [
+        "jadx/core/dex/visitors/typeinference/TypeBoundConst",
+        823424288
+      ],
+      [
+        "java/util/stream/ReferencePipeline$2",
+        803410192
+      ],
+      [
+        "java/util/stream/ReferencePipeline$3",
+        788792304
+      ],
+      [
+        "java/util/HashMap$Node",
+        753377552
+      ],
+      [
+        "java/util/ArrayList$Itr",
+        720436720
+      ],
+      [
+        "jadx/core/dex/visitors/typeinference/TypeUpdateInfo",
+        624874592
+      ],
+      [
+        "java/util/stream/SortedOps$OfRef",
+        524042136
+      ],
+      [
+        "java/util/Spliterators$IteratorSpliterator",
+        460009600
+      ],
+      [
+        "java.util.function.BinaryOperator$$Lambda/0x00000000662ef800",
+        417211088
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdate$$Lambda/0x00000000663b5c00",
+        410653296
+      ],
+      [
+        "java/util/IdentityHashMap$Values",
+        379156752
+      ],
+      [
+        "java/util/IdentityHashMap",
+        337589688
+      ]
+    ],
+    "type_stack_allocation_first_jadx_caller_weights": [
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdateInfo.<init>",
+        5398812120
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeInferenceVisitor.selectBestTypeFromBounds",
+        4163182424
+      ],
+      [
+        "jadx.core.dex.nodes.utils.TypeUtils.getTypeVariablesMapping",
+        2592445240
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdate.inBounds",
+        2550344176
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdateInfo.applyUpdates",
+        2273860816
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeInferenceVisitor.addBound",
+        2097926504
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeBoundConst.hashCode",
+        1342745360
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdateInfo.requestUpdate",
+        1333919368
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeInfo.<init>",
+        1314738976
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdate.updateTypeForSsaVar",
+        1212149096
+      ],
+      [
+        "jadx.core.dex.instructions.args.ArgType.genericType",
+        1037211424
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdate.queueDirectTypeUpdate",
+        937525448
+      ],
+      [
+        "jadx.core.dex.instructions.args.ArgType.cachedObjectType",
+        925147344
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdate.queueTypeUpdate",
+        718532200
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdate.apply",
+        624874592
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeInferenceVisitor.mergePhiBounds",
+        622104312
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdateInfo.queueRequest",
+        596083072
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdateInfo.saveCallback",
+        441554584
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeInferenceVisitor.makeUseBound",
+        432888848
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.ArgsListUpdateCallback.<init>",
+        392234304
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeUpdate.invokeListener",
+        286519872
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeInferenceVisitor.addAssignBound",
+        250410704
+      ],
+      [
+        "jadx.core.utils.Utils.collectionMap",
+        246131720
+      ],
+      [
+        "jadx.core.utils.ListUtils.anyMatch",
+        210175048
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.TypeInferenceVisitor.makeAssignInvokeBound",
+        143046416
+      ]
+    ]
+  },
+  "limitations": [
+    "Controlled regressions demonstrate the shared-update defect and its repair; historical competing writers and the exact ArrayList.add failure were not traced.",
+    "Whole APK semantic equivalence was not established. Output drift, the anonymous-constructor IR lifetime gap, and a newly observed BrowserActivity field-list CME remain open.",
+    "JFR sample counts and allocation weights are not exact CPU or byte totals; phase joins are approximate.",
+    "GUI, external plugins, arbitrary concurrent deep reload and full output recompilation were not checked."
+  ],
+  "selector_profile": {
+    "inclusive_samples": [
+      [
+        "jadx.core.dex.visitors.typeinference.TypeInferenceVisitor.selectBestTypeFromBounds",
+        424
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.FixTypesVisitor.selectBestTypeFromBounds",
+        5
+      ]
+    ],
+    "allocation_jadx_caller_weights": [
+      [
+        "jadx.core.dex.visitors.typeinference.TypeInferenceVisitor.selectBestTypeFromBounds",
+        4163182424
+      ],
+      [
+        "jadx.core.dex.visitors.typeinference.FixTypesVisitor.selectBestTypeFromBounds",
+        87355208
+      ]
+    ]
+  },
+  "type_pass_timing": [
+    {
+      "stage": "PASS/15/TypeInferenceVisitor",
+      "recovery": "false",
+      "calls": "93679",
+      "cpu_known_calls": "93679",
+      "cpu_inclusive_ns": "24795652989",
+      "cpu_self_ns": "24795652989",
+      "wall_inclusive_ns": "35939873152",
+      "wall_self_ns": "35939873152",
+      "lock_acquire_ns": "0"
+    },
+    {
+      "stage": "PASS/15/TypeInferenceVisitor",
+      "recovery": "true",
+      "calls": "51493",
+      "cpu_known_calls": "51493",
+      "cpu_inclusive_ns": "18546614352",
+      "cpu_self_ns": "18546614352",
+      "wall_inclusive_ns": "24616676295",
+      "wall_self_ns": "24616676295",
+      "lock_acquire_ns": "0"
+    },
+    {
+      "stage": "PASS/17/FixTypesVisitor",
+      "recovery": "false",
+      "calls": "93679",
+      "cpu_known_calls": "93679",
+      "cpu_inclusive_ns": "50943138118",
+      "cpu_self_ns": "50943138118",
+      "wall_inclusive_ns": "65709543327",
+      "wall_self_ns": "65709543327",
+      "lock_acquire_ns": "0"
+    },
+    {
+      "stage": "PASS/17/FixTypesVisitor",
+      "recovery": "true",
+      "calls": "51493",
+      "cpu_known_calls": "51493",
+      "cpu_inclusive_ns": "39122478313",
+      "cpu_self_ns": "39122478313",
+      "wall_inclusive_ns": "46109330745",
+      "wall_self_ns": "46109330745",
+      "lock_acquire_ns": "0"
+    }
+  ],
+  "evidence_sha256": {
+    "A1-B1-audit.diff": "2dcc47a06aa425155b1b839729f5fce2b39df153e368ae78f9b260d476ea85b2",
+    "A1-B1-audit.json": "0bbba766fc847ce800a9c6d0c1e51fe334f8ef668b2b94f601afedd93858e812",
+    "A2-B2-audit.diff": "4f1a50a1f332cd7b13896b3be0c0a6675e090f624a63a5166007cc5bec180670",
+    "A2-B2-audit.json": "5de71c991040ce21e1d738ba359fd7296f950bc51af4ed4b0dd952ecbd64b007",
+    "A3-B3-audit.diff": "32d133a4b2d1847e6e50a74ca4bd1154a75d2b7ac0377941472c10cb7d6d891a",
+    "A3-B3-audit.json": "09081d9d80ce56ca7700245383809f645e1dac68740803c19ef2c7755d62fcae",
+    "B3-type-profile-audit.diff": "a115b54af9882a26b364ba2d88cca718977c576c1893a488805194299438dc38",
+    "B3-type-profile-audit.json": "265728ef5a47b3b095d12e2fd8f5e1bf882f2cbbd9a8eaae4702ae67af0eb7f3",
+    "baseline-artifact.json": "b44c366d41d8350909ec2f249f1184dabf73b4370b84ca2e15f6263472c89457",
+    "changed-core-entries.json": "3a2b90b2447e0f5f1bd05844e645c8b38ecc16a56c2a0083119a615fb29717fd",
+    "fixed-artifact.json": "b1bbc0cd9c995eeffa43646e9c8421355d03277d788bdad51d6962f863cd3cf4",
+    "fixed-regression.xml": "da62494b005b7f99c515398db05d2392d6f8febc5b067b6df56ef9b35567e956",
+    "fixed-targeted-command.json": "44d9da3f7a06ba934c547dd4e3a8ba095be2239a46b8e8ed7159e6e98fe5a224",
+    "fixed-targeted-exit.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "fixed-targeted-regression.xml": "9867c6baceaddeb708d647d7915a088688643f4750ab616e271684f043bfce04",
+    "fixed-targeted-test-counts.json": "b9452b15873e908178eadf088d81a0b7ae06318cb37e3187511817858980d871",
+    "fixed-targeted.txt": "168118db3965fc8f47d23b968f0413f7bd8e6bdb07c892efe255f69d0b1317b7",
+    "full-check-command.json": "80dcd9d63aaac28ab2ddd3edcf2d6ded76d59bf93df397600a23fa735f1bd278",
+    "full-check-counts.json": "761f97681750356398e7dfe123d56eacb66b0af9d7bf5bc998164ce6da49ca04",
+    "full-check-exit.txt": "9a271f2a916b0b6ee6cecb2426f0b3206ef074578be55d9bc94f6f3fe3ab86aa",
+    "full-check-results.zip": "0413a4bbb458b8858b585cad59a3ec3abcd601b54d805f281fa495f0aba8a155",
+    "full-check.txt": "e842416488b1724c7b8502da2429217092a8949f9226a03f8f287befaa74b190",
+    "measurements-and-quality.json": "68244b5cd82bed5cd9f1f32d6f3934419827a1898674aaedd8e4b484f715904d",
+    "old-regression-command.json": "719259e1337297eb03326fa8d7a6f5cd8184e2841e3387c566c46fc53bdb6c02",
+    "old-regression-exit.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "old-regression-test.class": "77b26615ca1c3c77a5ac25fac85b8fff876612004b744474a417e90b80fb6c0a",
+    "old-regression-v2-command.json": "b7e555ccac3fdddbae8c9e99734d47c0b649a61413beef87e93c07f6c2b9164c",
+    "old-regression-v2-exit.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+    "old-regression-v2-source.java": "f069bd5ef1e35325f5b5c6b3c22c4ec0ac132958d8e3fd4d684f1c1949f96b81",
+    "old-regression-v2.txt": "f9de213ca9513690d25241096a22cb5529abe6ea9362f9cae985de38bb1855f6",
+    "old-regression-v2.xml": "aa41709feda280416716c89e1af1d0ff502fd87108603448aa5f8cd822ce8433",
+    "old-regression.txt": "1b79c99fc231fecc03f1bc7a643bd14bba9a34a22485a36dc87b29b0ddfd8cb5",
+    "old-regression.xml": "69bd1fbc12fca576d9022f58aef25966b6c2d97852c6afdb7b006c86945224ef",
+    "production.patch": "57ea4e5bb8d4b59e433698d1fc45d92168397b90fbc2cc31b2d4818c03a66697"
+  },
+  "profile_evidence_sha256": {
+    "qwen-type-profile/diagnostics.txt": "a191c48fcf245614926eaa3c331110da2b2bfc35b01c247987b26009b640c31c",
+    "qwen-type-profile/host-before.txt": "74098fec679f024b1fdedd5a4e6895bb24a063ac7085d900e429524d12838b6c",
+    "qwen-type-profile/host-cpu.jsonl": "e6d8d27787916db713f90efa7647307ce1205ed377f5edd3e9bdbe480590371d",
+    "qwen-type-profile/jvm-info.json": "6d83deaf25dae6da23bed0e47eb55853f41bbd00255a991d306b37e47d5629b6",
+    "qwen-type-profile/manifest.json": "980701e608dd3d7869b8bfb76abfe2ad6ed22f72a0ce61d65a607422785024d2",
+    "qwen-type-profile/metadata.json": "fe635ef539fd483298937f77758cc035d7d405f2a4c3150e030290e24ff5b86d",
+    "qwen-type-profile/metrics.json": "d1f83ccd72127f55a0144d3ed582c03d0dcd38c5f3ca85fa6624fb0378b41db6",
+    "qwen-type-profile/monitor-gc.json": "3ea5b9e5ed4b2dce40aeda817946b0e16dfb7cbe4ba11c9e1903effdbc5d3d73",
+    "qwen-type-profile/profile.events.json": "3c32096a96c0560b9aa372f5da9eb050ae03083ec0a510f1d7ea8f942e9d3232",
+    "qwen-type-profile/profile.jfr": "0027b12495d0b8a0554285475b24b76905f3dc35ce9cdf49d6af49362ec47296",
+    "qwen-type-profile/profile.summary.json": "e0122db83b1f5d410737827cf8ebc4df1084d0d246e7bc41a45e157348ad4d5f",
+    "qwen-type-profile/stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "qwen-type-profile/stdout.txt": "3e6fd1960791b1552f4f131ed49564d65c9dcea92113d7acb3f6c325abf01332",
+    "qwen-type-profile/time.txt": "ea2d01b8732d19bda8aa223d3e98bfe6b86ee87f15df5c15d6d119764302c9d6",
+    "qwen-type-profile/type-profile-summary.json": "52a87f3ff8891751201257a69dea21295c528ae2d51ee245e59f79e7c7ac86c9",
+    "qwen-type-profile/usage-monitor-gc-summary.json": "afcb8ac930555690feb296f2539f39100d261a54b8050a16439535df3a3456c5",
+    "qwen-type-profile/dependency-profile/body-reads.tsv": "7fdf2ab91a20a7d3771a57fdedbef67dbd4514d30de4eea41530e392bfad2e8b",
+    "qwen-type-profile/dependency-profile/classes.tsv": "857b4c65f134a039528b585ef0ae84692538bd9cb91256a751482ed8ad24e22f",
+    "qwen-type-profile/dependency-profile/decode-attempts.tsv": "e6e156b5bf431fb0e0a0e735250e9141eea22891d53e7b2990265070d6f98dbb",
+    "qwen-type-profile/dependency-profile/stages.tsv": "6483aeb94cf86f392c2ac913d1cf817b357d91d05d7337b8b536542e1262b88f",
+    "qwen-type-profile/dependency-profile/status.tsv": "e833d92978689662184d5f6ca80c6bd139b64005609f67c2e2a00e96097d5d9f",
+    "qwen-type-profile/dependency-profile/timeline.tsv": "226bffd665fd925bb08394deedac71f6ba874980113ec06f8c5b4a2029d78e6b"
+  },
+  "formal_run_evidence_sha256": {
+    "A1": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "1261efe163a595e3ebefd93781c4523e40915c3b08a617db625a86e37fc5244f",
+      "host-cpu.jsonl": "6e987c65cf2606b546e8b28fd992284d4392e2405cedd4ace106cb24054aca56",
+      "manifest.json": "a75c0c323860f93667f8abb070a465ad79bf2673f58388be7955f7fdaa146c5c",
+      "metadata.json": "f8f23f9d1931c70457beb6723b4efe7900b58d33bc9008d91e3f66eeee078197",
+      "metrics.json": "ab0e76e417848466639a7740283146b422a99e106158ebee728b3cc67953c6be",
+      "omitted-methods.json": "5931a45073ea0b298081fef444c38d60150a89629dfdfc411ef4093f84b5939f",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "93a3a66f877ed3ac5f2ba61a7231037f0c1fef22ff14f6f8bd825c269d552246",
+      "time.txt": "ca2feb792b6f4bf493910943c726d3ac0f742a3fd961a2af53aaf206519518fd"
+    },
+    "B1": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "6da216fccc657e9ad4dc7a66f74cfaa4c6379925f46eb0c00e660f73af34298e",
+      "host-cpu.jsonl": "cabd21d1955f3f6a7333dab0e6c2cc68d4c8bd99c8977731c5c6302e964af4d1",
+      "manifest.json": "ec00d9d17516316216b540da42ad1e43988b313ebcd160ee112086404c9cb80b",
+      "metadata.json": "2d745aa0004bf4da4d48415227bd54ac53812ca75cfac296d46f512cbe2312ff",
+      "metrics.json": "8779ed8561422c6e34791e81c267d40b6bb5f788b8bd6996ad4ee961db4f2741",
+      "omitted-methods.json": "281ed1d05592940347e68f68bb24eba354dc8ba08494f1b73c37da8b01d526d5",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "c40faca12add44281ebc95affac795919c44aef22bc19166f0e7edaf097f0cbc",
+      "time.txt": "165fd6999f462d8555e7bc916f436e1ad9ae8bad1be7cbd2d6b0fe6d6e44749b"
+    },
+    "A2": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "0d2607c3085de599b5ef49d1c5b18b1084cc286bbca3ed014d432951cb437cde",
+      "host-cpu.jsonl": "c915a3e4437059a247149ddd803b3829eec92227d99f846011df3f3ea8a83043",
+      "manifest.json": "f616cf353ca069f3e368586cf589d6b0661c59ef223c1c0e89703da93747f947",
+      "metadata.json": "1c78d0330c0b38acd97058c07674728a8997925c7fe870fcd8e7131ef2c2eee2",
+      "metrics.json": "bbec3efe54ad11585a0a00cdbd8fa3bf3261ba3fa81d88d55971bd6d597156b5",
+      "omitted-methods.json": "69304f0a07826b5d8e841e4b36d84322741e9ea89785f9df6a48eaee2e691cf1",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "331e016f5b9171d8acbe95b12d23eadaa4645d89cd4ac0d48155cfa23136f44f",
+      "time.txt": "d76aa04bbbd1db152be61a79ec45cdc407100772810e263fb85fd96db6230f66"
+    },
+    "B2": {
+      "diagnostics.txt": "a191c48fcf245614926eaa3c331110da2b2bfc35b01c247987b26009b640c31c",
+      "host-before.txt": "75cd4ade024bbfe6ba829e94151b227e0570e94eae47f92cdf6d4eee3f8edf9c",
+      "host-cpu.jsonl": "cebc4749467c2c0c876f6fa2a255465b821ab3e0533a1691483b103fe2d1c99a",
+      "manifest.json": "cf2aee8762ce2c4f5dc1cf23e3904dbb0b058c944a28205fda21f676f499ef5c",
+      "metadata.json": "a01bc5711c54dbce90561ff607d343f78492aa3d61084d91c28fe7dbe23f51ec",
+      "metrics.json": "1fe7318f28ef60e8e1873dd554e235a81ad1a015f0bb4a9ca3642386f167f032",
+      "omitted-methods.json": "65f6aaa2f2c2444001b352370eb13c2565d0c8007c93cdb26098ca08e93d19f2",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "6091977e6e12deb3739b475420753cb8c4f73e5bd1b931b95cac1f92dfca3b3d",
+      "time.txt": "d645d14115b0a6a23328ece40cd60c3e88b6b92520b2e627649c1256f8634308"
+    },
+    "A3": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "46ee8fc0b454346fa608892d62bbd56249815a6d9469cfe563551c3cafbf1003",
+      "host-cpu.jsonl": "8ce4e5813d016b49409431ac819b6d15c2c35ecaff545d629f8c764d42403fad",
+      "manifest.json": "498d11de9d59c7c9a05fdc529d6616f6551b5feda683c0f84848ff844fd22816",
+      "metadata.json": "9f25772203d63612f824a4e3a6211b4f318299e4ea9c3edbe16f0111850abdef",
+      "metrics.json": "997be00dd0cbef5843945459083c84decf1dfb82f4458c03c4441ceb89835873",
+      "omitted-methods.json": "44a6a3aa082a1c7d947b2cbcc9a41c121a34e759e487f25d4f7024998d2aaa88",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "69b50af0135439618e0415d9699fa5338e045d928cb4f64c47c44c8d285ab8d4",
+      "time.txt": "fab577041adbfd10e62b9553a2fcd2751cc067653db670ad1582619853420c6e"
+    },
+    "B3": {
+      "diagnostics.txt": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+      "host-before.txt": "24ae848b325c3a7d1fbeb6d73f8f8aed94890c6f88c5e5bf3c2e997150a5818c",
+      "host-cpu.jsonl": "acccec556d3fc5ea8c0fd1f97b4ee3b30826821da0844a28c69ff7f592c24c5c",
+      "manifest.json": "abd56f63c861764d95d199df94f64aec7f626c41c3d476276d6dac15fd059655",
+      "metadata.json": "3cf02ad482d9952dfcf2b17d5dc96e90ccc9e3832cb7e56ec906fcccccb78e5e",
+      "metrics.json": "fd0aba41c1bf6c8debb98dab0bc42b1f7a25a414db0d8f05dbde8dcd19466d45",
+      "omitted-methods.json": "2614c63018f3ff79ec76188bfb4c4b9e34bdf33ac754b8b77f1aa803581fa979",
+      "stderr.txt": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stdout.txt": "ac0c778c3e038e4afad57fade91af17134266c994e7b397f850d56195fed8c45",
+      "time.txt": "c7d5dec7605cdc9e4be4d96860f808039448652223594ead837b0aad6800d82f"
+    }
+  }
+}

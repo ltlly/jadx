@@ -2,3 +2,5 @@ __pycache__/
 !dependency-recovery-checks.json
 !dependency-profile-results.json
 !dependency-profile-quality-audit.json
+!inline-usage-fix-results.json
+!type-bound-selection-results.json
