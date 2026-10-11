@@ -44,6 +44,7 @@ import jadx.core.dex.visitors.ModVisitor;
 import jadx.core.dex.visitors.blocks.BlockSplitter;
 import jadx.core.utils.BlockUtils;
 import jadx.core.utils.InsnList;
+import jadx.core.utils.InsnRemover;
 import jadx.core.utils.InsnUtils;
 import jadx.core.utils.ListUtils;
 import jadx.core.utils.Utils;
@@ -587,7 +588,43 @@ public final class FixTypesVisitor extends AbstractVisitor {
 		if (type.isTypeKnown() || var.isTypeImmutable()) {
 			return false;
 		}
-		return splitByPhi(mth, var) || dupConst(mth, var);
+		boolean constPhi = replaceConstPhi(mth, var);
+		return splitByPhi(mth, var) || dupConst(mth, var) || constPhi;
+	}
+
+	private static boolean replaceConstPhi(MethodNode mth, SSAVar var) {
+		InsnNode assignInsn = var.getAssignInsn();
+		if (!(assignInsn instanceof PhiInsn) || assignInsn.getArgsCount() == 0) {
+			return false;
+		}
+		LiteralArg literal = null;
+		for (InsnArg arg : assignInsn.getArguments()) {
+			InsnNode argAssign = ((RegisterArg) arg).getAssignInsn();
+			if (!InsnUtils.isInsnType(argAssign, InsnType.CONST) || !argAssign.getArg(0).isLiteral()) {
+				return false;
+			}
+			LiteralArg argLiteral = (LiteralArg) argAssign.getArg(0);
+			if (literal == null) {
+				literal = argLiteral;
+			} else if (!literal.equals(argLiteral)) {
+				return false;
+			}
+		}
+		BlockNode block = BlockUtils.getBlockByInsn(mth, assignInsn);
+		if (block == null) {
+			return false;
+		}
+		// Equal incoming constants can be typed independently at each use after the merge.
+		InsnNode constInsn = new InsnNode(InsnType.CONST, 1);
+		constInsn.setResult(assignInsn.getResult().duplicate());
+		constInsn.addArg(literal.duplicate());
+		constInsn.inheritMetadata(assignInsn);
+		constInsn.setOffset(assignInsn.getOffset());
+		InsnRemover.unbindAllArgs(mth, assignInsn);
+		InsnRemover.delistPhi(mth, (PhiInsn) assignInsn);
+		int insertIndex = BlockUtils.checkFirstInsn(block, insn -> insn.getType() == InsnType.MOVE_EXCEPTION) ? 1 : 0;
+		block.getInstructions().add(insertIndex, constInsn);
+		return true;
 	}
 
 	private boolean dupConst(MethodNode mth, SSAVar var) {
