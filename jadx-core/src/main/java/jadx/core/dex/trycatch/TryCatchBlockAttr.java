@@ -187,9 +187,14 @@ public class TryCatchBlockAttr implements IJadxAttribute {
 		for (ExceptionHandler handler : mergedHandlers) {
 			handler.getBlocks().forEach(searchBlocks::remove);
 		}
-		BlockNode sourceBlock = BlockUtils.getTopBlock(new ArrayList<>(searchBlocks));
-		if (sourceBlock != null) {
+		BlockNode top = BlockUtils.getTopBlock(new ArrayList<>(searchBlocks));
+		// A loop back edge can make a later block reach the whole try without being its entry.
+		BlockNode sourceBlock = top != null && ListUtils.allMatch(searchBlocks, block -> block == top || block.isDominator(top))
+				? top
+				: getTopSplitter();
+		if (sourceBlock != null && !searchBlocks.isEmpty()) {
 			exploredTrys.add(this);
+			exploredBlocks.add(sourceBlock);
 			exploreTryPath(edges, sourceBlock, searchBlocks, exploredBlocks, exploredTrys);
 		}
 	}
@@ -211,8 +216,7 @@ public class TryCatchBlockAttr implements IJadxAttribute {
 				continue;
 			}
 
-			// If this is a bottom splitter, ignore - we only care about non-handler edges.
-			if (successor.contains(AFlag.EXC_BOTTOM_SPLITTER)) {
+			if (BlockUtils.isExceptionHandlerPath(successor)) {
 				continue;
 			}
 
