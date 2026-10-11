@@ -165,6 +165,27 @@ class MethodThrowsCatchOriginTest {
 		assertThat(MethodThrowsVisitor.isRethrowingHandler(handler)).isFalse();
 	}
 
+	@Test
+	void rejectsRethrowWithoutHandlerMetadata() {
+		ExceptionHandler handler = linearRethrow();
+		InsnNode caught = handler.getHandlerBlock().getInstructions().get(0);
+		caught.remove(AType.EXC_HANDLER);
+		assertThat(isCaught(caught.getResult())).isTrue();
+		assertThat(MethodThrowsVisitor.isRethrowingHandler(handler)).isFalse();
+	}
+
+	@Test
+	void rejectsRethrowPhiWithMissingHandlerMetadata() {
+		ExceptionHandler handler = linearRethrow();
+		BlockNode start = handler.getHandlerBlock();
+		RegisterArg known = start.getInstructions().get(0).getResult();
+		RegisterArg merged = phi(known, caught(ArgType.THROWABLE)).getResult();
+		BlockNode end = start.getCleanSuccessors().get(0);
+		end.getInstructions().get(0).setArg(0, merged.duplicate());
+		assertThat(isCaught(merged)).isTrue();
+		assertThat(MethodThrowsVisitor.isRethrowingHandler(handler)).isFalse();
+	}
+
 	private static ExceptionHandler linearRethrow() {
 		ExceptionHandler handler = ExceptionHandler.build(null, 0, null);
 		RegisterArg arg = caught(ArgType.THROWABLE);

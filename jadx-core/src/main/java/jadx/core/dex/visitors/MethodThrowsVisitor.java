@@ -478,7 +478,10 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 		}
 		if (assign.getType() == InsnType.MOVE_EXCEPTION) {
 			ExcHandlerAttr handler = assign.get(AType.EXC_HANDLER);
-			if (caughtHandlers != null && handler != null) {
+			if (caughtHandlers != null) {
+				if (handler == null) {
+					return false;
+				}
 				caughtHandlers.add(handler.getHandler());
 			}
 			checked.put(assign, Boolean.TRUE);
