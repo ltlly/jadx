@@ -145,10 +145,33 @@ class KotlinMetadataDecompilePass(
 	private fun renameGetters(wrapper: KmClassWrapper) {
 		val getters = wrapper.getGetters()
 		getters.forEach { (mth, alias) ->
-			if (AFlag.DONT_RENAME !in mth && AType.METHOD_OVERRIDE !in mth) {
+			if (AFlag.DONT_RENAME !in mth && !hasOverride(mth)) {
 				RenameReasonAttr.forNode(mth).append(GETTER_REASON)
 				mth.rename(alias)
 			}
+		}
+	}
+
+	private fun hasOverride(mth: MethodNode): Boolean {
+		if (AType.METHOD_OVERRIDE in mth) return true
+		val flags = mth.accessFlags
+		if (flags.isPrivate || flags.isStatic || flags.isFinal) return false
+		val cls = mth.parentClass
+		val root = mth.root()
+		val signature = mth.methodInfo.makeSignature(false)
+		val returnType = mth.methodInfo.returnType
+		// Deep reload clears incoming override attributes; raw declarations survive it.
+		return root.clsp.getImplementations(cls.rawName).any { name ->
+			val child = root.resolveClass(name) ?: return@any false
+			(flags.isPublic || flags.isProtected || cls.classInfo.`package` == child.classInfo.`package`) &&
+				child.methods.any { candidate ->
+					val childReturnType = candidate.methodInfo.returnType
+					val isCovariant = !returnType.isPrimitive && !childReturnType.isPrimitive &&
+						root.typeCompare.compareTypes(returnType, childReturnType).isWider
+					!candidate.accessFlags.isPrivate && !candidate.accessFlags.isStatic &&
+						candidate.methodInfo.shortId.startsWith(signature) &&
+						(returnType == childReturnType || isCovariant)
+				}
 		}
 	}
 
