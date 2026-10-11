@@ -487,7 +487,8 @@ public final class FixTypesVisitor extends AbstractVisitor {
 					&& !boundType.equals(var.getTypeInfo().getType())
 					&& boundType.containsTypeVariable()
 					&& !mth.root().getTypeUtils().containsUnknownTypeVar(mth, boundType)) {
-				IndexInsnNode castInsn = insertAssignCast(mth, var, boundType);
+				ArgType castType = boundType.isWildcard() ? boundType.getWildcardType() : boundType;
+				IndexInsnNode castInsn = insertAssignCast(mth, var, castType);
 				if (castInsn != null) {
 					castInsn.add(AFlag.SOFT_CAST);
 					return 1;

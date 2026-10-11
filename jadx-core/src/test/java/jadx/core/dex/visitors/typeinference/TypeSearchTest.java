@@ -14,11 +14,32 @@ import org.junit.jupiter.api.Test;
 import jadx.api.JadxArgs;
 import jadx.api.JadxDecompiler;
 import jadx.core.dex.instructions.args.ArgType;
+import jadx.core.dex.instructions.args.ArgType.WildcardBound;
 import jadx.tests.api.utils.TestUtils;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 class TypeSearchTest {
+	@Test
+	void testWildcardAndOutOfScopeCandidates() {
+		JadxArgs args = new JadxArgs();
+		args.addInputFile(TestUtils.getFileForSample("test-samples/hello.dex"));
+		try (JadxDecompiler decompiler = new JadxDecompiler(args)) {
+			decompiler.load();
+			TypeSearch search = new TypeSearch(decompiler.getRoot().getClasses().get(0).getMethods().get(0));
+			ArgType wildcard = ArgType.wildcard(ArgType.STRING, WildcardBound.SUPER);
+			Set<ITypeBound> bounds = Collections.singleton(new TypeBoundConst(BoundEnum.USE, wildcard));
+			Set<ArgType> collected = new LinkedHashSet<>();
+			search.addCandidateTypes(bounds, collected, Stream.of(wildcard, ArgType.object("java.lang.Integer")));
+			assertThat(collected).containsExactly(ArgType.STRING);
+
+			collected.clear();
+			search.addCandidateTypes(Collections.emptySet(), collected,
+					Stream.of(ArgType.generic("java.lang.Class", ArgType.genericType("U")), ArgType.CLASS));
+			assertThat(collected).containsExactly(ArgType.CLASS);
+		}
+	}
+
 	@Test
 	void testLazyCandidatesKeepOrderAndStoppingCondition() {
 		JadxArgs args = new JadxArgs();

@@ -339,6 +339,9 @@ public final class TypeUpdate {
 	}
 
 	private boolean checkBound(ArgType candidateType, ITypeBound bound, ArgType boundType) {
+		if (boundType.isWildcard()) {
+			boundType = boundType.getWildcardType();
+		}
 		TypeCompareEnum compareResult = comparator.compareTypes(candidateType, boundType);
 		switch (compareResult) {
 			case EQUAL:

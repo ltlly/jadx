@@ -290,7 +290,12 @@ public class TypeSearch {
 	}
 
 	private boolean addCandidateType(Set<ITypeBound> bounds, Set<ArgType> collectedTypes, ArgType candidateType) {
-		if (candidateType.isTypeKnown() && typeUpdate.inBounds(bounds, candidateType)) {
+		if (candidateType.isWildcard()) {
+			candidateType = candidateType.getWildcardType();
+		}
+		if (candidateType.isTypeKnown()
+				&& (!candidateType.containsTypeVariable() || !mth.root().getTypeUtils().containsUnknownTypeVar(mth, candidateType))
+				&& typeUpdate.inBounds(bounds, candidateType)) {
 			collectedTypes.add(candidateType);
 			if (collectedTypes.size() > CANDIDATES_COUNT_LIMIT) {
 				return true;
@@ -312,6 +317,9 @@ public class TypeSearch {
 	}
 
 	private Stream<ArgType> getNarrowTypes(ArgType type) {
+		if (type.isWildcard()) {
+			return Stream.of(type.getWildcardType());
+		}
 		if (type.isTypeKnown()) {
 			if (type.isObject()) {
 				if (type.equals(ArgType.OBJECT)) {
