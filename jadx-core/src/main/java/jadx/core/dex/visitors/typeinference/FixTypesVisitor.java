@@ -617,7 +617,7 @@ public final class FixTypesVisitor extends AbstractVisitor {
 			}
 			InsnNode newInsn = assignInsn.copyWithNewSsaVar(mth);
 			assignBlock.getInstructions().add(insertIndex, newInsn);
-			useInsn.replaceArg(useArg, newInsn.getResult().duplicate());
+			useInsn.replaceArg(useArg, newInsn.getResult().duplicate(useArg.getInitType()));
 		}
 		if (Consts.DEBUG_TYPE_INFERENCE) {
 			LOG.debug("Duplicate const insn {} times: {} in {}", useList.size(), assignInsn, assignBlock);
