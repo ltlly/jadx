@@ -37,7 +37,7 @@ public class TestCaughtThrowablePhi extends SmaliTest {
 		cls.load();
 		for (MethodNode method : cls.getMethods()) {
 			assertThat(root.getProcessClasses().processMethodUntilVisitor(method, "MethodThrowsVisitor", false)).isTrue();
-			assertThat(hasErrors(method, false)).as("pipeline checks for %s", method).isFalse();
+			assertThat(hasErrors(method, false)).as("pipeline checks for %s: %s", method, method.getAttributesStringsList()).isFalse();
 		}
 		MethodNode method = cls.searchMethodByShortId("read(Ljava/lang/String;)I");
 		assertThat(assertVisibleCaughtPhi(method)).as("the real throws scan must receive the merged catch value").isTrue();

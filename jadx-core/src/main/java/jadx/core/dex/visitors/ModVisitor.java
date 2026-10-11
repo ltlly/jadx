@@ -34,6 +34,7 @@ import jadx.core.dex.instructions.InsnType;
 import jadx.core.dex.instructions.NewArrayNode;
 import jadx.core.dex.instructions.SwitchInsn;
 import jadx.core.dex.instructions.args.ArgType;
+import jadx.core.dex.instructions.args.CodeVar;
 import jadx.core.dex.instructions.args.InsnArg;
 import jadx.core.dex.instructions.args.InsnWrapArg;
 import jadx.core.dex.instructions.args.LiteralArg;
@@ -621,6 +622,11 @@ public class ModVisitor extends AbstractVisitor {
 			moveInsn.addArg(namedArg);
 			excHandler.setArg(namedArg);
 			replaceInsn(mth, block, 0, moveInsn);
+			CodeVar codeVar = resArg.getSVar().getCodeVar();
+			if (!codeVar.isThis() && allMatch(mth.getArgRegs(), arg -> arg.getSVar().getCodeVar() != codeVar)) {
+				// The catch parameter no longer declares this external variable.
+				codeVar.setDeclared(false);
+			}
 		}
 		block.copyAttributeFrom(insn, AType.CODE_COMMENTS); // save comment
 	}

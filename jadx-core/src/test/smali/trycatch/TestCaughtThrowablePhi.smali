@@ -51,7 +51,6 @@
     return v0
 
     :close_rethrow
-    if-eqz v1, :throw
     invoke-static {v1}, Ltrycatch/TestCaughtThrowablePhi;->closeQuietly(Ljava/io/InputStream;)V
 
     :throw

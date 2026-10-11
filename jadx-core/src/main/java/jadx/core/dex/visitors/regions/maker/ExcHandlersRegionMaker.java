@@ -68,7 +68,9 @@ public class ExcHandlersRegionMaker {
 					}
 					BlockNode ss = s.get(0);
 					BlockNode cross = BlockUtils.getPathCross(mth, ss, handler);
-					if (cross != null && cross != ss && cross != handler) {
+					// A join reached only through another handler is not a normal try exit.
+					if (cross != null && cross != ss && cross != handler
+							&& BlockUtils.collectAllSuccessors(mth, ss, true).contains(cross)) {
 						exits.add(cross);
 					}
 				}
