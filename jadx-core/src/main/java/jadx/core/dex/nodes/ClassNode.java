@@ -117,11 +117,11 @@ public class ClassNode extends NotificationAttrNode
 	/**
 	 * Classes which uses this class
 	 */
-	private volatile List<ClassNode> useIn = Collections.emptyList();
+	private volatile UsageInfoList<ClassNode> useIn = UsageInfoList.copyOf(Collections.emptyList(), ClassNode.class);
 	/**
 	 * Methods which uses this class (by instructions only, definition is excluded)
 	 */
-	private volatile List<MethodNode> useInMth = Collections.emptyList();
+	private volatile UsageInfoList<MethodNode> useInMth = UsageInfoList.copyOf(Collections.emptyList(), MethodNode.class);
 
 	// cache maps
 	private Map<MethodInfo, MethodNode> mthInfoMap = Collections.emptyMap();
@@ -1024,11 +1024,11 @@ public class ClassNode extends NotificationAttrNode
 
 	/** Stable read-only snapshot; use the node methods to update usage. */
 	public List<ClassNode> getUseIn() {
-		return useIn;
+		return useIn.list();
 	}
 
 	public void setUseIn(List<ClassNode> useIn) {
-		List<ClassNode> snapshot = ListUtils.immutableCopy(useIn);
+		UsageInfoList<ClassNode> snapshot = UsageInfoList.copyOf(useIn, ClassNode.class);
 		synchronized (root.getUsageInfoLock()) {
 			this.useIn = snapshot;
 		}
@@ -1036,27 +1036,23 @@ public class ClassNode extends NotificationAttrNode
 
 	public void addUseIn(ClassNode cls) {
 		synchronized (root.getUsageInfoLock()) {
-			List<ClassNode> updated = new ArrayList<>(useIn);
-			updated.add(cls);
-			useIn = Collections.unmodifiableList(updated);
+			useIn = useIn.add(cls);
 		}
 	}
 
 	public void removeUseIn(ClassNode cls) {
 		synchronized (root.getUsageInfoLock()) {
-			List<ClassNode> updated = new ArrayList<>(useIn);
-			updated.remove(cls);
-			useIn = Collections.unmodifiableList(updated);
+			useIn = useIn.remove(cls);
 		}
 	}
 
 	/** Stable read-only snapshot; use the node methods to update usage. */
 	public List<MethodNode> getUseInMth() {
-		return useInMth;
+		return useInMth.list();
 	}
 
 	public void setUseInMth(List<MethodNode> useInMth) {
-		List<MethodNode> snapshot = ListUtils.immutableCopy(useInMth);
+		UsageInfoList<MethodNode> snapshot = UsageInfoList.copyOf(useInMth, MethodNode.class);
 		synchronized (root.getUsageInfoLock()) {
 			this.useInMth = snapshot;
 		}
@@ -1064,9 +1060,8 @@ public class ClassNode extends NotificationAttrNode
 
 	public void replaceUsage(MethodNode oldMth, MethodNode newMth) {
 		synchronized (root.getUsageInfoLock()) {
-			useInMth = Collections.unmodifiableList(ListUtils.safeReplace(new ArrayList<>(useInMth), oldMth, newMth));
-			useIn = Collections.unmodifiableList(ListUtils.safeReplace(new ArrayList<>(useIn),
-					oldMth.getParentClass(), newMth.getParentClass()));
+			useInMth = useInMth.replace(oldMth, newMth);
+			useIn = useIn.replace(oldMth.getParentClass(), newMth.getParentClass());
 		}
 	}
 
