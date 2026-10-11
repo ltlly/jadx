@@ -263,6 +263,9 @@ public class MarkFinallyVisitor extends AbstractVisitor {
 	 * @return Whether the try block is implicit and has been removed.
 	 */
 	private static boolean attemptRemoveImplicitHandlers(List<BlockNode> cutHandlerBlocks, TryExtractInfo tryInfo) {
+		if (tryInfo.rethrowBlocks.isEmpty()) {
+			return false;
+		}
 		if (!(cutHandlerBlocks.isEmpty() || BlockUtils.isAllBlocksEmpty(cutHandlerBlocks))) {
 			return false;
 		}
