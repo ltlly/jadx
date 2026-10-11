@@ -277,7 +277,7 @@ public class TernaryMod extends AbstractRegionVisitor implements IRegionIterativ
 	private static boolean processOneBranchTernary(MethodNode mth, IfRegion ifRegion) {
 		IContainer thenRegion = ifRegion.getThenRegion();
 		BlockNode block = getTernaryInsnBlock(thenRegion);
-		if (block != null) {
+		if (block != null && !block.contains(AFlag.DUPLICATED)) {
 			InsnNode insn = block.getInstructions().get(0);
 			RegisterArg result = insn.getResult();
 			if (result != null) {
