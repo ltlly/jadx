@@ -199,6 +199,12 @@ public class ProcessClass {
 					for (ClassNode codegenDep : cls.getCodegenDeps()) {
 						process(codegenDep, false);
 					}
+					// Top anonymous bodies are generated here without a separate codegen request.
+					for (ClassNode codegenDep : cls.getCodegenDeps()) {
+						synchronized (codegenDep.getClassInfo()) {
+							MethodThrowsVisitor.refreshPendingThrows(codegenDep);
+						}
+					}
 				}
 				ICodeInfo code = process(cls, true);
 				if (code == null) {
