@@ -4,6 +4,7 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,6 +29,7 @@ import jadx.core.dex.instructions.InvokeNode;
 import jadx.core.dex.instructions.args.ArgType;
 import jadx.core.dex.instructions.args.InsnArg;
 import jadx.core.dex.instructions.args.InsnWrapArg;
+import jadx.core.dex.instructions.args.NamedArg;
 import jadx.core.dex.instructions.args.RegisterArg;
 import jadx.core.dex.nodes.BlockNode;
 import jadx.core.dex.nodes.ClassNode;
@@ -35,6 +37,7 @@ import jadx.core.dex.nodes.InsnNode;
 import jadx.core.dex.nodes.MethodNode;
 import jadx.core.dex.nodes.RootNode;
 import jadx.core.dex.trycatch.CatchAttr;
+import jadx.core.dex.trycatch.ExcHandlerAttr;
 import jadx.core.dex.trycatch.ExceptionHandler;
 import jadx.core.dex.visitors.regions.RegionMakerVisitor;
 import jadx.core.dex.visitors.typeinference.TypeCompare;
@@ -347,9 +350,46 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 	}
 
 	static boolean isCaughtThrowable(RegisterArg arg) {
+		return isCaughtThrowable(arg, new IdentityHashMap<>());
+	}
+
+	private static boolean isCaughtThrowable(RegisterArg arg, Map<InsnNode, Boolean> checked) {
 		InsnNode assign = arg.getAssignInsn();
-		return assign != null && assign.getType() == InsnType.MOVE_EXCEPTION
-				&& assign.getResult().contains(AFlag.CUSTOM_DECLARE);
+		if (assign == null || !arg.getType().equals(ArgType.THROWABLE)) {
+			return false;
+		}
+		Boolean previous = checked.putIfAbsent(assign, Boolean.FALSE);
+		if (previous != null) {
+			return previous;
+		}
+		if (assign.getType() == InsnType.PHI) {
+			if (assign.getArgsCount() == 0) {
+				return false;
+			}
+			for (InsnArg source : assign.getArguments()) {
+				if (!(source instanceof RegisterArg) || !isCaughtThrowable((RegisterArg) source, checked)) {
+					return false;
+				}
+			}
+			checked.put(assign, Boolean.TRUE);
+			return true;
+		}
+		if (!assign.getResult().contains(AFlag.CUSTOM_DECLARE)) {
+			return false;
+		}
+		if (assign.getType() == InsnType.MOVE_EXCEPTION) {
+			checked.put(assign, Boolean.TRUE);
+			return true;
+		}
+		if (assign.getType() == InsnType.MOVE && assign.getArgsCount() == 1) {
+			InsnArg source = assign.getArg(0);
+			ExcHandlerAttr handler = assign.get(AType.EXC_HANDLER);
+			boolean caught = source instanceof NamedArg && source.getType().equals(ArgType.THROWABLE)
+					&& handler != null && handler.getHandler().getArg() == source;
+			checked.put(assign, caught);
+			return caught;
+		}
+		return false;
 	}
 
 	private Iterable<String> getCalleeThrows(MethodNode mth, MethodNode callee, ThrowsAnalysis analysis) {
