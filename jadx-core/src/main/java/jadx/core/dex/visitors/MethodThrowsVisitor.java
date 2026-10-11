@@ -264,20 +264,30 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 			return;
 		}
 		try {
-			blocks: for (BlockNode block : mth.getBasicBlocks()) {
+			for (BlockNode block : mth.getBasicBlocks()) {
 				// Skip e.g. throw instructions of synchronized regions
 				boolean skipExceptions = block.contains(AFlag.REMOVE) || block.contains(AFlag.DONT_GENERATE);
 				Set<String> excludedExceptions = new HashSet<>();
-				CatchAttr catchAttr = block.get(AType.EXC_CATCH);
-				if (catchAttr != null) {
-					for (ExceptionHandler handler : catchAttr.getHandlers()) {
-						if (handler.isCatchAll()) {
-							continue blocks;
-						}
-						excludedExceptions.add(handler.getArgType().toString());
+				insns: for (InsnNode insn : block.getInstructions()) {
+					excludedExceptions.clear();
+					// Moved instructions retain their original catch context.
+					CatchAttr catchAttr = insn.get(AType.EXC_CATCH);
+					if (catchAttr == null) {
+						catchAttr = block.get(AType.EXC_CATCH);
 					}
-				}
-				for (InsnNode insn : block.getInstructions()) {
+					if (catchAttr != null) {
+						for (ExceptionHandler handler : catchAttr.getHandlers()) {
+							if (handler.isRemoved() || handler.isFinally()) {
+								continue;
+							}
+							if (handler.isCatchAll()) {
+								continue insns;
+							}
+							for (ClassInfo catchType : handler.getCatchTypes()) {
+								excludedExceptions.add(catchType.getRawName());
+							}
+						}
+					}
 					checkInsn(mth, insn, excludedExceptions, skipExceptions, analysis, facts);
 				}
 			}
