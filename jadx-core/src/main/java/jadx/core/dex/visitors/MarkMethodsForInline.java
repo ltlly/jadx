@@ -54,7 +54,8 @@ public class MarkMethodsForInline extends AbstractVisitor {
 			if (mia != null) {
 				return mia;
 			}
-			if (mth.contains(AFlag.METHOD_CANDIDATE_FOR_INLINE)) {
+			// Constructor calls cannot consume a regular method-inline instruction.
+			if (!mth.isConstructor() && mth.contains(AFlag.METHOD_CANDIDATE_FOR_INLINE)) {
 				if (mth.getBasicBlocks() == null) {
 					return null;
 				}
