@@ -6,16 +6,22 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import jadx.api.plugins.input.data.attributes.JadxAttrType;
 import jadx.core.dex.attributes.AFlag;
+import jadx.core.dex.info.FieldInfo;
+import jadx.core.dex.instructions.IndexInsnNode;
 import jadx.core.dex.instructions.InsnType;
 import jadx.core.dex.instructions.InvokeCustomNode;
 import jadx.core.dex.instructions.InvokeNode;
+import jadx.core.dex.instructions.args.ArgType;
 import jadx.core.dex.instructions.args.InsnArg;
 import jadx.core.dex.instructions.args.InsnWrapArg;
+import jadx.core.dex.instructions.args.LiteralArg;
 import jadx.core.dex.instructions.args.Named;
 import jadx.core.dex.instructions.args.RegisterArg;
 import jadx.core.dex.instructions.args.SSAVar;
 import jadx.core.dex.nodes.BlockNode;
+import jadx.core.dex.nodes.FieldNode;
 import jadx.core.dex.nodes.InsnNode;
 import jadx.core.dex.nodes.MethodNode;
 import jadx.core.dex.trycatch.CatchAttr;
@@ -23,6 +29,7 @@ import jadx.core.dex.visitors.AbstractVisitor;
 import jadx.core.dex.visitors.JadxVisitor;
 import jadx.core.dex.visitors.ModVisitor;
 import jadx.core.utils.BlockUtils;
+import jadx.core.utils.EncodedValueUtils;
 import jadx.core.utils.InsnList;
 import jadx.core.utils.InsnRemover;
 import jadx.core.utils.RegionUtils;
@@ -155,13 +162,13 @@ public class CodeShrinkVisitor extends AbstractVisitor {
 		boolean[] sameCatch = { true };
 		// Nonthrowing IF/RETURN containers inherit the moved expression's exception context.
 		useInsn.visitInsns(use -> {
-			if (sameCatch[0] && (canThrow(use) || use == useInsn)) {
+			if (sameCatch[0] && (canThrow(mth, use) || use == useInsn)) {
 				CatchAttr useCatch = BlockUtils.getCatchAttrForInsn(mth, use);
-				if (useCatch == null && !canThrow(use)) {
+				if (useCatch == null && !canThrow(mth, use)) {
 					return;
 				}
 				assignInsn.visitInsns(inner -> {
-					if (sameCatch[0] && canThrow(inner)
+					if (sameCatch[0] && canThrow(mth, inner)
 							&& !Objects.equals(BlockUtils.getCatchAttrForInsn(mth, inner), useCatch)) {
 						sameCatch[0] = false;
 					}
@@ -171,8 +178,23 @@ public class CodeShrinkVisitor extends AbstractVisitor {
 		return sameCatch[0];
 	}
 
-	private static boolean canThrow(InsnNode insn) {
+	private static boolean canThrow(MethodNode mth, InsnNode insn) {
 		switch (insn.getType()) {
+			case SGET:
+				if (insn.getOffset() < 0) {
+					FieldNode field = mth.root().resolveField((FieldInfo) ((IndexInsnNode) insn).getIndex());
+					if (field != null && field.getAccessFlags().isStatic() && field.getAccessFlags().isFinal()) {
+						ArgType type = field.getFieldInfo().getType();
+						if (type.isPrimitive() || type.equals(ArgType.STRING)) {
+							Object value = EncodedValueUtils.convertToConstValue(field.get(JadxAttrType.CONSTANT_VALUE));
+							if (value instanceof String || value instanceof LiteralArg && ((LiteralArg) value).getType().isPrimitive()) {
+								// Named literal replacements do not read the field or initialize its class.
+								return false;
+							}
+						}
+					}
+				}
+				return true;
 			case TERNARY:
 				// Only their nested expressions can throw.
 				return false;
