@@ -18,6 +18,7 @@ import jadx.core.dex.instructions.args.SSAVar;
 import jadx.core.dex.nodes.BlockNode;
 import jadx.core.dex.nodes.InsnNode;
 import jadx.core.dex.nodes.MethodNode;
+import jadx.core.dex.trycatch.CatchAttr;
 import jadx.core.dex.visitors.AbstractVisitor;
 import jadx.core.dex.visitors.JadxVisitor;
 import jadx.core.dex.visitors.ModVisitor;
@@ -121,7 +122,8 @@ public class CodeShrinkVisitor extends AbstractVisitor {
 				return;
 			}
 		}
-		if (!checkLambdaInline(arg, assignInsn)) {
+		if (!checkLambdaInline(arg, assignInsn)
+				|| !hasSameCatchContext(mth, assignInsn, argsInfo.getInsn())) {
 			return;
 		}
 
@@ -143,6 +145,42 @@ public class CodeShrinkVisitor extends AbstractVisitor {
 					inline(mth, arg, assignInsn, assignBlock);
 				}
 			}
+		}
+	}
+
+	private static boolean hasSameCatchContext(MethodNode mth, InsnNode assignInsn, InsnNode useInsn) {
+		if (!assignInsn.canThrowException() && !assignInsn.containsWrappedInsn()) {
+			return true;
+		}
+		boolean[] sameCatch = { true };
+		// Nonthrowing IF/RETURN containers inherit the moved expression's exception context.
+		useInsn.visitInsns(use -> {
+			if (sameCatch[0] && (canThrow(use) || use == useInsn)) {
+				CatchAttr useCatch = BlockUtils.getCatchAttrForInsn(mth, use);
+				if (useCatch == null && !canThrow(use)) {
+					return;
+				}
+				assignInsn.visitInsns(inner -> {
+					if (sameCatch[0] && canThrow(inner)
+							&& !Objects.equals(BlockUtils.getCatchAttrForInsn(mth, inner), useCatch)) {
+						sameCatch[0] = false;
+					}
+				});
+			}
+		});
+		return sameCatch[0];
+	}
+
+	private static boolean canThrow(InsnNode insn) {
+		switch (insn.getType()) {
+			case TERNARY:
+				// Only their nested expressions can throw.
+				return false;
+			case SWITCH:
+				// Restored String/enum switches still throw for null selectors.
+				return !insn.getArg(0).getType().isPrimitive();
+			default:
+				return insn.canThrowException();
 		}
 	}
 
@@ -194,7 +232,8 @@ public class CodeShrinkVisitor extends AbstractVisitor {
 	private static boolean assignInline(MethodNode mth, RegisterArg arg, InsnNode assignInsn, BlockNode assignBlock) {
 		RegisterArg useArg = arg.getSVar().getUseList().get(0);
 		InsnNode useInsn = useArg.getParentInsn();
-		if (useInsn == null || useInsn.contains(AFlag.DONT_GENERATE)) {
+		if (useInsn == null || useInsn.contains(AFlag.DONT_GENERATE)
+				|| !hasSameCatchContext(mth, assignInsn, useInsn)) {
 			return false;
 		}
 		if (!InsnRemover.removeWithoutUnbind(mth, assignBlock, assignInsn)) {
