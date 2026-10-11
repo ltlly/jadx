@@ -1,6 +1,8 @@
-# Git 跨设备交接（更新至 2026-10-11）
+# Git 跨设备交接（更新至 2026-10-12）
 
-> **2026-10-11 最新入口：使用快照复杂度实验未通过质量验收**：读 [位置索引与路径复制](../20261011/INDEXED_USAGE_SNAPSHOTS.md) 及 [结构化结果](../20261011/indexed-usage-snapshots-results.json)。原型将重复替换从 O(RL) 降为一次建表加路径复制；各三对正式运行中 DDG wall 425.44→83.85 秒（−80.29%）、RSS −25.81%，千问 wall +0.33%。候选 core/CLI 1143 项、零失败、1 条件跳过，但全量输出出现未在九个已观察基线中见到的非法 Java 形式，故**未合并、没有新增已验收提速**。源码/测试保存在独立 `codex/usage-snapshot-tree-experiment` 的 `21bfa89d`；保留分支生产源码仍与 `0bf6c9d` 一致，安装包全部 62 文件已恢复冻结基线。千问影子检查 53119 次查询零位置差异；DDG 影子运行 900 秒超时，额外错误事件、finally/异常推断顺序及跨类输出合同仍未闭合。千问 50% 目标未达到。
+> **2026-10-12 最新状态：按用户要求暂停，保存并推送进度。** 当前分支为 `codex/usage-snapshot-quality`，实现提交到 `74f436577d87d5de0f8d75992fe776f13ddd34e0`；包含独立质量修复及 `c147298` 使用快照索引候选。最新 core/Kotlin 共 1,222 项测试，0 失败、1 条件跳过；core 主/测试 Checkstyle 与 CLI installDist 通过。但真实 APK 仍有变量作用域和异常清理范围问题，**尚未通过质量验收、未达到 PR 就绪、没有新的已验收性能结果**。从 [本轮暂停交接](../20261011/INDEXED_USAGE_SNAPSHOTS.md#2026-10-12-质量修复进度与暂停交接) 和 [结构化进度](../20261011/usage-snapshot-quality-progress.json) 继续；用户再次要求继续前，不启动实现、构建或测量。下方各轮记录保留其历史适用范围。
+
+> **2026-10-11 初次快照实验：未通过质量验收**：读 [位置索引与路径复制](../20261011/INDEXED_USAGE_SNAPSHOTS.md) 及 [结构化结果](../20261011/indexed-usage-snapshots-results.json)。原型将重复替换从 O(RL) 降为一次建表加路径复制；各三对正式运行中 DDG wall 425.44→83.85 秒（−80.29%）、RSS −25.81%，千问 wall +0.33%。候选 core/CLI 1143 项、零失败、1 条件跳过，但全量输出出现未在九个已观察基线中见到的非法 Java 形式，故**未合并、没有新增已验收提速**。源码/测试保存在独立 `codex/usage-snapshot-tree-experiment` 的 `21bfa89d`；保留分支生产源码仍与 `0bf6c9d` 一致，安装包全部 62 文件已恢复冻结基线。千问影子检查 53119 次查询零位置差异；DDG 影子运行 900 秒超时，额外错误事件、finally/异常推断顺序及跨类输出合同仍未闭合。千问 50% 目标未达到。
 
 > **2026-10-11 内联并发修复及类型候选撤回**：读 [使用关系修复](../20261011/INLINE_USAGE_FIX.md) 和 [类型边界筛选](../20261011/TYPE_BOUND_SELECTION.md)。`0bf6c9d` 将共享引用的增量更新、反向关系维护及列表发布统一保护；旧实现 5 项受控回归全失败，修复后 6 项通过，完整 core/CLI 报告 1133 项（1132 通过、1 条件跳过），格式/Checkstyle 通过。历史 APK 的实际竞争写入者与精确越界交错尚未识别。后续局部类型循环候选通过 1151 项检查，但千问三对 wall 中位数 +4.10%、CPU 持平、RSS +0.50%，已撤回并归档 patch；字段列表并发与匿名构造器 IR 生命周期问题仍开放。
 
@@ -29,12 +31,13 @@
 git clone https://github.com/ltlly/jadx.git
 cd jadx
 git fetch origin
-git switch --track origin/codex/dependency-recovery-research
+git switch --track origin/codex/usage-snapshot-quality
 ```
 
 | 分支 | 提交/用途 | 状态 |
 | --- | --- | --- |
-| `codex/dependency-recovery-research` | 默认关闭诊断、作用域正确性修复、`0bf6c9d` 使用关系并发修复及最新筛选记录 | 当前工作起点；类型循环及快照树候选未保留，无新性能验收 |
+| `codex/usage-snapshot-quality` | `74f4365` 实现及后续暂停文档：质量修复与 `c147298` 快照索引候选 | 最新暂停现场；完整 core/Kotlin 检查通过，真实 APK 质量仍未验收；未创建 PR |
+| `codex/dependency-recovery-research` | 默认关闭诊断、作用域正确性修复、`0bf6c9d` 使用关系并发修复及初次筛选记录 | 本轮质量分支的历史起点；没有新的已验收性能结果 |
 | `codex/usage-snapshot-tree-experiment` | `21bfa89d62f4232d97a798422907f6bfc0721385`：当前锁/快照合同上的位置索引与不可变树 | 独立实验；DDG 提速，输出质量未通过，未合并 |
 | `codex/jadx-algorithm-review` | 六项保留优化及该阶段研究、撤回记录 | 历史工作起点；生产源码与 `2655258` 相同 |
 | `codex/jadx-performance` | `ab9029f`：六项优化及十 APK 报告 | 已保留结果 |

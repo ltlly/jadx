@@ -4,3 +4,4 @@ __pycache__/
 !dependency-profile-quality-audit.json
 !inline-usage-fix-results.json
 !type-bound-selection-results.json
+!usage-snapshot-quality-progress.json

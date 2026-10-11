@@ -1,5 +1,7 @@
 # 使用关系快照：位置索引与路径复制
 
+> **2026-10-12 更新：后续质量修复已保存，按用户要求暂停。** 最新分支是 `codex/usage-snapshot-quality`；实现到 `74f4365`，仍未通过真实 APK 质量验收。见文末 [质量修复进度与暂停交接](#2026-10-12-质量修复进度与暂停交接) 和 [结构化进度](usage-snapshot-quality-progress.json)。下面初次实验的性能数字属于旧版本，不能用于当前修复版。
+
 本轮以使用关系并发修复 `0bf6c9d67dbb65ead37476337a95996a7431dc3a` 为基线，研究大量使用关系替换时的查找与复制成本。候选只改变 ClassNode 的 `useIn` / `useInMth` 和 FieldNode 的 `useIn` 表示；保留所有反编译 pass、验证及原有使用关系更新调用。MethodNode 的反向引用维护保持原实现。
 
 **决定：未通过输出质量验收，独立保存实验，保留分支恢复基线。** DDG 和千问各三对正式测量、基线节点回归和候选完整检查均已完成。DDG wall 中位数下降 80.29%，千问 +0.33%；候选出现未在九个已观察基线中见到的非法 Java 形式，不能作为已交付提速。实验代码和测试保存于 `codex/usage-snapshot-tree-experiment` 的 [`21bfa89d`](https://github.com/ltlly/jadx/commit/21bfa89d62f4232d97a798422907f6bfc0721385)。`codex/dependency-recovery-research` 的生产源码恢复为 `52fef6e`（与 `0bf6c9d` 的生产实现一致），安装目录全部 62 文件也与冻结 A 相同。
@@ -141,3 +143,68 @@ DDG 有 5 个候选整类变体不在当前 A1/A2/A3 并集中：AppLocalesStora
 后续若继续这一方向，应先把非法表达式、异常声明和 finally 顺序变化收敛为可重复的生命周期/顺序回归，再评价此表示变更是否可接受；不能仅以位置查询零差异或旧版本曾出现变体而合并。
 
 未完成 GUI/外部插件、任意并发深重载、整份输出重编译或设备执行验证；其余八类异常签名与 continuation 别名的跨类合同也未全部核对。候选新增索引驻留量和快照共享量依赖调用分布；APK 全量输出中仍有已证实的非法 Java 与 finally 语义问题，根因尚未闭合。
+
+## 2026-10-12 质量修复进度与暂停交接
+
+**状态：用户要求先 commit、push 并暂停。** 已停止实现和验证，没有运行中的构建或诊断 JVM。当前实现为 `74f436577d87d5de0f8d75992fe776f13ddd34e0`，位于 `codex/usage-snapshot-quality`；本节和 [结构化进度](usage-snapshot-quality-progress.json) 保存继续工作所需的信息。没有创建 PR，也没有将候选合并进原保留分支。
+
+### 本轮范围和结论边界
+
+本轮继续追查非法 Java 的实际生成路径、修复质量问题，并尝试把快照索引优化做到可提 PR。快照表示变更独立保存在 `c1472980c53744e78132b6fc282bc2c00cd16428`；质量修复分项提交，完整提交列表见结构化进度。当前历史中仍有质量提交排在性能提交之后，最终基线整理尚未完成。
+
+已通过受控顺序、自然 smali 回归及真实 APK 观察定位多项既有生命周期、类型和异常区域缺陷；这些缺陷不能仅凭某次候选输出首次出现，就归因于位置索引。位置查询审计和节点回归尚未发现索引值或首项替换语义错误，但这也没有证明全量生成、处理顺序或输出语义完全等价。剩余变体的根因和引入阶段仍需逐项核对。
+
+**质量验收未完成，当前不能称为 PR 就绪。** 初次实验的 DDG −80.29% 只是历史版本结果。随后基于 `61f51e0`/`75c6972` 等中间版本保存的完整测量，也因后续质量问题不再作为最终交付证据。当前修复版尚未完成新的公平 A/B，不能宣称已落地该收益；千问 50% 目标仍未达到。
+
+### 已提交的修复与回归
+
+| 范围 | 主要提交 | 已保存的检查或根因 |
+| --- | --- | --- |
+| 常量类型与 null PHI | `96381c9`、`eb52e38` | 拆分常量时保留使用端初始类型；等值常量经 PHI 合并后按使用约束拆分，覆盖构造器和不同引用类型的 null |
+| 异常推断生命周期 | `eba459f`、`295c2bb`、`4ed1f50` | 未就绪方法不能发布永久空 throws；在代码生成前依据捕获的调用事实刷新，覆盖卸载及匿名代码生成依赖 |
+| finally 与 try 边界 | `a86aef7`、`3144983`、`739fb15`、`61f51e0` | 保留循环出口、正常 cleanup 的原始保护范围和可选入口；保留 finally 前的非抛出除法 |
+| 匿名类及 Kotlin 名称 | `1686a1c`、`7f4e36d`、`555157a`、`a1c7b14` | 匿名方法体保留在其处理 owner；getter 覆盖名称跨重载稳定；合成构造器在内联期间保持可用 |
+| 空 catch 与指令移动 | `fa116e4`、`202142c`、`3e714b9`、`894cdcc`、`9a6e507`、`614b9cb` | 保留空处理器、相邻 try splitter 和指令 catch 上下文；允许经审查的纯算术移动，保留命名常量识别 |
+| 共享 catch 尾部 | `75c6972`、`ee51b67`、`557c852`、`a724f66` | 识别合并的 caught Throwable，保留共享赋值、独立 handler 返回及外部分支的终止 return；有编译/运行回归 |
+| 共享比较条件 | `a8f38f6` | 每个 Compare 视图独立保存反转状态，共享 IfNode 不再被多个区域重复改写；保留 boolean 规范化和 foreach 恢复；自然 fixture 验证六条路径 |
+| 泛型 catch 边界 | `0da9a5c` | 使用通配符边界而非遍历 Object 实现；拒绝不在作用域内的类型变量，cast 保留 R；自然 fixture 编译并验证七条运行路径 |
+| cleanup 后重抛 | `819dc62`、`fce36ae` | 仅在唯一、线性、无外层接收且 caught-origin 完整时视为透明重抛；补充 wrapped invoke 观察，保留分支吞异常和外层 catch 控制 |
+| 共享受保护块的多次出现 | `0812999` | 处理每个区域出现位置，避免第一次包装后移除 try 属性导致第二处漏掉 cleanup；自然 fixture 编译/运行通过，但实际 APK 仍有嵌套覆盖问题 |
+| 保留匿名类的 static 声明 | `74f4365` | 跨 owner 保留匿名类时，没有首个 enclosing-instance 参数且 Java 11 允许 static 的父类中补 static；覆盖真正外部实例及 owner 作为第三个普通数据参数，并验证 reload |
+
+上述检查只支持各自范围。真实 APK 中仍存在下面的问题，不能将这张表视作整份输出通过。
+
+### 最新实际执行结果
+
+冻结源码和分发包之前工作树为干净状态。Gradle 用 JDK 25 启动，构建/测试使用 Java 11，离线、禁用 parallel、最多两个 worker；构建、测试和诊断均串行执行。
+
+| 检查 | 结果 | 范围/限制 |
+| --- | --- | --- |
+| 相关 inner/trycatch/throws 回归 | 195 项，0 失败、0 跳过；core 主/测试 Checkstyle 通过 | 标签 `anonymous-static-and-rethrow-origin-fixed`；随后提交 `fce36ae`、`74f4365` |
+| `74f4365` 完整 core/Kotlin + style + CLI install | 1,222 项，0 failures、0 errors、1 skip；命令退出 0 | core 1,202 项，Kotlin metadata 20 项；跳过 `TestConditions22`，不是完整 `clean build dist` |
+| 当前 DDG 八个类型目标 | 完成、分发文件未改变 | 七个 Rx 输出恢复为作用域内 R，第八个 FilterFactories 不再泄漏方法类型变量 U；完整边界审阅尚未闭合 |
+| 当前 Fastjson throws | 七目标各 18 阶段覆盖完整，目标生成 errors=0/warnings=0 | 三种反射异常仍由 Exception 排除，无 own/call/replay 污染；目标外的生成差异仍需 DEX 审查 |
+| 当前五组匿名类、两种处理顺序 | 两种顺序各 15 类 × 105 要求阶段完整；五个保留匿名类均为 static | owner 源码在两种顺序间逐字相同；真实 APK observer 未执行 reload，reload 由自然回归覆盖 |
+| 当前扩展区域目标 | DDG 14 方法 + 千问 21 方法，各 17 阶段完整；命令退出 0 | 只保证观察执行完整；已发现剩余源码/清理范围问题，未通过语义验收 |
+
+最新 core JAR SHA256 为 `497861670a988d693abacc2ca55f5d250dd81e730e57b6db73bb4f10a92cb7a9`。冻结目录为本机 `out/jadx-perf/20261011/usage-snapshot-landing/diagnostic-dist-74f4365`，全部 62 个文件由 `diagnostic-dist-74f4365-binding.json` 绑定。测试 XML、Checkstyle 和命令/退出记录已归档；关键文件 SHA256 见结构化进度。
+
+### 暂停时仍未解决的问题
+
+以下是已观察到的具体问题或待审线索。除已说明的局部证据外，均没有声称已确定是快照优化引入。
+
+1. **`SQLiteQuery.fillWindow`：外层 cleanup 覆盖不足。** 当前生成代码只在第一段 try 的外层执行 `this.releaseReference()`；后续 `session.executeForCursorWindow` 的异常路径有 `cursorWindow.releaseReference()`，却缺少方法对象的 release。需结合 raw DEX、共享 handler 和嵌套 try 的包装次序定位首次失真阶段。
+2. **`MeasurePassDelegate.replace`：catch 变量作用域非法。** 第二个 catch 生成 `th = th3`，但 th 只在前一个 catch 内声明。两处嵌套 cleanup 已恢复，变量声明仍需修复。暂停时已读 `ModVisitor.processMoveException`、`InitCodeVariables`、`ProcessVariables`、usage collector 和 catch codegen；`trace-106-before-first-shrink.txt` 显示两个 MOVE 结果仍有 `CUSTOM_DECLARE`，经 PHI 共享一个外部变量。尚无新修复或针对性回归。
+3. **`SnapshotStateObserver.observeReads`：catch 后继续使用未赋值变量。** 当前仍有只赋异常变量的 catch 后落入后续代码的情况，复杂共享 handler 的退出和保护范围未闭合。
+4. **`SQLiteConnection.acquirePreparedStatement`：第一处 handler 条件待核。** 当前第一段 handler 的非 null 直接 throw 路径疑似缺少 `mInCache` 判断；独立 Compare 反转修复已修好 TransformationUtils 的 loggable guard，但不能据此接受这个方法。
+5. **Fastjson 目标外结构差异待核。** Creator 的构造参数循环中一处 `getFieldInfo` 调用变为空 if，另有字符串分支变化；Provider.getCreator 的 annotationMethods 调用消失。原方法已有 Code duplicated 警告，需绑定 raw DEX/当前 IR，不能凭 throws 目标通过接受这些方法。
+6. **Rx 方法原有保护范围仍需比较历史。** 当前类型已修正；`ObservableFlattenIterable` 的 hasNext/onNext 保护位置仍有疑点，需确认旧六轮、中间版本与当前版本的关系。不得将类型修复视作整个方法语义通过。
+7. **千问新增目标及全量变体审阅未完成。** 已绑定旧/新源码及 raw DEX 的候选包括 EditorTracer、a8.getColorInfo、两个 QcAiTrack 协程方法、Property、SecureJsBridge、LinkifyCompat、DashDownloader、Futures.CallbackListener、AuthResult、CommonVideoHandler、QkSseTracing、QSQwenAutoCaptureFrameDiffDetector 和 wireless framework e.a；当前 21 方法观察已完成，最后一轮源码/边界审阅在暂停时尚未完成。296 个源码差异及 DDG 224 个结构/throws 项的审阅库存不能替代验收；throws 跨类合同也有未闭合项。
+
+### 后续恢复顺序与证据位置
+
+只有用户再次要求继续时才恢复工作：先收敛上述实际问题为小型编译/运行回归，逐项修复并核对原 DEX；再执行完整项目/CI 要求的 `clean build dist`。将全部质量修复作为 A，A 加相同快照优化作为 B，明确绑定提交、树和干净源码，然后重建并冻结两份分发包。之后再串行执行两个 APK 各三对完整 A/B、输出 manifests、错误/警告/省略体库存、全部新增变体审阅和语义 harness；预定的 570 条方法语义检查也必须对最终版本重跑。尚未完成这些步骤，不发布新的性能结论或 PR。
+
+本机原始证据保留在 `out/jadx-perf/20261011/usage-snapshot-quality`、`usage-snapshot-landing` 和初次实验 `usage-snapshot-tree`；Git 保存本节、结构化进度、源码和回归，不提交 APK、冻结 JAR、完整生成源码、巨大诊断日志或测试 XML。结构化进度记录关键本机文件路径与 SHA256；其他设备需按固定 corpus SHA256 重新准备输入和构建，无法仅凭 clone 复得原始轨迹。
+
+未完成最终版本完整构建、全量 A/B、全部变体/跨类合同验收、整份输出重编译、GUI/外部插件或设备执行验证。实质风险是当前实际输出仍有已观察的非法变量作用域与错误异常清理范围；工作暂停期间不得将该分支视作可合并结果。
