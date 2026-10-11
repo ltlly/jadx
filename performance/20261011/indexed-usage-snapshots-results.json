@@ -1,0 +1,2056 @@
+{
+  "date": "2026-10-11",
+  "decision": {
+    "production_accepted": false,
+    "status": "isolated_experiment_quality_gate_failed",
+    "reason": "Concrete invalid Java forms absent from nine observed baseline runs; unchanged whole-output semantics are not established.",
+    "optimization_caused_variants_proven": false,
+    "variant_frequency_change_proven": false,
+    "qwen_50_percent_goal_met": false
+  },
+  "baseline_commit": "52fef6e7941ea06af43f7317000e41a6d025d5fd",
+  "baseline_production_commit": "0bf6c9d67dbb65ead37476337a95996a7431dc3a",
+  "experiment": {
+    "branch": "codex/usage-snapshot-tree-experiment",
+    "commit": "21bfa89d62f4232d97a798422907f6bfc0721385",
+    "source_hashes_match_tested_candidate": true,
+    "production_accepted": false
+  },
+  "candidate_sources_sha256": {
+    "jadx-core/src/main/java/jadx/core/dex/nodes/ClassNode.java": "027a692b3a8930ca76afe704bc832f478b62169a61e51522f21cb312ef3e7235",
+    "jadx-core/src/main/java/jadx/core/dex/nodes/FieldNode.java": "5f08d1c082b2240c19ec224ad64d217440d185c3387d491315377ec4523e8d6d",
+    "jadx-core/src/main/java/jadx/core/dex/nodes/utils/UsageInfoList.java": "a09343f9918940a090f6cae42e36984bcce2c8364edfa2672af50366f90d2863",
+    "jadx-core/src/test/java/jadx/core/dex/visitors/InlineMethodsUsageTest.java": "b8728de9d72cead23fcdb68c459c6328c3d59e8088bd3f1f6343a56b245d7928",
+    "jadx-core/src/test/java/jadx/core/dex/nodes/utils/UsageInfoListTest.java": "9eda127f53346c753fd7a93a0015291ef6a4a744b7d9ac9dd1ea4220459ee978"
+  },
+  "distribution_sha256": {
+    "A": {
+      "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+      "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+      "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+      "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+      "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+      "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+      "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+      "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+      "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+      "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+      "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+      "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+      "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+      "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+      "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+      "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+      "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+      "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+      "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+      "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+      "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+      "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+      "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+      "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+      "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+      "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+      "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+      "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+      "lib/jadx-core-dev.jar": "f550a2e2fc32ebf2dbe54fb923f23dc39eded638dcd933eaff7e4486360051e5",
+      "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+      "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+      "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+      "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+      "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+      "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+      "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+      "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+      "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+      "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+      "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+      "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+      "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+      "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+      "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+      "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+      "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+      "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+      "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+      "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+      "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+      "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+      "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+      "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+      "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+      "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+      "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+      "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+      "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+      "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+      "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+    },
+    "B": {
+      "LICENSE": "b40930bbcf80744c86c46a12bc9da056641d722716c378f5659b9e555ef833e1",
+      "NOTICE": "3f34304fa0b9da79fae989cca556d22bd3d08786d6ba171f529a00bfc880e365",
+      "README.md": "3cea1d7e9ff4f7c041c3d802be0d237f9931fba823b9a608bd0f74c6d3ec5ae8",
+      "bin/jadx": "b9b455cfd729e2b4fb4d87927f81bf3a9c29b3d045935fe18e41e297dc08df3f",
+      "bin/jadx.bat": "36f7bbc96ba0304893b42d3e254f13cf497da309c9b548f06e0d0aa88022450f",
+      "lib/ST4-4.0.8.jar": "58caabc40c9f74b0b5993fd868e0f64a50c0759094e6a251aaafad98edfc7a3b",
+      "lib/aapt2-proto-9.2.1-15009934.jar": "2335bab7fd8269ee98d3843410c4a5553d31dd71f9a22f49b21a676d3139c882",
+      "lib/annotations-13.0.jar": "ace2a10dc8e2d5fd34925ecac03e4988b2c0f851650c94b8cef49ba1bd111478",
+      "lib/antlr-2.7.7.jar": "88fbda4b912596b9f56e8e12e580cc954bacfb51776ecfddd3e18fc1cf56dc4c",
+      "lib/antlr-3.5.2.jar": "5ac36c2acfb0a0f3d37dafe20b5b570f2643e2d000c648d44503c2738be643df",
+      "lib/antlr-runtime-3.5.2.jar": "ce3fc8ecb10f39e9a3cddcbb2ce350d272d9cd3d0b1e18e6fe73c3b9389c8734",
+      "lib/asm-9.10.1.jar": "ed825d10ab1399c8c0cb669e688cf0c8c82629b4c8399b58352b68e92ca10fcb",
+      "lib/bundletool-1.18.3.jar": "ccad18514fd97db010856b2bbed40f481f8ba9349368c97ae54d72e3567d0171",
+      "lib/checker-qual-3.12.0.jar": "ff10785ac2a357ec5de9c293cb982a2cbb605c0309ea4cc1cb9b9bc6dbe7f3cb",
+      "lib/commons-io-2.22.0.jar": "2b9a7b1f726fb86216dbd2c8321eabe0221dbd5b1be81c18e1cb53811b104758",
+      "lib/dalvik-dx-16.0.1.jar": "1e4b645628e3bdb097b5331d669e177ef235a551582a8c646dbe36865e541907",
+      "lib/directories-0.1.4.jar": "8fcced97ce6a4126841bbfe3fd1905c0857df17a8261606477ded16404ecb218",
+      "lib/directories-jni-0.1.4.jar": "d42a03703e94c17518ef0c36a295a4aef03e977b5b4d8d7c276fe4ab17387c76",
+      "lib/error_prone_annotations-2.48.0.jar": "b49c5c958316ed67a09c699dda9aa749caf434d51d863dea599ef36a49b9c855",
+      "lib/failureaccess-1.0.1.jar": "a171ee4c734dd2da837e4b16be9df4661afab72a41adaf31eb84dfdaf936ca26",
+      "lib/gson-2.14.0.jar": "2cbd119bf1961c28788310963dc80ba65f58cdeec1dd139c8bdb1240faa2c36f",
+      "lib/guava-31.1-android.jar": "32ac2ed709d96d278b5d2e3e5cea178fa4939939c525fb647532f013308db309",
+      "lib/j2objc-annotations-1.3.jar": "21af30c92267bd6122c0e0b4d20cccb6641a37eaf956c6540ec471d584e64a7b",
+      "lib/jadx-aab-input-dev.jar": "04a6b1ab8caf435ca65aec950d0869dffa135cf3b1e075c80e5e521727c32d84",
+      "lib/jadx-analysis-dev.jar": "9e11a14ba9d54a7dffcb54ebb64647df9db9a1d72b9edff9dc23bef680fcafa6",
+      "lib/jadx-apkm-input-dev.jar": "a8314ba3a6efba9d5268dec94d26e9912a4646afc82ec7c95fafe80e5dd68358",
+      "lib/jadx-apks-input-dev.jar": "2cf9149d679c6b117782cae95b002bcae78fed61598b66d127451e57161fd751",
+      "lib/jadx-app-commons-dev.jar": "685da8e33bc22c66b61ea7f1826c07e38ece1774199b4cbf3ed31ac623345b89",
+      "lib/jadx-cli-dev.jar": "d545d22d175e528f888d50e39baf785ad22ee24995add47831d4975e28903210",
+      "lib/jadx-core-dev.jar": "3419e58070c3ec55a21597d433a6dc95d353c013af69ccbe6b1fca31ec5fe944",
+      "lib/jadx-dex-input-dev.jar": "8ae77e73281969cee8b683bf2d4f65d60868870ad307c6528d23b22f546847b1",
+      "lib/jadx-input-api-dev.jar": "912e07a0b5a8b1673f6b995b05de5be941a3fddfa6b1c3266f8d72f1b34020c3",
+      "lib/jadx-java-convert-dev.jar": "2c9713281faedc8a0f4e9189370199262b69eb45d2335f7bd6693fa60ec7dfac",
+      "lib/jadx-java-input-dev.jar": "9fc2028a4de9700b89a79e8601ba3295f97703480429df91e40a0f9a4a090ac9",
+      "lib/jadx-kotlin-metadata-dev.jar": "81eb8ec125826204ae0709233c5935775872f313f46c37e5c9cbae02dc196748",
+      "lib/jadx-kotlin-source-debug-extension-dev.jar": "511934525217af1699170efa7058b3f835f5da9fe98a50af0f6c4673872064b7",
+      "lib/jadx-plugins-tools-dev.jar": "4e29b113f4cbd4fa0911225514490bae1b4389eafe7accbc03efc3151240ceaa",
+      "lib/jadx-rename-mappings-dev.jar": "45a048cbe805016bac06e5ebc41843062270d654d3ed29bd1eb034dba7272724",
+      "lib/jadx-smali-input-dev.jar": "ef0a65d9768c3773c5858438e8e22c16266cac667074194ea2aeb6c57f93ee60",
+      "lib/jadx-xapk-input-dev.jar": "386c8789de950bedc5686729e281fb52c45c1986742bea7daea5256435217fed",
+      "lib/jadx-zip-dev.jar": "4f7cb51058c728fc07e1c3f9d38096050d2fce99327d9f838eed1c2badee3b70",
+      "lib/javax.inject-1.jar": "91c77044a50c481636c32d916fd89c9118a72195390452c81065080f957de7ff",
+      "lib/jcommander-2.0.jar": "62fc1edc0ac44b033d70698443750e36ffeb87386cb1d7b294b0ea34384e122c",
+      "lib/jsr305-3.0.2.jar": "766ad2a0783f2687962c8ad74ceecc38a28b9f72a2d085ee438b7813e928d0c7",
+      "lib/kotlin-metadata-jvm-2.4.20.jar": "98d9b1847908adfde7a8b2d4cc35708d7ddccae0698cec56bcb506bcf9392595",
+      "lib/kotlin-reflect-2.4.20.jar": "b4aac2a4686ffdc110602ce153e4a90ffd7f37fa86fcca9d3b3aa39c08f8c2fc",
+      "lib/kotlin-stdlib-2.4.20.jar": "2226de463d309d4a5500a481320b3dea515a6981dcae1def531fbc158884e25f",
+      "lib/listenablefuture-9999.0-empty-to-avoid-conflict-with-guava.jar": "b372a037d4230aa57fbeffdef30fd6123f9c0c2db85d0aced00c91b974f33f99",
+      "lib/logback-classic-1.6.4.jar": "16ccdfd1847eca169d5651c5f799ea990472350e0c38f68fd6bc47d705ef4a0a",
+      "lib/logback-core-1.6.4.jar": "1b67779e224455ae7e00bd4ccadaf05c38531927ea4363f66412359373f2e9d7",
+      "lib/mapping-io-0.9.1.jar": "aedc94b25a2fe7c09c898144ce33a1ef396680e984b07525d34916922d6ee3f4",
+      "lib/protobuf-java-3.25.9.jar": "df18b719cd0c5a11e569013216cc9de47a0a954adeede685c0f98ce4c42d4d1a",
+      "lib/r8-9.4.26.jar": "870354f719912241712d6773bfd7c66b1138b790a1ee547dc4726c6ddcf2c332",
+      "lib/raung-common-0.1.1.jar": "6edf3a349db9fdebb5fbb67560be1f70497666c350ec3eaf54d7fcb00de7a481",
+      "lib/raung-disasm-0.1.1.jar": "f26401bc7159c301ebfd818699ea104d3affba79d2397e882d0fba29bcfbd2f3",
+      "lib/slf4j-api-2.0.20.jar": "7e1446499b359675d8aabe6af2de86b85e72ae8a2a932c0b40d0e5ba57097439",
+      "lib/smali-3.0.10.jar": "b54c34f7a1b769b1e637f8a26909c68f399c273f3e5cde3e308e91107c135305",
+      "lib/smali-baksmali-3.0.10.jar": "7d6578dfe5c44f1984b64268e91834432b0942d49e08186a501039dd92b58213",
+      "lib/smali-dexlib2-3.0.10.jar": "688dee6a46962a4dd1774b64be926534b0b6504bfd5d5c9f89c0f5af284f50c1",
+      "lib/smali-util-3.0.10.jar": "cc2ef8349765644e4b15371f2c9f77d69b5412a094a38fe5fd992a124b7322fe",
+      "lib/stringtemplate-3.2.1.jar": "f66ce72e965e5301cb0f020e54d2ba6ad76feb91b3cbfc30dbbf00c06a6df6d7",
+      "lib/windows-jni-utils-0.3.3.jar": "ab68efcf162355e20007b238d8108b7ffec0c06b467ee44cbb44ec3f8ac3a7e6"
+    }
+  },
+  "algorithm": {
+    "scope": [
+      "ClassNode.useIn",
+      "ClassNode.useInMth",
+      "FieldNode.useIn"
+    ],
+    "threshold": 256,
+    "branch_factor": 32,
+    "baseline": "O(sum of list lengths) copying and linear first-position lookup for repeated replacements",
+    "candidate": "O(L log D) index construction plus O(R (log_32 L + log D)) repeated updates; average HashMap lookup assumption",
+    "limits": "remove, complete setter, or unknown-subclass fallback can end an index generation; list reads and whole pipeline are not uniformly accelerated"
+  },
+  "checks": {
+    "candidate": {
+      "tests": 1143,
+      "failures": 0,
+      "errors": 0,
+      "skipped": 1
+    },
+    "candidate_gradle_exit": 0,
+    "format_checkstyle_install_dist_passed": true,
+    "baseline_node_regression": {
+      "tests": "8",
+      "failures": "0",
+      "errors": "0",
+      "skipped": "0"
+    },
+    "candidate_check_command": {
+      "command": [
+        "./gradlew",
+        "--offline",
+        "--no-daemon",
+        "--no-parallel",
+        "--max-workers=2",
+        "-Dorg.gradle.java.installations.paths=/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/toolchains/jdk-11.0.32.1+1",
+        ":jadx-core:test",
+        ":jadx-cli:test",
+        ":jadx-core:spotlessJavaCheck",
+        ":jadx-cli:spotlessJavaCheck",
+        ":jadx-core:checkstyleMain",
+        ":jadx-core:checkstyleTest",
+        ":jadx-cli:checkstyleMain",
+        ":jadx-cli:checkstyleTest",
+        ":jadx-cli:installDist",
+        "--console=plain"
+      ],
+      "cwd": "/home/ltlly/Code/jadx-perf",
+      "timeout_seconds": 600,
+      "env": {
+        "JAVA_HOME": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/toolchains/jdk-25.0.4.1+1",
+        "JADX_BUILD_JAVA_VERSION": "11"
+      },
+      "unset_env": [
+        "JAVA_TOOL_OPTIONS",
+        "_JAVA_OPTIONS",
+        "JDK_JAVA_OPTIONS",
+        "JAVA_OPTS",
+        "JADX_OPTS",
+        "GRADLE_OPTS"
+      ]
+    }
+  },
+  "formal_controls": {
+    "order_per_apk": [
+      "A1",
+      "B1",
+      "A2",
+      "B2",
+      "A3",
+      "B3"
+    ],
+    "heap": "-Xms256m -Xmx16g",
+    "jdk": "OpenJDK 27 build 27",
+    "parallel_gc_threads": 3,
+    "jadx_threads": 8,
+    "no_resources": true,
+    "jfr": false,
+    "dependency_probe": false,
+    "shadow_probe": false,
+    "all_cli_exit_codes": 3,
+    "serial_java_work": true,
+    "host_completely_idle_claimed": false,
+    "host_interference": {
+      "run": "duckduckgo-5.297.1-A2",
+      "start_utc": "2026-10-11 06:27:04.791590 UTC",
+      "end_utc": "2026-10-11 06:27:21.267805 UTC",
+      "duration_seconds_approx": 16.476215,
+      "command": "rg -n 'ReproduceFinallyHash|enum identity|identity hash|finally.*hash|finally.*scope|skipRawBytesSlowPath' performance out/jadx-perf/20261010 -g '*.md' -g '*summary.json' -g '*report.json'",
+      "exit": 130,
+      "description": "Read-only historical-report search traversed a broad raw directory; stopped with Ctrl-C. No JVM/build/test/output source scan. CPU and I/O interference is possible; retain this event with the formal metrics."
+    }
+  },
+  "benchmarks": {
+    "duckduckgo-5.297.1": {
+      "apk_sha256": "4a995d765d2f0ace0fbdfdf925f24219679b5741e4a05728dc3cad15411331e2",
+      "comparison": {
+        "wall_s": {
+          "A": [
+            460.87,
+            425.44,
+            417.74
+          ],
+          "B": [
+            81.27,
+            83.85,
+            87.68
+          ],
+          "A_median": 425.44,
+          "B_median": 83.85,
+          "change_percent": -80.29099285445656
+        },
+        "cpu_s": {
+          "A": [
+            833.88,
+            787.22,
+            786.87
+          ],
+          "B": [
+            422.46000000000004,
+            436.43,
+            463.12
+          ],
+          "A_median": 787.22,
+          "B_median": 436.43,
+          "change_percent": -44.56060567566881
+        },
+        "rss_kib": {
+          "A": [
+            17041360.0,
+            17158264.0,
+            17072612.0
+          ],
+          "B": [
+            12665608.0,
+            13179140.0,
+            12598612.0
+          ],
+          "A_median": 17072612.0,
+          "B_median": 12665608.0,
+          "change_percent": -25.813296758574488
+        }
+      },
+      "runs": {
+        "A1": {
+          "metrics": {
+            "wall_s": 460.87,
+            "user_s": 818.98,
+            "sys_s": 14.9,
+            "rss_kib": 17041360.0,
+            "cpu_percent": "180%",
+            "exit": 3,
+            "files": 31108,
+            "java_files": 31108,
+            "errors": 520,
+            "cpu_s": 833.88
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/fixed-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A1/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/duckduckgo-5.297.1.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:12:06+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A1/metadata.json",
+              "sha256": "c6c21b7d6a2f6a7eb7c04c769916345024645303d80ad518d85d23e287bd34d1",
+              "bytes": 7369
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A1/metrics.json",
+              "sha256": "11d6c4f0d533799050bbb52009657b38d355e86c9371caf3a758bda606610275",
+              "bytes": 163
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A1/manifest.json",
+              "sha256": "4cad2601f0d5837dccf1fa0ebf37b42192617588e29bc834b4d424f4d1a512d2",
+              "bytes": 4629440
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A1/omitted-methods.json",
+              "sha256": "41dd2e2c7d064058807da4f57232a0a7705de80c5ed11a46503542a99f0c5edf",
+              "bytes": 303437
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A1/diagnostics.txt",
+              "sha256": "e7e5fda0a97392ebafa51ff1286b971f7322dce21c0b8a3fe9b6364e3588ecb7",
+              "bytes": 40
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 463.50509234798665
+          }
+        },
+        "B1": {
+          "metrics": {
+            "wall_s": 81.27,
+            "user_s": 410.85,
+            "sys_s": 11.61,
+            "rss_kib": 12665608.0,
+            "cpu_percent": "519%",
+            "exit": 3,
+            "files": 31108,
+            "java_files": 31108,
+            "errors": 521,
+            "cpu_s": 422.46000000000004
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/candidate-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B1/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/duckduckgo-5.297.1.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:19:50+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B1/metadata.json",
+              "sha256": "8d5ff54871169f5cd3edb96954d85655651b5293ec0b0d97cd8f9f9b8f49f4a8",
+              "bytes": 7376
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B1/metrics.json",
+              "sha256": "4baa9428724e2328c8183b6988ef5ba14b75fec1b7689e6e1dfbc3164d38b340",
+              "bytes": 163
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B1/manifest.json",
+              "sha256": "fdc8e85514a9fe6b0b0efc36c7e8de6e8db43513e3a7a3dd5e3d4bbd9d20fb85",
+              "bytes": 4629440
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B1/omitted-methods.json",
+              "sha256": "41dd2e2c7d064058807da4f57232a0a7705de80c5ed11a46503542a99f0c5edf",
+              "bytes": 303437
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B1/diagnostics.txt",
+              "sha256": "e573cbfbd22aea8ceaa983132feeafd0d5868bd8d28506c553f61e6b24406b43",
+              "bytes": 40
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 83.91649279200647
+          }
+        },
+        "A2": {
+          "metrics": {
+            "wall_s": 425.44,
+            "user_s": 772.71,
+            "sys_s": 14.51,
+            "rss_kib": 17158264.0,
+            "cpu_percent": "185%",
+            "exit": 3,
+            "files": 31108,
+            "java_files": 31108,
+            "errors": 520,
+            "cpu_s": 787.22
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/fixed-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A2/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/duckduckgo-5.297.1.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:21:14+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A2/metadata.json",
+              "sha256": "c6ddbdccd46c56670e1b3027ccb02af4bfde6c6eb29a28ada70cc7cb3f5091f0",
+              "bytes": 7369
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A2/metrics.json",
+              "sha256": "6e498da61b9362695b3fa3f9b81a6aacb2d0de94abbc023534333018e939554d",
+              "bytes": 164
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A2/manifest.json",
+              "sha256": "195ea65b54e739437864fe04547dd3ee319fd1950403ecec6895ca02cb24a6f0",
+              "bytes": 4629440
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A2/omitted-methods.json",
+              "sha256": "41dd2e2c7d064058807da4f57232a0a7705de80c5ed11a46503542a99f0c5edf",
+              "bytes": 303437
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A2/diagnostics.txt",
+              "sha256": "e7e5fda0a97392ebafa51ff1286b971f7322dce21c0b8a3fe9b6364e3588ecb7",
+              "bytes": 40
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 430.83262898100656
+          }
+        },
+        "B2": {
+          "metrics": {
+            "wall_s": 83.85,
+            "user_s": 424.1,
+            "sys_s": 12.33,
+            "rss_kib": 13179140.0,
+            "cpu_percent": "520%",
+            "exit": 3,
+            "files": 31108,
+            "java_files": 31108,
+            "errors": 521,
+            "cpu_s": 436.43
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/candidate-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B2/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/duckduckgo-5.297.1.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:28:25+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B2/metadata.json",
+              "sha256": "bafdb1634e0dc23c606eb8f4b08599f6cb964a81f274f61bd19e7b97e837efaa",
+              "bytes": 7376
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B2/metrics.json",
+              "sha256": "ca0c2eb7204da6927061f95f493c048ceaeef16ba6e81ddde71197b005da7ef9",
+              "bytes": 162
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B2/manifest.json",
+              "sha256": "1377d31871cb701a57d8e0140debe205aa2a839f0b47451cfcbc8a556a0475ac",
+              "bytes": 4629440
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B2/omitted-methods.json",
+              "sha256": "41dd2e2c7d064058807da4f57232a0a7705de80c5ed11a46503542a99f0c5edf",
+              "bytes": 303437
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B2/diagnostics.txt",
+              "sha256": "e573cbfbd22aea8ceaa983132feeafd0d5868bd8d28506c553f61e6b24406b43",
+              "bytes": 40
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 86.49421170099231
+          }
+        },
+        "A3": {
+          "metrics": {
+            "wall_s": 417.74,
+            "user_s": 771.94,
+            "sys_s": 14.93,
+            "rss_kib": 17072612.0,
+            "cpu_percent": "188%",
+            "exit": 3,
+            "files": 31108,
+            "java_files": 31108,
+            "errors": 520,
+            "cpu_s": 786.87
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/fixed-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A3/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/duckduckgo-5.297.1.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:29:53+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A3/metadata.json",
+              "sha256": "d4e3b07c1cd1594e790af4196c1cebcc9f350872631498bd80c56cbdd3daee1c",
+              "bytes": 7369
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A3/metrics.json",
+              "sha256": "630f841968aeafb4a61a1a7f1e754ab35564e2eac367683254fd42a635b0b03c",
+              "bytes": 164
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A3/manifest.json",
+              "sha256": "5493ccb2968a7c0b6eaec87d57814da5e8588621ec0c17aa075cdf6610974d65",
+              "bytes": 4629440
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A3/omitted-methods.json",
+              "sha256": "41dd2e2c7d064058807da4f57232a0a7705de80c5ed11a46503542a99f0c5edf",
+              "bytes": 303437
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-A3/diagnostics.txt",
+              "sha256": "e7e5fda0a97392ebafa51ff1286b971f7322dce21c0b8a3fe9b6364e3588ecb7",
+              "bytes": 40
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 420.37023553099425
+          }
+        },
+        "B3": {
+          "metrics": {
+            "wall_s": 87.68,
+            "user_s": 450.83,
+            "sys_s": 12.29,
+            "rss_kib": 12598612.0,
+            "cpu_percent": "528%",
+            "exit": 3,
+            "files": 31108,
+            "java_files": 31108,
+            "errors": 520,
+            "cpu_s": 463.12
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/candidate-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B3/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/duckduckgo-5.297.1.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:36:53+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B3/metadata.json",
+              "sha256": "9ee8c3ca033643adc2ebdce72c487290b2ed442ff0bf01576fa347034a87fe9e",
+              "bytes": 7376
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B3/metrics.json",
+              "sha256": "2dbe8b865f6ba6f5ef9955b1362f35275da7db426d158c36a9bda8ecc023e61b",
+              "bytes": 163
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B3/manifest.json",
+              "sha256": "eb3856d8caad69e2fb8836cc3ad193991b17a017c8a56c2b4f64013e91d1390d",
+              "bytes": 4629440
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B3/omitted-methods.json",
+              "sha256": "41dd2e2c7d064058807da4f57232a0a7705de80c5ed11a46503542a99f0c5edf",
+              "bytes": 303437
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-B3/diagnostics.txt",
+              "sha256": "e7e5fda0a97392ebafa51ff1286b971f7322dce21c0b8a3fe9b6364e3588ecb7",
+              "bytes": 40
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 90.34909078199416
+          }
+        }
+      },
+      "host_activity": "See host-cpu.jsonl/host-before.txt for each run and host-activity-A2.json; A2 includes a stopped 16.5s read-only historical-report directory search.",
+      "output": {
+        "files": 31108,
+        "missing": [],
+        "extra": [],
+        "byte_identical_in_all_six": 31071,
+        "varying_files": 37
+      },
+      "comment_only_files": 12,
+      "token_varying_files": 25
+    },
+    "qwen-7.3.6": {
+      "apk_sha256": "b793d73e8365b9ef591c9b343d83c62123f96a05b1e167ec792ba91c0350b7f1",
+      "comparison": {
+        "wall_s": {
+          "A": [
+            126.23,
+            124.11,
+            123.25
+          ],
+          "B": [
+            123.68,
+            124.93,
+            124.52
+          ],
+          "A_median": 124.11,
+          "B_median": 124.52,
+          "change_percent": 0.33035210700185225
+        },
+        "cpu_s": {
+          "A": [
+            739.95,
+            734.4,
+            708.3499999999999
+          ],
+          "B": [
+            726.92,
+            739.07,
+            753.6600000000001
+          ],
+          "A_median": 734.4,
+          "B_median": 739.07,
+          "change_percent": 0.6358932461873801
+        },
+        "rss_kib": {
+          "A": [
+            16168704.0,
+            16162456.0,
+            17061492.0
+          ],
+          "B": [
+            16151792.0,
+            16605540.0,
+            16039112.0
+          ],
+          "A_median": 16168704.0,
+          "B_median": 16151792.0,
+          "change_percent": -0.10459712788359887
+        }
+      },
+      "runs": {
+        "A1": {
+          "metrics": {
+            "wall_s": 126.23,
+            "user_s": 722.46,
+            "sys_s": 17.49,
+            "rss_kib": 16168704.0,
+            "cpu_percent": "586%",
+            "exit": 3,
+            "files": 71047,
+            "java_files": 71047,
+            "errors": 1032,
+            "cpu_s": 739.95
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/fixed-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:39:08+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/metadata.json",
+              "sha256": "85d60919a8c1b7e37e439bd49589b9d31fb01c04125e416058e3218684dca0f0",
+              "bytes": 7353
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/metrics.json",
+              "sha256": "21cc46bf86cd3779c40b7c38b2df3ae6059fb97c2ec124bfb3a0f3a4730a38ed",
+              "bytes": 164
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/manifest.json",
+              "sha256": "e67805825140524c4c7e492f8696ba54050dc5697a11953e161e20aaf311b839",
+              "bytes": 9807457
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/omitted-methods.json",
+              "sha256": "4f83351229df55ad2d305a22c21dfa51e880ac79675aba08fba1f433ed781991",
+              "bytes": 182583
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/diagnostics.txt",
+              "sha256": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+              "bytes": 360
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 132.18160268499923
+          }
+        },
+        "B1": {
+          "metrics": {
+            "wall_s": 123.68,
+            "user_s": 709.27,
+            "sys_s": 17.65,
+            "rss_kib": 16151792.0,
+            "cpu_percent": "587%",
+            "exit": 3,
+            "files": 71047,
+            "java_files": 71047,
+            "errors": 1032,
+            "cpu_s": 726.92
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/candidate-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:41:20+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/metadata.json",
+              "sha256": "3b3be5113f994b8748d63dbaac5c9943aeb8d8fa3ef74ac5d4e57c83c59a8388",
+              "bytes": 7360
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/metrics.json",
+              "sha256": "d12637d4fbd40adaf190ea17c49f980e211889a8beface5f5bc79bc12d2d2cdc",
+              "bytes": 164
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/manifest.json",
+              "sha256": "3404ccc88cc232557ca46c2fb654176ad7c7613e728f6e18460e5bbd1ccacd6b",
+              "bytes": 9807457
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/omitted-methods.json",
+              "sha256": "a4ba88b46a0cff60394c08910ce25db418a703869872a7b17abf320dc84efa78",
+              "bytes": 181604
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/diagnostics.txt",
+              "sha256": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+              "bytes": 360
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 129.66624068800593
+          }
+        },
+        "A2": {
+          "metrics": {
+            "wall_s": 124.11,
+            "user_s": 717.01,
+            "sys_s": 17.39,
+            "rss_kib": 16162456.0,
+            "cpu_percent": "591%",
+            "exit": 3,
+            "files": 71047,
+            "java_files": 71047,
+            "errors": 1032,
+            "cpu_s": 734.4
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/fixed-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A2/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:43:30+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A2/metadata.json",
+              "sha256": "bec730420f95f7a93da60c1a9e18c6d1a56bfe82caacbb86e08ea04248cb0246",
+              "bytes": 7353
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A2/metrics.json",
+              "sha256": "ace2a56b775065d11b97cab33ae2dfe897b773c60bcac1ba8dd5f77a37ceb8be",
+              "bytes": 164
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A2/manifest.json",
+              "sha256": "78e5510262c01462afab97d0990f457fc76316cba6758fd5bf980e6fc24aee98",
+              "bytes": 9807457
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A2/omitted-methods.json",
+              "sha256": "81cbcbca02fa523c3338c856408f5909766d57a7da9f6d57e4ba31d1532a599d",
+              "bytes": 182140
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A2/diagnostics.txt",
+              "sha256": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+              "bytes": 360
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 130.11658409400843
+          }
+        },
+        "B2": {
+          "metrics": {
+            "wall_s": 124.93,
+            "user_s": 721.24,
+            "sys_s": 17.83,
+            "rss_kib": 16605540.0,
+            "cpu_percent": "591%",
+            "exit": 3,
+            "files": 71047,
+            "java_files": 71047,
+            "errors": 1032,
+            "cpu_s": 739.07
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/candidate-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:45:40+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/metadata.json",
+              "sha256": "8879bdae3a904a26ea324a684d1dd394a6adca05edb60a0d61dec0d8b5f2b944",
+              "bytes": 7360
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/metrics.json",
+              "sha256": "954f1b9eb953c63229dc813fc8a42c3ce951c62b844ec3882d0d033246b60fbb",
+              "bytes": 164
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/manifest.json",
+              "sha256": "6358909ee92d3385dcbf6f277f83cd4e8dd35219feed71cc32eaa7e6f13c53b4",
+              "bytes": 9807457
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/omitted-methods.json",
+              "sha256": "0b25a86d09fc73524e8790d818798b8c8c1cbbcdf4d603c47a3ec6815933f122",
+              "bytes": 181556
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/diagnostics.txt",
+              "sha256": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+              "bytes": 360
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 130.96960905099695
+          }
+        },
+        "A3": {
+          "metrics": {
+            "wall_s": 123.25,
+            "user_s": 690.68,
+            "sys_s": 17.67,
+            "rss_kib": 17061492.0,
+            "cpu_percent": "574%",
+            "exit": 3,
+            "files": 71047,
+            "java_files": 71047,
+            "errors": 1033,
+            "cpu_s": 708.3499999999999
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/inline-usage-fix/fixed-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A3/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:47:52+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A3/metadata.json",
+              "sha256": "a974632253ece0e32982a78789fd60d6eaab65bb74b464076c90a311ecd98295",
+              "bytes": 7353
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A3/metrics.json",
+              "sha256": "24bc3c4faad8cd130607862f7ce634f1d107c9af2b2564d831acfaacf8653f44",
+              "bytes": 164
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A3/manifest.json",
+              "sha256": "3ebf34eebbaee39dfed93a159702cde1291d464008265a72c431c4f1960f11a3",
+              "bytes": 9807457
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A3/omitted-methods.json",
+              "sha256": "f97bed1b48eb7e15b7aec0af80e38577bcbac4cd02b957ded154c066b6b1c741",
+              "bytes": 182819
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A3/diagnostics.txt",
+              "sha256": "a191c48fcf245614926eaa3c331110da2b2bfc35b01c247987b26009b640c31c",
+              "bytes": 360
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 129.25054429699958
+          }
+        },
+        "B3": {
+          "metrics": {
+            "wall_s": 124.52,
+            "user_s": 736.33,
+            "sys_s": 17.33,
+            "rss_kib": 16039112.0,
+            "cpu_percent": "605%",
+            "exit": 3,
+            "files": 71047,
+            "java_files": 71047,
+            "errors": 1032,
+            "cpu_s": 753.6600000000001
+          },
+          "command": [
+            "/usr/lib/jvm/java-27-openjdk/bin/java",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-Xms256m",
+            "-Xmx16g",
+            "-XX:ParallelGCThreads=3",
+            "-Djdk.util.zip.disableZip64ExtraFieldValidation=true",
+            "--enable-native-access=ALL-UNNAMED",
+            "-Dfile.encoding=UTF-8",
+            "-Duser.language=en",
+            "-Duser.country=US",
+            "-cp",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/candidate-distribution/lib/*",
+            "jadx.cli.JadxCLI",
+            "--no-res",
+            "--threads-count",
+            "8",
+            "-d",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/output",
+            "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/corpus/qwen-7.3.6.apk"
+          ],
+          "jdk": "openjdk version \"27\" 2026-09-15\nOpenJDK Runtime Environment (build 27)\nOpenJDK 64-Bit Server VM (build 27, mixed mode, sharing)\n",
+          "started": "2026-10-11T14:50:01+0800",
+          "artifacts": [
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/metadata.json",
+              "sha256": "54d0e368f7cbde15e7cc55b42ff76dbfade46769df33482b8b718f62e9dd0d61",
+              "bytes": 7360
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/metrics.json",
+              "sha256": "fcff884039865684718aabff066b9c49253e093ba6420e9946f9ae674f2bd255",
+              "bytes": 164
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/manifest.json",
+              "sha256": "86abf06fe575aa40989fd8d558a6db6a43887c19912463ef0fceb226edd84429",
+              "bytes": 9807457
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/omitted-methods.json",
+              "sha256": "ab0ce39154c689938e7d2e302bac2f59cc14218b1fc60477317d97635fa4a72e",
+              "bytes": 182313
+            },
+            {
+              "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/diagnostics.txt",
+              "sha256": "1ec50ea02e35d2fae86a1cd0c95b03b2f967395488103329ad5c6e323166743d",
+              "bytes": 360
+            }
+          ],
+          "driver_exit": {
+            "returncode": 0,
+            "timed_out": false,
+            "elapsed_seconds": 130.35521554699517
+          }
+        }
+      },
+      "host_activity": "See host-cpu.jsonl/host-before.txt for each run and host-activity-A2.json; DuckDuckGo A2 includes a stopped 16.5s read-only historical-report directory search; no equivalent event was recorded during Qwen.",
+      "output": {
+        "files": 71047,
+        "missing": [],
+        "extra": [],
+        "byte_identical_in_all_six": 70859,
+        "varying_files": 188
+      },
+      "comment_only_files": 30,
+      "token_varying_files": 158
+    }
+  },
+  "quality": {
+    "overall_pass": false,
+    "ddg_omitted_per_run": 1480,
+    "ddg_omitted_sets_equal": true,
+    "qwen_omitted": {
+      "A1": {
+        "omitted": 911,
+        "outside_current_A_union": []
+      },
+      "B1": {
+        "omitted": 904,
+        "outside_current_A_union": []
+      },
+      "A2": {
+        "omitted": 907,
+        "outside_current_A_union": []
+      },
+      "B2": {
+        "omitted": 903,
+        "outside_current_A_union": [
+          [
+            "sources/anet/channel/strategy/StrategyInfoHolder.java",
+            "anet.channel.strategy.StrategyInfoHolder.saveData():void"
+          ]
+        ]
+      },
+      "A3": {
+        "omitted": 914,
+        "outside_current_A_union": []
+      },
+      "B3": {
+        "omitted": 909,
+        "outside_current_A_union": [
+          [
+            "sources/com/alipay/mobile/common/transport/httpdns/HttpDns.java",
+            "com.alipay.mobile.common.transport.httpdns.HttpDns.GetAllByNameHelper.clearCache():void"
+          ],
+          [
+            "sources/com/alipay/mobile/common/transport/httpdns/HttpDns.java",
+            "com.alipay.mobile.common.transport.httpdns.HttpDns.GetAllByNameHelper.removeCache(java.lang.String):void"
+          ],
+          [
+            "sources/com/uc/picturemode/pictureviewer/interfaces/RecommendConfig.java",
+            "com.uc.picturemode.pictureviewer.interfaces.RecommendConfig.ULiangData.DataFetchTask.run():void"
+          ]
+        ]
+      }
+    },
+    "qwen_A_omitted_union": 922,
+    "qwen_four_new_to_current_A_omitted_have_historical_whole_class_byte_witness": true,
+    "qwen_history_comparison": {
+      "paths": 58,
+      "candidate_distinct_path_token_variants": 60,
+      "candidate_run_variant_occurrences": 73,
+      "matched_distinct_variants": 39,
+      "unmatched_distinct_variants": 21,
+      "unmatched_paths": 21,
+      "source_file_reads": 270,
+      "source_bytes_read": 7002595,
+      "matched_variants_with_byte_identical_historical_witness": 39,
+      "paths_with_all_variants_matched": 37,
+      "source_file_reads_note": "270 reads/7,002,595 bytes counts the historical token-comparison stage only. Separate bounded source-diff, pattern and inventory follow-ups are recorded in their own sections."
+    },
+    "qwen_unmatched_classification_counts": {
+      "pure_rethrow_wrapper": 7,
+      "checked_exception_signatures": 8,
+      "local_compile_gap": 2,
+      "typed_null_expression": 1,
+      "partial_body_with_invalid_java": 1,
+      "cleanup_scope_change": 1,
+      "callee_alias_change": 1
+    },
+    "qwen_unmatched_source_reviews": [
+      {
+        "relative_path": "sources/com/UCMobile/Apollo/support/NativeSupport.java",
+        "runs": [
+          "B3"
+        ],
+        "category": "pure_rethrow_wrapper",
+        "methods": [
+          "loadNativeLibrary(NativeLibraryDefinition, boolean)"
+        ],
+        "candidate_declaration_line": 173,
+        "details": "B3 removes the outer pure catch/rethrow wrapper. Loading loop, two UnsatisfiedLinkError handlers and synchronized modifier remain. Shared duplicate break statements are not newly introduced.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/UCMobile/Apollo/support/NativeSupport.java",
+        "reference_A1_sha256": "707583d716c41033b7da9dad32b8dc57c40f8d41744a20d591c09af2b04a5c1b",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/output/sources/com/UCMobile/Apollo/support/NativeSupport.java",
+        "candidate_sha256": "b8743e7e78f470de82843e017af5c6fff773d99231d11da18af6421309f0dd79",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/alibaba/analytics/core/sync/TnetSecuritySDK.java",
+        "runs": [
+          "B1"
+        ],
+        "category": "pure_rethrow_wrapper",
+        "methods": [
+          "initSecurityCheck()"
+        ],
+        "candidate_declaration_line": 71,
+        "details": "B1 adds an outer pure catch/rethrow. Existing logging and the failure handler that sets false and logs remain in their scopes.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/alibaba/analytics/core/sync/TnetSecuritySDK.java",
+        "reference_A1_sha256": "81f665911ef33c3557229759363f6622167fb9f6b19ec27177771ee14a776d65",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/output/sources/com/alibaba/analytics/core/sync/TnetSecuritySDK.java",
+        "candidate_sha256": "c9a91383495d22d4d01410fcb8891229710dc7f1c411e00b978229c37e66e85c",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/alipay/alipaysecuritysdk/modules/x/x.java",
+        "runs": [
+          "B2"
+        ],
+        "category": "pure_rethrow_wrapper",
+        "methods": [
+          "a(Context)"
+        ],
+        "candidate_declaration_line": 33,
+        "details": "B2 adds an outer pure catch/rethrow. clear/apply order and the existing apply-only exception logging remain.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/alipay/alipaysecuritysdk/modules/x/x.java",
+        "reference_A1_sha256": "b05c81411e8db0c5328d45190478a77463a571318f100785825ae91d4ad6f559",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/output/sources/com/alipay/alipaysecuritysdk/modules/x/x.java",
+        "candidate_sha256": "6b93551a6765d79e4bc44c23d9dffcdbf5a46458925c81f755650179241f6ae8",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/alipay/camera/AutoFocusManager.java",
+        "runs": [
+          "B1"
+        ],
+        "category": "pure_rethrow_wrapper",
+        "methods": [
+          "stop()"
+        ],
+        "candidate_declaration_line": 202,
+        "details": "B1 adds an outer pure catch/rethrow. Stop state, cancellation and RuntimeException handling remain.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/alipay/camera/AutoFocusManager.java",
+        "reference_A1_sha256": "406e40c51ed46c9025c18a8daec748d63927acddecd292c162aef54126fd4ad8",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/output/sources/com/alipay/camera/AutoFocusManager.java",
+        "candidate_sha256": "8c98539d7301d74504972b4f67eb554d78689112ceb3eacaea8fb46636f497ac",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/alipay/mobile/common/transport/config/db/NetworkConfigDAO.java",
+        "runs": [
+          "B2",
+          "B3"
+        ],
+        "category": "pure_rethrow_wrapper",
+        "methods": [
+          "close(Cursor)"
+        ],
+        "candidate_declaration_line": 222,
+        "details": "B2/B3 add pure catch/rethrow within the non-null branch. isClosed exceptions still propagate; close exceptions still reach the existing log handler.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/alipay/mobile/common/transport/config/db/NetworkConfigDAO.java",
+        "reference_A1_sha256": "c38eb53a3a3bd55360d7b5f033d1c57e8c681f20f3c57fa9595cd189d371b5f9",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/output/sources/com/alipay/mobile/common/transport/config/db/NetworkConfigDAO.java",
+        "candidate_sha256": "cd0eeef1c74611cf343f1eb06b8caa5a2e38c4811f2e838f9d7144be76f9186d",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/amap/api/col/p0003sl/hz.java",
+        "runs": [
+          "B3"
+        ],
+        "category": "checked_exception_signatures",
+        "methods": [
+          "calculateRideRoute",
+          "calculateWalkRoute"
+        ],
+        "candidate_declaration_line": 154,
+        "details": "B3 adds CloneNotSupportedException to both throws clauses. Bodies are unchanged. The IRouteSearchV2 interface and external callers were not read, so override/caller compatibility remains open.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/amap/api/col/p0003sl/hz.java",
+        "reference_A1_sha256": "19c971c07383d647325508c6de5f108ae17373d24dddce3a0f599e4e6456ea31",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/output/sources/com/amap/api/col/p0003sl/hz.java",
+        "candidate_sha256": "c0949f13e2cd7ff1a20807d6354c99f4633d500cb400f400f6a4b2854c6861a6",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/amap/api/col/p0003sl/im.java",
+        "runs": [
+          "B2"
+        ],
+        "category": "checked_exception_signatures",
+        "methods": [
+          "b(Context,ix,String,Map)",
+          "a(Context,ix,String,Map)",
+          "a(Context,ix,String,Map,String,String,String)",
+          "a(Context,ix,Throwable)",
+          "a(Context,ix,String)"
+        ],
+        "candidate_declaration_line": 418,
+        "details": "B2 adds crypto/JSON/ik throws declarations and required imports, with bodies unchanged. The AMapUtils caller below shows that propagation can violate a Java override contract.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/amap/api/col/p0003sl/im.java",
+        "reference_A1_sha256": "e5d688e6f42e6f88f5e53ed26d7f80b69707f7dec6f87bc2c90d28dfb66a93cb",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/output/sources/com/amap/api/col/p0003sl/im.java",
+        "candidate_sha256": "db08507aff100ce0793b03320b05ae8feda11a80e9d9178b5a40c89551ace643",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/amap/api/maps/AMapUtils.java",
+        "runs": [
+          "B2"
+        ],
+        "category": "local_compile_gap",
+        "methods": [
+          "a.run()"
+        ],
+        "candidate_declaration_line": 78,
+        "details": "B2 adds checked crypto/JSON exceptions to run() in a class explicitly extending java.lang.Thread. Thread/Runnable.run() cannot be overridden with these additional checked exceptions. The body is unchanged. This is a source-level compilation error, not a compiler run.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/amap/api/maps/AMapUtils.java",
+        "reference_A1_sha256": "24db0c52eba75d95f1a5b1e66787b1282ca04512a80f8030e8f0270a9577f0b7",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/output/sources/com/amap/api/maps/AMapUtils.java",
+        "candidate_sha256": "6eb4d9cbaab51ae12afcb7daafb00987f7d41c452cd1a932656c7d6367f032fd",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/amap/api/services/route/RouteSearchV2.java",
+        "runs": [
+          "B3"
+        ],
+        "category": "checked_exception_signatures",
+        "methods": [
+          "DrivingStrategy.fromValue",
+          "RideRouteQuery.m115clone",
+          "WalkRouteQuery.m116clone"
+        ],
+        "candidate_declaration_line": 854,
+        "details": "B3 adds CloneNotSupportedException to three declarations. Bodies are unchanged, including explicit super.clone catch blocks in the clone methods. External callers and relevant interfaces remain unchecked.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/amap/api/services/route/RouteSearchV2.java",
+        "reference_A1_sha256": "21c4ae3b980046747399d73ba835811320d5c3b11be78c97d8b43c28fd695137",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/output/sources/com/amap/api/services/route/RouteSearchV2.java",
+        "candidate_sha256": "b130615863156bb1b4775f4c96ab01058d5fafb2e19267ce5e3d13fb0e0e75ac",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/quark/kmp_ai_studio/home/net/bean/ASIdeaTabData$$serializer.java",
+        "runs": [
+          "B2"
+        ],
+        "category": "typed_null_expression",
+        "methods": [
+          "deserialize(Decoder)"
+        ],
+        "candidate_declaration_line": 58,
+        "details": "B2 replaces a SerializationConstructorMarker local initialized to null, used at the constructor call, with an explicitly cast null of the same type at that call. No other source changes. Locally the typed null value is preserved.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/quark/kmp_ai_studio/home/net/bean/ASIdeaTabData$$serializer.java",
+        "reference_A1_sha256": "acb8714d9f4168660666d503bdf505182e5de1fe994ba43742cd052b2897d499",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/output/sources/com/quark/kmp_ai_studio/home/net/bean/ASIdeaTabData$$serializer.java",
+        "candidate_sha256": "ade1d50aaa992fbca47b446eb6f1704fe7c71eca5b192ba2108bb25fd91d9265",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/uc/apollo/preload/RemoteMediaPreloader.java",
+        "runs": [
+          "B1",
+          "B2"
+        ],
+        "category": "pure_rethrow_wrapper",
+        "methods": [
+          "remove(String)",
+          "setOption(String,String)",
+          "setPriority(String,int)"
+        ],
+        "candidate_declaration_line": 78,
+        "details": "B1/B2 add outer pure catch/rethrow wrappers to three synchronized methods. RemoteException handling, service calls and queued Runnable paths remain.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/uc/apollo/preload/RemoteMediaPreloader.java",
+        "reference_A1_sha256": "e5c8af5c821074e6d22f30d5625b32573cf9a5dbdf57d91c2ec5ff86978a0ffe",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/output/sources/com/uc/apollo/preload/RemoteMediaPreloader.java",
+        "candidate_sha256": "426b1cba178bfb3ce214b77371e5a4afa48916d05764ffe2276510b9498bb8da",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/uc/picturemode/webkit/PictureViewManager.java",
+        "runs": [
+          "B3"
+        ],
+        "category": "checked_exception_signatures",
+        "methods": [
+          "openPictureViewer"
+        ],
+        "candidate_declaration_line": 391,
+        "details": "B3 adds JSONException and MalformedURLException plus imports, with body unchanged. External call compatibility remains unchecked.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/uc/picturemode/webkit/PictureViewManager.java",
+        "reference_A1_sha256": "6a739b1d9f1fd55be9434994db1cb2e5a01a36ad1cc75d9889a21cdb0ea851b9",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/output/sources/com/uc/picturemode/webkit/PictureViewManager.java",
+        "candidate_sha256": "5112a9a9a1a53b2686b0650412c4b68d5490c298fa236fa8cfb26a481d2a4507",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/uc/picturemode/webkit/picture/WebViewPictureViewer.java",
+        "runs": [
+          "B3"
+        ],
+        "category": "checked_exception_signatures",
+        "methods": [
+          "canOpenPictureViewer",
+          "createPictureViewer",
+          "initPictureViewerStat",
+          "parseJson",
+          "tryInit",
+          "open"
+        ],
+        "candidate_declaration_line": 1239,
+        "details": "B3 adds JSONException/MalformedURLException declarations to six methods. Bodies are unchanged; external call compatibility remains unchecked.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/uc/picturemode/webkit/picture/WebViewPictureViewer.java",
+        "reference_A1_sha256": "73e8e3cc293ddc42daca014cf5b9830456782a3ffb702d48f7cde34efda0d168",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/output/sources/com/uc/picturemode/webkit/picture/WebViewPictureViewer.java",
+        "candidate_sha256": "5c1bff43360cd264bbdcf241e5a09580ae3190d1e2cbb4c783f7d0cd6d6832b7",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/uc/wpk/UCDataFlow.java",
+        "runs": [
+          "B1",
+          "B3"
+        ],
+        "category": "partial_body_with_invalid_java",
+        "methods": [
+          "run()"
+        ],
+        "candidate_declaration_line": 1367,
+        "details": "B1/B3 replace the omitted run() stub with about 1300 lines of generated body, but line 1379 contains invalid Java local declaration ?? r10. The current A runs and all six historical baselines retain an omitted run() stub. Reduced omitted counts here do not mean a compilable body. Full semantics of the generated body were not reviewed.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/uc/wpk/UCDataFlow.java",
+        "reference_A1_sha256": "8407f09b2e3aa78f4a4dba0415645f331307c1de8854275fe98d5f644e676aa9",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/output/sources/com/uc/wpk/UCDataFlow.java",
+        "candidate_sha256": "4a58341706ea57ae9f0ac682fa02b8ebe065f04131508b3d4e6b49fb5d48917a",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/ucpro/chat/titlebar/TitleBarMenuConfigManager.java",
+        "runs": [
+          "B3"
+        ],
+        "category": "local_compile_gap",
+        "methods": [
+          "constructor"
+        ],
+        "candidate_declaration_line": 28,
+        "details": "B3 adds five 0 == true ? 1 : 0 expressions at lines 34,35,38,39,40. Comparing int literal 0 with boolean true is illegal Java independent of the callee signature. The other current runs and all six authorized historical baselines contain no such expressions. No causal claim about the optimization is made.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/ucpro/chat/titlebar/TitleBarMenuConfigManager.java",
+        "reference_A1_sha256": "0fd9bde850101e9138ab38f2f1464591f96100a7c823dfe638fbd7840b252879",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/output/sources/com/ucpro/chat/titlebar/TitleBarMenuConfigManager.java",
+        "candidate_sha256": "5bede023fc6862ab212b1816fbdcb81dbde6cbbc2334e064c1ed11086eb5806e",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/com/ucpro/feature/study/main/util/SnapshotUtil.java",
+        "runs": [
+          "B3"
+        ],
+        "category": "pure_rethrow_wrapper",
+        "methods": [
+          "e(Bitmap,String,String)"
+        ],
+        "candidate_declaration_line": 120,
+        "details": "B3 removes an outer pure catch/rethrow inside synchronized. Instrumentation dispatch, filesystem work and the inner logging handler remain.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/com/ucpro/feature/study/main/util/SnapshotUtil.java",
+        "reference_A1_sha256": "e5a6f729a599c927fe6bbcff86704f6cf60140dff0b1d6f052caba872cea0758",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/output/sources/com/ucpro/feature/study/main/util/SnapshotUtil.java",
+        "candidate_sha256": "4e41e71b612bd87be570a210b2af1224d9e05f6b6eea84d08db6eb163ea1f6fa",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/de/greenrobot/dao/AbstractDao.java",
+        "runs": [
+          "B2"
+        ],
+        "category": "cleanup_scope_change",
+        "methods": [
+          "deleteInTxInternal(Iterable<T>,Iterable<K>)"
+        ],
+        "candidate_declaration_line": 122,
+        "details": "B2 consolidates the duplicated key loop and moves that loop plus normal unlock outside the entity-iteration cleanup catch. A1 also has invalid undeclared r4/k10 in the null-entity branch, which B2 repairs. For entity input, a normal unlock throwing causes a second unlock attempt in A1 but not B2. Both-non-null iterable paths also differ, but all four class-local callers pass exactly one null argument, so that path is not demonstrated reachable through those callers. endTransaction cleanup remains. Original DEX try/handler ranges are needed to select the faithful form.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/de/greenrobot/dao/AbstractDao.java",
+        "reference_A1_sha256": "8f25859a6695a25776e3a3a8f1b995976ee654d3031c7a086ba8138259ca7c5a",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/output/sources/de/greenrobot/dao/AbstractDao.java",
+        "candidate_sha256": "a63986bbfa830c3ded58d5380d0501b1b4b8bfb215f1ef8cbd80d2ac45e69225",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/kotlin/coroutines/intrinsics/IntrinsicsKt__IntrinsicsJvmKt.java",
+        "runs": [
+          "B3"
+        ],
+        "category": "callee_alias_change",
+        "methods": [
+          "createCoroutineFromSuspendFunction$IntrinsicsKt__IntrinsicsJvmKt",
+          "createCoroutineUnintercepted (two overloads)",
+          "createSimpleCoroutineForSuspendFunction$IntrinsicsKt__IntrinsicsJvmKt"
+        ],
+        "candidate_declaration_line": 34,
+        "details": "B3 changes four continuation calls from getF110668x() to get$context(). The Continuation declaration and outside callers are outside the authorized 58 paths, so cross-class name consistency is unresolved.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/kotlin/coroutines/intrinsics/IntrinsicsKt__IntrinsicsJvmKt.java",
+        "reference_A1_sha256": "7eb08ddd88f274f0f1ca64904fcd238fa58047e771f998e8e6f62f7c6d55589f",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B3/output/sources/kotlin/coroutines/intrinsics/IntrinsicsKt__IntrinsicsJvmKt.java",
+        "candidate_sha256": "df7fc1c26729ed6c5c05f2d20482652b5213afc83165edc67d33c579068a2916",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics.",
+        "first_changed_call_line": 35
+      },
+      {
+        "relative_path": "sources/okio/RealBufferedSource.java",
+        "runs": [
+          "B1"
+        ],
+        "category": "checked_exception_signatures",
+        "methods": [
+          "skip(long)"
+        ],
+        "candidate_declaration_line": 419,
+        "details": "B1 narrows throws IOException to EOFException while retaining source.read(...) and bufferField.skip(...). The exact Qwen Source interface and callee declarations were not read; the narrowing cannot be declared safe from this file alone.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/okio/RealBufferedSource.java",
+        "reference_A1_sha256": "4c81a283b5a79ac18ed9407b96db6fa1fe427d6030ae61ec0e55414a824ad109",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B1/output/sources/okio/RealBufferedSource.java",
+        "candidate_sha256": "db96290782c3cce6c6028990b444126c8cb14adf1a3e1214f0ff3a3fe31e2258",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/org/extra/relinker/ReLinker.java",
+        "runs": [
+          "B2"
+        ],
+        "category": "checked_exception_signatures",
+        "methods": [
+          "loadLibrary (four overloads)"
+        ],
+        "candidate_declaration_line": 47,
+        "details": "B2 adds throws Throwable to four forwarding APIs; bodies are unchanged. External callers are not checked.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/org/extra/relinker/ReLinker.java",
+        "reference_A1_sha256": "9279b0d4a4c08ae44354715b71be55fc5372548ed4c1d041743c64279a6856be",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/output/sources/org/extra/relinker/ReLinker.java",
+        "candidate_sha256": "96519111b1d605dcd8ebd6a9aa304f9459789b0765656a4a5fd920b3eef6ce64",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      },
+      {
+        "relative_path": "sources/org/extra/relinker/ReLinkerInstance.java",
+        "runs": [
+          "B2"
+        ],
+        "category": "checked_exception_signatures",
+        "methods": [
+          "loadLibrary (three overloads)"
+        ],
+        "candidate_declaration_line": 147,
+        "details": "B2 adds throws Throwable to three overloads; bodies are unchanged. External callers are not checked.",
+        "reference_A1_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-A1/output/sources/org/extra/relinker/ReLinkerInstance.java",
+        "reference_A1_sha256": "f9e5df5c11a5fcc7c874672fe6a02e489951ebd94224503ed9f8d0237456321a",
+        "candidate_path": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-B2/output/sources/org/extra/relinker/ReLinkerInstance.java",
+        "candidate_sha256": "65fbc8c61c3c8008198bf72b3eab1e5e305387090c9258d269e9de0eb35d0039",
+        "manifest_matches": true,
+        "review_depth": "Complete diff and necessary source context; UCDataFlow large generated body only checked for stub replacement and explicit invalid local syntax, not full semantics."
+      }
+    ],
+    "conclusion": "Quality not approved. There is a major DDG performance improvement elsewhere, but current Qwen performance is essentially unchanged and this bounded review finds 21 candidate full-class variants absent from nine baseline observations (three current plus six same-distribution historical). Seven are local pure rethrow wrappers and one preserves a typed null. Two have concrete new-to-observed-baselines invalid Java forms (TitleBarMenuConfigManager constructor and AMapUtils Thread.run); UCDataFlow restores a body containing invalid syntax; AbstractDao changes cleanup scope; eight other classes change checked exception signatures and one changes callee alias. Historical presence and omitted-count decreases do not establish correctness, stable frequency, or optimization causality. Existing finally/DEX reconstruction concerns remain unresolved.",
+    "ddg_real_buffered_sink": {
+      "conclusion": "B3 emit omits a checked IOException declaration while calling Sink.write without a catch; this is a Java source validity defect, not a proven equivalent signature change",
+      "status": "open; no baseline reproduction or actual B3 execution-order root cause established",
+      "specified_baseline_missing_throws_match_found": false
+    },
+    "ddg_navigation": {
+      "conclusion": "No protected-access error in the four listed calls; B1 visibility matches the DEX protected final declaration",
+      "limit": "The synthetic lambda uses the emitted this.f$0 representation; this access review does not establish that the whole generated class compiles"
+    },
+    "protobuf": [
+      {
+        "class": "androidx.datastore.preferences.protobuf.CodedInputStream$StreamDecoder",
+        "method": "skipRawBytesSlowPath(int)",
+        "raw_dex_disassembly": {
+          "path": "out/jadx-perf/20261011/usage-snapshot-tree/target-inspection-retry/priming-0/androidx.datastore.preferences.protobuf.CodedInputStream$StreamDecoder.smali",
+          "sha256": "faa4f277bdd6dbcf23afb9670dcac2e35bab71606b323ed66d25e1d308317cec",
+          "method_start_line": 837,
+          "method_end_line": 1060,
+          "method_sha256": "fcee4197a8763dbc736fd4711c74af7a08e165137d7cd5afbf1f362594d0208a",
+          "method_token_sha256": "2f89318340f3f473ca9d79afa2cacff6ac94c21a306bb9fe8ef9ecaa3dba6162",
+          "method_declaration": ".method private skipRawBytesSlowPath(I)V"
+        },
+        "try_range": "[0x21,0x5d)",
+        "catch_all_handler": "0x5d",
+        "normal_exit_cleanup": "0x67",
+        "correct_relative_cleanup_placement_runs": [
+          "A1",
+          "B2"
+        ],
+        "incorrect_cleanup_in_loop_finally_runs": [
+          "A2",
+          "A3",
+          "B1",
+          "B3"
+        ],
+        "counterexample": {
+          "remaining_buffer": 0,
+          "requested_bytes": 2,
+          "skip_results": [
+            1,
+            1
+          ],
+          "A1_totalBytesRetired_increment": 2,
+          "B1_totalBytesRetired_increment": 3,
+          "executed": false
+        },
+        "actual_root_cause_confirmed": false
+      },
+      {
+        "class": "com.google.crypto.tink.shaded.protobuf.CodedInputStream$StreamDecoder",
+        "method": "skipRawBytesSlowPath(int)",
+        "raw_dex_disassembly": {
+          "path": "out/jadx-perf/20261011/usage-snapshot-tree/target-inspection-retry/priming-0/com.google.crypto.tink.shaded.protobuf.CodedInputStream$StreamDecoder.smali",
+          "sha256": "9b95a8669c60543e386747ff3cbfb68be57139275fe719f4bafcb68ff9d9afcb",
+          "method_start_line": 837,
+          "method_end_line": 1060,
+          "method_sha256": "1e835f5bcfa5af8c991e30d38fe6ce232033922d23f012a9e6a28b59d3a72545",
+          "method_token_sha256": "c16399aba9283587a6df5518bad688e17ba1bfcaa65d8630f99d77269a36e62d",
+          "method_declaration": ".method private skipRawBytesSlowPath(I)V"
+        },
+        "try_range": "[0x21,0x5d)",
+        "catch_all_handler": "0x5d",
+        "normal_exit_cleanup": "0x67",
+        "correct_relative_cleanup_placement_runs": [
+          "A1",
+          "B2"
+        ],
+        "incorrect_cleanup_in_loop_finally_runs": [
+          "A2",
+          "A3",
+          "B1",
+          "B3"
+        ],
+        "counterexample": {
+          "remaining_buffer": 0,
+          "requested_bytes": 2,
+          "skip_results": [
+            1,
+            1
+          ],
+          "A1_totalBytesRetired_increment": 2,
+          "B1_totalBytesRetired_increment": 3,
+          "executed": false
+        },
+        "actual_root_cause_confirmed": false
+      }
+    ]
+  },
+  "diagnostics": {
+    "formal_performance_run": false,
+    "qwen_shadow": {
+      "queries": 53119,
+      "length_sum": 76722552,
+      "mismatches": 0
+    },
+    "qwen_shadow_errors": {
+      "observed_counter_events": 1033,
+      "report_counts": [
+        1033
+      ],
+      "cli_counts": [
+        1033
+      ],
+      "unique_nodes_in_final_report": 650,
+      "other_error_record_count": 9,
+      "total_validation": "passed"
+    },
+    "ddg_shadow": {
+      "status": "incomplete_timeout",
+      "timeout_seconds": 900,
+      "driver_exit": 1,
+      "process_group_cleanup": {
+        "returncode": -9,
+        "timed_out": true,
+        "exception": "TimeoutExpired",
+        "elapsed_seconds": 900.0031354490056
+      },
+      "partial_observed_errors": 520,
+      "final_error_count": null,
+      "final_shadow_counts": null,
+      "complete_manifest": false
+    },
+    "frozen_A_error_log_run": "not_started_after_previous_timeout",
+    "formal_ddg_additional_error_explained": false,
+    "shadow_limit": "Zero first-position mismatches on Qwen do not prove whole-list, concurrency, or generated-code equivalence; length sum is not an actual equality-comparison count."
+  },
+  "final_restoration": {
+    "baseline_commit": "52fef6e7941ea06af43f7317000e41a6d025d5fd",
+    "branch": "codex/dependency-recovery-research",
+    "tracked_source_diff_empty": true,
+    "experimental_helper_absent": true,
+    "distribution_files": 62,
+    "distribution_matches_frozen_A": true,
+    "sources": {
+      "jadx-core/src/main/java/jadx/core/dex/nodes/ClassNode.java": {
+        "status": "restored baseline",
+        "sha256": "79b0bb425a9647921f830ff1e630992a2d3f146a93d2e5e027d58ceeb461929a"
+      },
+      "jadx-core/src/main/java/jadx/core/dex/nodes/FieldNode.java": {
+        "status": "restored baseline",
+        "sha256": "2929994c695e17e5654e227e8227e549a5110e8da3dc674dd6d6efe94eb08532"
+      },
+      "jadx-core/src/main/java/jadx/core/dex/nodes/utils/UsageInfoList.java": {
+        "status": "absent on baseline"
+      },
+      "jadx-core/src/test/java/jadx/core/dex/visitors/InlineMethodsUsageTest.java": {
+        "status": "restored baseline",
+        "sha256": "39ff3015f80bfe0be0587cf7f2673e1b87209d6bf4f72d64fd4a4d0128e41b31"
+      },
+      "jadx-core/src/test/java/jadx/core/dex/nodes/utils/UsageInfoListTest.java": {
+        "status": "absent on baseline"
+      }
+    },
+    "build_exit_record": "baseline-final-restore-build-exit.json"
+  },
+  "not_checked": [
+    "GUI and external plugin behavior",
+    "arbitrary concurrent deep reload",
+    "whole APK output recompilation or device execution",
+    "all changed cross-class throws/getter contracts",
+    "causal execution trace for the new invalid forms",
+    "DDG full shadow completion and formal additional error event",
+    "actual fixes and regressions for suspected finally/exception-attribute lifetime paths"
+  ],
+  "local_evidence": [
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/candidate.patch",
+      "sha256": "15fa599c70bc2c7a77ce4cf70a9f1ffa246188df8f9d5a35322011dec5ec1d8e",
+      "bytes": 33370
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/candidate-source-hashes.json",
+      "sha256": "0c96d9c4892e7eafa152f2ba058fab2725e8c6682ca044725bbe13d50262da35",
+      "bytes": 703
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/distributions.json",
+      "sha256": "38d6744867af7aaf766d25c623413cd7d4859da0e405899444598108f18aabc4",
+      "bytes": 12601
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/experimental-commit.json",
+      "sha256": "70cb5de63c1cf08437067931449d5fb78ae5a44e4bf2be5abc0f58aeea93fdb8",
+      "bytes": 191
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/candidate-full-checks-command.json",
+      "sha256": "ff5b2c2dbfdd6c32ee9a67f6d56b096d6a639329a772a7ec7fa0cbc2da9e7eaf",
+      "bytes": 896
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/candidate-full-checks-exit.json",
+      "sha256": "8201b377b9ab5816aa3c3d7a87d7ce4aedab1ef818d8ba7e423410466f542951",
+      "bytes": 85
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/candidate-test-summary.json",
+      "sha256": "3d12233460d2bfd1f3e9ec60a830150cf2d5052b29376e641bf3f47a077bd003",
+      "bytes": 68
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/candidate-test-results.zip",
+      "sha256": "6767f0bb74952b86201d8b781a2bb6a5745a34e70ce5f313c47718d711584fd6",
+      "bytes": 1407288
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/baseline-node-regression-summary.json",
+      "sha256": "be74c0b5501ccdd6a3426dc83833da0026d3cbc0152554192bf4637460c85106",
+      "bytes": 73
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/baseline-node-regression-retry-command.json",
+      "sha256": "ee574f2571963926da38f4c0b2057b4c6a79ab3610de86136285be5ad722a0c5",
+      "bytes": 712
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/baseline-node-regression-retry-exit.json",
+      "sha256": "96ae4d4ddea55b84d0eb2cfd4dd679febd90a9a1c6234f7e1b2cfc665952c8e4",
+      "bytes": 84
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/duckduckgo-5.297.1-summary.json",
+      "sha256": "c8dd68a8a46be4bd214983bcae6900bfa3634ae5e42543a6ab267a83242606c2",
+      "bytes": 18627
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-7.3.6-summary.json",
+      "sha256": "cf31ffce35928a81cf427eacd8030b76da15f8b59331273dd30a0ab35b653326",
+      "bytes": 105983
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-body-union.json",
+      "sha256": "d1f59734f00ecb881dae069053ed4152c138fd36eea484da19cd3fb1d6354462",
+      "bytes": 7703
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/ddg-first-pair-quality-review.json",
+      "sha256": "ae753a64e70bea19ad50f2d5adb23fc2e6a8f580df7e01863e1f47f83617206a",
+      "bytes": 82886
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/ddg-six-run-quality-review.json",
+      "sha256": "930a4bc080ac81a2b2ba6327115d73c8460c34265e3f0b4091e488863b92ebf0",
+      "bytes": 76655
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/qwen-quality-review.json",
+      "sha256": "d3a49182a5d41807526a4b3975ba4a60a26ad9218d67053565d4c247f13b668a",
+      "bytes": 503519
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/target-source-quality-review.json",
+      "sha256": "9e2f52dc1e70a30eb04080155ba87623fb8aacfbdec816e099495b02d842aae9",
+      "bytes": 37172
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/finally-order-source-review.md",
+      "sha256": "aadb949b2c7c07cc7f54800bd62a620192d5c16774ba865df81057daa34ca514",
+      "bytes": 8324
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/host-activity-A2.json",
+      "sha256": "c3fb1bc93fa03265fc83ba6b4dca50d790c8afabb6a0f1dc024ac353a703aaec",
+      "bytes": 621
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/error-event-review.json",
+      "sha256": "147b8bb7ef99a2fd9b78be0a354904d8a18433174e33ce103ac48b96c103a881",
+      "bytes": 12141
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/error-event-review.py",
+      "sha256": "15e0ab2b8ada454cd1bdf6151b0f1587d3e1998541406f89721c3e4c30e9e1e1",
+      "bytes": 8108
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/run_pairs.py",
+      "sha256": "a206d85d5267c1e99c5ac02accf2ca8b9eae8f7e495a14f1ca3f85abae011af5",
+      "bytes": 3357
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/summarize_pairs.ddg-as-run.py",
+      "sha256": "90c9ecac80705a7c5e62035031c4d98d213bbda86577d2f9d1e90e82df4e893f",
+      "bytes": 4155
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/summarize_pairs.py",
+      "sha256": "5be11be6a68f38e6acbf643f6e613fb8940fcaeea3eca8ff5c78050dbb93e362",
+      "bytes": 4212
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/run_shadow.py",
+      "sha256": "09d54debfa644da65f0f58174834240dbb6a06e7e320d9ebd2dd01d7c0ec58a8",
+      "bytes": 12922
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/shadow-script-self-check.json",
+      "sha256": "06cfb3e42ebd714872548958dc0975c6689fa8b2c8d38ba7d99d94bbe98c639c",
+      "bytes": 402
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/shadow/diagnostic-binding.json",
+      "sha256": "bde47047b2b48d7add922d736f2d43ad203b8f5854889ecb57f8b7e94a9c8260",
+      "bytes": 7884
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/shadow/status.json",
+      "sha256": "4b8837e07f7e2147813ba6ff9d4f5fbc703455b4b97bcaf875dd6eb800b253f1",
+      "bytes": 655
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/shadow/shadow-core-jar-entry-changes.json",
+      "sha256": "4d5aac0d3c3cd986773fbb2cd2cb11e9b698d889cb02533ffebac84524e2004e",
+      "bytes": 237
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/shadow/measure_error.py",
+      "sha256": "b8f8d7517540eedad48c0b2c27ca4c850c04d9894ef089009c2dff1a14672af2",
+      "bytes": 5181
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/shadow/duckduckgo-5.297.1-measure-exit.json",
+      "sha256": "3888ac27d425eb8fcfc311e071d7b9f119ff545aba220823a9d28560c5461f8b",
+      "bytes": 117
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/shadow/qwen-7.3.6/shadow-counts.json",
+      "sha256": "c7c876c756cd51bc5c99bcde67e1fcaafef868b8f77189b59465c71eac520472",
+      "bytes": 68
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/run_target_inspection.py",
+      "sha256": "dd6bd403d8b7743d6e22e2653e2463723e8f7529180fef532f84d7af680c1f46",
+      "bytes": 3219
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/InspectUsageFinally.java",
+      "sha256": "0daa15926b404f04e127ccb29638959cf5e19d55309eda09cb531f76fe4975b1",
+      "bytes": 2634
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/target-inspection-retry/binding.json",
+      "sha256": "19901168d3904a5374f9fe8cd789680249a39a03c0cb2e8b5e854b19e9a49f63",
+      "bytes": 6806
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/baseline-final-restoration.json",
+      "sha256": "d1c0c3e106afe59225fd5bae11bc74d69997a833de2e7cbf524850cc7e138105",
+      "bytes": 7505
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/baseline-final-restore-build-command.json",
+      "sha256": "457e4271115fc9cb3c903b0507e0ad7f91839e45a360c04872f3790422b46ebb",
+      "bytes": 650
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/baseline-final-restore-build-exit.json",
+      "sha256": "8a276dfd70a309afd7b49b0c23b8cca2cc863514173dd56d3e602732684b5091",
+      "bytes": 85
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/ddg-baseline-profile/metadata.json",
+      "sha256": "eabf5a2cb3d15aa744de953d6a046948f3fc3a82090ff1325acf414c6f0a7fc0",
+      "bytes": 7592
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/ddg-baseline-profile/metrics.json",
+      "sha256": "688cbca1794cf11b45a3ecd8f04e7187caafed18b07ebda445e0d30929370dab",
+      "bytes": 164
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/ddg-baseline-profile/profile.summary.json",
+      "sha256": "b42cbf4ddc1d9ddc744c10e0801f3482fefa0f1310160b85e33813931e3e9d11",
+      "bytes": 471087
+    },
+    {
+      "path": "out/jadx-perf/20261011/usage-snapshot-tree/archive_results.py",
+      "sha256": "cb9da0760b2557f71a60469495b003b0fa380e0da84080eb5e5c4e02eb34d7e0",
+      "bytes": 10512
+    }
+  ]
+}
