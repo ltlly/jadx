@@ -1,7 +1,9 @@
 package jadx.core.dex.visitors;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -34,6 +36,7 @@ import jadx.core.dex.trycatch.ExceptionHandler;
 import jadx.core.dex.visitors.regions.RegionMakerVisitor;
 import jadx.core.dex.visitors.typeinference.TypeCompare;
 import jadx.core.dex.visitors.typeinference.TypeCompareEnum;
+import jadx.core.utils.ListUtils;
 import jadx.core.utils.exceptions.JadxException;
 
 @JadxVisitor(
@@ -51,6 +54,11 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 
 	private RootNode root;
 
+	private static final class ThrowsAnalysis {
+		private final Map<MethodNode, Set<String>> methods = new LinkedHashMap<>();
+		private boolean pending;
+	}
+
 	@Override
 	public void init(RootNode root) throws JadxException {
 		this.root = root;
@@ -59,15 +67,49 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 	@Override
 	public void visit(MethodNode mth) throws JadxException {
 		MethodThrowsAttr attr = mth.get(AType.METHOD_THROWS);
-		if (attr == null) {
-			attr = new MethodThrowsAttr(new HashSet<>());
-			mth.addAttr(attr);
+		if (attr != null && attr.isVisited()) {
+			return;
 		}
-		if (!attr.isVisited()) {
-			attr.setVisited(true);
-			processInstructions(mth);
+		ThrowsAnalysis analysis = new ThrowsAnalysis();
+		analyzeMethod(mth, analysis);
+		long previousSize;
+		long size = countExceptions(analysis);
+		do {
+			previousSize = size;
+			for (MethodNode method : new ArrayList<>(analysis.methods.keySet())) {
+				processInstructions(method, analysis);
+			}
+			size = countExceptions(analysis);
+		} while (size != previousSize);
+		for (Map.Entry<MethodNode, Set<String>> entry : analysis.methods.entrySet()) {
+			Set<String> exceptions = entry.getValue();
+			mergeExceptions(exceptions);
+			// Publish only stable sets; a pending analysis is replaced on its next visit.
+			MethodThrowsAttr methodAttr = new MethodThrowsAttr(exceptions);
+			methodAttr.setVisited(!analysis.pending);
+			entry.getKey().addAttr(methodAttr);
 		}
+	}
 
+	private static long countExceptions(ThrowsAnalysis analysis) {
+		long count = 0;
+		for (Set<String> exceptions : analysis.methods.values()) {
+			count += exceptions.size();
+		}
+		return count;
+	}
+
+	private void analyzeMethod(MethodNode mth, ThrowsAnalysis analysis) {
+		MethodThrowsAttr existing = mth.get(AType.METHOD_THROWS);
+		if ((existing != null && existing.isVisited()) || analysis.methods.containsKey(mth)) {
+			return;
+		}
+		if (!mth.isNoCode() && (mth.getBasicBlocks() == null || mth.getRegion() == null)) {
+			analysis.pending = true;
+			return;
+		}
+		Set<String> throwsSet = new HashSet<>();
+		analysis.methods.put(mth, throwsSet);
 		List<ArgType> invalid = new ArrayList<>();
 		ExceptionsAttr exceptions = mth.get(JadxAttrType.EXCEPTIONS);
 		if (exceptions != null && !exceptions.getList().isEmpty()) {
@@ -76,14 +118,14 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 				if (validateException(excType) == ExceptionType.NO_EXCEPTION) {
 					invalid.add(excType);
 				} else {
-					attr.getList().add(excType.getObject());
+					throwsSet.add(excType.getObject());
 				}
 			}
 		}
 		if (!invalid.isEmpty()) {
 			mth.addWarnComment("Byte code manipulation detected: skipped illegal throws declarations: " + invalid);
 		}
-		mergeExceptions(attr.getList());
+		processInstructions(mth, analysis);
 	}
 
 	private void mergeExceptions(Set<String> excSet) {
@@ -109,7 +151,7 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 		toRemove.forEach(excSet::remove);
 	}
 
-	private void processInstructions(MethodNode mth) {
+	private void processInstructions(MethodNode mth, ThrowsAnalysis analysis) {
 		if (mth.isNoCode() || mth.getBasicBlocks() == null) {
 			return;
 		}
@@ -128,15 +170,17 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 					}
 				}
 				for (InsnNode insn : block.getInstructions()) {
-					checkInsn(mth, insn, excludedExceptions, skipExceptions);
+					checkInsn(mth, insn, excludedExceptions, skipExceptions, analysis);
 				}
 			}
 		} catch (Exception e) {
+			analysis.pending = true;
 			mth.addWarnComment("Failed to analyze thrown exceptions", e);
 		}
 	}
 
-	private void checkInsn(MethodNode mth, InsnNode insn, Set<String> excludedExceptions, boolean skipExceptions) throws JadxException {
+	private void checkInsn(MethodNode mth, InsnNode insn, Set<String> excludedExceptions, boolean skipExceptions,
+			ThrowsAnalysis analysis) throws JadxException {
 		if (!skipExceptions && insn.getType() == InsnType.THROW && !insn.contains(AFlag.DONT_GENERATE)) {
 			InsnArg throwArg = insn.getArg(0);
 			if (throwArg instanceof RegisterArg) {
@@ -152,12 +196,12 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 						return;
 					}
 				}
-				visitThrows(mth, exceptionType, excludedExceptions);
+				visitThrows(mth, exceptionType, excludedExceptions, analysis);
 			} else {
 				if (throwArg instanceof InsnWrapArg) {
 					InsnWrapArg insnWrapArg = (InsnWrapArg) throwArg;
 					ArgType exceptionType = insnWrapArg.getType();
-					visitThrows(mth, exceptionType, excludedExceptions);
+					visitThrows(mth, exceptionType, excludedExceptions, analysis);
 				}
 			}
 			return;
@@ -175,24 +219,16 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 				if (cMth == null) {
 					return;
 				}
-				visit(cMth);
-				MethodThrowsAttr cAttr = cMth.get(AType.METHOD_THROWS);
-				MethodThrowsAttr attr = mth.get(AType.METHOD_THROWS);
-				if (attr != null && cAttr != null && !cAttr.getList().isEmpty()) {
-					for (String argTypeStr : cAttr.getList()) {
-						visitThrows(mth, ArgType.object(argTypeStr), excludedExceptions);
-					}
+				for (String argTypeStr : getCalleeThrows(mth, cMth, analysis)) {
+					visitThrows(mth, ArgType.object(argTypeStr), excludedExceptions, analysis);
 				}
 			} else {
 				ClspClass clsDetails = root.getClsp().getClsDetails(classInfo.getType());
 				if (clsDetails != null) {
 					ClspMethod cMth = searchOverriddenMethod(clsDetails, signature);
 					if (cMth != null && cMth.getThrows() != null && !cMth.getThrows().isEmpty()) {
-						MethodThrowsAttr attr = mth.get(AType.METHOD_THROWS);
-						if (attr != null) {
-							for (ArgType argType : cMth.getThrows()) {
-								visitThrows(mth, argType, excludedExceptions);
-							}
+						for (ArgType argType : cMth.getThrows()) {
+							visitThrows(mth, argType, excludedExceptions, analysis);
 						}
 					}
 				}
@@ -200,7 +236,31 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 		}
 	}
 
-	private void visitThrows(MethodNode mth, ArgType excType, Set<String> excludedExceptions) {
+	private Iterable<String> getCalleeThrows(MethodNode mth, MethodNode callee, ThrowsAnalysis analysis) {
+		boolean local = mth.getTopParentClass() == callee.getTopParentClass();
+		if (local) {
+			analyzeMethod(callee, analysis);
+			Set<String> exceptions = analysis.methods.get(callee);
+			if (exceptions != null) {
+				return exceptions;
+			}
+		}
+		// Completed throws are pinned across unloads; foreign IR itself can still be incomplete.
+		MethodThrowsAttr attr = callee.get(AType.METHOD_THROWS);
+		if (attr != null) {
+			analysis.pending |= !attr.isVisited();
+			return attr.getList();
+		}
+		if (!callee.isNoCode()) {
+			analysis.pending = true;
+		}
+		ExceptionsAttr exceptions = callee.get(JadxAttrType.EXCEPTIONS);
+		return exceptions == null
+				? Collections.emptyList()
+				: ListUtils.filter(exceptions.getList(), type -> validateException(ArgType.object(type)) != ExceptionType.NO_EXCEPTION);
+	}
+
+	private void visitThrows(MethodNode mth, ArgType excType, Set<String> excludedExceptions, ThrowsAnalysis analysis) {
 		if (excType.isTypeKnown() && isThrowsRequired(mth, excType)) {
 			for (String excludedException : excludedExceptions) {
 				if (isBaseException(excType.getObject(), excludedException)) {
@@ -208,7 +268,7 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 				}
 			}
 
-			mth.get(AType.METHOD_THROWS).getList().add(excType.getObject());
+			analysis.methods.get(mth).add(excType.getObject());
 		}
 	}
 

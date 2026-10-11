@@ -9,7 +9,8 @@ import jadx.core.dex.attributes.AType;
 public class MethodThrowsAttr extends PinnedAttribute {
 	private final Set<String> list;
 
-	private boolean visited;
+	// Publish the completed exception set to callers processing other classes.
+	private volatile boolean visited;
 
 	public MethodThrowsAttr(Set<String> list) {
 		this.list = list;
