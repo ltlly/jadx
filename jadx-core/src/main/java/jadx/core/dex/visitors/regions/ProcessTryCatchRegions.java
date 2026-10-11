@@ -2,19 +2,27 @@ package jadx.core.dex.visitors.regions;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jadx.core.dex.attributes.AFlag;
 import jadx.core.dex.attributes.AType;
+import jadx.core.dex.instructions.ArithNode;
+import jadx.core.dex.instructions.ArithOp;
+import jadx.core.dex.instructions.IndexInsnNode;
 import jadx.core.dex.nodes.BlockNode;
+import jadx.core.dex.nodes.IBlock;
 import jadx.core.dex.nodes.IBranchRegion;
 import jadx.core.dex.nodes.IContainer;
 import jadx.core.dex.nodes.IRegion;
+import jadx.core.dex.nodes.InsnNode;
 import jadx.core.dex.nodes.MethodNode;
 import jadx.core.dex.regions.AbstractRegion;
 import jadx.core.dex.regions.Region;
 import jadx.core.dex.regions.TryCatchRegion;
 import jadx.core.dex.regions.loops.LoopRegion;
+import jadx.core.dex.trycatch.CatchAttr;
 import jadx.core.dex.trycatch.ExceptionHandler;
 import jadx.core.dex.trycatch.TryCatchBlockAttr;
 import jadx.core.utils.RegionUtils;
@@ -53,7 +61,7 @@ public class ProcessTryCatchRegions extends AbstractRegionVisitor {
 		for (TryCatchBlockAttr tb : tryBlocks) {
 			BlockNode topSplitter = tb.getTopSplitter();
 			if (region.getSubBlocks().contains(topSplitter)) {
-				if (!wrapBlocks(region, tb, topSplitter)) {
+				if (!wrapBlocks(mth, region, tb, topSplitter)) {
 					mth.addWarn("Can't wrap try/catch for region: " + region);
 				}
 				tryBlocks.remove(tb);
@@ -66,24 +74,25 @@ public class ProcessTryCatchRegions extends AbstractRegionVisitor {
 	/**
 	 * Extract all block dominated by 'dominator' to separate region and mark as try/catch block
 	 */
-	private static boolean wrapBlocks(IRegion replaceRegion, TryCatchBlockAttr tb, BlockNode dominator) {
+	private static boolean wrapBlocks(MethodNode mth, IRegion replaceRegion, TryCatchBlockAttr tb, BlockNode dominator) {
 		if (replaceRegion == null) {
 			return false;
 		}
 		if (replaceRegion instanceof LoopRegion) {
 			LoopRegion loop = (LoopRegion) replaceRegion;
-			return wrapBlocks(loop.getBody(), tb, dominator);
+			return wrapBlocks(mth, loop.getBody(), tb, dominator);
 		}
 		if (replaceRegion instanceof IBranchRegion) {
-			return wrapBlocks(replaceRegion.getParent(), tb, dominator);
+			return wrapBlocks(mth, replaceRegion.getParent(), tb, dominator);
 		}
 
 		Region tryRegion = new Region(replaceRegion);
 		List<IContainer> subBlocks = replaceRegion.getSubBlocks();
+		int endIndex = searchEnd(mth, tb, subBlocks);
 		// traverse the enclosing region for blocks that have a path from the dominator but don't have a
 		// path from any of the exception handlers i.e. they are not before the end of the try block so
 		// should be inside the try block.
-		for (IContainer cont : subBlocks) {
+		for (IContainer cont : subBlocks.subList(0, endIndex)) {
 			if (RegionUtils.hasPathThroughBlock(dominator, cont)) {
 				if (isHandlerPath(tb, cont)) {
 					// this block/region has a path from an exception handler so is after the end of the try block
@@ -115,6 +124,81 @@ public class ProcessTryCatchRegions extends AbstractRegionVisitor {
 			}
 		}
 		return true;
+	}
+
+	private static int searchEnd(MethodNode mth, TryCatchBlockAttr tb, List<IContainer> subBlocks) {
+		Set<BlockNode> protectedBlocks = new HashSet<>(tb.getBlocks());
+		// Nonthrowing exits and assignments must stay before the catch/finally.
+		int endIndex = subBlocks.size();
+		for (int i = subBlocks.size() - 1; i >= 0; i--) {
+			Boolean found = DepthRegionTraversal.traversePartial(mth, subBlocks.get(i), (visitMth, cont) -> {
+				if (protectedBlocks.contains(cont)) {
+					return Boolean.TRUE;
+				}
+				if (cont instanceof IBlock) {
+					// Shrinking can move a protected invoke into a return in another block.
+					for (InsnNode insn : ((IBlock) cont).getInstructions()) {
+						Boolean caught = insn.visitInsns(inner -> {
+							CatchAttr catchAttr = inner.get(AType.EXC_CATCH);
+							return catchAttr != null && !Collections.disjoint(catchAttr.getHandlers(), tb.getHandlers())
+									? Boolean.TRUE
+									: null;
+						});
+						if (caught != null) {
+							return Boolean.TRUE;
+						}
+					}
+				}
+				return null;
+			});
+			if (found != null) {
+				return endIndex;
+			}
+			Boolean canThrow = DepthRegionTraversal.traversePartial(mth, subBlocks.get(i), (visitMth, cont) -> {
+				if (cont instanceof IBlock && !cont.contains(AFlag.DONT_GENERATE)) {
+					for (InsnNode insn : ((IBlock) cont).getInstructions()) {
+						if (insn.contains(AFlag.DONT_GENERATE)) {
+							continue;
+						}
+						Boolean throwing = insn.visitInsns(inner -> !inner.contains(AFlag.DONT_GENERATE)
+								&& canThrow(inner) ? Boolean.TRUE : null);
+						if (throwing != null) {
+							return Boolean.TRUE;
+						}
+					}
+				}
+				return null;
+			});
+			if (canThrow != null) {
+				endIndex = i;
+			}
+		}
+		return subBlocks.size();
+	}
+
+	private static boolean canThrow(InsnNode insn) {
+		switch (insn.getType()) {
+			case ARITH:
+				ArithOp op = ((ArithNode) insn).getOp();
+				return op == ArithOp.DIV || op == ArithOp.REM;
+
+			case CAST:
+				return !((IndexInsnNode) insn).getIndexAsType().isPrimitive();
+
+			case NOT:
+			case SWITCH:
+			case SWITCH_DATA:
+			case BREAK:
+			case CONTINUE:
+			case MOVE_MULTI:
+			case ONE_ARG:
+			case PHI:
+			case REGION_ARG:
+				return false;
+
+			default:
+				return insn.canThrowException();
+		}
 	}
 
 	private static boolean isHandlerPath(TryCatchBlockAttr tb, IContainer container) {
