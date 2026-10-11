@@ -93,6 +93,13 @@ public class ProcessAnonymous extends AbstractVisitor {
 		}
 		if (cls.isInner() && cls.getTopParentClass() != outerCls.getTopParentClass()) {
 			// The original owner can unload the body while another class is generating code.
+			ClassNode parentCls = cls.getParentClass();
+			if (!cls.root().getArgs().isRespectBytecodeAccModifiers()
+					&& (parentCls.isTopClass() || parentCls.getAccessFlags().isStatic())
+					&& !parentCls.getClassInfo().getType().equals(ListUtils.firstOrNull(anonymousConstructor.getMethodInfo().getArgumentsTypes()))) {
+				// A retained anonymous class without an enclosing-instance argument needs a static declaration.
+				cls.setAccessFlags(cls.getAccessFlags().add(AccessFlags.STATIC));
+			}
 			return;
 		}
 		outerCls.addInlinedClass(cls);
