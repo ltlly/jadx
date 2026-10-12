@@ -1,590 +1,548 @@
 {
-  "schema_version": 1,
-  "updated_date": "2026-10-12",
-  "timezone": "Asia/Shanghai",
-  "state": "paused_at_user_request",
-  "user_request": "相关进度和文档先commit和push吧 先不做了",
-  "branch": "codex/usage-snapshot-quality",
-  "source_commit": "74f436577d87d5de0f8d75992fe776f13ddd34e0",
-  "source_tree": "81373ef4caff2c5bc897e2435ed7a0197b731dc8",
-  "source_clean_at_freeze": true,
-  "active_build_or_diagnostic_processes_at_pause": false,
-  "quality_accepted": false,
-  "pr_ready": false,
-  "pr_created": false,
-  "new_accepted_performance_result": false,
-  "scope": "Trace illegal Java variants to their generating phases, distinguish prior defects from optimization causality, fix quality and then evaluate the immutable usage snapshot index candidate. Work is paused before quality acceptance.",
-  "commits_since_research_base": [
+ "schema_version": 1,
+ "updated_date": "2026-10-12",
+ "timezone": "Asia/Shanghai",
+ "state": "paused_at_user_request",
+ "user_request": "相关进度和文档先commit和push吧 先不做了",
+ "branch": "codex/usage-snapshot-quality",
+ "source_commit": "eaa5a6a (fix) on top of 74f4365 docs pause; snapshot candidate remains c147298",
+ "source_tree": "81373ef4caff2c5bc897e2435ed7a0197b731dc8",
+ "source_clean_at_freeze": true,
+ "active_build_or_diagnostic_processes_at_pause": false,
+ "quality_accepted": false,
+ "pr_ready": false,
+ "pr_created": false,
+ "new_accepted_performance_result": false,
+ "scope": "Trace illegal Java variants to their generating phases, distinguish prior defects from optimization causality, fix quality and then evaluate the immutable usage snapshot index candidate. Work is paused before quality acceptance.",
+ "commits_since_research_base": [
+  {
+   "commit": "96381c9550b7d31c74fe12ede280b45262dd2b8e",
+   "subject": "fix: preserve use types when splitting constants",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "eb52e381096f13fbe02e2ae000c9b1f1bb2241d4",
+   "subject": "fix: split equal constants merged by phi nodes",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "eba459fde2c17a020db73b8be20db82cec982598",
+   "subject": "fix: defer throws analysis until method regions are ready",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "a86aef7f7697d984c26077371c75b43015b2cfed",
+   "subject": "fix: keep loop exits in finally scope analysis",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "3144983a29e34c5156543f224e43c7e1c17a6972",
+   "subject": "fix: keep uncaught cleanup outside try regions",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "739fb1526e992757a99d91e4a166b2ea8854f27f",
+   "subject": "fix: cover optional try entries without catching outside calls",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "61f51e0ac30619fc445873e7c7181367f09fe820",
+   "subject": "fix: preserve nonthrowing division before finally",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "295c2bb7d68d4ce531c320964c873582c5f0f934",
+   "subject": "fix: refresh pending throws from captured call facts before codegen",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "1686a1c888b6074707c55e36baacc959653dd517",
+   "subject": "fix: keep anonymous bodies with their processing owner",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "7f4e36dd7492177674401e959d39ff98621513b1",
+   "subject": "fix(kotlin): retain override names when restoring getters",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "fa116e4db13461bd63e79fbe8e19123497a84c0a",
+   "subject": "fix: preserve empty catch handlers without rethrows",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "202142caeb138715188e9be609a9311595c6708a",
+   "subject": "fix: preserve exception handlers when shrinking expressions",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "75c6972cf42f5a0fbc92c93cbcc5a0b8a5260bba",
+   "subject": "fix: recognize merged caught Throwable rethrows",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "c1472980c53744e78132b6fc282bc2c00cd16428",
+   "subject": "perf: index immutable usage-list snapshots",
+   "kind": "performance"
+  },
+  {
+   "commit": "555157a503fd9216312681f102f3bc88cd30243b",
+   "subject": "fix(kotlin): retain getter override names across deep reloads",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "a1c7b1406a07169e35da338e9e8eb98e2ee8e7d3",
+   "subject": "fix: retain synthetic constructors during method inlining",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "4ed1f50428264880f9e4805121343f9d61c8d033",
+   "subject": "fix: refresh throws for anonymous code generation dependencies",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "3e714b93e92467c8b8ca4d098301d82f9d7a23c2",
+   "subject": "fix: recognize named literal replacements when shrinking catches",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "894cdccb766969cadf3e1f39981be356b8bb87c3",
+   "subject": "fix: keep adjacent try splitters with their protected bodies",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "ee51b670b6570fa8ee5ca4c7203a281fb0a70f22",
+   "subject": "fix: retain shared assignments in one-branch ternaries",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "9a6e507474b480332fba538d6501cd58e3780596",
+   "subject": "fix: allow pure arithmetic across catch boundaries",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "614b9cbe7a2072a8e0378720f5b53c7c1e68965b",
+   "subject": "fix: use instruction catch context when collecting throws",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "557c852ed29268c3ab9da5e49f8d7ed4ebc3a1e7",
+   "subject": "fix: preserve shared catch tails and external variable declarations",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "a8f38f660c664a36c16d29e6ce1fd1cafd333674",
+   "subject": "fix: keep shared comparison inversions local to regions",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "0da9a5c50c72970196727b7d0e36b02baa3b51ce",
+   "subject": "fix: keep wildcard bounds and type search candidates in scope",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "a724f66d337dad5b9f2e74bb0f42fd17a61d7e80",
+   "subject": "fix: retain separate handler returns shared with outer branches",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "819dc626035d9aad02921a2592ba80736b7ef130",
+   "subject": "fix: retain checked exceptions through linear cleanup rethrows",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "08129995c7fbf9e0f6778c07e149c84a3b986bb1",
+   "subject": "fix: wrap every occurrence of shared protected blocks",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "fce36ae90c14d89cc46f1b914118083ff08ba719",
+   "subject": "fix: require complete handler origins for transparent rethrows",
+   "kind": "quality_fix"
+  },
+  {
+   "commit": "74f436577d87d5de0f8d75992fe776f13ddd34e0",
+   "subject": "fix: make retained anonymous classes static without enclosing instances",
+   "kind": "quality_fix"
+  }
+ ],
+ "causality": {
+  "supported": "Controlled baseline lifecycle reproductions and natural regression fixtures establish multiple preexisting type, throws, finally and shared-region defects. No index-position mismatch or first-occurrence replacement defect has been identified in completed audits.",
+  "not_established": "Complete output equivalence, changes in defect frequency, and causal attribution of all remaining variants to or independently of the index candidate."
+ },
+ "latest_full_checks": {
+  "source_commit": "eaa5a6a",
+  "tests": 1223,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 1,
+  "command": "./gradlew :jadx-core:test :jadx-plugins:jadx-kotlin-metadata:test :jadx-core:checkstyleMain :jadx-core:checkstyleTest :jadx-cli:installDist (offline, serial, max-workers=2)",
+  "note": "1223 = previous 1222 + new TestCatchPhiNoArgs; skip is TestConditions22 as before",
+  "full_project_clean_build_dist": "not_run_yet"
+ },
+ "latest_targeted_checks": {
+  "label": "anonymous-static-and-rethrow-origin-fixed",
+  "tests": 195,
+  "failures": 0,
+  "errors": 0,
+  "skipped": 0,
+  "core_main_and_test_checkstyle": "passed",
+  "limit": "Tests ran before final fce36ae/74f4365 commit metadata; unchanged tested sources were committed, then the full current-source check above ran."
+ },
+ "frozen_diagnostic_distribution": {
+  "path": "out/jadx-perf/20261011/usage-snapshot-landing/diagnostic-dist-74f4365",
+  "file_count": 62,
+  "core_jar_sha256": "497861670a988d693abacc2ca55f5d250dd81e730e57b6db73bb4f10a92cb7a9",
+  "diagnostic_only": true
+ },
+ "current_diagnostics": {
+  "ddg_type_eight": {
+   "completed": true,
+   "distribution_unchanged": true,
+   "targets": 8,
+   "finding": "Seven Rx locals/casts use in-scope R; FilterFactories no longer emits out-of-scope U. Final all-boundary/historical review remains pending.",
+   "whole_source_accepted": false
+  },
+  "fastjson_throws": {
+   "completed": true,
+   "targets": 7,
+   "required_phases_per_target": 18,
+   "errors": 0,
+   "warnings": 0,
+   "finding": "Three reflection exceptions excluded under Exception with no focused own/call/replay pollution. Some targets remain pending-empty; empty is not proof of completed inference. Extra methods have unresolved structural differences.",
+   "whole_source_accepted": false
+  },
+  "anonymous_static_five": {
+   "completed": true,
+   "orders": [
+    "owner-first",
+    "caller-first"
+   ],
+   "classes_per_order": 15,
+   "required_stages_per_class": 105,
+   "five_retained_classes_static": true,
+   "owner_sources_identical_between_orders": true,
+   "actual_apk_reload_executed": false,
+   "natural_fixture_reload_check": "passed",
+   "whole_apk_accepted": false
+  },
+  "extended_regions": {
+   "completed": true,
+   "groups": [
     {
-      "commit": "96381c9550b7d31c74fe12ede280b45262dd2b8e",
-      "subject": "fix: preserve use types when splitting constants",
-      "kind": "quality_fix"
+     "label": "ddg",
+     "methods": 14,
+     "required_stages_per_method": 17
     },
     {
-      "commit": "eb52e381096f13fbe02e2ae000c9b1f1bb2241d4",
-      "subject": "fix: split equal constants merged by phi nodes",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "eba459fde2c17a020db73b8be20db82cec982598",
-      "subject": "fix: defer throws analysis until method regions are ready",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "a86aef7f7697d984c26077371c75b43015b2cfed",
-      "subject": "fix: keep loop exits in finally scope analysis",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "3144983a29e34c5156543f224e43c7e1c17a6972",
-      "subject": "fix: keep uncaught cleanup outside try regions",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "739fb1526e992757a99d91e4a166b2ea8854f27f",
-      "subject": "fix: cover optional try entries without catching outside calls",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "61f51e0ac30619fc445873e7c7181367f09fe820",
-      "subject": "fix: preserve nonthrowing division before finally",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "295c2bb7d68d4ce531c320964c873582c5f0f934",
-      "subject": "fix: refresh pending throws from captured call facts before codegen",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "1686a1c888b6074707c55e36baacc959653dd517",
-      "subject": "fix: keep anonymous bodies with their processing owner",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "7f4e36dd7492177674401e959d39ff98621513b1",
-      "subject": "fix(kotlin): retain override names when restoring getters",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "fa116e4db13461bd63e79fbe8e19123497a84c0a",
-      "subject": "fix: preserve empty catch handlers without rethrows",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "202142caeb138715188e9be609a9311595c6708a",
-      "subject": "fix: preserve exception handlers when shrinking expressions",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "75c6972cf42f5a0fbc92c93cbcc5a0b8a5260bba",
-      "subject": "fix: recognize merged caught Throwable rethrows",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "c1472980c53744e78132b6fc282bc2c00cd16428",
-      "subject": "perf: index immutable usage-list snapshots",
-      "kind": "performance"
-    },
-    {
-      "commit": "555157a503fd9216312681f102f3bc88cd30243b",
-      "subject": "fix(kotlin): retain getter override names across deep reloads",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "a1c7b1406a07169e35da338e9e8eb98e2ee8e7d3",
-      "subject": "fix: retain synthetic constructors during method inlining",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "4ed1f50428264880f9e4805121343f9d61c8d033",
-      "subject": "fix: refresh throws for anonymous code generation dependencies",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "3e714b93e92467c8b8ca4d098301d82f9d7a23c2",
-      "subject": "fix: recognize named literal replacements when shrinking catches",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "894cdccb766969cadf3e1f39981be356b8bb87c3",
-      "subject": "fix: keep adjacent try splitters with their protected bodies",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "ee51b670b6570fa8ee5ca4c7203a281fb0a70f22",
-      "subject": "fix: retain shared assignments in one-branch ternaries",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "9a6e507474b480332fba538d6501cd58e3780596",
-      "subject": "fix: allow pure arithmetic across catch boundaries",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "614b9cbe7a2072a8e0378720f5b53c7c1e68965b",
-      "subject": "fix: use instruction catch context when collecting throws",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "557c852ed29268c3ab9da5e49f8d7ed4ebc3a1e7",
-      "subject": "fix: preserve shared catch tails and external variable declarations",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "a8f38f660c664a36c16d29e6ce1fd1cafd333674",
-      "subject": "fix: keep shared comparison inversions local to regions",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "0da9a5c50c72970196727b7d0e36b02baa3b51ce",
-      "subject": "fix: keep wildcard bounds and type search candidates in scope",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "a724f66d337dad5b9f2e74bb0f42fd17a61d7e80",
-      "subject": "fix: retain separate handler returns shared with outer branches",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "819dc626035d9aad02921a2592ba80736b7ef130",
-      "subject": "fix: retain checked exceptions through linear cleanup rethrows",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "08129995c7fbf9e0f6778c07e149c84a3b986bb1",
-      "subject": "fix: wrap every occurrence of shared protected blocks",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "fce36ae90c14d89cc46f1b914118083ff08ba719",
-      "subject": "fix: require complete handler origins for transparent rethrows",
-      "kind": "quality_fix"
-    },
-    {
-      "commit": "74f436577d87d5de0f8d75992fe776f13ddd34e0",
-      "subject": "fix: make retained anonymous classes static without enclosing instances",
-      "kind": "quality_fix"
+     "label": "qwen",
+     "methods": 21,
+     "required_stages_per_method": 17
     }
-  ],
-  "causality": {
-    "supported": "Controlled baseline lifecycle reproductions and natural regression fixtures establish multiple preexisting type, throws, finally and shared-region defects. No index-position mismatch or first-occurrence replacement defect has been identified in completed audits.",
-    "not_established": "Complete output equivalence, changes in defect frequency, and causal attribution of all remaining variants to or independently of the index candidate."
+   ],
+   "missing_stages": {},
+   "distribution_unchanged": true,
+   "semantic_accepted": false
+  }
+ },
+ "pending_findings": [
+  {
+   "id": "sqlite-query-outer-cleanup",
+   "method": "net.zetetic.database.sqlcipher.SQLiteQuery.fillWindow",
+   "status": "diagnosis_saved_fix_pending",
+   "finding": "Raw DEX semantics reconstructed from frozen smali: every exceptional escape runs window.releaseReference() via the shared goto_5f block, then releaseReference() via catchall_63 which covers try_start_5, try_start_22 and try_start_5f (handler-in-try nesting). Current output keeps releaseReference() only for the window.acquireReference path, attaches catchall_5d's body to the rest, over-releases the window on the acquire path and under-releases the query on later paths. Identical output on 557c852, quality-A and quality-B, so pre-existing. First distortion evidence: ProcessTryCatchRegions logs 'No support yet for finding bottom block of try body with multipe inner trys' three times; source is ExceptionHandler.getBottomSplitter returning null when handlerTryBlock.getInnerTryBlocks().size() > 1 (TryCatchBlockAttr.getHandlerTryEdges then guesses a splitter). A fix needs multi-inner-try bottom splitter support or an equivalent region restructure; 17-stage traces for fillWindow are saved under out/jadx-perf/20261011/usage-snapshot-landing/trace-sqlite (diagnostic, current build)."
   },
-  "latest_full_checks": {
-    "source_commit": "74f436577d87d5de0f8d75992fe776f13ddd34e0",
-    "command": [
-      "./gradlew",
-      "--no-daemon",
-      "--no-parallel",
-      "--max-workers=2",
-      "--console=plain",
-      "-Dorg.gradle.java.installations.paths=/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/toolchains/jdk-11.0.32.1+1",
-      "--offline",
-      ":jadx-core:test",
-      ":jadx-plugins:jadx-kotlin-metadata:test",
-      ":jadx-core:checkstyleMain",
-      ":jadx-core:checkstyleTest",
-      ":jadx-cli:installDist"
-    ],
-    "environment": {
-      "JAVA_HOME": "/home/ltlly/Code/jadx-perf/out/jadx-perf/20261010/toolchains/jdk-25.0.4.1+1",
-      "JADX_BUILD_JAVA_VERSION": "11"
-    },
-    "exit": {
-      "returncode": 0,
-      "timed_out": false,
-      "elapsed_seconds": 164.99315264000325
-    },
-    "totals": {
-      "tests": 1222,
-      "failures": 0,
-      "errors": 0,
-      "skipped": 1
-    },
-    "modules": {
-      "jadx-core": {
-        "tests": 1202,
-        "failures": 0,
-        "errors": 0,
-        "skipped": 1
-      },
-      "jadx-plugins/jadx-kotlin-metadata": {
-        "tests": 20,
-        "failures": 0,
-        "errors": 0,
-        "skipped": 0
-      }
-    },
-    "skipped_suites": [
-      "jadx.tests.integration.conditions.TestConditions22"
-    ],
-    "core_main_and_test_checkstyle": "passed",
-    "cli_installDist": "passed",
-    "full_project_clean_build_dist": "not_run_for_this_final_source"
+  {
+   "id": "measure-catch-variable-scope",
+   "method": "androidx.compose.ui.node.MeasurePassDelegate.replace",
+   "status": "resolved_commit_eaa5a6a",
+   "finding": "Root cause: ListUtils.allMatch returns false for an empty collection, so the 557c852 guard in ModVisitor.processMoveException kept the phi-merged catch variable declared for methods with no arg registers (MeasurePassDelegate.replace, LookaheadPassDelegate.replace). No declaration was emitted and later catches referenced the first catch parameter out of scope. Fix checks method args directly; new no-arg shared-tail fixture TestCatchPhiNoArgs fails to compile before and passes after. Same defect reproduced identically on 557c852, quality-A 75c6972 and quality-B distributions, so not caused by the snapshot candidate. SnapshotStateObserver.observeReads declarations became valid too; remaining scope semantics stay under finding snapshot-catch-fallthrough."
   },
-  "latest_targeted_checks": {
-    "label": "anonymous-static-and-rethrow-origin-fixed",
-    "tests": 195,
-    "failures": 0,
-    "errors": 0,
-    "skipped": 0,
-    "core_main_and_test_checkstyle": "passed",
-    "limit": "Tests ran before final fce36ae/74f4365 commit metadata; unchanged tested sources were committed, then the full current-source check above ran."
+  {
+   "id": "snapshot-catch-fallthrough",
+   "method": "androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads",
+   "status": "observed_current_defect",
+   "finding": "Assignment-only catches fall into later uses of potentially uninitialized locals. Shared handler exits and protection scope remain unresolved."
   },
-  "frozen_diagnostic_distribution": {
-    "path": "out/jadx-perf/20261011/usage-snapshot-landing/diagnostic-dist-74f4365",
-    "file_count": 62,
-    "core_jar_sha256": "497861670a988d693abacc2ca55f5d250dd81e730e57b6db73bb4f10a92cb7a9",
-    "diagnostic_only": true
+  {
+   "id": "sqlite-acquire-cache-guard",
+   "method": "net.zetetic.database.sqlcipher.SQLiteConnection.acquirePreparedStatement",
+   "status": "raw_review_pending",
+   "finding": "First shared handler directly throws for non-null prepared statement; mInCache branch needs raw DEX and region comparison."
   },
-  "current_diagnostics": {
-    "ddg_type_eight": {
-      "completed": true,
-      "distribution_unchanged": true,
-      "targets": 8,
-      "finding": "Seven Rx locals/casts use in-scope R; FilterFactories no longer emits out-of-scope U. Final all-boundary/historical review remains pending.",
-      "whole_source_accepted": false
-    },
-    "fastjson_throws": {
-      "completed": true,
-      "targets": 7,
-      "required_phases_per_target": 18,
-      "errors": 0,
-      "warnings": 0,
-      "finding": "Three reflection exceptions excluded under Exception with no focused own/call/replay pollution. Some targets remain pending-empty; empty is not proof of completed inference. Extra methods have unresolved structural differences.",
-      "whole_source_accepted": false
-    },
-    "anonymous_static_five": {
-      "completed": true,
-      "orders": [
-        "owner-first",
-        "caller-first"
-      ],
-      "classes_per_order": 15,
-      "required_stages_per_class": 105,
-      "five_retained_classes_static": true,
-      "owner_sources_identical_between_orders": true,
-      "actual_apk_reload_executed": false,
-      "natural_fixture_reload_check": "passed",
-      "whole_apk_accepted": false
-    },
-    "extended_regions": {
-      "completed": true,
-      "groups": [
-        {
-          "label": "ddg",
-          "methods": 14,
-          "required_stages_per_method": 17
-        },
-        {
-          "label": "qwen",
-          "methods": 21,
-          "required_stages_per_method": 17
-        }
-      ],
-      "missing_stages": {},
-      "distribution_unchanged": true,
-      "semantic_accepted": false
-    }
+  {
+   "id": "fastjson-extra-method-differences",
+   "methods": [
+    "com.alibaba.fastjson2.reader.ObjectReaderCreator",
+    "com.alibaba.fastjson2.reader.ObjectReaderProvider.getCreator"
+   ],
+   "status": "raw_review_pending",
+   "finding": "Outside focused throws targets, current generated output loses a getFieldInfo call and an annotationMethods call; other branch differences also need raw DEX and current IR review. Existing duplicated-code warnings are not an acceptance waiver."
   },
-  "pending_findings": [
-    {
-      "id": "sqlite-query-outer-cleanup",
-      "method": "net.zetetic.database.sqlcipher.SQLiteQuery.fillWindow",
-      "status": "observed_current_defect",
-      "finding": "Later executeForCursorWindow failure releases the cursor window without the enclosing this.releaseReference cleanup. First bad stage and exact nested wrapper cause remain under investigation."
-    },
-    {
-      "id": "measure-catch-variable-scope",
-      "method": "androidx.compose.ui.node.MeasurePassDelegate.replace",
-      "status": "observed_current_invalid_java",
-      "finding": "Second catch assigns th, whose declaration is confined to the first catch. Before-first-shrink trace retains CUSTOM_DECLARE on MOVE results merged by PHI; no new patch or regression has been applied."
-    },
-    {
-      "id": "snapshot-catch-fallthrough",
-      "method": "androidx.compose.runtime.snapshots.SnapshotStateObserver.observeReads",
-      "status": "observed_current_defect",
-      "finding": "Assignment-only catches fall into later uses of potentially uninitialized locals. Shared handler exits and protection scope remain unresolved."
-    },
-    {
-      "id": "sqlite-acquire-cache-guard",
-      "method": "net.zetetic.database.sqlcipher.SQLiteConnection.acquirePreparedStatement",
-      "status": "raw_review_pending",
-      "finding": "First shared handler directly throws for non-null prepared statement; mInCache branch needs raw DEX and region comparison."
-    },
-    {
-      "id": "fastjson-extra-method-differences",
-      "methods": [
-        "com.alibaba.fastjson2.reader.ObjectReaderCreator",
-        "com.alibaba.fastjson2.reader.ObjectReaderProvider.getCreator"
-      ],
-      "status": "raw_review_pending",
-      "finding": "Outside focused throws targets, current generated output loses a getFieldInfo call and an annotationMethods call; other branch differences also need raw DEX and current IR review. Existing duplicated-code warnings are not an acceptance waiver."
-    },
-    {
-      "id": "rx-catch-boundaries",
-      "method": "io.reactivex.internal.operators.observable.ObservableFlattenIterable",
-      "status": "historical_and_raw_review_pending",
-      "finding": "Types now use in-scope R. hasNext/onNext protected boundaries still require exact historical and raw DEX comparison; type fix is not whole-method semantic acceptance."
-    },
-    {
-      "id": "qwen-variants-and-contracts",
-      "status": "review_incomplete",
-      "finding": "Current 21-method observer completed, but latest semantic review of added candidates and remaining cross-class throws contracts was interrupted by the user pause. Qwen296 and DDG224 audit inventories do not establish acceptance."
-    }
-  ],
-  "performance_status": {
-    "original_trial": {
-      "code_commit": "21bfa89d62f4232d97a798422907f6bfc0721385",
-      "ddg_wall_change_percent": -80.29,
-      "qwen_wall_change_percent": 0.33,
-      "accepted": false,
-      "applicable_to_current_source": false
-    },
-    "intermediate_complete_run_sets": "Retained locally for quality diagnosis; withdrawn as final delivery evidence after subsequent quality defects.",
-    "current_source_new_fair_AB": "not_run",
-    "planned_final_semantic_harness_checks": 570,
-    "planned_checks_completed_on_current_final_AB": false
+  {
+   "id": "rx-catch-boundaries",
+   "method": "io.reactivex.internal.operators.observable.ObservableFlattenIterable",
+   "status": "historical_and_raw_review_pending",
+   "finding": "Types now use in-scope R. hasNext/onNext protected boundaries still require exact historical and raw DEX comparison; type fix is not whole-method semantic acceptance."
   },
-  "resume_only_on_user_request": [
-    "Reduce observed SQLiteQuery, Measure and Snapshot defects to compile/runtime regressions and locate first bad phases.",
-    "Finish raw/current/historical review of the other listed candidate methods and cross-class contracts.",
-    "Run CONTRIBUTING and CI required complete clean build dist checks on the eventual source.",
-    "Arrange A=all quality fixes and B=A+same index optimization; rebuild and bind clean commits, trees and distributions.",
-    "Run twelve serial fixed-input formal APK measurements and complete output/diagnostic/variant and 570-case semantic audits.",
-    "Publish only results supported by the final accepted source; do not create a PR without authorization."
-  ],
-  "local_evidence": [
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-command.json",
-      "sha256": "2e710dc7cd8cd6d7fee9728d6f99429f94db6c266bd4ea3531b89456198729f8",
-      "bytes": 787,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-exit.json",
-      "sha256": "bfd1790e039018381fe6ad2be85ed88706447518fe3253017930363bddeb164e",
-      "bytes": 85,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-stdout.txt",
-      "sha256": "f30ee572952229f7c06ae1882861032dc4ad36df142682fc7b10e526fbc50d24",
-      "bytes": 7094,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-stderr.txt",
-      "sha256": "dece862a32d4e989fd23df958ea691a7e58fa3157857498e3049c7e8b6c37239",
-      "bytes": 110,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-summary.json",
-      "sha256": "edf50de9113792b607b690f5a41f8f00c078aad5920527579abf43979aca2b6c",
-      "bytes": 214896,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-results.zip",
-      "sha256": "cd7bcb4f93fdfd34c704af697ad03755512d68525ee9411e0dd4c46abf070e01",
-      "bytes": 1505430,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/diagnostic-dist-74f4365-binding.json",
-      "sha256": "9019375d7f1a8dbd261c85bcf59716c0acf61af097afa89c0f0a7ac0ad237585",
-      "bytes": 7344,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-and-rethrow-origin-fixed-command.json",
-      "sha256": "d92c3beed78fe1bcda2193a5800dfa58fd7ef2dc1a09859ad4ef05111fb8a45e",
-      "bytes": 883,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-and-rethrow-origin-fixed-exit.json",
-      "sha256": "c3b3e26c062613f55a0cc4f352146fd3516bcda236d66b44284f15f02504deac",
-      "bytes": 85,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-and-rethrow-origin-fixed-summary.json",
-      "sha256": "76a5c1a6f8cb92a4d7e0f92adc228ad9e37e3e1d680eae169f6e3309acc1a27a",
-      "bytes": 38270,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-and-rethrow-origin-fixed-results.zip",
-      "sha256": "14c80e8342c1129d853a22b5352d53a39b3e37f83dfeafc21ded399e5689072e",
-      "bytes": 302793,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/ddg-type-fixed-74f4365-inputs.json",
-      "sha256": "7dbadbf43151e589701590d819e94a2321991635962880d8c5c263c5ab13c35a",
-      "bytes": 10956,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/ddg-type-fixed-74f4365/result.json",
-      "sha256": "505fb341d7bbce9b166ebc2f8dff078b62fd2dac14a06bd5a2d380d8a8a49cac",
-      "bytes": 15158,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/DDG_TYPE_ORIGIN_557_AUDIT.json",
-      "sha256": "51488ca3eb23df87ac462b20a6062107790f80fb79f6e5f0f23116d1aecb9740",
-      "bytes": 18253,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/DDG_GENERIC_NATURAL_RUNTIME_7_CASES_AUDIT.json",
-      "sha256": "0d0d5ffef2c24d2472201151e58420b7f3d6ef766fa170c6517f863567d0b036",
-      "bytes": 4970,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-region-observer-74f4365-35-inputs.json",
-      "sha256": "cea3a1e61e74f6903399a2d858711edfb587e80311efda4c7532464429482764",
-      "bytes": 27197,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/binding.json",
-      "sha256": "cfc997e65209db4a31094444405e62907eb8d3365b7d2e21e9dd27f0b1377e7b",
-      "bytes": 136241,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg-exit.json",
-      "sha256": "396c994bc151e641740969b7eddb6752556ca7a184c3ee5c0dbdf521903ff31f",
-      "bytes": 84,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/qwen-exit.json",
-      "sha256": "d64342154b40a61fb7fe9625f6a39dd00045d3b6dd52cee00362854e587962be",
-      "bytes": 85,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/net.zetetic.database.sqlcipher.SQLiteQuery.java",
-      "sha256": "8c29cd2f8dc66ce47fc9f4d75ff54ecadd713d29a2a19ddafa17d6f381744002",
-      "bytes": 3388,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/androidx.compose.ui.node.MeasurePassDelegate.java",
-      "sha256": "64034bd730cf94a3aa36587f163aa00d1d9a1eabe56c855424a2d40a117493e0",
-      "bytes": 64497,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/androidx.compose.runtime.snapshots.SnapshotStateObserver.java",
-      "sha256": "9147a50af863528c575ae9eebadc2e673f2b4e39aae9418e3c396cdadb2c0847",
-      "bytes": 172107,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/net.zetetic.database.sqlcipher.SQLiteConnection.java",
-      "sha256": "35bd932ad9c5704d6d62e4bb229da01aa993558f3e038c817e188557b7437917",
-      "bytes": 68763,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/com.bumptech.glide.load.resource.bitmap.TransformationUtils.java",
-      "sha256": "50aba7aed8ba367f1b4f2bb55bac40cfe6d55cad148c02c5ac81276d7f329ba3",
-      "bytes": 15436,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/trace-106-before-first-shrink.txt",
-      "sha256": "6d23746e5121a4e9c705ad9a06a2822dc09953585dfb5f0109f7c33f9a688f1c",
-      "bytes": 13613,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-five-74f4365/binding.json",
-      "sha256": "c4dbb55c6fcf0c71e9238f01286c3caee7f6bf7720daff6a5470130d265b662d",
-      "bytes": 507310,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/CURRENT_74F4365_ANONYMOUS_STATIC_FIVE_REVIEW.json",
-      "sha256": "8a92d65fdd9dbcf182d0c22bd10910cf1de0631f55b28fe68192fa1ca7141fbe",
-      "bytes": 656026,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/throws-contract-audit/observer-linear-rethrow/fastjson-74f4365/binding.json",
-      "sha256": "b0253639c619bae334e678a96ada5803ff1812504fa238032279011a512bd4da",
-      "bytes": 13620,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/throws-contract-audit/observer-linear-rethrow/fixed-observation-review.json",
-      "sha256": "d413c3a518f91e2891f5c937176fdf1afde442cd1c7c817fdf616c535681670a",
-      "bytes": 356121,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/throws-contract-audit/observer-linear-rethrow/post-rethrow-source-catch-review.json",
-      "sha256": "01b2bde3e8fc38b43b3eae2673b10c182c5eadee1648677f0b66c5135fefeaa2",
-      "bytes": 8572,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/QWEN_REMAINING_LARGE_THREE_AUDIT.json",
-      "sha256": "7257e6477e601318c0bdaa5404927cab3b956e1f8076994f815fbc806bbbb2c8",
-      "bytes": 628848,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/QWEN_REMAINING_LARGE_455_BOUND_FINDING.json",
-      "sha256": "ee3e3a13547cb90b48ae72aa859a7c93033c692dac8f34329d92b5bb9bcb2db9",
-      "bytes": 51448,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/QWEN_REMAINING_CATCH_CHILD_44.json",
-      "sha256": "5bb0131c05181d3ba9cfb7ee529dafae3d9e5865b55c606fbf6b7cfebd514e9f",
-      "bytes": 503679,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/QWEN_TWELVE_WARN_COVERAGE.json",
-      "sha256": "bb6edfa6577505a4eb9c0b4a21a271e0c2e8c74132a3f7aabc66f8aca593f180",
-      "bytes": 184358,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/DDG_REMAINING_STRUCTURAL_224_AUDIT.json",
-      "sha256": "c9d35865477724f57244f15312097bfb7761cab12624ce9d0fb2d87b5d6ceba6",
-      "bytes": 1302531,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/CURRENT_557_SUPPLEMENTAL_WARN_REVIEW.json",
-      "sha256": "a3b4d3e9f5111dcf27cdfe7af635ad5fcb5fe08fb78b60e53042744aa81974e1",
-      "bytes": 110827,
-      "tracked_in_git": false
-    },
-    {
-      "path": "out/jadx-perf/20261011/usage-snapshot-landing/CURRENT_557_ANONYMOUS_STATIC_FIVE_REVIEW.json",
-      "sha256": "e57842e4d6311c6ddae7104fa08e0377fcc43e3788dd84b8340b44d19297a34d",
-      "bytes": 661981,
-      "tracked_in_git": false
-    }
-  ],
-  "evidence_limit": "Only this compact progress record, documentation, code and regression fixtures are committed. Referenced APKs, frozen distributions, full generated sources, logs and XML archives are local evidence, unavailable from Git alone.",
-  "not_checked": [
-    "Final full-project clean build dist",
-    "Final current-source fair A/B and complete quality acceptance",
-    "Whole generated APK source compilation",
-    "Device runtime equivalence",
-    "GUI/external plugin behavior",
-    "Arbitrary concurrent deep reload"
-  ]
+  {
+   "id": "qwen-variants-and-contracts",
+   "status": "review_incomplete",
+   "finding": "Current 21-method observer completed, but latest semantic review of added candidates and remaining cross-class throws contracts was interrupted by the user pause. Qwen296 and DDG224 audit inventories do not establish acceptance."
+  }
+ ],
+ "performance_status": {
+  "original_trial": {
+   "code_commit": "21bfa89d62f4232d97a798422907f6bfc0721385",
+   "ddg_wall_change_percent": -80.29,
+   "qwen_wall_change_percent": 0.33,
+   "accepted": false,
+   "applicable_to_current_source": false
+  },
+  "intermediate_complete_run_sets": "Retained locally for quality diagnosis; withdrawn as final delivery evidence after subsequent quality defects.",
+  "current_source_new_fair_AB": "not_run",
+  "planned_final_semantic_harness_checks": 570,
+  "planned_checks_completed_on_current_final_AB": false
+ },
+ "resume_only_on_user_request": [
+  "Reduce observed SQLiteQuery, Measure and Snapshot defects to compile/runtime regressions and locate first bad phases.",
+  "Finish raw/current/historical review of the other listed candidate methods and cross-class contracts.",
+  "Run CONTRIBUTING and CI required complete clean build dist checks on the eventual source.",
+  "Arrange A=all quality fixes and B=A+same index optimization; rebuild and bind clean commits, trees and distributions.",
+  "Run twelve serial fixed-input formal APK measurements and complete output/diagnostic/variant and 570-case semantic audits.",
+  "Publish only results supported by the final accepted source; do not create a PR without authorization."
+ ],
+ "local_evidence": [
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-command.json",
+   "sha256": "2e710dc7cd8cd6d7fee9728d6f99429f94db6c266bd4ea3531b89456198729f8",
+   "bytes": 787,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-exit.json",
+   "sha256": "bfd1790e039018381fe6ad2be85ed88706447518fe3253017930363bddeb164e",
+   "bytes": 85,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-stdout.txt",
+   "sha256": "f30ee572952229f7c06ae1882861032dc4ad36df142682fc7b10e526fbc50d24",
+   "bytes": 7094,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-stderr.txt",
+   "sha256": "dece862a32d4e989fd23df958ea691a7e58fa3157857498e3049c7e8b6c37239",
+   "bytes": 110,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-summary.json",
+   "sha256": "edf50de9113792b607b690f5a41f8f00c078aad5920527579abf43979aca2b6c",
+   "bytes": 214896,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/quality-74f4365-full-core-kotlin-results.zip",
+   "sha256": "cd7bcb4f93fdfd34c704af697ad03755512d68525ee9411e0dd4c46abf070e01",
+   "bytes": 1505430,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/diagnostic-dist-74f4365-binding.json",
+   "sha256": "9019375d7f1a8dbd261c85bcf59716c0acf61af097afa89c0f0a7ac0ad237585",
+   "bytes": 7344,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-and-rethrow-origin-fixed-command.json",
+   "sha256": "d92c3beed78fe1bcda2193a5800dfa58fd7ef2dc1a09859ad4ef05111fb8a45e",
+   "bytes": 883,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-and-rethrow-origin-fixed-exit.json",
+   "sha256": "c3b3e26c062613f55a0cc4f352146fd3516bcda236d66b44284f15f02504deac",
+   "bytes": 85,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-and-rethrow-origin-fixed-summary.json",
+   "sha256": "76a5c1a6f8cb92a4d7e0f92adc228ad9e37e3e1d680eae169f6e3309acc1a27a",
+   "bytes": 38270,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-and-rethrow-origin-fixed-results.zip",
+   "sha256": "14c80e8342c1129d853a22b5352d53a39b3e37f83dfeafc21ded399e5689072e",
+   "bytes": 302793,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/ddg-type-fixed-74f4365-inputs.json",
+   "sha256": "7dbadbf43151e589701590d819e94a2321991635962880d8c5c263c5ab13c35a",
+   "bytes": 10956,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/ddg-type-fixed-74f4365/result.json",
+   "sha256": "505fb341d7bbce9b166ebc2f8dff078b62fd2dac14a06bd5a2d380d8a8a49cac",
+   "bytes": 15158,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/DDG_TYPE_ORIGIN_557_AUDIT.json",
+   "sha256": "51488ca3eb23df87ac462b20a6062107790f80fb79f6e5f0f23116d1aecb9740",
+   "bytes": 18253,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/DDG_GENERIC_NATURAL_RUNTIME_7_CASES_AUDIT.json",
+   "sha256": "0d0d5ffef2c24d2472201151e58420b7f3d6ef766fa170c6517f863567d0b036",
+   "bytes": 4970,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-region-observer-74f4365-35-inputs.json",
+   "sha256": "cea3a1e61e74f6903399a2d858711edfb587e80311efda4c7532464429482764",
+   "bytes": 27197,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/binding.json",
+   "sha256": "cfc997e65209db4a31094444405e62907eb8d3365b7d2e21e9dd27f0b1377e7b",
+   "bytes": 136241,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg-exit.json",
+   "sha256": "396c994bc151e641740969b7eddb6752556ca7a184c3ee5c0dbdf521903ff31f",
+   "bytes": 84,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/qwen-exit.json",
+   "sha256": "d64342154b40a61fb7fe9625f6a39dd00045d3b6dd52cee00362854e587962be",
+   "bytes": 85,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/net.zetetic.database.sqlcipher.SQLiteQuery.java",
+   "sha256": "8c29cd2f8dc66ce47fc9f4d75ff54ecadd713d29a2a19ddafa17d6f381744002",
+   "bytes": 3388,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/androidx.compose.ui.node.MeasurePassDelegate.java",
+   "sha256": "64034bd730cf94a3aa36587f163aa00d1d9a1eabe56c855424a2d40a117493e0",
+   "bytes": 64497,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/androidx.compose.runtime.snapshots.SnapshotStateObserver.java",
+   "sha256": "9147a50af863528c575ae9eebadc2e673f2b4e39aae9418e3c396cdadb2c0847",
+   "bytes": 172107,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/net.zetetic.database.sqlcipher.SQLiteConnection.java",
+   "sha256": "35bd932ad9c5704d6d62e4bb229da01aa993558f3e038c817e188557b7437917",
+   "bytes": 68763,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/com.bumptech.glide.load.resource.bitmap.TransformationUtils.java",
+   "sha256": "50aba7aed8ba367f1b4f2bb55bac40cfe6d55cad148c02c5ac81276d7f329ba3",
+   "bytes": 15436,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/extended-regions-74f4365-35/ddg/trace-106-before-first-shrink.txt",
+   "sha256": "6d23746e5121a4e9c705ad9a06a2822dc09953585dfb5f0109f7c33f9a688f1c",
+   "bytes": 13613,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/anonymous-static-five-74f4365/binding.json",
+   "sha256": "c4dbb55c6fcf0c71e9238f01286c3caee7f6bf7720daff6a5470130d265b662d",
+   "bytes": 507310,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/CURRENT_74F4365_ANONYMOUS_STATIC_FIVE_REVIEW.json",
+   "sha256": "8a92d65fdd9dbcf182d0c22bd10910cf1de0631f55b28fe68192fa1ca7141fbe",
+   "bytes": 656026,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/throws-contract-audit/observer-linear-rethrow/fastjson-74f4365/binding.json",
+   "sha256": "b0253639c619bae334e678a96ada5803ff1812504fa238032279011a512bd4da",
+   "bytes": 13620,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/throws-contract-audit/observer-linear-rethrow/fixed-observation-review.json",
+   "sha256": "d413c3a518f91e2891f5c937176fdf1afde442cd1c7c817fdf616c535681670a",
+   "bytes": 356121,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/throws-contract-audit/observer-linear-rethrow/post-rethrow-source-catch-review.json",
+   "sha256": "01b2bde3e8fc38b43b3eae2673b10c182c5eadee1648677f0b66c5135fefeaa2",
+   "bytes": 8572,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/QWEN_REMAINING_LARGE_THREE_AUDIT.json",
+   "sha256": "7257e6477e601318c0bdaa5404927cab3b956e1f8076994f815fbc806bbbb2c8",
+   "bytes": 628848,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/QWEN_REMAINING_LARGE_455_BOUND_FINDING.json",
+   "sha256": "ee3e3a13547cb90b48ae72aa859a7c93033c692dac8f34329d92b5bb9bcb2db9",
+   "bytes": 51448,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/QWEN_REMAINING_CATCH_CHILD_44.json",
+   "sha256": "5bb0131c05181d3ba9cfb7ee529dafae3d9e5865b55c606fbf6b7cfebd514e9f",
+   "bytes": 503679,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/QWEN_TWELVE_WARN_COVERAGE.json",
+   "sha256": "bb6edfa6577505a4eb9c0b4a21a271e0c2e8c74132a3f7aabc66f8aca593f180",
+   "bytes": 184358,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/DDG_REMAINING_STRUCTURAL_224_AUDIT.json",
+   "sha256": "c9d35865477724f57244f15312097bfb7761cab12624ce9d0fb2d87b5d6ceba6",
+   "bytes": 1302531,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/CURRENT_557_SUPPLEMENTAL_WARN_REVIEW.json",
+   "sha256": "a3b4d3e9f5111dcf27cdfe7af635ad5fcb5fe08fb78b60e53042744aa81974e1",
+   "bytes": 110827,
+   "tracked_in_git": false
+  },
+  {
+   "path": "out/jadx-perf/20261011/usage-snapshot-landing/CURRENT_557_ANONYMOUS_STATIC_FIVE_REVIEW.json",
+   "sha256": "e57842e4d6311c6ddae7104fa08e0377fcc43e3788dd84b8340b44d19297a34d",
+   "bytes": 661981,
+   "tracked_in_git": false
+  }
+ ],
+ "evidence_limit": "Only this compact progress record, documentation, code and regression fixtures are committed. Referenced APKs, frozen distributions, full generated sources, logs and XML archives are local evidence, unavailable from Git alone.",
+ "not_checked": [
+  "Final full-project clean build dist",
+  "Final current-source fair A/B and complete quality acceptance",
+  "Whole generated APK source compilation",
+  "Device runtime equivalence",
+  "GUI/external plugin behavior",
+  "Arbitrary concurrent deep reload"
+ ]
 }
