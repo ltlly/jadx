@@ -24,9 +24,13 @@ public class DecompilerScheduler implements IDecompileScheduler {
 
 	@Override
 	public List<List<JavaClass>> buildBatches(List<JavaClass> classes) {
+		long diagBuildStart = DiagnosticCollector.ENABLED ? System.nanoTime() : 0L;
 		try {
 			long start = System.currentTimeMillis();
 			List<List<JavaClass>> result = internalBatches(classes);
+			if (DiagnosticCollector.ENABLED) {
+				DiagnosticCollector.recordPlan(true, classes.size(), result, System.nanoTime() - diagBuildStart);
+			}
 			if (LOG.isDebugEnabled()) {
 				LOG.debug("Build decompilation batches in {}ms for {} classes",
 						System.currentTimeMillis() - start, classes.size());
@@ -40,7 +44,11 @@ public class DecompilerScheduler implements IDecompileScheduler {
 		} catch (Exception e) {
 			LOG.warn("Build batches failed (continue with fallback)", e);
 		}
-		return buildFallback(classes);
+		List<List<JavaClass>> fallback = buildFallback(classes);
+		if (DiagnosticCollector.ENABLED) {
+			DiagnosticCollector.recordPlan(false, classes.size(), fallback, System.nanoTime() - diagBuildStart);
+		}
+		return fallback;
 	}
 
 	/**

@@ -50,6 +50,7 @@ import jadx.core.plugins.PluginContext;
 import jadx.core.plugins.PluginRuntime;
 import jadx.core.plugins.events.JadxEventsImpl;
 import jadx.core.utils.DecompilerScheduler;
+import jadx.core.utils.DiagnosticCollector;
 import jadx.core.utils.Utils;
 import jadx.core.utils.exceptions.JadxRuntimeException;
 import jadx.core.utils.files.FileUtils;
@@ -118,6 +119,12 @@ public final class JadxDecompiler implements Closeable {
 	}
 
 	public void load() {
+		if (DiagnosticCollector.ENABLED) {
+			DiagnosticCollector.runStart(args.getThreadsCount());
+		}
+		if (DiagnosticCollector.ENABLED) {
+			DiagnosticCollector.phase("LOAD_OTHER");
+		}
 		reset();
 		JadxArgsValidator.validate(this);
 		LOG.info("loading ...");
@@ -132,9 +139,18 @@ public final class JadxDecompiler implements Closeable {
 		root.loadResources(resourcesLoader, getResources());
 		root.finishClassLoad();
 		root.initClassPath();
+		if (DiagnosticCollector.ENABLED) {
+			DiagnosticCollector.registerClasses(root);
+		}
 		// init passes
 		root.mergePasses(customPasses);
+		if (DiagnosticCollector.ENABLED) {
+			DiagnosticCollector.phase("PRE_DECOMPILE");
+		}
 		root.runPreDecompileStage();
+		if (DiagnosticCollector.ENABLED) {
+			DiagnosticCollector.phase("POST_LOAD");
+		}
 		root.initPasses();
 		loadFinished();
 	}
@@ -197,6 +213,9 @@ public final class JadxDecompiler implements Closeable {
 	public void close() {
 		if (root != null && root.getDependencyProcessingProfile() != null) {
 			root.getDependencyProcessingProfile().dumpIfRequested();
+		}
+		if (DiagnosticCollector.ENABLED) {
+			DiagnosticCollector.runClosed();
 		}
 		reset();
 		closeAll(loadedInputs);
@@ -317,6 +336,9 @@ public final class JadxDecompiler implements Closeable {
 		if (root == null) {
 			throw new JadxRuntimeException("No loaded files");
 		}
+		if (DiagnosticCollector.ENABLED) {
+			DiagnosticCollector.phase("SAVE_PLANNING");
+		}
 		OutDirs outDirs;
 		ExportGradle gradleExport;
 		if (args.getExportGradleType() != null) {
@@ -336,15 +358,30 @@ public final class JadxDecompiler implements Closeable {
 		}
 		if (saveResources) {
 			// save resources first because decompilation can stop or fail
+			if (DiagnosticCollector.ENABLED) {
+				DiagnosticCollector.pendingStagePhase("SAVE_RESOURCES");
+			}
 			appendResourcesSaveTasks(executor, outDirs.getResOutDir());
 		}
 		if (saveSources) {
+			if (DiagnosticCollector.ENABLED) {
+				DiagnosticCollector.pendingStagePhase("SAVE_SOURCES");
+			}
 			appendSourcesSave(executor, outDirs.getSrcOutDir());
 			// end epoch after all decompile tasks completed
+			if (DiagnosticCollector.ENABLED) {
+				DiagnosticCollector.pendingStagePhase("SAVE_FINAL_SEQUENTIAL");
+			}
 			executor.addSequentialTask(() -> root.getDependencySummaryManager().endEpoch());
 		}
 		if (gradleExport != null) {
+			if (DiagnosticCollector.ENABLED) {
+				DiagnosticCollector.pendingStagePhase("SAVE_FINAL_SEQUENTIAL");
+			}
 			executor.addSequentialTask(gradleExport::generateGradleFiles);
+		}
+		if (DiagnosticCollector.ENABLED) {
+			DiagnosticCollector.phase("SAVE_AWAIT");
 		}
 		return executor;
 	}
@@ -421,20 +458,51 @@ public final class JadxDecompiler implements Closeable {
 		}
 		List<Runnable> decompileTasks = new ArrayList<>(batches.size());
 		for (List<JavaClass> decompileBatch : batches) {
-			decompileTasks.add(() -> {
-				for (JavaClass cls : decompileBatch) {
-					try {
-						ClassNode clsNode = cls.getClassNode();
-						ICodeInfo code = clsNode.getCode();
-						SaveCode.save(outDir, clsNode, code);
-					} catch (Exception e) {
-						LOG.error("Error saving class: {}", cls, e);
+			if (DiagnosticCollector.ENABLED) {
+				long diagBatchId = DiagnosticCollector.batchScheduled(decompileBatch.size());
+				decompileTasks.add(DiagnosticCollector.wrapBatch(diagBatchId,
+						() -> saveBatchWithDiagnostics(diagBatchId, decompileBatch, outDir)));
+			} else {
+				decompileTasks.add(() -> {
+					for (JavaClass cls : decompileBatch) {
+						try {
+							ClassNode clsNode = cls.getClassNode();
+							ICodeInfo code = clsNode.getCode();
+							SaveCode.save(outDir, clsNode, code);
+						} catch (Exception e) {
+							LOG.error("Error saving class: {}", cls, e);
+						}
 					}
-				}
 
-			});
+				});
+			}
 		}
 		executor.addParallelTasks(decompileTasks);
+	}
+
+	private void saveBatchWithDiagnostics(long diagBatchId, List<JavaClass> decompileBatch, File outDir) {
+		int diagIndex = 0;
+		for (JavaClass cls : decompileBatch) {
+			long diagIterStart = DiagnosticCollector.iterationBegin(diagBatchId, diagIndex);
+			boolean diagFailed = false;
+			try {
+				ClassNode clsNode = cls.getClassNode();
+				Object diagTok = DiagnosticCollector.beginReason("SAVE_SELF");
+				ICodeInfo code;
+				try {
+					code = clsNode.getCode();
+				} finally {
+					DiagnosticCollector.endReason(diagTok);
+				}
+				SaveCode.save(outDir, clsNode, code);
+			} catch (Exception e) {
+				diagFailed = true;
+				LOG.error("Error saving class: {}", cls, e);
+			} finally {
+				DiagnosticCollector.iterationEnd(diagIterStart, diagFailed);
+			}
+			diagIndex++;
+		}
 	}
 
 	private List<JavaClass> filterClasses(List<JavaClass> classes) {

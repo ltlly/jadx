@@ -37,8 +37,8 @@ public class TestAnonymousPendingThrows extends SmaliTest {
 		MethodThrowsAttr pending = call.get(AType.METHOD_THROWS);
 		assertThat(pending.isVisited()).isFalse();
 		assertThat(pending.getList()).isEmpty();
-		assertThat(pending.getPendingInfo().getCalls()).anyMatch(fact ->
-				fact.getMethod().equals(consumer.searchMethodByShortId("fail()V").getMethodInfo()));
+		assertThat(pending.getPendingInfo().getCalls())
+				.anyMatch(fact -> fact.getMethod().equals(consumer.searchMethodByShortId("fail()V").getMethodInfo()));
 		root.getProcessClasses().forceProcess(consumer);
 		assertThat(consumer.getState()).isEqualTo(ProcessState.PROCESS_COMPLETE);
 		assertThat(source.searchMethodByShortId("fail()V").getBasicBlocks()).isNull();

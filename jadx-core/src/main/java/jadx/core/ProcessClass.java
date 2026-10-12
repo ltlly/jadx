@@ -27,6 +27,7 @@ import jadx.core.dex.nodes.deps.DependencySummaryManager;
 import jadx.core.dex.visitors.DepthTraversal;
 import jadx.core.dex.visitors.IDexTreeVisitor;
 import jadx.core.dex.visitors.MethodThrowsVisitor;
+import jadx.core.utils.DiagnosticCollector;
 import jadx.core.utils.Utils;
 import jadx.core.utils.exceptions.JadxRuntimeException;
 
@@ -66,8 +67,12 @@ public class ProcessClass {
 
 	@Nullable
 	private ICodeInfo process(ClassNode cls, boolean codegen, RequestKind requestKind) {
+		long diagStart = DiagnosticCollector.ENABLED ? DiagnosticCollector.processEntry(cls, codegen) : 0L;
 		if (!codegen && cls.getState() == PROCESS_COMPLETE) {
 			// nothing to do
+			if (DiagnosticCollector.ENABLED) {
+				DiagnosticCollector.processFastReturn(cls, codegen);
+			}
 			return null;
 		}
 		Utils.checkThreadInterrupt();
@@ -75,91 +80,123 @@ public class ProcessClass {
 		try (Span span = profile == null
 				? null
 				: profile.begin(cls, "PROCESS/" + requestKind + '/' + codegen, false, true)) {
+			long attemptNs = DiagnosticCollector.ENABLED ? System.nanoTime() : 0L;
 			synchronized (cls.getClassInfo()) {
-				if (span != null) {
-					span.acquiredMonitor(cls.getState() == GENERATED_AND_UNLOADED);
-				}
-				DependencySummaryManager summaryManager = null;
-				if (!codegen && requestKind == RequestKind.METADATA_DEPENDENCY
-						&& cls.getState() == GENERATED_AND_UNLOADED) {
-					// recheck summary/epoch under the monitor (pre-lock check would be a TOCTOU)
-					summaryManager = cls.root().getDependencySummaryManager();
-					if (summaryManager.tryRecover(cls)) {
-						return null;
-					}
-					summaryManager.recordFallbackReentry();
-				}
-				long recoveryStart = summaryManager == null ? 0L : System.nanoTime();
+				DiagnosticCollector.Frame diagFrame = null;
 				try {
-					if (cls.contains(AFlag.CLASS_DEEP_RELOAD)) {
-						cls.remove(AFlag.CLASS_DEEP_RELOAD);
-						cls.deepUnload();
-						cls.add(AFlag.CLASS_UNLOADED);
+					if (DiagnosticCollector.ENABLED) {
+						diagFrame = DiagnosticCollector.processAcquired(cls, codegen, attemptNs, diagStart);
 					}
-					if (cls.contains(AFlag.CLASS_UNLOADED)) {
-						cls.root().runPreDecompileStageForClass(cls);
-						cls.remove(AFlag.CLASS_UNLOADED);
+					if (span != null) {
+						span.acquiredMonitor(cls.getState() == GENERATED_AND_UNLOADED);
 					}
-					if (cls.getState() == GENERATED_AND_UNLOADED) {
-						// force loading code again
-						cls.setState(NOT_LOADED);
-					}
-					if (codegen) {
-						cls.setLoadStage(LoadStage.CODEGEN_STAGE);
-						if (cls.contains(AFlag.RELOAD_AT_CODEGEN_STAGE)) {
-							cls.remove(AFlag.RELOAD_AT_CODEGEN_STAGE);
-							unloadClass(cls, profile);
+					DependencySummaryManager summaryManager = null;
+					if (!codegen && requestKind == RequestKind.METADATA_DEPENDENCY
+							&& cls.getState() == GENERATED_AND_UNLOADED) {
+						// recheck summary/epoch under the monitor (pre-lock check would be a TOCTOU)
+						summaryManager = cls.root().getDependencySummaryManager();
+						if (summaryManager.tryRecover(cls)) {
+							return null;
 						}
-					} else {
-						cls.setLoadStage(LoadStage.PROCESS_STAGE);
+						summaryManager.recordFallbackReentry();
 					}
-					if (cls.getState() == NOT_LOADED) {
-						loadClass(cls, profile);
-					}
-					if (codegen && cls.getState() == PROCESS_COMPLETE && cls.isSummaryRecoveredResidency()) {
-						// summary-only residency: regenerate like legacy does from a
-						// recovered resident body — reload bodies, don't re-run passes
-						loadClass(cls, profile);
-						cls.setState(PROCESS_COMPLETE);
-					}
-					if (cls.getState() == LOADED) {
-						cls.setState(PROCESS_STARTED);
-						int ordinal = 0;
-						for (IDexTreeVisitor visitor : passes) {
-							try (Span passSpan = profile == null
-									? null
-									: profile.beginStage(cls, "PASS/" + ordinal + '/' + visitor.getName())) {
-								DepthTraversal.visit(visitor, cls);
+					long recoveryStart = summaryManager == null ? 0L : System.nanoTime();
+					try {
+						if (cls.contains(AFlag.CLASS_DEEP_RELOAD)) {
+							cls.remove(AFlag.CLASS_DEEP_RELOAD);
+							cls.deepUnload();
+							cls.add(AFlag.CLASS_UNLOADED);
+						}
+						if (cls.contains(AFlag.CLASS_UNLOADED)) {
+							cls.root().runPreDecompileStageForClass(cls);
+							cls.remove(AFlag.CLASS_UNLOADED);
+						}
+						if (cls.getState() == GENERATED_AND_UNLOADED) {
+							// force loading code again
+							cls.setState(NOT_LOADED);
+						}
+						if (codegen) {
+							cls.setLoadStage(LoadStage.CODEGEN_STAGE);
+							if (cls.contains(AFlag.RELOAD_AT_CODEGEN_STAGE)) {
+								cls.remove(AFlag.RELOAD_AT_CODEGEN_STAGE);
+								unloadClass(cls, profile);
 							}
-							ordinal++;
+						} else {
+							cls.setLoadStage(LoadStage.PROCESS_STAGE);
 						}
-						cls.setState(PROCESS_COMPLETE);
-					}
-					if (codegen) {
-						Utils.checkThreadInterrupt();
-						MethodThrowsVisitor.refreshPendingThrows(cls);
-						ICodeInfo code;
-						try (Span codeSpan = profile == null ? null : profile.beginStage(cls, "CODEGEN")) {
-							code = CodeGen.generate(cls);
+						if (cls.getState() == NOT_LOADED) {
+							loadClass(cls, profile);
 						}
-						if (!cls.contains(AFlag.DONT_UNLOAD_CLASS)) {
-							// capture prepared summary before the ordinary generated unload
-							cls.root().getDependencySummaryManager().prepareAfterCodegen(cls);
-							unloadClass(cls, profile);
-							cls.setState(GENERATED_AND_UNLOADED);
+						if (codegen && cls.getState() == PROCESS_COMPLETE && cls.isSummaryRecoveredResidency()) {
+							// summary-only residency: regenerate like legacy does from a
+							// recovered resident body — reload bodies, don't re-run passes
+							loadClass(cls, profile);
+							cls.setState(PROCESS_COMPLETE);
 						}
-						return code;
+						if (cls.getState() == LOADED) {
+							cls.setState(PROCESS_STARTED);
+							if (DiagnosticCollector.ENABLED) {
+								DiagnosticCollector.visitorsBegin(cls, diagFrame);
+							}
+							try {
+								int ordinal = 0;
+								for (IDexTreeVisitor visitor : passes) {
+									try (Span passSpan = profile == null
+											? null
+											: profile.beginStage(cls, "PASS/" + ordinal + '/' + visitor.getName())) {
+										DepthTraversal.visit(visitor, cls);
+									}
+									ordinal++;
+								}
+							} finally {
+								if (DiagnosticCollector.ENABLED) {
+									DiagnosticCollector.visitorsEnd(cls, diagFrame);
+								}
+							}
+							cls.setState(PROCESS_COMPLETE);
+							if (DiagnosticCollector.ENABLED) {
+								DiagnosticCollector.analysisCompleted(cls, diagFrame);
+							}
+						}
+						if (codegen) {
+							if (DiagnosticCollector.ENABLED) {
+								DiagnosticCollector.codegenBegin(cls, diagFrame);
+							}
+							try {
+								Utils.checkThreadInterrupt();
+								MethodThrowsVisitor.refreshPendingThrows(cls);
+								ICodeInfo code;
+								try (Span codeSpan = profile == null ? null : profile.beginStage(cls, "CODEGEN")) {
+									code = CodeGen.generate(cls);
+								}
+								if (!cls.contains(AFlag.DONT_UNLOAD_CLASS)) {
+									// capture prepared summary before the ordinary generated unload
+									cls.root().getDependencySummaryManager().prepareAfterCodegen(cls);
+									unloadClass(cls, profile);
+									cls.setState(GENERATED_AND_UNLOADED);
+								}
+								return code;
+							} finally {
+								if (DiagnosticCollector.ENABLED) {
+									DiagnosticCollector.codegenEnd(cls, diagFrame);
+								}
+							}
+						}
+						return null;
+					} catch (StackOverflowError | Exception e) {
+						if (codegen) {
+							throw e;
+						}
+						cls.addError("Class process error: " + e.getClass().getSimpleName(), e);
+						return null;
+					} finally {
+						if (summaryManager != null) {
+							summaryManager.recordLegacyRecovery(System.nanoTime() - recoveryStart);
+						}
 					}
-					return null;
-				} catch (StackOverflowError | Exception e) {
-					if (codegen) {
-						throw e;
-					}
-					cls.addError("Class process error: " + e.getClass().getSimpleName(), e);
-					return null;
 				} finally {
-					if (summaryManager != null) {
-						summaryManager.recordLegacyRecovery(System.nanoTime() - recoveryStart);
+					if (DiagnosticCollector.ENABLED) {
+						DiagnosticCollector.processEnd(cls, diagFrame);
 					}
 				}
 			}
@@ -188,16 +225,46 @@ public class ProcessClass {
 		try (Span span = profile == null ? null : profile.begin(cls, "GENERATE_REQUEST", false, true)) {
 			try {
 				if (cls.contains(AFlag.DONT_GENERATE)) {
-					process(cls, false);
+					Object diagTok = DiagnosticCollector.ENABLED ? DiagnosticCollector.beginReason("DONT_GENERATE_PREPARE") : null;
+					try {
+						process(cls, false);
+					} finally {
+						if (DiagnosticCollector.ENABLED) {
+							DiagnosticCollector.endReason(diagTok);
+						}
+					}
 					return NOT_GENERATED;
 				}
 				for (ClassNode depCls : cls.getDependencies()) {
-					process(depCls, false, RequestKind.METADATA_DEPENDENCY);
+					Object diagTok = DiagnosticCollector.ENABLED ? DiagnosticCollector.beginReason("DEPENDENCY") : null;
+					try {
+						process(depCls, false, RequestKind.METADATA_DEPENDENCY);
+					} finally {
+						if (DiagnosticCollector.ENABLED) {
+							DiagnosticCollector.endReason(diagTok);
+						}
+					}
 				}
 				if (!cls.getCodegenDeps().isEmpty()) {
-					process(cls, false);
+					Object diagTok = DiagnosticCollector.ENABLED
+							? DiagnosticCollector.beginReason("CODEGEN_SELF_PREPARE")
+							: null;
+					try {
+						process(cls, false);
+					} finally {
+						if (DiagnosticCollector.ENABLED) {
+							DiagnosticCollector.endReason(diagTok);
+						}
+					}
 					for (ClassNode codegenDep : cls.getCodegenDeps()) {
-						process(codegenDep, false);
+						Object diagTokDep = DiagnosticCollector.ENABLED ? DiagnosticCollector.beginReason("CODEGEN_DEPENDENCY") : null;
+						try {
+							process(codegenDep, false);
+						} finally {
+							if (DiagnosticCollector.ENABLED) {
+								DiagnosticCollector.endReason(diagTokDep);
+							}
+						}
 					}
 					// Top anonymous bodies are generated here without a separate codegen request.
 					for (ClassNode codegenDep : cls.getCodegenDeps()) {
@@ -206,7 +273,19 @@ public class ProcessClass {
 						}
 					}
 				}
-				ICodeInfo code = process(cls, true);
+				Object diagTokFinal = DiagnosticCollector.ENABLED
+						? DiagnosticCollector.beginReason(DiagnosticCollector.inSaveIteration()
+								? "SAVE_SELF"
+								: "GENERATE_SELF_OTHER")
+						: null;
+				ICodeInfo code;
+				try {
+					code = process(cls, true);
+				} finally {
+					if (DiagnosticCollector.ENABLED) {
+						DiagnosticCollector.endReason(diagTokFinal);
+					}
+				}
 				if (code == null) {
 					throw new JadxRuntimeException("Codegen failed");
 				}
@@ -227,7 +306,14 @@ public class ProcessClass {
 			return;
 		}
 		try {
-			process(cls, false);
+			Object diagTok = DiagnosticCollector.ENABLED ? DiagnosticCollector.beginReason("FORCE_PROCESS") : null;
+			try {
+				process(cls, false);
+			} finally {
+				if (DiagnosticCollector.ENABLED) {
+					DiagnosticCollector.endReason(diagTok);
+				}
+			}
 		} catch (StackOverflowError | Exception e) {
 			throw new JadxRuntimeException("Failed to process class: " + cls.getFullName(), e);
 		}
@@ -238,7 +324,14 @@ public class ProcessClass {
 	 */
 	public @Nullable ICodeInfo forceGenerateCode(ClassNode cls) {
 		try {
-			return process(cls, true);
+			Object diagTok = DiagnosticCollector.ENABLED ? DiagnosticCollector.beginReason("FORCE_CODEGEN") : null;
+			try {
+				return process(cls, true);
+			} finally {
+				if (DiagnosticCollector.ENABLED) {
+					DiagnosticCollector.endReason(diagTok);
+				}
+			}
 		} catch (StackOverflowError | Exception e) {
 			throw new JadxRuntimeException("Failed to generate code for class: " + cls.getFullName(), e);
 		}

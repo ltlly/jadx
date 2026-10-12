@@ -319,7 +319,8 @@ public class MethodThrowsVisitor extends AbstractVisitor {
 
 	private void processWrappedRethrows(MethodNode mth, InsnNode insn, @Nullable CatchAttr enclosingCatch, boolean skipExceptions,
 			ThrowsAnalysis analysis, @Nullable ScanFacts facts, Set<ExceptionHandler> rethrowingHandlers) throws JadxException {
-		// shortcut: scan wrapped calls only for proven rethrow handlers; general wrapped throws need separate coverage.
+		// shortcut: scan wrapped calls only for proven rethrow handlers; general wrapped throws need
+		// separate coverage.
 		for (InsnArg arg : insn.getArguments()) {
 			if (!(arg instanceof InsnWrapArg)) {
 				continue;

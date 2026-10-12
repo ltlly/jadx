@@ -15,6 +15,7 @@ import org.slf4j.LoggerFactory;
 
 import jadx.api.JadxArgs;
 import jadx.api.utils.tasks.ITaskExecutor;
+import jadx.core.utils.DiagnosticCollector;
 import jadx.core.utils.Utils;
 import jadx.core.utils.exceptions.JadxRuntimeException;
 
@@ -29,10 +30,12 @@ public class TaskExecutor implements ITaskExecutor {
 	private static final class ExecStage {
 		private final ExecType type;
 		private final List<? extends Runnable> tasks;
+		private final int diagStageId;
 
-		private ExecStage(ExecType type, List<? extends Runnable> tasks) {
+		private ExecStage(ExecType type, List<? extends Runnable> tasks, int diagStageId) {
 			this.type = type;
 			this.tasks = tasks;
+			this.diagStageId = diagStageId;
 		}
 
 		public ExecType getType() {
@@ -60,7 +63,10 @@ public class TaskExecutor implements ITaskExecutor {
 			return;
 		}
 		tasksCount += parallelTasks.size();
-		stages.add(new ExecStage(ExecType.PARALLEL, parallelTasks));
+		int diagStageId = DiagnosticCollector.ENABLED
+				? DiagnosticCollector.stagePlanned("PARALLEL", parallelTasks.size())
+				: -1;
+		stages.add(new ExecStage(ExecType.PARALLEL, parallelTasks, diagStageId));
 	}
 
 	@Override
@@ -69,7 +75,10 @@ public class TaskExecutor implements ITaskExecutor {
 			return;
 		}
 		tasksCount += seqTasks.size();
-		stages.add(new ExecStage(ExecType.SEQUENTIAL, seqTasks));
+		int diagStageId = DiagnosticCollector.ENABLED
+				? DiagnosticCollector.stagePlanned("SEQUENTIAL", seqTasks.size())
+				: -1;
+		stages.add(new ExecStage(ExecType.SEQUENTIAL, seqTasks, diagStageId));
 	}
 
 	@Override
@@ -167,19 +176,31 @@ public class TaskExecutor implements ITaskExecutor {
 	private void runStages() {
 		try {
 			for (ExecStage stage : stages) {
+				if (DiagnosticCollector.ENABLED) {
+					DiagnosticCollector.stageBegin(stage.diagStageId);
+				}
 				int threads = Math.min(stage.getTasks().size(), threadsCount.get());
-				if (stage.getType() == ExecType.SEQUENTIAL || threads == 1) {
-					for (Runnable task : stage.getTasks()) {
-						wrapTask(task);
+				try {
+					if (stage.getType() == ExecType.SEQUENTIAL || threads == 1) {
+						for (Runnable task : stage.getTasks()) {
+							wrapTask(task);
+						}
+					} else {
+						ExecutorService parallelExecutor = Executors.newFixedThreadPool(
+								threads, Utils.simpleThreadFactory("task-p"));
+						if (DiagnosticCollector.ENABLED) {
+							DiagnosticCollector.poolRegistered(stage.diagStageId, threads, parallelExecutor);
+						}
+						for (Runnable task : stage.getTasks()) {
+							parallelExecutor.execute(() -> wrapTask(task));
+						}
+						parallelExecutor.shutdown();
+						awaitExecutorTermination(parallelExecutor);
 					}
-				} else {
-					ExecutorService parallelExecutor = Executors.newFixedThreadPool(
-							threads, Utils.simpleThreadFactory("task-p"));
-					for (Runnable task : stage.getTasks()) {
-						parallelExecutor.execute(() -> wrapTask(task));
+				} finally {
+					if (DiagnosticCollector.ENABLED) {
+						DiagnosticCollector.stageEnd(stage.diagStageId, terminating.get());
 					}
-					parallelExecutor.shutdown();
-					awaitExecutorTermination(parallelExecutor);
 				}
 				if (terminating.get()) {
 					break;
@@ -192,8 +213,12 @@ public class TaskExecutor implements ITaskExecutor {
 
 	private void wrapTask(Runnable task) {
 		if (terminating.get()) {
+			if (DiagnosticCollector.ENABLED) {
+				DiagnosticCollector.taskSkipped();
+			}
 			return;
 		}
+		long diagTaskStart = DiagnosticCollector.ENABLED ? DiagnosticCollector.taskBegin() : 0L;
 		try {
 			task.run();
 			progress.incrementAndGet();
@@ -201,6 +226,10 @@ public class TaskExecutor implements ITaskExecutor {
 			terminateWithError(e);
 		} catch (Exception e) {
 			LOG.error("Unhandled task exception:", e);
+		} finally {
+			if (DiagnosticCollector.ENABLED) {
+				DiagnosticCollector.taskEnd(diagTaskStart);
+			}
 		}
 	}
 
