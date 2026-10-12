@@ -63,6 +63,7 @@ import jadx.core.utils.exceptions.JadxRuntimeException;
 
 import static jadx.core.utils.BlockUtils.replaceInsn;
 import static jadx.core.utils.ListUtils.allMatch;
+import static jadx.core.utils.ListUtils.anyMatch;
 
 /**
  * Visitor for modify method instructions
@@ -623,7 +624,11 @@ public class ModVisitor extends AbstractVisitor {
 			excHandler.setArg(namedArg);
 			replaceInsn(mth, block, 0, moveInsn);
 			CodeVar codeVar = resArg.getSVar().getCodeVar();
-			if (!codeVar.isThis() && allMatch(mth.getArgRegs(), arg -> arg.getSVar().getCodeVar() != codeVar)) {
+			// don't use ListUtils.allMatch here: it returns false for an empty list,
+			// so methods without arg registers would incorrectly keep the variable declared
+			boolean methodArgVar = !codeVar.isThis()
+					&& anyMatch(mth.getArgRegs(), arg -> arg.getSVar().getCodeVar() == codeVar);
+			if (!methodArgVar) {
 				// The catch parameter no longer declares this external variable.
 				codeVar.setDeclared(false);
 			}
