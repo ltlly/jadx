@@ -1,5 +1,7 @@
 # macOS 复测报告：jadx 全量反编译性能（2026-10-10）
 
+> **2026-10-12 分支合并更新**：原设备 10-11 推送的质量修复线（`usage-snapshot-quality`，54 commits：inline 竞态串行化、匿名类 static 化、共享保护块重铺、rethrow/异常修复等）与快照原型（`UsageInfoList`）已全部并入本分支，远端其余分支已删除（本地保留 `backup/*` 引用）。合并后门禁全绿（core+cli tests / spotless / checkstyle），输出质量客观提升：条件折叠错误被纠正（如 `JSONLexerBase` 的 `!=`→`==`）、`JadxOverflowException` 等错误消失、JADX WARN/ERROR 行在数百个文件上重排。**代价**：wall 回退约 8–18%（本机配对：合并后中位 84.9 s vs 合并前 78.7 s，当日机器整体偏慢；含两处固有成本——共享块复制本身增加处理量、`0bf6c9d6` 的全局 `usageInfoLock` 使 8 worker 的 inline 使用更新串行化）。后续优化方向：锁分段化/无锁化 + 重新评估 §4 被阻断候选。本报告 §1 的 A/B 数字对应合并前状态，仍有效作为本分支性能工作的基准记录。
+
 分支：`codex/perf-macos`（自 `codex/jadx-algorithm-review` / 生产端点 `2655258` 切出）。
 基线 A = `6453903f`（与 `2655258` 生产源码零 diff，仅多 docs）；优化端 B = `23c2ffc7`。
 本报告为 [HANDOFF.md](HANDOFF.md) 的跨设备续篇；所有原始运行输出（metrics JSONL/TSV、审计 JSON、GC 日志、JFR 录制）保存在测量机 scratch 目录，未入库。
